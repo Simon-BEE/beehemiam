@@ -17,7 +17,7 @@ class RegistrationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_new_users_can_register()
+    public function test_new_users_can_register_if_terms_are_accepted()
     {
         $response = $this->post('/register', [
             'firstname' => 'Test',
@@ -31,5 +31,21 @@ class RegistrationTest extends TestCase
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
+    }
+
+    public function test_new_users_cannot_register_if_terms_are_not_accepted()
+    {
+        $response = $this->post('/register', [
+            'firstname' => 'Test',
+            'lastname' => 'User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'newsletter' => 1,
+            'terms' => 0,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors(['terms']);
     }
 }

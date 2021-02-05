@@ -8,6 +8,12 @@ Site e-commerce destiné à la marque de vêtements pour mère allaitante **Beeh
 
 ---
 
+### TODO
+
+- [ ] Importer Larawind (admin template)
+- [ ] Créer le template front
+
+
 ### Informations générales
 
 Site internet accessible à cette adresse : [beehemiam.fr](https://beehemiam.fr)  

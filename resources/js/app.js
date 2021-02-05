@@ -1,3 +1,8 @@
+import Turbolinks from 'turbolinks';
+
 require('./bootstrap');
 
-require('alpinejs');
+require('alpinejs')
+
+Turbolinks.start();
+

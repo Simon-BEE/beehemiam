@@ -1,59 +1,78 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.guest')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('meta-title')
+    {{ __('Create Account') }}
+@endsection
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+@section('content')
+<div class="hidden lg:block lg:w-1/2 h-full">
+    <img src="https://source.unsplash.com/random/400x600" alt="image d'inscription" class="object-cover w-full md:h-full rounded-l-xl">
+</div>
+<div class="flex items-center justify-center px-6 py-8 h-full w-full lg:w-1/2">
+    <div class="w-full">
+        <h1 class="my-4 text-2xl font-semibold tracking-tighter text-gray-700 sm:text-3xl text-center">
+            {{ __('Create Account') }}
+        </h1>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+        <x-form.form method="POST" action="{{ route('register') }}">
+            <x-form.input 
+                name="firstname"
+                type="text"
+                label="Prénom"
+                placeholder="Votre prénom"
+                value="{{ old('firstname') }}"
+                required
+            />
+            <x-form.input 
+                name="lastname"
+                type="text"
+                label="Nom de famille"
+                placeholder="Votre nom de famille"
+                value="{{ old('lastname') }}"
+                required
+            />
+            <x-form.input 
+                name="email"
+                type="email"
+                label="Adresse email"
+                placeholder="Votre adresse email"
+                value="{{ old('email') }}"
+                required
+            />
+            <x-form.input 
+                name="password"
+                type="password"
+                label="Mot de passe"
+                placeholder="Votre mot de passe"
+                required
+            />
+            <x-form.input 
+                name="password_confirmation"
+                type="password"
+                label="Confirmation du mot de passe"
+                placeholder="Confirmez votre mot de passe"
+                required
+            />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
+            <x-form.checkbox name="newsletter">
+                Je souhaite être mis au courant des dernières nouveautés de <strong>Beehemiam</strong>
+            </x-form.checkbox>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+            <x-form.checkbox name="terms">
+                J'ai lu et je suis d'accord avec <a href="#" class="underline">les CGU</a> et <a href="#" class="underline">les CGV</a>
+            </x-form.checkbox>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+            <x-form.button class="block w-full bg-yellow-500 text-gray-900 font-bold hover:bg-yellow-600 mt-4">
+                {{ __('Create Account') }}
+            </x-form.button>
+        </x-form.form>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+        <hr class="w-full my-3 border-gray-300">
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        <p class=" text-center">
+            {{ __('Already registered?') }} 
+            <a href="{{ route('login') }}" class="font-semibold text-gray-500 hover:text-gray-700">Se connecter</a>
+        </p>
+    </div>
+</div>
+@endsection

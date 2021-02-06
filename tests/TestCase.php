@@ -10,7 +10,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, RefreshDatabase;
 
-    protected function signIn(?User $user = null)
+    protected function signIn(?User $user = null): User
     {
         $user = $user ?? User::factory()->create();
 

@@ -53,7 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->role === self::ADMIN_ROLE;
+    }
 
     /**
      * ? SCOPES

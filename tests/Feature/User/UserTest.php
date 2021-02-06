@@ -22,5 +22,24 @@ class UserTest extends TestCase
         $this->get(route('user.dashboard'))
             ->assertRedirect();
     }
+
+    /** @test */
+    public function a_user_has_his_last_activity_datetime_saved_each_five_minutes()
+    {
+        $user = $this->signIn();
+        $dateIn6minutes = now()->addMinutes(5);
+
+        $this->travelTo($dateIn6minutes);
+
+        $this->get('/');
+
+        $this->assertTrue(
+                $user->fresh()->last_activity_at->startOfMinute()
+                    ->greaterThanOrEqualTo(
+                        $dateIn6minutes->startOfMinute()
+                    )
+        );
+    }
+    
     
 }

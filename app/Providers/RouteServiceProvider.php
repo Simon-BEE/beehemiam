@@ -37,6 +37,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+        Route::resourceVerbs([
+            'create' => 'creer',
+            'edit' => 'editer',
+        ]);
+
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')

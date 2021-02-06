@@ -5,7 +5,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <meta name="keywords" content="vêtements, allaitement, éthiques, naturels, écologique, bébé, maternel, maternelle"/>
+
+        @hasSection ('meta-desc')
+        <meta name="description" content="@yield('meta-desc')"/>
+        <meta name="og:description" content="@yield('meta-desc')"/>
+        @else
+        <meta name="description" content="Une marque de vêtements d'allaitement éthiques, à prix raisonnable, pour allaiter confortablement en toute circonstance votre bébé."/>
+        <meta name="og:description" content="Une marque de vêtements d'allaitement éthiques, à prix raisonnable, pour allaiter confortablement en toute circonstance votre bébé."/>
+        @endif
+
+        <meta name="copyright"content="Beehemiam">
+        <meta name="language" content="FR">
+        <meta name="robots" content="index,follow" />
+        <meta name="author" content="Simon BÉE, contact@skymon.fr">
+        <meta name="url" content="https://beehemiam.fr">
+        <meta name="identifier-URL" content="https://beehemiam.fr">
+        <meta name="revisit-after" content="7 days">
+
+        <meta name="og:title" content="Beehemiam.fr &mdash; Vêtements d'allaitement"/>
+        <meta name="og:url" content="https://beehemiam.fr"/>
+        <meta name="og:image" content="https://beehemiam.fr/screenshot.png"/>
+
+        <link rel="icon" href="/favicons/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/favicons/site.webmanifest">
+
+        <title>{{ config('app.name') }} @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -18,7 +46,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 p-12">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid inventore obcaecati reprehenderit quaerat fugit deserunt, nesciunt labore molestias deleniti rem minima? Dicta aperiam quam, harum eaque illum natus? Veritatis sint ea quos voluptatem similique, beatae reprehenderit voluptates, soluta, harum ratione corrupti omnis aliquid sunt quisquam quae consectetur consequatur iure quidem ut recusandae quis odit dolorem? Neque dignissimos fugit pariatur, soluta reiciendis, est in aperiam vero, libero iure magnam. Veritatis temporibus facere praesentium illo itaque maxime aspernatur dignissimos eos maiores magni iste, reprehenderit perspiciatis vitae earum ducimus doloribus ipsum necessitatibus. Minima suscipit aperiam eum amet illo nobis error hic et magni.
+            @yield('content')
         </div>
     </body>
 </html>

@@ -10,7 +10,7 @@ Site e-commerce destiné à la marque de vêtements pour mère allaitante **Beeh
 
 ### TODO
 
-- [ ] Importer Larawind (admin template)
+- [x] Importer Larawind (admin template)
 - [ ] Créer le template front
 
 

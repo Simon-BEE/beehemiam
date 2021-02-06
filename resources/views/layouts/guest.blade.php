@@ -19,7 +19,7 @@
 
 <body>
 
-    <main class="w-screen min-h-full lg:h-screen flex justify-center items-center relative auth-pattern">
+    <main class="w-screen min-h-screen py-4 flex justify-center items-center relative auth-pattern">
 
         <p class="absolute top-2 left-3">
             <a href="{{ route('welcome') }}" class="p-3 flex items-center text-sm uppercase font-bold text-gray-600 hover:bg-gray-100">

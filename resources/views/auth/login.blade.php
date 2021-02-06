@@ -8,7 +8,7 @@
 <div class="hidden lg:block lg:w-1/2 h-60-screen">
     <img src="https://source.unsplash.com/random/400x600" alt="image de connexion" class="object-cover w-full md:h-60-screen rounded-l-xl">
 </div>
-<div class="flex items-center justify-center px-6 h-full w-full lg:w-1/2">
+<div class="flex items-center justify-center px-6 pb-8 h-full w-full lg:w-1/2">
     <div class="w-full">
         <h1 class="my-8 text-2xl font-semibold tracking-tighter text-gray-700 sm:text-3xl text-center">
             {{ __('Login') }}
@@ -45,7 +45,7 @@
             </x-form.button>
         </x-form.form>
 
-        <hr class="w-full my-2 md:my-6 border-gray-300">
+        <hr class="w-full my-6 border-gray-300">
 
         <p class="md:mt-8 text-center">
             {{ __('Need an account?') }} 

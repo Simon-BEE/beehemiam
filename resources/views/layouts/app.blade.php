@@ -17,20 +17,8 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+        <div class="min-h-screen bg-gray-100 p-12">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid inventore obcaecati reprehenderit quaerat fugit deserunt, nesciunt labore molestias deleniti rem minima? Dicta aperiam quam, harum eaque illum natus? Veritatis sint ea quos voluptatem similique, beatae reprehenderit voluptates, soluta, harum ratione corrupti omnis aliquid sunt quisquam quae consectetur consequatur iure quidem ut recusandae quis odit dolorem? Neque dignissimos fugit pariatur, soluta reiciendis, est in aperiam vero, libero iure magnam. Veritatis temporibus facere praesentium illo itaque maxime aspernatur dignissimos eos maiores magni iste, reprehenderit perspiciatis vitae earum ducimus doloribus ipsum necessitatibus. Minima suscipit aperiam eum amet illo nobis error hic et magni.
         </div>
     </body>
 </html>

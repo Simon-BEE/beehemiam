@@ -17,16 +17,16 @@
 
     @livewireStyles
 
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/back.js') }}" defer></script>
 </head>
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-        @include('layouts.menu')
-        @include('layouts.mobile-menu')
+        @include('layouts.back.menu')
+        @include('layouts.back.mobile-menu')
 
         <div class="flex flex-col flex-1 w-full">
-            @include('layouts.navigation-dropdown')
+            @include('layouts.back.navigation-dropdown')
             <main class="h-full overflow-y-auto">
                 @yield('content')
             </main>

@@ -8,7 +8,7 @@
     <title>{{ config('app.name') }} @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/guest.js') }}" defer></script>
 
     <style>
         .auth-pattern{

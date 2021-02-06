@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="flex items-center justify-center px-6 h-full w-full lg:w-1/2 mx-auto">
+<div class="flex items-center justify-center px-6 pb-8 h-full w-full lg:w-1/2 mx-auto">
     <div class="w-full">
         <h1 class="my-8 text-2xl font-semibold tracking-tighter text-gray-700 sm:text-3xl text-center">
             {{ __('Confirm Password') }}

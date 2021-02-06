@@ -44,6 +44,7 @@
                 type="password"
                 label="Mot de passe"
                 placeholder="Votre mot de passe"
+                helper="Pour votre sécurité, le mot de passe doit contenir au moins 8 caractères."
                 required
             />
             <x-form.input 
@@ -58,7 +59,7 @@
                 Je souhaite être mis au courant des dernières nouveautés de <strong>Beehemiam</strong>
             </x-form.checkbox>
 
-            <x-form.checkbox name="terms">
+            <x-form.checkbox name="terms" >
                 J'ai lu et je suis d'accord avec <a href="#" class="underline">les CGU</a> et <a href="#" class="underline">les CGV</a>
             </x-form.checkbox>
 

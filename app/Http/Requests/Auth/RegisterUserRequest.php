@@ -34,7 +34,7 @@ class RegisterUserRequest extends FormRequest
                 'required', 'between:2,255', 'email', 'unique:users,email'
             ],
             'password' => [
-                'required', 'between:2,255', 'confirmed',
+                'required', 'between:8,255', 'confirmed',
             ],
             'newsletter' => [
                 'required', 'boolean',
@@ -43,5 +43,17 @@ class RegisterUserRequest extends FormRequest
                 'required', 'accepted',
             ],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $failedRules = $validator->failed();
+            // dd($failedRules, $this->all());
+            // if (!empty($failedRules)) {
+            //     session()->flash('type', 'error');
+            //     session()->flash('message', 'Please fill correctly the form.');
+            // }
+        });
     }
 }

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="flex flex-col items-center justify-center px-6 h-full w-full lg:w-1/2 mx-auto">
+<div class="flex flex-col items-center justify-center px-6 pb-8 h-full w-full lg:w-1/2 mx-auto">
 
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}

@@ -13,3 +13,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.phplint-cache
+.phplint.yml
+phpstan.neon

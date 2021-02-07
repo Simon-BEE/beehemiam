@@ -3,25 +3,16 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class RegisterUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return !auth()->check();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'firstname' => [
@@ -45,7 +36,7 @@ class RegisterUserRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator(Validator $validator): void
     {
         $validator->after(function ($validator) {
             $failedRules = $validator->failed();

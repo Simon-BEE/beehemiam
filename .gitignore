@@ -16,3 +16,4 @@ yarn-error.log
 .phplint-cache
 .phplint.yml
 phpstan.neon
+.github/

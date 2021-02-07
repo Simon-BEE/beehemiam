@@ -28,7 +28,7 @@ class RegisterUserRequest extends FormRequest
                 'required', 'between:2,255',
             ],
             'lastname' => [
-                'required', 'between:2,255', 
+                'required', 'between:2,255',
             ],
             'email' => [
                 'required', 'between:2,255', 'email', 'unique:users,email'

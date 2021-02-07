@@ -18,8 +18,8 @@ class AuthenticateAsAdmin
     public function handle(Request $request, Closure $next)
     {
         abort_if(
-            $request->user()->role !== User::ADMIN_ROLE, 
-            403, 
+            $request->user()->role !== User::ADMIN_ROLE,
+            403,
             "Vous n'êtes pas autorisé à accéder à cette partie du site."
         );
 

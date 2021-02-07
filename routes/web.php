@@ -23,9 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['as' => 'user.'], function () {
 
         Route::get('mon-compte', UserDashboardController::class)->name('dashboard');
-
     });
-
 });
 
 

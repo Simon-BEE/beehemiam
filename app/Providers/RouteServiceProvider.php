@@ -57,7 +57,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('admin')
                 ->as('admin.')
                 ->group(base_path('routes/back.php'));
-            });
+        });
     }
 
     /**

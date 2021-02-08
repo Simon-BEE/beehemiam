@@ -30,10 +30,8 @@ class ProductTest extends TestCase
         ]);
         $this->signIn($user);
 
-        $this->post(route('admin.products.store'), [
+        $this->followingRedirects()->post(route('admin.products.store'), [
             'name' => 'Mon premier produit',
-            'is_preorder' => 0,
-            'is_active' => 1,
         ])
             ->assertSuccessful();
 

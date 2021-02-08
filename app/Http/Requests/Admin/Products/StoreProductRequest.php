@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreProductRequest extends FormRequest
 {
@@ -18,11 +19,23 @@ class StoreProductRequest extends FormRequest
                 'required', 'between:2,255'
             ],
             'is_preorder' => [
-                'required', 'boolean',
+                'nullable', 'boolean',
             ],
             'is_active' => [
-                'required', 'boolean',
+                'nullable', 'boolean',
             ],
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function ($validator) {
+            $failedRules = $validator->failed();
+            // dd($failedRules, $this->all());
+            // if (!empty($failedRules)) {
+            //     session()->flash('type', 'error');
+            //     session()->flash('message', 'Please fill correctly the form.');
+            // }
+        });
     }
 }

@@ -24,6 +24,27 @@ class StoreProductRequest extends FormRequest
             'is_active' => [
                 'nullable', 'boolean',
             ],
+            'options' => [
+                'required', 'array', 'min:1'
+            ],
+            'options.*.name' => [
+                'required', 'between:2,255',
+            ],
+            'options.*.sku' => [
+                'required', 'between:2,255',
+            ],
+            'options.*.price' => [
+                'required', 'numeric', 'between:1,1000',
+            ],
+            'options.*.description' => [
+                'required', 'min:2',
+            ],
+            'options.*.images' => [
+                'required', 'array',
+            ],
+            'options.*.images.*' => [
+                'file', 'max:50000'
+            ],
         ];
     }
 
@@ -31,7 +52,7 @@ class StoreProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $failedRules = $validator->failed();
-            // dd($failedRules, $this->all());
+            dd($failedRules, $this->all(), $this->files);
             // if (!empty($failedRules)) {
             //     session()->flash('type', 'error');
             //     session()->flash('message', 'Please fill correctly the form.');

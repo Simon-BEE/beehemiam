@@ -18,8 +18,8 @@
             Ajouter un nouveau vêtement
         </h2>
     
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <x-form.form action="{{ route('admin.products.store') }}" method="POST">
+        <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <x-form.form action="{{ route('admin.products.store') }}" method="POST" files>
                 <x-back.form.input 
                     name="name"
                     type="text"
@@ -39,9 +39,9 @@
                     </x-back.form.switch>
                 </div>
 
-                <div class="variant my-6 p-4 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900">
+                <div class="variant relative my-6 px-4 pt-5 pb-16 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900">
                     <x-back.form.input 
-                        name="options[][name]"
+                        name="options[1][name]"
                         type="text"
                         label="Nom du produit"
                         placeholder="Nom du produit"
@@ -49,7 +49,7 @@
                         required
                     />
                     <x-back.form.input 
-                        name="options[][sku]"
+                        name="options[1][sku]"
                         type="text"
                         label="Numéro d'identification du produit"
                         placeholder="Numéro d'identification du produit"
@@ -57,7 +57,7 @@
                         required
                     />
                     <x-back.form.input-icon
-                        name="options[][price]"
+                        name="options[1][price]"
                         type="text"
                         label="Prix du produit"
                         placeholder="Prix du produit"
@@ -69,7 +69,28 @@
                         </svg>
                     </x-back.form.input-icon>
 
-                    <x-back.form.wysiwyg name="description" label="{{ __('Description le produit') }}" />
+                    <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
+
+                    <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
+                        <x-back.form.file-input 
+                            name="options[1][images][]"
+                            type="file"
+                            classDiv="flex flex-wrap mb-4 w-full"
+                            label="Ajouter des photos au produit"
+                            multiple
+                        />
+                    </div>
+
+                    <div class="absolute bottom-0 left-1/2 -ml-20 -mb-5">
+                        <x-back.form.button class="flex-col add-new-option" type="button">
+                            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                            </svg>
+                            Ajouter une autre option
+                        </x-back.form.button>
+                    </div>
+
+
                 </div>
 
                 <div class="flex justify-end mt-4">
@@ -149,5 +170,30 @@
                 });
             }
         }
+
+        function readURL(input) {
+            const previewDiv = input.parentNode.parentNode.querySelector('.previews');
+            if (input.files && input.files.length) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        let image = document.createElement('img');
+                        image.src    = e.target.result;
+                        image.classList.add('w-64', 'h-48', 'rounded', 'shadow', 'object-cover');
+                        image.addEventListener('click', (e) => {
+                            e.currentTarget.remove();
+                            previewDiv.innerHTML = '';
+                            input.value = '';
+                        });
+                        previewDiv.append(image);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        document.querySelectorAll('input[type="file"]').forEach(input => input.addEventListener('change', function() {
+            readURL(this);
+        }));
     </script>
 @endpush

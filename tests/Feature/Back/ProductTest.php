@@ -23,7 +23,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function a_product_can_be_created()
+    public function a_product_can_be_created_with_at_least_one_option()
     {
         $user = User::factory()->create([
             'role' => User::ADMIN_ROLE,
@@ -32,6 +32,14 @@ class ProductTest extends TestCase
 
         $this->followingRedirects()->post(route('admin.products.store'), [
             'name' => 'Mon premier produit',
+            'options' => [
+                1 => [
+                    'name' => 'Option 1',
+                    'sku' => '9999',
+                    'price' => '45',
+                    'price' => '45',
+                ]
+            ],
         ])
             ->assertSuccessful();
 

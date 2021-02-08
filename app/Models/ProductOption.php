@@ -54,6 +54,11 @@ class ProductOption extends Model
         return $this->hasOne(PreOrderProductOptionQuantity::class);
     }
 
+    public function discount(): HasOne
+    {
+        return $this->hasOne(Discount::class);
+    }
+
     public function images(): HasMany
     {
         return $this->hasMany(ImageOption::class);

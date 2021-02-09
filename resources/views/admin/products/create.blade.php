@@ -39,7 +39,7 @@
                     </x-back.form.switch>
                 </div>
 
-                <div class="variant relative my-6 px-4 pt-5 pb-16 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900">
+                <section class="variant relative mt-12 mb-16 px-4 pt-5 pb-16 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900">
                     <x-back.form.input 
                         name="options[1][name]"
                         type="text"
@@ -89,11 +89,9 @@
                             Ajouter une autre option
                         </x-back.form.button>
                     </div>
+                </section>
 
-
-                </div>
-
-                <div class="flex justify-end mt-4">
+                <div class="flex justify-end mt-4 save-button">
                     <x-back.form.button>
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z" />
@@ -112,8 +110,8 @@
         const editor = document.querySelector('.content-editor');
         if (editor) {
             const editorButtons = document.querySelectorAll('.editor-button');
-            const showView = document.querySelector('.show-view');
-            const htmlView = document.querySelector('.html-view');
+            const showViews = document.querySelectorAll('.show-view');
+            // const htmlView = document.querySelector('.html-view');
 
             checkListElements();
 
@@ -123,7 +121,7 @@
 
                     switch (action) {
                     case 'code':
-                        execCodeAction(e.currentTarget, editor);
+                        execCodeAction(e.currentTarget, e.currentTarget.parentNode.parentNode.parentNode.parentNode);
                         break;
                     case 'createLink':
                         execLinkAction();
@@ -146,7 +144,10 @@
                 document.getSelection().focusNode.parentNode.classList.add("text-green-500", 'hover:underline');
             }
 
-            function execCodeAction(button){
+            function execCodeAction(button, editor){
+                
+                let htmlView = editor.querySelector('.html-view');
+                let showView = editor.querySelector('.show-view');
                 if (htmlView.classList.contains('hidden')) {
                     htmlView.classList.replace('hidden', 'block');
                     showView.classList.replace('block', 'hidden');
@@ -158,16 +159,17 @@
                 button.classList.toggle('bg-gray-200');
             }
 
-            showView.addEventListener('input', () => {
+            showViews.forEach(showView => showView.addEventListener('input', () => {
+                let htmlView = showView.parentNode.querySelector('.html-view');
                 htmlView.innerHTML = showView.innerHTML;
-            });
+            }));
 
             function checkListElements() {
-                showView.querySelectorAll('ul').forEach(list => {
+                showViews.forEach(showView => showView.querySelectorAll('ul').forEach(list => {
                     if (!list.classList.contains('list-disc')) {
-                        list.classList.add('p-2', 'bg-gray-100', 'my-2', 'list-disc', 'list-inside');
+                        list.classList.add('p-2', 'bg-gray-100', 'my-2', 'list-disc', 'list-inside', 'dark:bg-gray-900', 'rounded');
                     }
-                });
+                }));
             }
         }
 
@@ -195,5 +197,31 @@
         document.querySelectorAll('input[type="file"]').forEach(input => input.addEventListener('change', function() {
             readURL(this);
         }));
+
+        document.querySelectorAll('.add-new-option').forEach(button => button.addEventListener('click', (e) => addNewOption(e.currentTarget)));
+
+        function addNewOption(button) {
+            let clone = button.parentNode.parentNode.cloneNode(true);
+            clone.querySelector('.add-new-option').addEventListener('click', (e) => addNewOption(e.currentTarget));
+            cleanCloneSection(clone)
+            document.querySelector('form').insertBefore(clone, document.querySelector('.save-button'));
+            button.remove();
+        }
+
+        function cleanCloneSection(div) {
+            div.querySelectorAll('[name]').forEach(element => {
+                let number = parseInt(element.name.slice(8, 9)) + 1;
+                let newName = element.name.substring(0, 8) + number + element.name.substring(9);
+                element.name = newName;
+                element.id = newName;
+                element.value = '';
+            })
+
+            div.querySelector('.previews').innerHTML = '';
+
+            div.querySelector('input[type="file"]').addEventListener('change', function() {
+                readURL(this);
+            });
+        }
     </script>
 @endpush

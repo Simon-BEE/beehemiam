@@ -18,7 +18,7 @@ trait ImageUploaderTrait
 
         $path = Storage::disk('products')->putFileAs((string)$productOption->id, $file, $filename);
 
-        if (!$path) {
+        if ($path === false) {
             throw new \Exception("Path is empty, file was not uploaded.", 1);
         }
 

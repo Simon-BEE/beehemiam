@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\ImageOption;
 use App\Models\Product;
 use App\Models\ProductOption;
+use App\Observers\CategoryObserver;
 use App\Observers\ImageOptionObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ProductOptionObserver;
@@ -41,5 +43,6 @@ class EventServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
         ProductOption::observe(ProductOptionObserver::class);
         ImageOption::observe(ImageOptionObserver::class);
+        Category::observe(CategoryObserver::class);
     }
 }

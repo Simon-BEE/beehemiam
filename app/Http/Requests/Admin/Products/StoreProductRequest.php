@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreProductRequest extends FormRequest
 {
@@ -18,11 +19,44 @@ class StoreProductRequest extends FormRequest
                 'required', 'between:2,255'
             ],
             'is_preorder' => [
-                'required', 'boolean',
+                'nullable', 'boolean',
             ],
             'is_active' => [
-                'required', 'boolean',
+                'nullable', 'boolean',
+            ],
+            'options' => [
+                'required', 'array', 'min:1'
+            ],
+            'options.*.name' => [
+                'required', 'between:2,255',
+            ],
+            'options.*.sku' => [
+                'required', 'between:2,255',
+            ],
+            'options.*.price' => [
+                'required', 'numeric', 'between:1,1000',
+            ],
+            'options.*.description' => [
+                'required', 'min:2',
+            ],
+            'options.*.images' => [
+                'required', 'array',
+            ],
+            'options.*.images.*' => [
+                'file', 'max:5000'
             ],
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function ($validator) {
+            $failedRules = $validator->failed();
+            // dd($failedRules, $this->all(), $this->files, $validator);
+            if (!empty($failedRules)) {
+                session()->flash('type', 'Erreur');
+                session()->flash('message', 'Le formulaire est rempli incorrectement.');
+            }
+        });
     }
 }

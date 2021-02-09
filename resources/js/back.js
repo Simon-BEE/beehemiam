@@ -5,4 +5,3 @@ require('./bootstrap');
 require('alpinejs')
 
 Turbolinks.start();
-

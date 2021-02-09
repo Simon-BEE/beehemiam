@@ -45,7 +45,7 @@
                         type="text"
                         label="Nom du produit"
                         placeholder="Nom du produit"
-                        value="{{ old('options.name') }}"
+                        value="{{ old('options.1.name') }}"
                         required
                     />
                     <x-back.form.input 
@@ -53,7 +53,7 @@
                         type="text"
                         label="Numéro d'identification du produit"
                         placeholder="Numéro d'identification du produit"
-                        value="{{ old('options.sku') }}"
+                        value="{{ old('options.1.sku') }}"
                         required
                     />
                     <x-back.form.input-icon
@@ -61,7 +61,7 @@
                         type="text"
                         label="Prix du produit"
                         placeholder="Prix du produit"
-                        value="{{ old('options.price') }}"
+                        value="{{ old('options.1.price') }}"
                         required
                     >
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -77,6 +77,7 @@
                             type="file"
                             classDiv="flex flex-wrap mb-4 w-full"
                             label="Ajouter des photos au produit"
+                            value="{{ old('options.1.description') }}"
                             multiple
                         />
                     </div>
@@ -198,6 +199,7 @@
             readURL(this);
         }));
 
+        // New variant product click button
         document.querySelectorAll('.add-new-option').forEach(button => button.addEventListener('click', (e) => addNewOption(e.currentTarget)));
 
         function addNewOption(button) {

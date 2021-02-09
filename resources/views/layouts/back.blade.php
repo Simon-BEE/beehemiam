@@ -20,7 +20,7 @@
     <script src="{{ mix('js/back.js') }}" defer></script>
 </head>
 
-<body>
+<body class="relative">
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         @include('layouts.back.menu')
         @include('layouts.back.mobile-menu')
@@ -31,6 +31,16 @@
                 @yield('content')
             </main>
         </div>
+
+        @if (session()->has('type'))
+            <div class="fixed bottom-2 right-6 max-w-5xl p-4 shadow text-white bg-purple-600 rounded-lg shadow-xs">
+                <button class="absolute top-1 right-1 text-xl font-bold px-2 py-1 rounded hover:bg-purple-500 focus:outline-none" onclick="this.parentNode.remove()">
+                    &times;
+                </button>
+                <h4 class="mb-4 font-semibold">{{ session('type') }}</h4>
+                <p>{{ session('message') }}</p>
+            </div>
+        @endif
 
 
         @stack('modals')

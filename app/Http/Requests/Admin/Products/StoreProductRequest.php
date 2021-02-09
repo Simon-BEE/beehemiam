@@ -43,7 +43,7 @@ class StoreProductRequest extends FormRequest
                 'required', 'array',
             ],
             'options.*.images.*' => [
-                'file', 'max:50000'
+                'file', 'max:5000'
             ],
         ];
     }
@@ -52,11 +52,11 @@ class StoreProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $failedRules = $validator->failed();
-            dd($failedRules, $this->all(), $this->files);
-            // if (!empty($failedRules)) {
-            //     session()->flash('type', 'error');
-            //     session()->flash('message', 'Please fill correctly the form.');
-            // }
+            // dd($failedRules, $this->all(), $this->files, $validator);
+            if (!empty($failedRules)) {
+                session()->flash('type', 'Erreur');
+                session()->flash('message', 'Le formulaire est rempli incorrectement.');
+            }
         });
     }
 }

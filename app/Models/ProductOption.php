@@ -32,7 +32,18 @@ class ProductOption extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFormattedPriceAttribute(): float
+    {
+        return $this->price / 100;
+    }
+
+    public function getMainImageAttribute(): ?ImageOption
+    {
+        return $this->images()
+            ->where('is_main', true)
+            ->where('is_thumb', false)
+            ->first();
+    }
 
     /**
      * ? SCOPES

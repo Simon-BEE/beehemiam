@@ -394,6 +394,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Discount|null $discount
+ * @property-read float $formatted_price
+ * @property-read \App\Models\ImageOption|null $main_image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $images
  * @property-read int|null $images_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems

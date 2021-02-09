@@ -37,7 +37,11 @@ class CreateProductRepository
 
     private function storeProductOptionImage(ProductOption $productOption, UploadedFile $file): void
     {
-        extract($this->saveProductOptionImage($productOption, $file));
+        // phpstan doesnt like extract :/
+        $optionImage = $this->saveProductOptionImage($productOption, $file);
+        $fileName = $optionImage['fileName'];
+        $fullPath = $optionImage['fullPath'];
+        $thumbnail = $optionImage['thumbnail'];
 
         $productOption->images()->create([
             'filename' => $fileName,

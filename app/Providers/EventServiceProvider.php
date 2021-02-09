@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\ImageOption;
 use App\Models\Product;
+use App\Models\ProductOption;
+use App\Observers\ImageOptionObserver;
 use App\Observers\ProductObserver;
+use App\Observers\ProductOptionObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -35,5 +39,7 @@ class EventServiceProvider extends ServiceProvider
     private function registerObservers(): void
     {
         Product::observe(ProductObserver::class);
+        ProductOption::observe(ProductOptionObserver::class);
+        ImageOption::observe(ImageOptionObserver::class);
     }
 }

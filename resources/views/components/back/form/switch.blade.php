@@ -6,7 +6,7 @@
     <!-- toggle -->
     <div class="relative">
       <!-- input -->
-      <input id="{{ $name }}" name="{{ $name }}" type="checkbox" class="hidden" />
+      <input id="{{ $name }}" name="{{ $name }}" value="1" type="checkbox" class="hidden" {{ $attributes }} />
       <!-- line -->
       <div
         class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"

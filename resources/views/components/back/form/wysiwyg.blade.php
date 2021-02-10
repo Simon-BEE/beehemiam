@@ -81,6 +81,7 @@
         <textarea 
             class="html-view hidden form-input w-full h-96 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 form-input rounded" 
             name={{ $name }}
+            id={{ $name }}
             {{ ($required ?? false) ? 'required' : '' }}>
             {!! isset($value) ? $value : old($name) ?? '' !!}
         </textarea>

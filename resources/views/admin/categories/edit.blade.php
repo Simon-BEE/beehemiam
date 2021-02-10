@@ -1,5 +1,9 @@
 @extends('layouts.back')
 
+@section('meta-title')
+    Editer une catégorie de vêtements
+@endsection
+
 @section('content')
     <div class="container grid px-6 mx-auto">
 

@@ -18,13 +18,16 @@ class EditCategoryController extends Controller
         ]);
     }
 
-    public function update(StoreCategoryRequest $request, CategoryRepository $repository, Category $category): RedirectResponse
-    {
+    public function update(
+        StoreCategoryRequest $request,
+        CategoryRepository $repository,
+        Category $category
+    ): RedirectResponse {
         try {
             $repository->update($category, $request->validated());
 
             return redirect()->route('admin.categories.index')->with([
-                'type' => 'success',
+                'type' => 'Succès',
                 'message' => 'La catégorie a bien été modifiée !',
             ]);
         } catch (\Exception $e) {

@@ -24,6 +24,14 @@ class StoreProductRequest extends FormRequest
             'is_active' => [
                 'nullable', 'boolean',
             ],
+
+            'categories' => [
+                'required', 'array',
+            ],
+            'categories.*' => [
+                'exists:categories,id',
+            ],
+
             'options' => [
                 'required', 'array', 'min:1'
             ],
@@ -45,6 +53,9 @@ class StoreProductRequest extends FormRequest
             'options.*.images.*' => [
                 'file', 'max:5000'
             ],
+            'options.*.quantity' => [
+                'required_if:is_preorder,1', 'numeric', 'min:1',
+            ],
         ];
     }
 
@@ -52,7 +63,7 @@ class StoreProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $failedRules = $validator->failed();
-            // dd($failedRules, $this->all(), $this->files, $validator);
+            // dd($failedRules, $this->all());
             if (!empty($failedRules)) {
                 session()->flash('type', 'Erreur');
                 session()->flash('message', 'Le formulaire est rempli incorrectement.');

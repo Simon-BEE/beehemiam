@@ -4,16 +4,30 @@ namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
-use App\Models\Product;
+use App\Models\Category;
 use App\Repositories\Product\CreateProductRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class CreateProductController extends Controller
 {
-    public function create(): View
+    /**
+     * @return View|RedirectResponse
+     */
+    public function create()
     {
-        return view('admin.products.create');
+        $categories = Category::select('id', 'name')->get();
+
+        if ($categories->isEmpty()) {
+            return redirect()->route('admin.categories.create')->with([
+                'type' => 'Attention',
+                'message' => 'Vous devez avoir au moins une catégorie avant de créer un produit.',
+            ]);
+        }
+
+        return view('admin.products.create', [
+            'categories' => $categories,
+        ]);
     }
 
     public function store(StoreProductRequest $request, CreateProductRepository $repository): RedirectResponse
@@ -22,7 +36,7 @@ class CreateProductController extends Controller
             $repository->store($request->validated());
 
             return back()->with([
-                'type' => 'success',
+                'type' => 'Succès',
                 'message' => 'Le produit a bien été créé !',
             ]);
         } catch (\Exception $e) {

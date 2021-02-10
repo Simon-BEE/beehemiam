@@ -21,7 +21,7 @@ class CreateCategoryController extends Controller
             $repository->store($request->validated());
 
             return redirect()->route('admin.categories.index')->with([
-                'type' => 'success',
+                'type' => 'Succès',
                 'message' => 'La catégorie a bien été créée !',
             ]);
         } catch (\Exception $e) {

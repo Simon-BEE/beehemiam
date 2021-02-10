@@ -103,12 +103,15 @@
             trapCleanup: null,
             openModal() {
                 this.isModalOpen = true
-                this.trapCleanup = focusTrap(document.querySelector('#modal'))
+                // this.trapCleanup = focusTrap(document.querySelector('#modal'))
             },
             closeModal() {
                 this.isModalOpen = false
                 this.trapCleanup()
             },
+            changeModalButtonLink(link){
+                document.querySelector('#modal').querySelector('form.delete-modal-form').action = link;
+            }
         }
     }
 </script>

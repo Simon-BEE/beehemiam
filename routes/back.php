@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\Category\CreateCategoryController;
+use App\Http\Controllers\Admin\Category\DeleteCategoryController;
+use App\Http\Controllers\Admin\Category\EditCategoryController;
+use App\Http\Controllers\Admin\Category\IndexCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +18,13 @@ Route::group(['as' => 'products.', 'prefix' => 'produits'], function () {
 
 Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {
 
+    Route::get('/', IndexCategoryController::class)->name('index');
+
     Route::get('/creer', [CreateCategoryController::class, 'create'])->name('create');
     Route::post('/', [CreateCategoryController::class, 'store'])->name('store');
+
+    Route::get('/{category}/editer', [EditCategoryController::class, 'edit'])->name('edit');
+    Route::patch('/{category}', [EditCategoryController::class, 'update'])->name('update');
+
+    Route::delete('/{category}', DeleteCategoryController::class)->name('destroy');
 });

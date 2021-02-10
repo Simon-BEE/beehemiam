@@ -12,4 +12,14 @@ class CategoryRepository
 
         return $category;
     }
+
+    public function update(Category $category, array $validatedData): Category
+    {
+        return tap($category)->update($validatedData);
+    }
+
+    public function delete(Category $category): void
+    {
+        $category->delete();
+    }
 }

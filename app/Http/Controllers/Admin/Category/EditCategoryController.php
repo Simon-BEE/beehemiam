@@ -4,25 +4,28 @@ namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Categories\StoreCategoryRequest;
+use App\Models\Category;
 use App\Repositories\Category\CategoryRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class CreateCategoryController extends Controller
+class EditCategoryController extends Controller
 {
-    public function create(): View
+    public function edit(Category $category): View
     {
-        return view('admin.categories.create');
+        return view('admin.categories.edit', [
+            'category' => $category,
+        ]);
     }
 
-    public function store(StoreCategoryRequest $request, CategoryRepository $repository): RedirectResponse
+    public function update(StoreCategoryRequest $request, CategoryRepository $repository, Category $category): RedirectResponse
     {
         try {
-            $repository->store($request->validated());
+            $repository->update($category, $request->validated());
 
             return redirect()->route('admin.categories.index')->with([
                 'type' => 'success',
-                'message' => 'La catégorie a bien été créée !',
+                'message' => 'La catégorie a bien été modifiée !',
             ]);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);

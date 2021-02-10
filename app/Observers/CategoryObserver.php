@@ -16,19 +16,32 @@ class CategoryObserver
      */
     public function creating(Category $category): void
     {
-        $category->slug = $this->generateSlug($category);
+        $category->slug = $this->generateSlug($category->name);
+    }
+
+    /**
+     * Handle the Category "updating" event.
+     *
+     * @param  \App\Models\Category  $category
+     * @return void
+     */
+    public function updating(Category $category): void
+    {
+        if ($category->getOriginal('name') !== $category->name) {
+            $category->slug = $this->generateSlug($category->name);
+        }
     }
 
     /**
      * Generate an unique slug
      *
-     * @param Category $category
+     * @param string $categoryName
      * @return string
      */
-    private function generateSlug(Category $category): string
+    private function generateSlug(string $categoryName): string
     {
         $count = 0;
-        $slug = Str::slug($category->name);
+        $slug = Str::slug($categoryName);
 
         while (DB::table('categories')->where('slug', $slug)->exists()) {
             $slug = $slug . '-' . $count++;

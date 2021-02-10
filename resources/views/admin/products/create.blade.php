@@ -7,7 +7,7 @@
             <svg class="w-4 h-4" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
             </svg>
-            <a href="#" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
             <span class="text-gray-500">/</span>
             <a href="#" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
             <span class="text-gray-500">/</span>

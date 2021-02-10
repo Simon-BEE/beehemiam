@@ -14,7 +14,7 @@ class CategoryObserver
      * @param  \App\Models\Category  $category
      * @return void
      */
-    public function creating(Category $category)
+    public function creating(Category $category): void
     {
         $category->slug = $this->generateSlug($category);
     }
@@ -22,7 +22,7 @@ class CategoryObserver
     /**
      * Generate an unique slug
      *
-     * @param Category $product
+     * @param Category $category
      * @return string
      */
     private function generateSlug(Category $category): string

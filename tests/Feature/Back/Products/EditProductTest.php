@@ -4,7 +4,6 @@ namespace Tests\Feature\Back\Products;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Size;
 use App\Models\User;
 use Tests\TestCase;
 

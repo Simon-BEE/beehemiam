@@ -31,7 +31,10 @@ class ImageOption extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getPathAttribute(): string
+    {
+        return url('storage/products') . ($this->is_thumb ? '/thumbs/' : '/') . $this->product_option_id . '/' . $this->filename;
+    }
 
     /**
      * ? SCOPES

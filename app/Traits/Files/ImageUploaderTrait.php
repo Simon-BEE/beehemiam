@@ -31,12 +31,11 @@ trait ImageUploaderTrait
 
     public function makeThumbnail(UploadedFile $file, string $path): string
     {
-
         $img = Image::make($file)->resize(300, null, function ($constraint) {
             $constraint->aspectRatio();
         });
 
-        Storage::disk('products')->put('/thumbs/' . $path, $img);
+        Storage::disk('products')->put('/thumbs/' . $path, $img->encode());
 
         return '/thumbs/' . $path;
     }

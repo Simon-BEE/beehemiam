@@ -45,6 +45,13 @@ class ProductOption extends Model
             ->first();
     }
 
+    public function getThumbImageAttribute(): ?ImageOption
+    {
+        return $this->images()
+            ->where('is_thumb', true)
+            ->first();
+    }
+
     /**
      * ? SCOPES
      */

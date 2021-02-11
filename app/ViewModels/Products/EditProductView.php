@@ -14,6 +14,7 @@ class EditProductView implements ViewModelInterface
     public bool $is_preorder;
     public bool $is_active;
     public Collection $categories;
+    public Collection $options;
     public string $updateRoute;
     public string $deleteRoute;
 
@@ -35,6 +36,7 @@ class EditProductView implements ViewModelInterface
         $this->is_preorder = $this->product->is_preorder;
         $this->is_active = $this->product->is_active;
         $this->categories = $this->product->categories;
+        $this->options = $this->product->productOptions;
         $this->updateRoute = route('admin.products.update', $this->product);
         $this->deleteRoute = '';
     }

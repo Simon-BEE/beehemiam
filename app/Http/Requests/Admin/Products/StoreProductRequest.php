@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
 class StoreProductRequest extends FormRequest
@@ -55,6 +56,15 @@ class StoreProductRequest extends FormRequest
             ],
             'options.*.quantity' => [
                 'required_if:is_preorder,1', 'numeric', 'min:1',
+            ],
+            'options.*.sizes' => [
+                Rule::requiredIf($this->is_preorder !== 1), 'array'
+            ],
+            'options.*.sizes.*.id' => [
+                'nullable', 'exists:sizes,id',
+            ],
+            'options.*.sizes.*.quantity' => [
+                'nullable', 'numeric', 'min:1',
             ],
         ];
     }

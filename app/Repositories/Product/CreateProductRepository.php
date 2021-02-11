@@ -13,6 +13,10 @@ class CreateProductRepository
 
     public function store(array $validatedData): Product
     {
+        if (!isset($validatedData['is_preorder'])) {
+            $validatedData = $this->checkAndReOrderSizeAndQuantity($validatedData);
+        }
+
         $product = Product::create([
             'name' => $validatedData['name'],
             'is_preorder' => isset($validatedData['is_preorder']),
@@ -24,7 +28,7 @@ class CreateProductRepository
         $this->saveProductOptions(
             $product,
             $validatedData['options'],
-            isset($validatedData['is_preorder']) && $validatedData['is_preorder'] === 1
+            isset($validatedData['is_preorder']) && $validatedData['is_preorder'] === "1"
         );
 
         return $product;
@@ -45,6 +49,8 @@ class CreateProductRepository
 
             if ($isPreOrder) {
                 $this->storePreOrderQuantity($productOption, $newOption['quantity']);
+            } else {
+                $this->storeOptionsSizes($productOption, $newOption['sizes']);
             }
 
             foreach ($newOption['images'] as $newImage) {
@@ -80,6 +86,23 @@ class CreateProductRepository
     }
 
     /**
+     * Store for each options a size and its quantity
+     *
+     * @param ProductOption $productOption
+     * @param array $sizesWithQuantityData
+     * @return void
+     */
+    public function storeOptionsSizes(ProductOption $productOption, array $sizesWithQuantityData): void
+    {
+        foreach ($sizesWithQuantityData as $sizeWithQuantity) {
+            $productOption->sizes()->create([
+                'size_id' => $sizeWithQuantity['id'],
+                'quantity' => $sizeWithQuantity['quantity'],
+            ]);
+        }
+    }
+
+    /**
      * Store one image of a ProductOption
      *
      * @param ProductOption $productOption
@@ -104,5 +127,22 @@ class CreateProductRepository
             'full_path' => storage_path('app/products') . $thumbnail,
             'is_thumb' => true,
         ]);
+    }
+
+    private function checkAndReOrderSizeAndQuantity(array $validatedData): array
+    {
+        foreach ($validatedData['options'] as $key => $option) {
+            $validatedData['options'][$key]['sizes'] = array_filter(
+                $option['sizes'], 
+                function ($array) {
+                    return count($array) > 1;
+            });
+
+            if (empty($validatedData['options'][$key]['sizes'])) {
+                throw new \Exception("Chaque option doit avoir au moins une taille sélectionnée avec une quantité.", 1);
+            }
+        }
+
+        return $validatedData;
     }
 }

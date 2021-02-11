@@ -86,6 +86,30 @@
                         </svg>
                     </x-back.form.input-icon>
 
+                    <div class="mb-8 block sizes-quantities">
+                        <label for="all_categories" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-gray-400">
+                            Sélectionnez les tailles disponibles et indiquez leurs quantités respective
+                        </label>
+                        <div class="flex flex-col md:flex-row items-center flex-wrap">
+                            @foreach ($sizes as $size)
+                                <div class="w-full md:w-1/2">
+                                    <div class="w-full md:w-1/2 flex items-baseline justify-between space-x-4">
+                                        <x-back.form.checkbox name="options[1][sizes][{{ $loop->index }}][id]" value="{{ $size->id }}">
+                                            {{ $size->name }}
+                                        </x-back.form.checkbox>
+                                        <x-back.form.input classDiv=""
+                                            name="options[1][sizes][{{ $loop->index }}][quantity]"
+                                            id="options[1][sizes][quantity][{{ $size->id }}]"
+                                            type="text"
+                                            placeholder="Quantité"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                     <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
 
                     <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
@@ -167,8 +191,6 @@
             cleanCloneSection(clone)
             document.querySelector('form').insertBefore(clone, document.querySelector('.save-button'));
             button.remove();
-
-            loadEditors();
         }
 
         function cleanCloneSection(div) {
@@ -177,7 +199,9 @@
                 let newName = element.name.substring(0, 8) + number + element.name.substring(9);
                 element.name = newName;
                 element.id = newName;
-                element.value = '';
+                if (element.type !== 'checkbox') {
+                    element.value = '';
+                }
             })
 
             div.querySelector('.previews').innerHTML = '';
@@ -189,14 +213,16 @@
 
         function addQuantityField(input) {
             if (input.checked) {
+                document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('block', 'hidden'));
                 
                 document.querySelectorAll('.variant').forEach(optionDiv => {
                     let baseClone = optionDiv.querySelector('input');
                     let clone = baseClone.parentNode.cloneNode(true);
-                    clone.classList.add('preorderQuantity');
                     let quantityInput = clone.querySelector('input');
                     let quantityLabel = clone.querySelector('label');
                     let nameInput = quantityInput.name.replace('name', 'quantity');
+
+                    clone.classList.add('preorderQuantity');
                     quantityInput.name = nameInput;
                     quantityInput.id = nameInput;
                     quantityInput.placeholder = 'Quantité de vêtements disponible en précommande';
@@ -208,7 +234,7 @@
                 });
             }else{
                 document.querySelectorAll('.preorderQuantity').forEach(quantityDiv => {
-                    console.log(quantityDiv);
+                    document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('hidden', 'block'));
                     quantityDiv.remove()
                 });
             }

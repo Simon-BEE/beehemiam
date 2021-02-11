@@ -7,8 +7,11 @@ use App\Models\ImageOption;
 use App\Models\PreOrderProductOptionQuantity;
 use App\Models\Product;
 use App\Models\ProductOption;
+use App\Models\ProductOptionSize;
+use App\Models\Size;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class CreateProductTest extends TestCase
@@ -25,6 +28,8 @@ class CreateProductTest extends TestCase
         $this->get(route('admin.products.create'))->assertSuccessful()
             ->assertViewIs('admin.products.create')
             ->assertSee('Ajouter un nouveau vêtement')
+            ->assertSee(Category::inRandomOrder()->first()->name)
+            ->assertSee(Size::inRandomOrder()->first()->name)
         ;
     }
 
@@ -48,21 +53,7 @@ class CreateProductTest extends TestCase
         $this->signIn($user);
         Category::factory()->create();
 
-        $this->followingRedirects()->post(route('admin.products.store'), [
-            'name' => 'Mon premier produit',
-            'categories' => [1],
-            'options' => [
-                1 => [
-                    'name' => 'Option 1',
-                    'sku' => '9999',
-                    'price' => '45',
-                    'description' => 'Option description',
-                    'images' => [
-                        UploadedFile::fake()->image('option_1.jpg'),
-                    ],
-                ]
-            ],
-        ])->assertSuccessful();
+        $this->postProductRequest()->assertSuccessful();
 
         // One product
         $this->assertCount(1, Product::all());
@@ -97,21 +88,7 @@ class CreateProductTest extends TestCase
         $this->signIn($user);
         Category::factory()->create();
 
-        $this->followingRedirects()->post(route('admin.products.store'), [
-            'name' => 'Mon premier produit',
-            'categories' => [1],
-            'options' => [
-                1 => [
-                    'name' => 'Option 1',
-                    'sku' => '9999',
-                    'price' => '45',
-                    'description' => 'Option description',
-                    'images' => [
-                        UploadedFile::fake()->image('option_1.jpg'),
-                    ],
-                ]
-            ],
-        ])->assertSuccessful();
+        $this->postProductRequest()->assertSuccessful();
 
         $this->assertTrue(Product::first()->productOptions()->first()->images()->first()->is_main);
         $this->assertInstanceOf(ImageOption::class, Product::first()->productOptions()->first()->main_image);
@@ -163,5 +140,69 @@ class CreateProductTest extends TestCase
 
         $this->assertInstanceOf(PreOrderProductOptionQuantity::class, Product::first()->productOptions()->first()->preOrderStock()->first());
         $this->assertEquals(40, Product::first()->productOptions()->first()->preOrderStock()->first()->quantity);
+    }
+
+    /** @test */
+    public function if_a_product_is_not_a_preorder_each_size_and_quantity_must_be_indicated_for_each_options()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        Category::factory()->create();
+
+        $this->post(route('admin.products.store'), [
+            'name' => 'Mon premier produit',
+            'categories' => [1],
+            'options' => [
+                1 => [
+                    'name' => 'Option 1',
+                    'sku' => '9999',
+                    'price' => '45',
+                    'description' => 'Option description',
+                    'images' => [
+                        UploadedFile::fake()->image('option_1.jpg'),
+                    ],
+                ]
+            ],
+        ])->assertSessionHasErrors(['options.1.sizes']);
+
+        $this->postProductRequest()->assertSuccessful();
+
+        $this->assertInstanceOf(ProductOptionSize::class, Product::first()->productOptions()->first()->sizes()->first());
+        $this->assertEquals(15, Product::first()->productOptions()->first()->sizes()->first()->quantity);
+    }
+
+    private function postProductRequest(array $mergedData = []): TestResponse
+    {
+        return $this->followingRedirects()->post(route('admin.products.store'), array_merge([
+            'name' => 'Mon premier produit',
+            'categories' => [1],
+            'options' => [
+                1 => [
+                    'name' => 'Option 1',
+                    'sku' => '9999',
+                    'price' => '45',
+                    'description' => 'Option description',
+                    'images' => [
+                        UploadedFile::fake()->image('option_1.jpg'),
+                    ],
+                    'sizes' => [
+                        [
+                            'id' => 1,
+                            'quantity' => 15,
+                        ],
+                        [
+                            'id' => 2,
+                            'quantity' => 10,
+                        ],
+                        [
+                            'id' => 4,
+                            'quantity' => 20,
+                        ],
+                    ],
+                ]
+            ],
+        ], $mergedData));
     }
 }

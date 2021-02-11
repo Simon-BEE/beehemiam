@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Products;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Models\Category;
+use App\Models\Size;
 use App\Repositories\Product\CreateProductRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -27,6 +28,7 @@ class CreateProductController extends Controller
 
         return view('admin.products.create', [
             'categories' => $categories,
+            'sizes' => Size::orderBy('id')->get(),
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\CategoryIsRemoved;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -30,6 +31,16 @@ class CategoryObserver
         if ($category->getOriginal('name') !== $category->name) {
             $category->slug = $this->generateSlug($category->name);
         }
+    }
+
+    /**
+     * Handle the Category "deleted" event.
+     *
+     * @return void
+     */
+    public function deleted(): void
+    {
+        CategoryIsRemoved::dispatch();
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Back\Products;
 
+use Amp\Producer;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -98,5 +100,26 @@ class CategoryTest extends TestCase
             ->assertSuccessful();
 
         $this->assertCount(0, Category::all());
+    }
+    
+    /** @test */
+    public function if_a_category_is_deleted_and_an_associated_product_had_only_this_category_attached_product_status_changes_to_inactive()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $category = Category::factory()->create();
+        $product = Product::factory()->active()->create();
+        $product->categories()->attach($category->id);
+
+        $this->assertCount(1, $product->categories);
+
+        $this->followingRedirects()->delete(route('admin.categories.destroy', $category))
+            ->assertSuccessful();
+
+        $this->assertCount(0, Category::all());
+        $this->assertCount(0, $product->fresh()->categories);
+        $this->assertFalse($product->fresh()->is_active);
     }
 }

@@ -17,7 +17,7 @@ class CreateProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->orderBy('name')->get();
 
         if ($categories->isEmpty()) {
             return redirect()->route('admin.categories.create')->with([

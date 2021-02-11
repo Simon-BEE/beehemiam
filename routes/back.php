@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Category\EditCategoryController;
 use App\Http\Controllers\Admin\Category\IndexCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
+use App\Http\Controllers\Admin\Products\EditProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', DashboardController::class)->name('dashboard');
@@ -14,6 +15,9 @@ Route::group(['as' => 'products.', 'prefix' => 'produits'], function () {
 
     Route::post('/', [CreateProductController::class, 'store'])->name('store');
     Route::get('/creer', [CreateProductController::class, 'create'])->name('create');
+
+    Route::get('/{product}/editer', [EditProductController::class, 'edit'])->name('edit');
+    Route::patch('/{product}', [EditProductController::class, 'update'])->name('update');
 });
 
 Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {

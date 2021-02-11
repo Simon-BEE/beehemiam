@@ -1,4 +1,4 @@
-@props(['name'])
+@props(['name', 'value', 'isCheck'])
 <label 
     for="{{ $name }}"
     class="flex items-center cursor-pointer"
@@ -6,7 +6,15 @@
     <!-- toggle -->
     <div class="relative">
       <!-- input -->
-      <input id="{{ $name }}" name="{{ $name }}" value="1" type="checkbox" class="hidden" {{ $attributes }} />
+      <input 
+        id="{{ $name }}" 
+        type="checkbox" 
+        class="hidden" 
+        name="{{ $name }}" 
+        value="{{ $value ?? 1 }}"
+        {{ isset($isCheck) && $isCheck ? 'checked' : ''  }}
+        {{ $attributes }} 
+      />
       <!-- line -->
       <div
         class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"

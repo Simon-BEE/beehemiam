@@ -14,7 +14,7 @@ class UpdateProductStatus implements ShouldQueue
      */
     public function handle()
     {
-        // Set products states to false if they dot not have categories 
+        // Set products states to false if they dot not have categories
         Product::whereDoesntHave('categories')->update([
             'is_active' => false,
         ]);

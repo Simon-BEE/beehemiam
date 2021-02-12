@@ -104,5 +104,55 @@ class EditProductTest extends TestCase
         $this->assertCount(2, $product->fresh()->productOptions->first()->images);
         $this->assertCount(3, $product->fresh()->productOptions->first()->sizes);
    }
+
+   /** @test */
+   public function a_product_can_be_edited_and_set_preorder()
+   {
+       Storage::fake();
+
+       $user = User::factory()->create([
+           'role' => User::ADMIN_ROLE,
+       ]);
+       $this->signIn($user);
+       $category = Category::factory()->create();
+       $product = Product::factory()->create([
+           'name' => 'Nom de produit',
+           'is_preorder' => false,
+       ]);
+       $product->categories()->attach($category->id);
+
+       $this->assertCount(0, $product->productOptions);
+       
+       $this->patch(route('admin.products.update', $product), [
+           'name' => 'Nouveau nom de produit',
+           'categories' => [$category->id],
+           'is_preorder' => true,
+        ])
+           ->assertSessionHasErrors(['options']);
+       
+        $this->followingRedirects()->patch(route('admin.products.update', $product), [
+            'name' => 'Nouveau nom de produit',
+            'categories' => [$category->id],
+            'is_preorder' => true,
+            'options' => [
+                1 => [
+                    'name' => 'Option 1',
+                    'sku' => '9999',
+                    'price' => '45',
+                    'description' => 'Option description',
+                    'images' => [
+                        UploadedFile::fake()->image('option_1.jpg'),
+                    ],
+                    'quantity' => 30,
+                ]
+            ],
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals('Nouveau nom de produit', $product->fresh()->name);
+        $this->assertCount(1, $product->fresh()->productOptions);
+        $this->assertCount(2, $product->fresh()->productOptions->first()->images);
+        $this->assertEquals(30, $product->fresh()->productOptions->first()->preOrderStock->quantity);
+   }
    
 }

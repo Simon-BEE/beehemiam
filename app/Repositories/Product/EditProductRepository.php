@@ -10,7 +10,9 @@ class EditProductRepository extends ProductRepository
     {
         if (!isset($validatedData['is_preorder']) && isset($validatedData['options'])) {
             $validatedData = $this->checkAndReOrderSizeAndQuantity($validatedData);
+        }
 
+        if (isset($validatedData['options'])) {
             $this->saveProductOptions(
                 $product,
                 $validatedData['options'],

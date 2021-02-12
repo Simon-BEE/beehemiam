@@ -58,7 +58,7 @@ class StoreProductRequest extends FormRequest
                 'required_if:is_preorder,1', 'numeric', 'min:1',
             ],
             'options.*.sizes' => [
-                Rule::requiredIf($this->is_preorder !== 1), 'array'
+                Rule::requiredIf($this->is_preorder != 1), 'array'
             ],
             'options.*.sizes.*.id' => [
                 'nullable', 'exists:sizes,id',

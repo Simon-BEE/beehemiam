@@ -44,7 +44,12 @@ class UpdateProductRequest extends FormRequest
             ],
 
             'options' => [
-                'nullable', 'array', 'min:1'
+                Rule::requiredIf(function () {
+                    /** @var \App\Models\Product $product */
+                    $product = $this->route('product');
+
+                    return $product->productOptions->isEmpty() && ($this->is_preorder || $this->is_active);
+                }), 'array', 'min:1'
             ],
             'options.*.name' => [
                 'required', 'between:2,255',
@@ -68,7 +73,7 @@ class UpdateProductRequest extends FormRequest
                 'required_if:is_preorder,1', 'numeric', 'min:1',
             ],
             'options.*.sizes' => [
-                Rule::requiredIf($this->is_preorder !== 1), 'array'
+                Rule::requiredIf($this->is_preorder != 1), 'array'
             ],
             'options.*.sizes.*.id' => [
                 'nullable', 'exists:sizes,id',
@@ -83,7 +88,7 @@ class UpdateProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $failedRules = $validator->failed();
-            // dd($failedRules, $this->all());
+            // dump($failedRules, $this->is_preorder);
             if (!empty($failedRules)) {
                 session()->flash('type', 'Erreur');
                 session()->flash('message', 'Le formulaire est rempli incorrectement.');

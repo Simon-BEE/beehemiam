@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Products;
 
+use App\Exceptions\ProductActiveStatusException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Category;
@@ -34,6 +35,11 @@ class EditProductController extends Controller
             return back()->with([
                 'type' => 'Succès',
                 'message' => 'Le produit a bien été modifié !',
+            ]);
+        } catch (ProductActiveStatusException $e) {
+            return back()->with([
+                'type' => 'Erreur',
+                'message' => $e->getMessage(),
             ]);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);

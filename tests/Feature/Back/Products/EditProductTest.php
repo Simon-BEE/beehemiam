@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Back\Products;
 
+use App\Exceptions\ProductActiveStatusException;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductOption;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -153,6 +155,28 @@ class EditProductTest extends TestCase
         $this->assertCount(1, $product->fresh()->productOptions);
         $this->assertCount(2, $product->fresh()->productOptions->first()->images);
         $this->assertEquals(30, $product->fresh()->productOptions->first()->preOrderStock->quantity);
+   }
+
+   /** @test */
+   public function a_product_cannot_be_edited_if_it_set_as_active_without_quantity_in_product_options()
+   {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $category = Category::factory()->create();
+        $product = Product::factory()->create([
+            'name' => 'Nom de produit',
+            'is_active' => false,
+        ]);
+        $product->categories()->attach($category->id);
+        ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->patch(route('admin.products.update', $product), [
+            'name' => 'Nouveau nom de produit',
+            'categories' => [$category->id],
+            'is_active' => true,
+        ])->assertSessionHas('type', 'Erreur');
    }
    
 }

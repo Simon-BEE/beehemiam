@@ -88,7 +88,7 @@ class UpdateProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $failedRules = $validator->failed();
-            // dump($failedRules, $this->is_preorder);
+            // dd($failedRules, $this->all());
             if (!empty($failedRules)) {
                 session()->flash('type', 'Erreur');
                 session()->flash('message', 'Le formulaire est rempli incorrectement.');

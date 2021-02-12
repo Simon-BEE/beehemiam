@@ -2,12 +2,19 @@
 
 namespace App\Repositories\Product;
 
+use App\Exceptions\ProductActiveStatusException;
 use App\Models\Product;
 
 class EditProductRepository extends ProductRepository
 {
     public function update(Product $product, array $validatedData): Product
     {
+        if (isset($validatedData['is_active']) && !$product->is_active && !$product->hasOptionsQuantities) {
+            throw new ProductActiveStatusException(
+                "Le produit ne peut pas être mis en ligne sans options avec tailles et quantités.", 1
+            );
+        }
+
         if (!isset($validatedData['is_preorder']) && isset($validatedData['options'])) {
             $validatedData = $this->checkAndReOrderSizeAndQuantity($validatedData);
         }

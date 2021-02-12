@@ -32,7 +32,16 @@ class Product extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getHasOptionsQuantitiesAttribute(): bool
+    {
+        $options = $this->productOptions()->with('sizes')->get();
+
+        $filteredOptions = $options->filter(function ($option) {
+            return $option->sizes->isNotEmpty();
+        });
+
+        return $filteredOptions->isNotEmpty();
+    }
 
     /**
      * ? SCOPES

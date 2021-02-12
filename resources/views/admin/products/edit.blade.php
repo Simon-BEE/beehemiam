@@ -13,7 +13,7 @@
             </svg>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
             <span class="text-gray-500">/</span>
-            <a href="#" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
+            <a href="{{ route('admin.products.index') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
             <span class="text-gray-500">/</span>
             <p>Modifier le vêtement : {{ $product->name }}</p>
         </section>
@@ -230,6 +230,12 @@
     <script>
         function checkForm() {
             document.querySelectorAll('.show-view').forEach(showView => pushContentInTextarea(showView));
+            let firstFieldValue = document.querySelector('input[name="options[1][name]"]').value;
+
+            // Remove variant forms (because send null value in PHP)
+            if (firstFieldValue === null || firstFieldValue === '') {
+                document.querySelectorAll('.variant').forEach(div => div.remove());
+            }
 
             document.getElementById('editProductForm').submit()
         }

@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+*{
+    white-space: nowrap;
+}
+
 .toggle__dot {
     top: -.25rem;
     left: -.25rem;

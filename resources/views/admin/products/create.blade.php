@@ -13,7 +13,7 @@
             </svg>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
             <span class="text-gray-500">/</span>
-            <a href="#" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
+            <a href="{{ route('admin.products.index') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
             <span class="text-gray-500">/</span>
             <p>Ajouter un nouveau vêtement</p>
         </section>

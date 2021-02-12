@@ -77,7 +77,6 @@
                         <x-back.form.switch 
                             name="is_active"
                             isCheck="{{ $product->is_active }}"
-                            onchange="alertProductOptions(this)"
                         >
                             Le vêtement sera mis en ligne directement
                         </x-back.form.switch>
@@ -176,11 +175,11 @@
             Modifier les options
         </h2>
     
-        <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div class="px-4 pb-3 pt-6 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             @forelse ($product->options as $option)
-                <a href="#" class="p-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col md:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
+                <a href="#" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col md:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
                     <div class="flex items-center space-x-4">
-                        <img src="{{ $option->thumb_image->path }}" alt="{{ $option->name }}" class="w-20 h-20 rounded shadow">
+                        <img src="{{ $option->thumb_image->path }}" alt="{{ $option->name }}" class="w-20 h-20 object-cover rounded shadow">
                         <p class="text-gray-600 dark:text-gray-400 text-xl font-semibold">{{ $option->name }}</p>
                     </div>
                     <div class="">
@@ -232,7 +231,7 @@
         function checkForm() {
             document.querySelectorAll('.show-view').forEach(showView => pushContentInTextarea(showView));
 
-            document.getElementById('createProductForm').submit()
+            document.getElementById('editProductForm').submit()
         }
 
         // New variant product click button
@@ -243,23 +242,56 @@
             button.remove();
         }
 
+        function addQuantityField(input) {
+            if (input.checked) {
+                document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('block', 'hidden'));
+                
+                document.querySelectorAll('.variant').forEach(optionDiv => {
+                    let baseClone = optionDiv.querySelector('input');
+                    let clone = baseClone.parentNode.cloneNode(true);
+                    let quantityInput = clone.querySelector('input');
+                    let quantityLabel = clone.querySelector('label');
+                    let nameInput = quantityInput.name.replace('name', 'quantity');
+
+                    clone.classList.add('preorderQuantity');
+                    quantityInput.name = nameInput;
+                    quantityInput.id = nameInput;
+                    quantityInput.placeholder = 'Quantité de vêtements disponible en précommande';
+                    quantityInput.value = '';
+                    quantityLabel.htmlFor = nameInput;
+                    quantityLabel.innerHTML = "Quantité de vêtements disponible en précommande";
+
+                    optionDiv.appendChild(clone)
+                });
+            }else{
+                document.querySelectorAll('.preorderQuantity').forEach(quantityDiv => {
+                    document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('hidden', 'block'));
+                    quantityDiv.remove()
+                });
+            }
+        }
+
         function alertProductOptions(input){
             if (document.querySelector('.alert-banner')) {
                 document.querySelector('.alert-banner').remove();
             }
+            addQuantityField(input);
+
+            if (!input.checked) {
+                return;
+            }
+                addNewOption(document.querySelector('.add-new-option'))
+
             let div = document.createElement('div');
             div.className = "alert-banner bg-red-500 bg-opacity-50 text-gray-100 w-full h-20 fixed bottom-0 left-0 z-50 flex justify-center items-center text-center text-xl";
+            div.innerHTML = "Vous devez définir au moins une option et sa quantité pour mettre en ligne la précommande.";
+
             let span = document.createElement('span');
             span.className = "absolute right-2 top-5 text-white cursor-pointer p-3 rounded hover:bg-red-500";
             span.innerHTML = "&times;";
             span.addEventListener('click', () => div.remove());
+
             div.append(span);
-            
-            if (input.checked) {
-                div.innerHTML = "Vous devez définir au moins une option et sa quantité pour mettre en ligne la précommande.";
-            }else{
-                div.innerHTML = "Vous devez définir les tailles et les quantités des options pour pouvoir mettre en ligne le produit.";
-            }
             document.body.append(div);
         }
     </script>

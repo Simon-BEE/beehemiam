@@ -178,5 +178,50 @@ class EditProductTest extends TestCase
             'is_active' => true,
         ])->assertSessionHas('type', 'Erreur');
    }
-   
+
+   /** @test */
+   public function a_product_is_unset_preorder_if_switch_button_is_unchecked()
+   {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $category = Category::factory()->create();
+        $product = Product::factory()->create([
+            'name' => 'Nom de produit',
+            'is_preorder' => true,
+        ]);
+        $product->categories()->attach($category->id);
+        ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->followingRedirects()->patch(route('admin.products.update', $product), [
+            'name' => 'Nouveau nom de produit',
+            'categories' => [$category->id],
+        ])->assertSuccessful();
+
+        $this->assertFalse($product->fresh()->is_preorder);
+   }
+
+   /** @test */
+   public function a_product_is_unset_active_if_switch_button_is_unchecked()
+   {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $category = Category::factory()->create();
+        $product = Product::factory()->create([
+            'name' => 'Nom de produit',
+            'is_active' => true,
+        ]);
+        $product->categories()->attach($category->id);
+        ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->followingRedirects()->patch(route('admin.products.update', $product), [
+            'name' => 'Nouveau nom de produit',
+            'categories' => [$category->id],
+        ])->assertSuccessful();
+
+        $this->assertFalse($product->fresh()->is_active);
+   }
 }

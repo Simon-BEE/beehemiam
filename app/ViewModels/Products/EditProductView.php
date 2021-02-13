@@ -38,6 +38,6 @@ class EditProductView implements ViewModelInterface
         $this->categories = $this->product->categories;
         $this->options = $this->product->productOptions;
         $this->updateRoute = route('admin.products.update', $this->product);
-        $this->deleteRoute = '';
+        $this->deleteRoute = route('admin.products.destroy', $this->product);;
     }
 }

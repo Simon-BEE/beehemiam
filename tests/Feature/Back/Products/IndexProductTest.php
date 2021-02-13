@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Back\Products;
 
+use App\Models\Product;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -14,11 +15,13 @@ class IndexProductTest extends TestCase
             'role' => User::ADMIN_ROLE,
         ]);
         $this->signIn($user);
+        Product::factory()->count(10)->create();
 
         $this->get(route('admin.products.index'))
             ->assertSuccessful()
             ->assertViewIs('admin.products.index')
-            ->assertSee('Tous les produits')
+            ->assertSee('Voir tous les vêtements')
+            ->assertSee(Product::inRandomOrder()->first()->name)
         ;
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Category\EditCategoryController;
 use App\Http\Controllers\Admin\Category\IndexCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
+use App\Http\Controllers\Admin\Products\DeleteProductController;
 use App\Http\Controllers\Admin\Products\EditProductController;
 use App\Http\Controllers\Admin\Products\IndexProductController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,8 @@ Route::group(['as' => 'products.', 'prefix' => 'produits'], function () {
 
     Route::get('/{product}/editer', [EditProductController::class, 'edit'])->name('edit');
     Route::patch('/{product}', [EditProductController::class, 'update'])->name('update');
+
+    Route::delete('/{product}', DeleteProductController::class)->name('destroy');
 });
 
 Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {

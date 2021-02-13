@@ -3,18 +3,23 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Repositories\Product\DeleteProductRepository;
+use Illuminate\Http\RedirectResponse;
 
 class DeleteProductController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(DeleteProductRepository $repository, Product $product): RedirectResponse
     {
-        //
+        try {
+            $repository->delete($product);
+
+            return redirect()->route('admin.products.index')->with([
+                'type' => 'Succès',
+                'message' => 'Le produit a bien été supprimé !',
+            ]);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
+        }
     }
 }

@@ -23,7 +23,7 @@
                 Modifier le vêtement : {{ $product->name }}
             </h2>
             <button
-                @click="changeModalButtonLink(`{{ route('welcome') }}`);openModal();"
+                @click="changeModalButtonLink(`{{ $product->deleteRoute }}`);openModal();"
                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 bg-red-500 text-white hover:bg-red-600 rounded focus:outline-none focus:shadow-outline-gray"
                 aria-label="Delete">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -35,7 +35,7 @@
         </div>
     
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <x-form.form action="{{ $product->updateRoute }}" method="PATCH" id="editProductForm">
+            <x-form.form action="{{ $product->updateRoute }}" method="PATCH" id="editProductForm" files>
                 <x-back.form.input 
                     name="name"
                     type="text"
@@ -300,5 +300,31 @@
             div.append(span);
             document.body.append(div);
         }
+
+
+        function readURL(input) {
+            const previewDiv = input.parentNode.parentNode.querySelector('.previews');
+            if (input.files && input.files.length) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        let image = document.createElement('img');
+                        image.src    = e.target.result;
+                        image.classList.add('w-64', 'h-48', 'rounded', 'shadow', 'object-cover');
+                        image.addEventListener('click', (e) => {
+                            e.currentTarget.remove();
+                            previewDiv.innerHTML = '';
+                            input.value = '';
+                        });
+                        previewDiv.append(image);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        document.querySelectorAll('input[type="file"]').forEach(input => input.addEventListener('change', function() {
+            readURL(this);
+        }));
     </script>
 @endpush

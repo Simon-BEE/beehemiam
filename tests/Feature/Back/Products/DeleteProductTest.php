@@ -2,19 +2,24 @@
 
 namespace Tests\Feature\Back\Products;
 
+use App\Models\Product;
+use App\Models\User;
 use Tests\TestCase;
 
 class DeleteProductTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    /** @test */
+    public function a_product_can_be_deleted()
     {
-        $response = $this->get('/');
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $product = Product::factory()->create();
 
-        $response->assertStatus(200);
+        $this->followingRedirects()->delete(route('admin.products.destroy', $product))
+            ->assertSuccessful();
+
+        $this->assertNull($product->fresh());
     }
 }

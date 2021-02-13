@@ -28,6 +28,16 @@ class ProductOption extends Model
         'price' => 'integer',
     ];
 
+    public function hasSize(int $sizeId): bool
+    {
+        return $this->sizes->contains('size_id', $sizeId);
+    }
+
+    public function getSizeQuantity(int $sizeId): int
+    {
+        return $this->sizes->firstWhere('size_id', $sizeId)->quantity;
+    }
+
     /**
      * ? ATTRIBUTES
      */

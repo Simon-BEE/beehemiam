@@ -23,7 +23,7 @@
                 Modifier le vêtement : {{ $product->name }}
             </h2>
             <button
-                @click="changeModalButtonLink(`{{ $product->deleteRoute }}`);openModal();"
+                @click="changeModalButtonLink(`{{ route('admin.products.destroy', $product) }}`);openModal();"
                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 bg-red-500 text-white hover:bg-red-600 rounded focus:outline-none focus:shadow-outline-gray"
                 aria-label="Delete">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -35,7 +35,7 @@
         </div>
     
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <x-form.form action="{{ $product->updateRoute }}" method="PATCH" id="editProductForm" files>
+            <x-form.form action="{{ route('admin.products.update', $product) }}" method="PATCH" id="editProductForm" files>
                 <x-back.form.input 
                     name="name"
                     type="text"
@@ -73,7 +73,7 @@
                         </x-back.form.switch>
                     @endif
         
-                    @if ($product->options->isNotEmpty())
+                    @if ($product->productOptions->isNotEmpty())
                         <x-back.form.switch 
                             name="is_active"
                             isCheck="{{ $product->is_active }}"
@@ -176,8 +176,8 @@
         </h2>
     
         <div class="px-4 pb-3 pt-6 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            @forelse ($product->options as $option)
-                <a href="#" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col md:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
+            @forelse ($product->productOptions as $option)
+                <a href="{{ route('admin.products.options.edit', [$product, $option]) }}" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col md:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
                     <div class="flex items-center space-x-4">
                         <img src="{{ $option->thumb_image->path }}" alt="{{ $option->name }}" class="w-20 h-20 object-cover rounded shadow">
                         <p class="text-gray-600 dark:text-gray-400 text-xl font-semibold">{{ $option->name }}</p>

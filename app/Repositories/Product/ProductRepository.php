@@ -4,13 +4,9 @@ namespace App\Repositories\Product;
 
 use App\Models\Product;
 use App\Models\ProductOption;
-use App\Traits\Files\ImageUploaderTrait;
-use Illuminate\Http\UploadedFile;
 
-class ProductRepository
+class ProductRepository extends ProductAndOptionRepository
 {
-    use ImageUploaderTrait;
-
     /**
      * Dispatch product options storing
      *
@@ -30,9 +26,7 @@ class ProductRepository
                 $this->storeOptionsSizes($productOption, $newOption['sizes']);
             }
 
-            foreach ($newOption['images'] as $newImage) {
-                $this->storeProductOptionImage($productOption, $newImage);
-            }
+            $this->storeProductOptionImages($productOption, $newOption['images']);
         }
     }
 
@@ -61,23 +55,6 @@ class ProductRepository
     }
 
     /**
-     * Store for each options a size and its quantity
-     *
-     * @param ProductOption $productOption
-     * @param array $sizesWithQuantityData
-     * @return void
-     */
-    private function storeOptionsSizes(ProductOption $productOption, array $sizesWithQuantityData): void
-    {
-        foreach ($sizesWithQuantityData as $sizeWithQuantity) {
-            $productOption->sizes()->create([
-                'size_id' => $sizeWithQuantity['id'],
-                'quantity' => $sizeWithQuantity['quantity'],
-            ]);
-        }
-    }
-
-    /**
      * Store one product option
      *
      * @param Product $product
@@ -87,46 +64,5 @@ class ProductRepository
     private function storeProductOption(Product $product, array $validatedData): ProductOption
     {
         return $product->productOptions()->create($validatedData);
-    }
-
-    /**
-     * Store in PreOrderProductOptionQuantities table a pre-order quantity
-     *
-     * @param ProductOption $productOption
-     * @param integer $quantity
-     * @return void
-     */
-    private function storePreOrderQuantity(ProductOption $productOption, int $quantity): void
-    {
-        $productOption->preOrderStock()->create([
-            'quantity' => $quantity,
-        ]);
-    }
-
-    /**
-     * Store one image of a ProductOption
-     *
-     * @param ProductOption $productOption
-     * @param UploadedFile $file
-     * @return void
-     */
-    private function storeProductOptionImage(ProductOption $productOption, UploadedFile $file): void
-    {
-        // phpstan doesnt like extract :/
-        $optionImage = $this->saveProductOptionImage($productOption, $file);
-        $fileName = $optionImage['fileName'];
-        $fullPath = $optionImage['fullPath'];
-        $thumbnail = $optionImage['thumbnail'];
-
-        $productOption->images()->create([
-            'filename' => $fileName,
-            'full_path' => $fullPath,
-        ]);
-
-        $productOption->images()->create([
-            'filename' => $fileName,
-            'full_path' => storage_path('app/products') . $thumbnail,
-            'is_thumb' => true,
-        ]);
     }
 }

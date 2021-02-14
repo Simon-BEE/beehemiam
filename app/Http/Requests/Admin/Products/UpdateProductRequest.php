@@ -55,7 +55,7 @@ class UpdateProductRequest extends FormRequest
                 'required', 'between:2,255',
             ],
             'options.*.sku' => [
-                'required', 'between:2,255',
+                'required', 'unique:product_options,sku,except,id', 'between:2,255',
             ],
             'options.*.price' => [
                 'required', 'numeric', 'between:1,1000',

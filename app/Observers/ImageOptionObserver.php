@@ -18,4 +18,17 @@ class ImageOptionObserver
             $imageOption->is_main = true;
         }
     }
+
+    /**
+     * Handle the ImageOption "deleting" event.
+     *
+     * @param  \App\Models\ImageOption  $imageOption
+     * @return void
+     */
+    public function deleting(ImageOption $imageOption)
+    {
+        if (!$imageOption->is_thumb) {
+            ImageOption::where('filename', $imageOption->filename)->where('is_thumb', true)->delete();
+        }
+    }
 }

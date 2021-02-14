@@ -114,4 +114,6 @@ return [
 
     'password_timeout' => 10800,
 
+    'protected_token' => env('PROTECTED_API_KEY'),
+
 ];

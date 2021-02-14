@@ -86,15 +86,15 @@ Modifier l'option : {{ $productOption->name }}
                                 <div class="w-full md:w-1/2">
                                     <div class="w-full md:w-1/2 flex items-baseline justify-between space-x-4">
                                         <x-back.form.checkbox 
-                                            name="sizes[][id]" 
+                                            name="sizes[{{ $loop->index }}][id]" 
                                             value="{{ $size->id }}" 
                                             isCheck="{{ $productOption->hasSize($size->id) }}"
                                         >
                                             {{ $size->name }}
                                         </x-back.form.checkbox>
                                         <x-back.form.input classDiv=""
-                                            name="sizes[][quantity]"
-                                            id="sizes[][quantity]"
+                                            name="sizes[{{ $loop->index }}][quantity]"
+                                            id="sizes[{{ $loop->index }}][quantity]"
                                             type="text"
                                             value="{{ $productOption->hasSize($size->id) ? $productOption->getSizeQuantity($size->id) : null }}"
                                             placeholder="Quantité"
@@ -108,6 +108,19 @@ Modifier l'option : {{ $productOption->name }}
                 @endif
 
                 <x-back.form.wysiwyg name="description" label="{{ __('Description du produit') }}" />
+
+                <div class="previews my-3 flex flex-wrap justify-center items-center md:space-x-4">
+                    @foreach ($productOption->imagesWithoutThumb as $image)
+                        <div class="relative transition-opacity duration-700">
+                            <img src="{{ $image->path }}" alt="{{ $productOption->name }} - {{ $image->id }}" class="w-64 h-48 rounded shadow object-cover" data-img="{{ $image->id }}">
+                            <button type="button" class="px-2 py-1 rounded bg-black bg-opacity-50 text-white hover:bg-opacity-75 absolute top-1 right-1 remove-image">
+                                <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
 
                 <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
                     <x-back.form.file-input 
@@ -193,5 +206,25 @@ Modifier l'option : {{ $productOption->name }}
         document.querySelectorAll('input[type="file"]').forEach(input => input.addEventListener('change', function() {
             readURL(this);
         }));
+
+        document.querySelectorAll('.remove-image').forEach(image => image.addEventListener('click', function() {
+            removeImage(this);
+        }));
+
+        function removeImage(button) {
+            let parent = button.parentNode;
+            let img = parent.querySelector('img');
+
+            axios.post(`/produits/options/images/${img.getAttribute('data-img')}/delete`, {_method: 'DELETE'})
+                .then(() => {
+                    parent.classList.add('opacity-0');
+
+                    setTimeout(() => {
+                        parent.remove();
+                    }, 1000);
+                })
+                .catch(() => alert('Une erreur est survenue'));
+
+        }
     </script>
 @endpush

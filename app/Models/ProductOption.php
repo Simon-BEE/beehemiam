@@ -92,6 +92,11 @@ class ProductOption extends Model
         return $this->hasMany(ImageOption::class);
     }
 
+    public function imagesWithoutThumb(): HasMany
+    {
+        return $this->images()->where('is_thumb', false);
+    }
+
     public function sizes(): HasMany
     {
         return $this->hasMany(ProductOptionSize::class);

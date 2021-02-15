@@ -76,7 +76,7 @@
     </div>
     <div class="content-area">
         <div class="show-view block form-input w-full mt-4 h-96 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 form-input rounded" contenteditable>
-            {!! isset($value) ? $value : old($name) ?? 'Description du produit' !!}
+            {!! isset($value) ? $value : old($name) ?? $label !!}
         </div>
         <textarea 
             class="html-view hidden form-input w-full h-96 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 form-input rounded" 

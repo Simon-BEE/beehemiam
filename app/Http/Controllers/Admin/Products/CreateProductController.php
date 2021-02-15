@@ -22,7 +22,7 @@ class CreateProductController extends Controller
         if ($categories->isEmpty()) {
             return redirect()->route('admin.categories.create')->with([
                 'type' => 'Attention',
-                'message' => 'Vous devez avoir au moins une catégorie avant de créer un produit.',
+                'message' => 'Vous devez avoir au moins une catégorie avant de continuer.',
             ]);
         }
 

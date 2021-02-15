@@ -25,7 +25,7 @@ Modifier l'option : {{ $productOption->name }}
                 Modifier l'option : {{ $productOption->name }}
             </h2>
             <button
-                @click="changeModalButtonLink(`{{ route('welcome') }}`);openModal();"
+                @click="changeModalButtonLink(`{{ route('admin.products.options.destroy', [$product, $productOption]) }}`);openModal();"
                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 bg-red-500 text-white hover:bg-red-600 rounded focus:outline-none focus:shadow-outline-gray"
                 aria-label="Delete">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">

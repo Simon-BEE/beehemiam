@@ -14,11 +14,23 @@ use Illuminate\Http\RedirectResponse;
 
 class EditProductController extends Controller
 {
-    public function edit(Product $product): View
+    /**
+     * @return View|RedirectResponse
+     */
+    public function edit(Product $product)
     {
+        $categories = Category::select('id', 'name')->orderBy('name')->get();
+
+        if ($categories->isEmpty()) {
+            return redirect()->route('admin.categories.create')->with([
+                'type' => 'Attention',
+                'message' => 'Vous devez avoir au moins une catégorie avant de continuer.',
+            ]);
+        }
+
         return view('admin.products.edit', [
             'product' => $product->load(['categories', 'productOptions.images']),
-            'categories' => Category::select('id', 'name')->orderBy('name')->get(),
+            'categories' => $categories,
             'sizes' => Size::select('id', 'name')->orderBy('name')->get(),
         ]);
     }

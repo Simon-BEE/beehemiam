@@ -30,7 +30,7 @@ class UpdateOptionRequest extends FormRequest
                 'required', 'between:2,255',
             ],
             'sku' => [
-                'required', 
+                'required',
                 Rule::unique('product_options', 'sku')->ignore($this->route('productOption')->id),
                 'between:2,255',
             ],
@@ -41,8 +41,8 @@ class UpdateOptionRequest extends FormRequest
                 'required', 'min:2',
             ],
             'images' => [
-                Rule::requiredIf(function (){
-                    /** @var \App\Models\Product $product */
+                Rule::requiredIf(function () {
+                    /** @var \App\Models\ProductOption $productOption */
                     $productOption = $this->route('productOption');
 
                     return $productOption->images->isEmpty();
@@ -52,7 +52,7 @@ class UpdateOptionRequest extends FormRequest
                 'file', 'max:5000'
             ],
             'quantity' => [
-                Rule::requiredIf(function (){
+                Rule::requiredIf(function () {
                     /** @var \App\Models\Product $product */
                     $product = $this->route('product');
 
@@ -60,7 +60,7 @@ class UpdateOptionRequest extends FormRequest
                 }), 'numeric', 'min:1',
             ],
             'sizes' => [
-                Rule::requiredIf(function (){
+                Rule::requiredIf(function () {
                     /** @var \App\Models\Product $product */
                     $product = $this->route('product');
 

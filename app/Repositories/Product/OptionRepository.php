@@ -27,7 +27,7 @@ class OptionRepository extends ProductAndOptionRepository
     /**
      * Check if size array has a size_id and a quantity
      *
-     * @param array $validatedData
+     * @param array $sizes
      * @return array
      */
     private function checkAndReOrderSizeAndQuantity(array $sizes): array

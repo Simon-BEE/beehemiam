@@ -23,5 +23,4 @@ Route::group(['middleware' => [], 'as' => 'api.', 'prefix' => config('auth.prote
     
     Route::delete('/produits/options/images/{image}/delete', [ProductOptionImageController::class, 'destroy'])
         ->name('products.options.images.delete');
-
 });

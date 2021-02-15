@@ -23,7 +23,7 @@ trait ImageUploaderTrait
         }
 
         return [
-            'fullPath' => storage_path('app/products') . '/' . $path,
+            'fullPath' => $path,
             'fileName' => $filename,
             'thumbnail' => $this->makeThumbnail($file, $path),
         ];
@@ -37,7 +37,12 @@ trait ImageUploaderTrait
 
         Storage::disk('products')->put('/thumbs/' . $path, $img->encode());
 
-        return '/thumbs/' . $path;
+        return 'thumbs/' . $path;
+    }
+
+    public function removeProductImage(string $fullPath): bool
+    {
+        return Storage::disk('products')->delete($fullPath);
     }
 
     private function generateFilename(string $originalFileName, string $imageExtension): string

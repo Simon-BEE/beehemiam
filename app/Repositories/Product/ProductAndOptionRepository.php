@@ -80,7 +80,7 @@ class ProductAndOptionRepository
 
         $productOption->images()->create([
             'filename' => $fileName,
-            'full_path' => storage_path('app/products') . $thumbnail,
+            'full_path' => $thumbnail,
             'is_thumb' => true,
         ]);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\ImageOption;
 use App\Models\ProductOption;
 
 class ProductOptionObserver
@@ -15,5 +16,18 @@ class ProductOptionObserver
     public function saving(ProductOption $productOption)
     {
         $productOption->price = $productOption->price * 100;
+    }
+
+    /**
+     * Handle the ProductOption "deleting" event.
+     *
+     * @param  \App\Models\ProductOption  $productOption
+     * @return void
+     */
+    public function deleting(ProductOption $productOption)
+    {
+        $productOption->images->each(function (ImageOption $image) {
+            $image->delete();
+        });
     }
 }

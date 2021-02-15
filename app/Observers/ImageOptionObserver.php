@@ -3,16 +3,19 @@
 namespace App\Observers;
 
 use App\Models\ImageOption;
+use App\Traits\Files\ImageUploaderTrait;
 
 class ImageOptionObserver
 {
+    use ImageUploaderTrait;
+
     /**
      * Handle the ImageOption "creating" event.
      *
      * @param  \App\Models\ImageOption  $imageOption
      * @return void
      */
-    public function creating(ImageOption $imageOption)
+    public function creating(ImageOption $imageOption): void
     {
         if (is_null($imageOption->productOption->main_image)) {
             $imageOption->is_main = true;
@@ -25,10 +28,19 @@ class ImageOptionObserver
      * @param  \App\Models\ImageOption  $imageOption
      * @return void
      */
-    public function deleting(ImageOption $imageOption)
+    public function deleting(ImageOption $imageOption): void
     {
         if (!$imageOption->is_thumb) {
-            ImageOption::where('filename', $imageOption->filename)->where('is_thumb', true)->delete();
+            $this->removeThumbImage($imageOption->filename);
         }
+
+        $this->removeProductImage($imageOption->full_path);
+    }
+
+    private function removeThumbImage(string $filename): void
+    {
+        $thumbImage = ImageOption::where('filename', $filename)->where('is_thumb', true)->first();
+        $this->removeProductImage($thumbImage->full_path);
+        $thumbImage->delete();
     }
 }

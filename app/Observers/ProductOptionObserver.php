@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\ProductOptionRemoved;
 use App\Models\ImageOption;
 use App\Models\ProductOption;
 
@@ -29,5 +30,16 @@ class ProductOptionObserver
         $productOption->images->each(function (ImageOption $image) {
             $image->delete();
         });
+    }
+
+    /**
+     * Handle the ProductOption "deleted" event.
+     *
+     * @param  \App\Models\ProductOption  $productOption
+     * @return void
+     */
+    public function deleted(ProductOption $productOption)
+    {
+        ProductOptionRemoved::dispatch();
     }
 }

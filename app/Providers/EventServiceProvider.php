@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\CategoryIsRemoved;
 use App\Listeners\Products\UpdateProductStatus;
 use App\Models\Category;
 use App\Models\ImageOption;
@@ -27,10 +26,17 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        CategoryIsRemoved::class => [
-            UpdateProductStatus::class,
-        ],
     ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        UpdateProductStatus::class,
+    ];
+
 
     /**
      * Register any events for your application.

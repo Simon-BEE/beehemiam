@@ -25,6 +25,11 @@ class OptionRepository extends ProductAndOptionRepository
         return tap($productOption)->update($validatedData);
     }
 
+    public function delete(ProductOption $productOption): void
+    {
+        $productOption->delete();
+    }
+
     /**
      * Check if size array has a size_id and a quantity
      *
@@ -43,7 +48,7 @@ class OptionRepository extends ProductAndOptionRepository
         if (empty($sizesOrdered)) {
             throw new ProductActiveStatusException(
                 "Une option doit avoir au moins une taille sélectionnée avec une quantité.",
-                 1
+                1
             );
         }
 

@@ -34,9 +34,7 @@ class ImageOptionObserver
             return;
         }
 
-        if (!$imageOption->is_thumb) {
-            $this->removeThumbImage($imageOption->filename);
-        }
+        $this->removeThumbImage($imageOption->filename);
 
         $this->removeProductImage($imageOption->full_path);
     }

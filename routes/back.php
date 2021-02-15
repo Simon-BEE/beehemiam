@@ -9,11 +9,24 @@ use App\Http\Controllers\Admin\Products\CreateProductController;
 use App\Http\Controllers\Admin\Products\DeleteProductController;
 use App\Http\Controllers\Admin\Products\EditProductController;
 use App\Http\Controllers\Admin\Products\IndexProductController;
+use App\Http\Controllers\Admin\Products\Options\DeleteOptionController;
 use App\Http\Controllers\Admin\Products\Options\EditOptionController;
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Back Routes
+|--------------------------------------------------------------------------
+|
+| Only admin routes are here
+|
+*/
+
 Route::get('/', DashboardController::class)->name('dashboard');
 
+/**
+ * Products routes
+ */
 Route::group(['as' => 'products.', 'prefix' => 'produits'], function () {
 
     Route::get('/', IndexProductController::class)->name('index');
@@ -26,13 +39,21 @@ Route::group(['as' => 'products.', 'prefix' => 'produits'], function () {
 
     Route::delete('/{product}', DeleteProductController::class)->name('destroy');
 
+    /**
+     * Product Options routes
+     */
     Route::group(['as' => 'options.', 'prefix' => 'options'], function () {
 
         Route::get('/{product}/{productOption}/editer', [EditOptionController::class, 'edit'])->name('edit');
         Route::patch('/{product}/{productOption}', [EditOptionController::class, 'update'])->name('update');
+
+        Route::delete('/{product}/{productOption}', DeleteOptionController::class)->name('destroy');
     });
 });
 
+/**
+ * Categories routes
+ */
 Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {
 
     Route::get('/', IndexCategoryController::class)->name('index');

@@ -30,6 +30,10 @@ class ImageOptionObserver
      */
     public function deleting(ImageOption $imageOption): void
     {
+        if ($imageOption->is_thumb) {
+            return;
+        }
+
         if (!$imageOption->is_thumb) {
             $this->removeThumbImage($imageOption->filename);
         }
@@ -42,5 +46,7 @@ class ImageOptionObserver
         $thumbImage = ImageOption::where('filename', $filename)->where('is_thumb', true)->first();
         $this->removeProductImage($thumbImage->full_path);
         $thumbImage->delete();
+        if (config('app.env') !== 'testing') {
+        }
     }
 }

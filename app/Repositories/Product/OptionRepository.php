@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Product;
 
+use App\Exceptions\ProductActiveStatusException;
 use App\Models\ProductOption;
 
 class OptionRepository extends ProductAndOptionRepository
@@ -40,7 +41,10 @@ class OptionRepository extends ProductAndOptionRepository
         );
 
         if (empty($sizesOrdered)) {
-            throw new \Exception("Une option doit avoir au moins une taille sélectionnée avec une quantité.", 1);
+            throw new ProductActiveStatusException(
+                "Une option doit avoir au moins une taille sélectionnée avec une quantité.",
+                 1
+            );
         }
 
         return $sizesOrdered;

@@ -168,6 +168,7 @@ namespace App\Models{
  * @property bool $is_thumb
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $path
  * @property-read \App\Models\ProductOption $productOption
  * @method static \Illuminate\Database\Eloquent\Builder|ImageOption newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ImageOption newQuery()
@@ -365,6 +366,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
+ * @property-read bool $has_options_quantities
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOption[] $productOptions
  * @property-read int|null $product_options_count
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
@@ -396,8 +398,11 @@ namespace App\Models{
  * @property-read \App\Models\Discount|null $discount
  * @property-read float $formatted_price
  * @property-read \App\Models\ImageOption|null $main_image
+ * @property-read \App\Models\ImageOption|null $thumb_image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $images
  * @property-read int|null $images_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $imagesWithoutThumb
+ * @property-read int|null $images_without_thumb_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
  * @property-read \App\Models\PreOrderProductOptionQuantity|null $preOrderStock

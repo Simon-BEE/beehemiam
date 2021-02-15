@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Products\Options;
 
+use App\Exceptions\ProductActiveStatusException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\UpdateOptionRequest;
 use App\Models\Product;
@@ -34,6 +35,11 @@ class EditOptionController extends Controller
             return back()->with([
                 'type' => 'Succès',
                 'message' => 'La variante du vêtement a bien été modifiée !',
+            ]);
+        } catch (ProductActiveStatusException $e) {
+            return back()->with([
+                'type' => 'Erreur',
+                'message' => $e->getMessage(),
             ]);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);

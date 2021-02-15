@@ -73,7 +73,7 @@ Modifier l'option : {{ $productOption->name }}
                         type="text"
                         label="Quantité de vêtements disponible en précommande"
                         placeholder="Quantité de vêtements disponible en précommande"
-                        value="{{ $productOption->preOrderStock->quantity }}"
+                        value="{{ $productOption->preOrderStock ? $productOption->preOrderStock->quantity : null }}"
                         required
                     />
                 @else

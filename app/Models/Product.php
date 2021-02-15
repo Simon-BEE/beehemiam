@@ -43,6 +43,19 @@ class Product extends Model
         return $filteredOptions->isNotEmpty();
     }
 
+    public function getTotalStockAttribute(): int
+    {
+        if ($this->is_preorder) {
+            return $this->productOptions->sum(function (ProductOption $option) {
+                return $option->preOrderStock->quantity;
+            });
+        }
+
+        return $this->productOptions->sum(function (ProductOption $option) {
+            return $option->sizes->sum('quantity');
+        });
+    }
+
     /**
      * ? SCOPES
      */

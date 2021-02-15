@@ -58,6 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role === self::ADMIN_ROLE;
     }
 
+    public function getFullNameAttribute(): string
+    {
+        return ucfirst($this->firstname) . ' ' . ucfirst($this->lastname);
+    }
+
     /**
      * ? SCOPES
      */

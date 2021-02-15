@@ -27,7 +27,7 @@ class ProductFactory extends Factory
         ];
     }
 
-    public function preorder()
+    public function preOrder()
     {
         return $this->state(function (array $attributes){
             return [

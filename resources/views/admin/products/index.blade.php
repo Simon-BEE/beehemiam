@@ -36,6 +36,7 @@
                         <tr
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-3">Nom</th>
+                            <th class="px-4 py-3">En stock</th>
                             <th class="px-4 py-3">Précommande</th>
                             <th class="px-4 py-3">Statut</th>
                             <th class="px-4 py-3">Créé le</th>
@@ -48,6 +49,13 @@
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">
                                     <p class="font-semibold">{{ $product->name }}</p>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <p class="font-semibold">
+                                        <span class="rounded-full p-2 font-bold whitespace-nowrap {{ $product->total_stock > 5 ? 'bg-gray-100 text-gray-700' : 'bg-red-500 text-white' }}">
+                                            {{ $product->total_stock }}
+                                        </span>
+                                    </p>
                                 </td>
                                 <td class="px-4 py-3 text-sm ml-8">
                                     @if ($product->is_preorder)
@@ -66,7 +74,7 @@
                                             En ligne
                                         </span>
                                     @else
-                                        <span class="rounded-full bg-red-500 text-white p-2 whitespace-nowrap">
+                                        <span class="rounded-full bg-gray-500 text-white p-2 whitespace-nowrap">
                                            Hors-ligne
                                         </span>
                                     @endif
@@ -77,7 +85,7 @@
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a href="{{ route('admin.products.edit', $product) }}"
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                 <path
@@ -90,7 +98,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-8 text-gray-500">
+                                <td colspan="6" class="text-center py-8 text-gray-500">
                                     Aucun vêtement n'a été enregisté. <a href="{{ route('admin.products.create') }}"
                                         class="text-indigo-500 hover:underline">Créez en un !</a>
                                 </td>

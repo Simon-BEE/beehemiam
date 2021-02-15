@@ -25,4 +25,12 @@ class UserUnitTest extends TestCase
         $this->assertTrue($user->is_admin);
     }
     
+    /** @test */
+    public function a_user_has_a_property_full_name()
+    {
+        $user = User::factory()->create();
+
+        $this->assertEquals(ucfirst($user->firstname) . ' ' . ucfirst($user->lastname), $user->full_name);
+    }
+    
 }

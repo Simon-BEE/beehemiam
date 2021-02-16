@@ -12,4 +12,9 @@ class UserRepository
 
         $user->delete();
     }
+
+    public function resendEmailVerification(User $user): void
+    {
+        $user->sendEmailVerificationNotification();
+    }
 }

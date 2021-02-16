@@ -5,7 +5,7 @@ Modifier l'option : {{ $productOption->name }}
 @endsection
 
 @section('content')
-    <div class="container grid px-2 md:px-6 pb-8 mx-auto">
+    <div class="container grid px-2 lg:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
@@ -20,7 +20,7 @@ Modifier l'option : {{ $productOption->name }}
             <p>Modifier l'option : {{ $productOption->name }}</p>
         </section>
 
-        <div class="title flex flex-col md:flex-row items-center justify-between">
+        <div class="title flex flex-col lg:flex-row items-center justify-between">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Modifier l'option : {{ $productOption->name }}
             </h2>
@@ -81,10 +81,10 @@ Modifier l'option : {{ $productOption->name }}
                         <label for="all_categories" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-gray-400">
                             Sélectionnez les tailles disponibles et indiquez leurs quantités respective
                         </label>
-                        <div class="flex flex-col md:flex-row items-center flex-wrap">
+                        <div class="flex flex-col lg:flex-row items-center flex-wrap">
                             @foreach ($sizes as $size)
-                                <div class="w-full md:w-1/2">
-                                    <div class="w-full md:w-1/2 flex items-baseline justify-between space-x-4">
+                                <div class="w-full lg:w-1/2">
+                                    <div class="w-full lg:w-1/2 flex items-baseline justify-between space-x-4">
                                         <x-back.form.checkbox 
                                             name="sizes[{{ $loop->index }}][id]" 
                                             value="{{ $size->id }}" 
@@ -109,7 +109,7 @@ Modifier l'option : {{ $productOption->name }}
 
                 <x-back.form.wysiwyg name="description" label="{{ __('Description du produit') }}" />
 
-                <div class="previews my-3 flex flex-wrap justify-center items-center md:space-x-4">
+                <div class="previews my-3 flex flex-wrap justify-center items-center lg:space-x-4">
                     @foreach ($productOption->imagesWithoutThumb as $image)
                         <div class="relative transition-opacity duration-700">
                             <img src="{{ $image->path }}" alt="{{ $productOption->name }} - {{ $image->id }}" class="w-64 h-48 rounded shadow object-cover" data-img="{{ $image->id }}">
@@ -122,7 +122,7 @@ Modifier l'option : {{ $productOption->name }}
                     @endforeach
                 </div>
 
-                <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
+                <div class="flex flex-col lg:flex-row justify-between lg:space-x-32 mt-12">
                     <x-back.form.file-input 
                         name="images[]"
                         type="file"

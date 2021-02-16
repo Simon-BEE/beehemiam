@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container grid px-2 md:px-6 pb-8 mx-auto">
+    <div class="container grid px-2 lg:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
@@ -18,7 +18,7 @@
             <p>Voir le client : {{ $user->full_name }}</p>
         </section>
 
-        <div class="title my-6 flex flex-col md:flex-row items-center justify-between">
+        <div class="title my-6 flex flex-col lg:flex-row items-center justify-between">
             <div class="flex items-center">
                 <span class="icon text-indigo-500">
                     <svg class="w-20 h-20" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="actions flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-1">
+            <div class="actions flex flex-col lg:flex-row items-center space-y-1 lg:space-y-0 lg:space-x-1">
                 <x-back.link-button href="#" class="bg-gray-300 text-gray-700 hover:bg-gray-400">
                     <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M21.7,13.35L20.7,14.35L18.65,12.3L19.65,11.3C19.86,11.09 20.21,11.09 20.42,11.3L21.7,12.58C21.91,12.79 21.91,13.14 21.7,13.35M12,18.94L18.06,12.88L20.11,14.93L14.06,21H12V18.94M12,14C7.58,14 4,15.79 4,18V20H10V18.11L14,14.11C13.34,14.03 12.67,14 12,14M12,4A4,4 0 0,0 8,8A4,4 0 0,0 12,12A4,4 0 0,0 16,8A4,4 0 0,0 12,4Z" />
@@ -64,16 +64,16 @@
                 Résumé de l'activité
             </h2>
 
-            <div class="flex flex-col md:flex-row items-center justify-around text-center dark:text-gray-400">
-                <article class="w-full md:w-1/4 py-6">
+            <div class="flex flex-col lg:flex-row items-center justify-around text-center dark:text-gray-400">
+                <article class="w-full lg:w-1/4 py-6">
                     <h3 class="font-bold text-4xl">5</h3>
                     <h4 class="text-xl font-semibold"> commandes</h4>
                 </article>
-                <article class="w-full md:w-1/4 py-6 md:border-l-2 md:border-r-2">
+                <article class="w-full lg:w-1/4 py-6 lg:border-l-2 lg:border-r-2">
                     <h3 class="font-bold text-4xl">12</h3>
                     <h4 class="text-xl font-semibold"> vêtements achetés</h4>
                 </article>
-                <article class="w-full md:w-1/4 py-6">
+                <article class="w-full lg:w-1/4 py-6">
                     <h3 class="font-bold text-4xl">945€</h3>
                     <h4 class="text-xl font-semibold"> dépensés</h4>
                 </article>
@@ -82,15 +82,28 @@
             {{-- <p class="text-center">Le client n'a jamais passé commande sur le site.</p> --}}
         </section>
 
-        <div class="flex flex-col md:flex-row justify-between items-start space-y-8 md:space-y-0 md:space-x-8 md:mb-8">
-            <section class="px-4 py-3 w-full md:w-1/2 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
-                <article class="pb-8 border-b dark:border-gray-700">
-                    <h2 class="font-bold text-lg">{{ $user->full_name }}</h2>
-                    <p class="text-gray-500 text-sm">Inscrit depuis le {{ $user->created_at->format('d/m/Y à H:00') }}</p>
-                    <p class="text-gray-500 text-sm">
-                        Dernière activité enregistré le {{ $user->last_activity_at ? $user->last_activity_at->format('d/m/Y à H:i') : 'Jamais connecté' }}
-                    </p>
-                </article>
+        <div class="flex flex-col lg:flex-row justify-between items-start space-y-8 lg:space-y-0 lg:space-x-8 lg:mb-8">
+            <section class="px-4 py-3 w-full lg:w-1/2 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
+                <div class="flex flex-col lg:flex-row justify-between items-start pb-8 border-b dark:border-gray-700">
+                    <article class="mb-2 lg:mb-0">
+                        <h2 class="font-bold text-lg">{{ $user->full_name }}</h2>
+                        <p class="text-gray-500 text-sm">Inscrit depuis le {{ $user->created_at->format('d/m/Y à H:00') }}</p>
+                        <p class="text-gray-500 text-sm">
+                            Dernière activité enregistré le {{ $user->last_activity_at ? $user->last_activity_at->format('d/m/Y à H:i') : 'Jamais connecté' }}
+                        </p>
+                    </article>
+
+                    @if (!$user->email_verified_at)
+                        <x-form.form class="inline-flex" method="POST" action="{{ route('admin.users.features.resend-verification-email', $user) }}">
+                            <x-back.form.button>
+                                <svg class="w-4 h-4 mr-3" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M2 3V10L17 12L2 14V21L23 12M22 15.5L18.5 19L16.5 17L15 18.5L18.5 22L23.5 17Z" />
+                                </svg>
+                                <span class="text-xs">Envoyer un nouvel e-mail de vérification</span>
+                            </x-back.form.button>
+                        </x-form.form>
+                    @endif
+                </div>
 
                 <article class="my-8 pb-8 border-b dark:border-gray-700">
                     <p class="flex items-center">
@@ -137,7 +150,7 @@
                 </article>
             </section>
 
-            <section class="px-4 py-3 w-full md:w-1/2 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
+            <section class="px-4 py-3 w-full lg:w-1/2 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
                 <h2 class="font-semibold text-xs uppercase text-gray-500">
                     Adresse par défaut
                 </h2>

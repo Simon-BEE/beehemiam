@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container grid px-2 md:px-6 pb-8 mx-auto">
+    <div class="container grid px-2 lg:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
@@ -18,7 +18,7 @@
             <p>Modifier le vêtement : {{ $product->name }}</p>
         </section>
 
-        <div class="title flex flex-col md:flex-row items-center justify-between">
+        <div class="title flex flex-col lg:flex-row items-center justify-between">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Modifier le vêtement : {{ $product->name }}
             </h2>
@@ -117,10 +117,10 @@
                         <label for="all_categories" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-gray-400">
                             Sélectionnez les tailles disponibles et indiquez leurs quantités respective
                         </label>
-                        <div class="flex flex-col md:flex-row items-center flex-wrap">
+                        <div class="flex flex-col lg:flex-row items-center flex-wrap">
                             @foreach ($sizes as $size)
-                                <div class="w-full md:w-1/2">
-                                    <div class="w-full md:w-1/2 flex items-baseline justify-between space-x-4">
+                                <div class="w-full lg:w-1/2">
+                                    <div class="w-full lg:w-1/2 flex items-baseline justify-between space-x-4">
                                         <x-back.form.checkbox name="options[1][sizes][{{ $loop->index }}][id]" value="{{ $size->id }}">
                                             {{ $size->name }}
                                         </x-back.form.checkbox>
@@ -139,7 +139,7 @@
 
                     <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
 
-                    <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
+                    <div class="flex flex-col lg:flex-row justify-between lg:space-x-32 mt-12">
                         <x-back.form.file-input 
                             name="options[1][images][]"
                             type="file"
@@ -177,7 +177,7 @@
     
         <div class="px-4 pb-3 pt-6 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             @forelse ($product->productOptions as $option)
-                <a href="{{ route('admin.products.options.edit', [$product, $option]) }}" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col md:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
+                <a href="{{ route('admin.products.options.edit', [$product, $option]) }}" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col lg:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
                     <div class="flex items-center space-x-4">
                         <img src="{{ $option->thumb_image->path }}" alt="{{ $option->name }}" class="w-20 h-20 object-cover rounded shadow">
                         <p class="text-gray-600 dark:text-gray-400 text-xl font-semibold">{{ $option->name }}</p>

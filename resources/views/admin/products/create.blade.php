@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container grid px-2 md:px-6 pb-8 mx-auto">
+    <div class="container grid px-2 lg:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
@@ -90,10 +90,10 @@
                         <label for="all_categories" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-gray-400">
                             Sélectionnez les tailles disponibles et indiquez leurs quantités respective
                         </label>
-                        <div class="flex flex-col md:flex-row items-center flex-wrap">
+                        <div class="flex flex-col lg:flex-row items-center flex-wrap">
                             @foreach ($sizes as $size)
-                                <div class="w-full md:w-1/2">
-                                    <div class="w-full md:w-1/2 flex items-baseline justify-between space-x-4">
+                                <div class="w-full lg:w-1/2">
+                                    <div class="w-full lg:w-1/2 flex items-baseline justify-between space-x-4">
                                         <x-back.form.checkbox name="options[1][sizes][{{ $loop->index }}][id]" value="{{ $size->id }}">
                                             {{ $size->name }}
                                         </x-back.form.checkbox>
@@ -112,7 +112,7 @@
 
                     <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
 
-                    <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
+                    <div class="flex flex-col lg:flex-row justify-between lg:space-x-32 mt-12">
                         <x-back.form.file-input 
                             name="options[1][images][]"
                             type="file"

@@ -80,5 +80,8 @@ Route::group(['as' => 'users.', 'prefix' => 'clients'], function () {
     Route::get('/voir/{user}', [ShowUserController::class, 'show'])->name('show');
     Route::get('/voir/{user}/commandes', [ShowUserController::class, 'orders'])->name('orders');
 
+    Route::post('/{user}/features/resend-verification-email', [ShowUserController::class, 'sendEmailVerification'])
+        ->name('features.resend-verification-email');
+
     Route::delete('/{user}', DeleteUserController::class)->name('destroy');
 });

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container grid px-2 md:px-6 pb-8 mx-auto">
+    <div class="container grid px-2 lg:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
@@ -18,7 +18,7 @@
             <p>Editer la catégorie : {{ $category->name }}</p>
         </section>
 
-        <div class="title flex flex-col md:flex-row items-center justify-between">
+        <div class="title flex flex-col lg:flex-row items-center justify-between">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Editer la catégorie : {{ $category->name }}
             </h2>

@@ -11,7 +11,15 @@ class ShowUserController extends Controller
     public function show(User $user): View
     {
         return view('admin.users.show', [
+            'user' => $user->load(['addresses']),
+        ]);
+    }
+
+    public function orders(User $user): View
+    {
+        return view('admin.users.orders', [
             'user' => $user,
+            'orders' => $user->orders()->paginate(),
         ]);
     }
 }

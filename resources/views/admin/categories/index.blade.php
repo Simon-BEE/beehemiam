@@ -60,10 +60,10 @@
                     <thead>
                         <tr
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="px-4 py-3">Nom</th>
-                            <th class="px-4 py-3">Nombre de vêtements</th>
-                            <th class="px-4 py-3">Créée le</th>
-                            <th class="px-4 py-3">Actions</th>
+                            <th class="px-4 py-5">Nom</th>
+                            <th class="px-4 py-5">Nombre de vêtements</th>
+                            <th class="px-4 py-5">Créée le</th>
+                            <th class="px-4 py-5">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">

@@ -32,13 +32,13 @@
             </div>
 
             <div class="actions flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-1">
-                <x-back.link-button href="{{ route('admin.categories.create') }}" class="bg-gray-300 text-gray-700 hover:bg-gray-400">
+                <x-back.link-button href="#" class="bg-gray-300 text-gray-700 hover:bg-gray-400">
                     <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M21.7,13.35L20.7,14.35L18.65,12.3L19.65,11.3C19.86,11.09 20.21,11.09 20.42,11.3L21.7,12.58C21.91,12.79 21.91,13.14 21.7,13.35M12,18.94L18.06,12.88L20.11,14.93L14.06,21H12V18.94M12,14C7.58,14 4,15.79 4,18V20H10V18.11L14,14.11C13.34,14.03 12.67,14 12,14M12,4A4,4 0 0,0 8,8A4,4 0 0,0 12,12A4,4 0 0,0 16,8A4,4 0 0,0 12,4Z" />
                     </svg>
                     Éditer
                 </x-back.link-button>
-                <x-back.link-button href="{{ route('admin.categories.create') }}" class="bg-gray-300 text-gray-700 hover:bg-gray-400">
+                <x-back.link-button href="{{ route('admin.users.orders', $user) }}" class="bg-gray-300 text-gray-700 hover:bg-gray-400">
                     <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M19 6H17A5 5 0 0 0 7 6H5A2 2 0 0 0 3 8V20A2 2 0 0 0 5 22H12.05A6.5 6.5 0 0 1 9 16.5A6.4 6.4 0 0 1 10.25 12.68A5 5 0 0 1 7 8H9A3 3 0 0 0 12 11H12.06A6.22 6.22 0 0 1 14.06 10.16A3 3 0 0 0 15 8H17A4.88 4.88 0 0 1 16.54 10.09A6.5 6.5 0 0 1 21 13.09V8A2 2 0 0 0 19 6M9 6A3 3 0 0 1 15 6M19.31 18.9A4.5 4.5 0 1 0 17.88 20.32L21 23.39L22.39 22M15.5 19A2.5 2.5 0 1 1 18 16.5A2.5 2.5 0 0 1 15.5 19Z" />
                     </svg>
@@ -46,7 +46,7 @@
                 </x-back.link-button>
                 <x-back.form.button 
                     class="text-white bg-red-500 hover:bg-red-600"
-                    @click="changeModalButtonLink(`#`);openModal();" 
+                    @click="changeModalButtonLink(`{{ route('admin.users.destroy', $user) }}`);openModal();" 
                     aria-label="Delete"
                 >
                     <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -217,4 +217,31 @@
                 @endif
             </section>
         </div>
+
+
+
+    <x-back.modal>
+        <div class="mt-4 mb-6">
+            <!-- Modal title -->
+            <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                Êtes-vous sûr de vouloir supprimer cet utilisateur ?
+            </p>
+            <!-- Modal description -->
+            <p class="text-sm text-gray-700 dark:text-gray-400">
+                En confirmant cette action, vous allez supprimer l'utilisateur et toutes les données qui y sont associées. Vous pouvez annuler cette action en cliquant sur le bouton <strong>annuler</strong> ci-dessous.
+            </p>
+        </div>
+        <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+            <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-gray-500 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                Annuler
+            </button>
+            <form action="#" method="POST" class="inline delete-modal-form">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="delete-modal-button w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
+                    Je supprime ce client
+                </button>
+            </form>
+        </footer>
+    </x-back.modal>
 @endsection

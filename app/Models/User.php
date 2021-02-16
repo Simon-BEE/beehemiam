@@ -65,8 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getAddressAttribute(): Address
     {
-        return $this->addresses()
-            ->whereIsMain(true)
+        return $this->addresses
+            ->where('is_main', true)
             ->first();
     }
 

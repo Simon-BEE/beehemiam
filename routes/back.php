@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Products\EditProductController;
 use App\Http\Controllers\Admin\Products\IndexProductController;
 use App\Http\Controllers\Admin\Products\Options\DeleteOptionController;
 use App\Http\Controllers\Admin\Products\Options\EditOptionController;
+use App\Http\Controllers\Admin\Users\DeleteUserController;
 use App\Http\Controllers\Admin\Users\IndexUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
 use Illuminate\Support\Facades\Route;
@@ -77,4 +78,7 @@ Route::group(['as' => 'users.', 'prefix' => 'clients'], function () {
     Route::get('/', IndexUserController::class)->name('index');
 
     Route::get('/voir/{user}', [ShowUserController::class, 'show'])->name('show');
+    Route::get('/voir/{user}/commandes', [ShowUserController::class, 'orders'])->name('orders');
+
+    Route::delete('/{user}', DeleteUserController::class)->name('destroy');
 });

@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('test', function () {
+    // return new \App\Mail\Users\PasswordHasChangedMail(auth()->user());
+    return (new \App\Notifications\VerifyEmailQueued)->toMail(auth()->user());
+});
+
 Route::get('/', WelcomeController::class)->name('welcome');
 
 

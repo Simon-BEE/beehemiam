@@ -23,4 +23,19 @@ class DeleteUserTest extends TestCase
         $this->assertCount($userCount - 1, User::all());
     }
     
+    /** @test */
+    public function an_admin_cannot_delete_an_admin()
+    {
+        $admin = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($admin);
+        $userCount = User::count();
+
+        $this->delete(route('admin.users.destroy', $admin))
+            ->assertForbidden();
+
+        $this->assertCount($userCount, User::all());
+    }
+    
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Products\IndexProductController;
 use App\Http\Controllers\Admin\Products\Options\DeleteOptionController;
 use App\Http\Controllers\Admin\Products\Options\EditOptionController;
 use App\Http\Controllers\Admin\Users\DeleteUserController;
+use App\Http\Controllers\Admin\Users\EditUserController;
 use App\Http\Controllers\Admin\Users\IndexUserController;
 use App\Http\Controllers\Admin\Users\ShowUserController;
 use Illuminate\Support\Facades\Route;
@@ -77,8 +78,12 @@ Route::group(['as' => 'users.', 'prefix' => 'clients'], function () {
 
     Route::get('/', IndexUserController::class)->name('index');
 
-    Route::get('/voir/{user}', [ShowUserController::class, 'show'])->name('show');
-    Route::get('/voir/{user}/commandes', [ShowUserController::class, 'orders'])->name('orders');
+    Route::get('/{user}', [ShowUserController::class, 'show'])->name('show');
+    Route::get('/{user}/commandes', [ShowUserController::class, 'orders'])->name('orders');
+
+    Route::get('/{user}/editer', [EditUserController::class, 'edit'])->name('edit');
+    Route::patch('/{user}', [EditUserController::class, 'update'])->name('update');
+    Route::patch('/{user}/password', [EditUserController::class, 'updatePassword'])->name('update.password');
 
     Route::post('/{user}/features/resend-verification-email', [ShowUserController::class, 'sendEmailVerification'])
         ->name('features.resend-verification-email');

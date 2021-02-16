@@ -11,6 +11,8 @@ class DeleteUserController extends Controller
 {
     public function __invoke(UserRepository $repository, User $user): RedirectResponse
     {
+        abort_if($user->is_admin, 403);
+
         try {
             $repository->delete($user);
 

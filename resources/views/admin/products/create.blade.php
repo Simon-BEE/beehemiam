@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="absolute bottom-0 left-1/2 -ml-20 -mb-5">
-                        <x-back.form.button class="flex-col add-new-option" type="button">
+                        <x-back.form.button class="flex-col text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700 add-new-option" type="button">
                             <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
                             </svg>

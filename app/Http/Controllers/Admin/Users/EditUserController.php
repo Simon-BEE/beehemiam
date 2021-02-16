@@ -33,8 +33,11 @@ class EditUserController extends Controller
         }
     }
 
-    public function updatePassword(UserRepository $repository, UpdateUserPasswordRequest $request, User $user): RedirectResponse
-    {
+    public function updatePassword(
+        UserRepository $repository,
+        UpdateUserPasswordRequest $request,
+        User $user
+    ): RedirectResponse {
         try {
             $repository->updatePassword($user, $request->get('password'));
 

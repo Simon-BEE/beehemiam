@@ -155,7 +155,7 @@
                 </section>
 
                 <div class="flex justify-end mt-4 save-button">
-                    <x-back.form.button class="mr-2 add-new-option" type="button">
+                    <x-back.form.button class="mr-2 text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700 add-new-option" type="button">
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
                         </svg>
@@ -183,7 +183,7 @@
                         <p class="text-gray-600 dark:text-gray-400 text-xl font-semibold">{{ $option->name }}</p>
                     </div>
                     <div class="">
-                        <x-back.form.button class="mr-2" type="button">
+                        <x-back.form.button class="mr-2 text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700" type="button">
                             <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                             </svg>

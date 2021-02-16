@@ -63,7 +63,4 @@ class EditUserTest extends TestCase
         $this->assertTrue(password_verify('12341234', $user->fresh()->password));
         Mail::assertQueued(PasswordHasChangedMail::class);
     }
-    
-    // edit password
-    // set as admin
 }

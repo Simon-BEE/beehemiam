@@ -5,7 +5,7 @@ Modifier l'option : {{ $productOption->name }}
 @endsection
 
 @section('content')
-    <div class="container grid px-6 mx-auto">
+    <div class="container grid px-2 md:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">

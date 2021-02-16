@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +27,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(10)->create();
+
+        Country::insert([
+            ['name' => 'France', 'tag' => 'FR'],
+            ['name' => 'Belgique', 'tag' => 'BE'],
+            ['name' => 'Suisse', 'tag' => 'CH'],
+        ]);
 
         $this->call(SizesSeeder::class);
     }

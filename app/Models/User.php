@@ -63,6 +63,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return ucfirst($this->firstname) . ' ' . ucfirst($this->lastname);
     }
 
+    public function getAddressAttribute(): Address
+    {
+        return $this->addresses()
+            ->whereIsMain(true)
+            ->first();
+    }
+
     /**
      * ? SCOPES
      */

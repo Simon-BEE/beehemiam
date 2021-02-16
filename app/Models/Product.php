@@ -32,7 +32,29 @@ class Product extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getHasOptionsQuantitiesAttribute(): bool
+    {
+        $options = $this->productOptions()->with('sizes')->get();
+
+        $filteredOptions = $options->filter(function ($option) {
+            return $option->sizes->isNotEmpty();
+        });
+
+        return $filteredOptions->isNotEmpty();
+    }
+
+    public function getTotalStockAttribute(): int
+    {
+        if ($this->is_preorder) {
+            return $this->productOptions->sum(function (ProductOption $option) {
+                return $option->preOrderStock->quantity;
+            });
+        }
+
+        return $this->productOptions->sum(function (ProductOption $option) {
+            return $option->sizes->sum('quantity');
+        });
+    }
 
     /**
      * ? SCOPES

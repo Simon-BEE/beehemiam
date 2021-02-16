@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use App\Listeners\Products\UpdateProductStatus;
+use App\Models\Category;
+use App\Models\ImageOption;
 use App\Models\Product;
+use App\Models\ProductOption;
+use App\Observers\CategoryObserver;
+use App\Observers\ImageOptionObserver;
 use App\Observers\ProductObserver;
+use App\Observers\ProductOptionObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,7 +26,20 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\PasswordEdited::class => [
+            \App\Listeners\Users\PasswordHasChanged::class,
+        ],
     ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        UpdateProductStatus::class,
+    ];
+
 
     /**
      * Register any events for your application.
@@ -35,5 +54,8 @@ class EventServiceProvider extends ServiceProvider
     private function registerObservers(): void
     {
         Product::observe(ProductObserver::class);
+        ProductOption::observe(ProductOptionObserver::class);
+        ImageOption::observe(ImageOptionObserver::class);
+        Category::observe(CategoryObserver::class);
     }
 }

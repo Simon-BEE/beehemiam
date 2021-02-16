@@ -1,7 +1,7 @@
-import Turbolinks from 'turbolinks';
 
 require('./bootstrap');
 
 require('alpinejs')
 
-Turbolinks.start();
+// import Turbolinks from 'turbolinks';
+// Turbolinks.start();

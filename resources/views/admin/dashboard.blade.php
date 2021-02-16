@@ -1,13 +1,17 @@
 @extends('layouts.back')
 
+@section('meta-title')
+    Tableau de bord
+@endsection
+
 @section('content')
-<div class="container grid px-6 mx-auto">
+<div class="container grid px-2 lg:px-6 pb-8 mx-auto">
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Dashboard
     </h2>
 
     <!-- Cards -->
-    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+    <div class="grid gap-6 mb-8 lg:grid-cols-2 xl:grid-cols-4">
         <!-- Card -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">

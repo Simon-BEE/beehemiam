@@ -29,6 +29,8 @@ class Address extends Model
         'is_billing' => 'boolean',
     ];
 
+    protected $with = ['country'];
+
     /**
      * ? ATTRIBUTES
      */

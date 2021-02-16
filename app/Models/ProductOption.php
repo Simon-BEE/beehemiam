@@ -28,11 +28,39 @@ class ProductOption extends Model
         'price' => 'integer',
     ];
 
+    public function hasSize(int $sizeId): bool
+    {
+        return $this->sizes->contains('size_id', $sizeId);
+    }
+
+    public function getSizeQuantity(int $sizeId): int
+    {
+        return $this->sizes->firstWhere('size_id', $sizeId)->quantity;
+    }
+
     /**
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFormattedPriceAttribute(): float
+    {
+        return $this->price / 100;
+    }
+
+    public function getMainImageAttribute(): ?ImageOption
+    {
+        return $this->images()
+            ->where('is_main', true)
+            ->where('is_thumb', false)
+            ->first();
+    }
+
+    public function getThumbImageAttribute(): ?ImageOption
+    {
+        return $this->images()
+            ->where('is_thumb', true)
+            ->first();
+    }
 
     /**
      * ? SCOPES
@@ -62,6 +90,11 @@ class ProductOption extends Model
     public function images(): HasMany
     {
         return $this->hasMany(ImageOption::class);
+    }
+
+    public function imagesWithoutThumb(): HasMany
+    {
+        return $this->images()->where('is_thumb', false);
     }
 
     public function sizes(): HasMany

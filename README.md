@@ -21,6 +21,8 @@ Technologies utilitisées :
 * Laravel v8+
 * MySQL
 
+/!\ Token dans bootstap.js et dans URL API
+
 ### Schéma de la base de données
 
 ![schéma de la base de données](schema-db.png)

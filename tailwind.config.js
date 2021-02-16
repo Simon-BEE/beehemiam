@@ -202,6 +202,7 @@ module.exports = {
         divideColor: ['dark'],
         boxShadow: ['focus', 'dark:focus'],
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        ringOpacity: ['hover', 'active'],
     },
 
     plugins: [

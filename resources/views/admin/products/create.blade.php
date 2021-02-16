@@ -1,15 +1,19 @@
 @extends('layouts.back')
 
+@section('meta-title')
+    Ajouter un nouveau vêtement
+@endsection
+
 @section('content')
-    <div class="container grid px-6 mx-auto">
+    <div class="container grid px-2 lg:px-6 pb-8 mx-auto">
 
         <section class="breadcrumb my-6 flex items-center flex-wrap space-x-2 text-gray-600 dark:text-gray-400">
             <svg class="w-4 h-4" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
             </svg>
-            <a href="#" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
             <span class="text-gray-500">/</span>
-            <a href="#" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
+            <a href="{{ route('admin.products.index') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Voir tous les vêtements</a>
             <span class="text-gray-500">/</span>
             <p>Ajouter un nouveau vêtement</p>
         </section>
@@ -19,7 +23,7 @@
         </h2>
     
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <x-form.form action="{{ route('admin.products.store') }}" method="POST" files>
+            <x-form.form action="{{ route('admin.products.store') }}" method="POST" id="createProductForm" files>
                 <x-back.form.input 
                     name="name"
                     type="text"
@@ -29,8 +33,21 @@
                     required
                 />
 
+                <div class="mb-8">
+                    <label for="all_categories" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-gray-400">
+                        À quelles catégories le vêtements sera attaché ? (une ou plusieurs)
+                    </label>
+                    <div class="flex items-center flex-wrap space-x-4 -mt-3">
+                        @foreach ($categories as $category)
+                            <x-back.form.checkbox name="categories[]" value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </x-back.form.checkbox>
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="flex flex-col mt-4 ml-2 space-y-4">
-                    <x-back.form.switch name="is_preorder">
+                    <x-back.form.switch name="is_preorder" onchange="addQuantityField(this)">
                         Il s'agit d'une précommande
                     </x-back.form.switch>
         
@@ -69,9 +86,33 @@
                         </svg>
                     </x-back.form.input-icon>
 
+                    <div class="mb-8 block sizes-quantities">
+                        <label for="all_categories" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-gray-400">
+                            Sélectionnez les tailles disponibles et indiquez leurs quantités respective
+                        </label>
+                        <div class="flex flex-col lg:flex-row items-center flex-wrap">
+                            @foreach ($sizes as $size)
+                                <div class="w-full lg:w-1/2">
+                                    <div class="w-full lg:w-1/2 flex items-baseline justify-between space-x-4">
+                                        <x-back.form.checkbox name="options[1][sizes][{{ $loop->index }}][id]" value="{{ $size->id }}">
+                                            {{ $size->name }}
+                                        </x-back.form.checkbox>
+                                        <x-back.form.input classDiv=""
+                                            name="options[1][sizes][{{ $loop->index }}][quantity]"
+                                            id="options[1][sizes][quantity][{{ $size->id }}]"
+                                            type="text"
+                                            placeholder="Quantité"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                     <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
 
-                    <div class="flex flex-col md:flex-row justify-between md:space-x-32 mt-12">
+                    <div class="flex flex-col lg:flex-row justify-between lg:space-x-32 mt-12">
                         <x-back.form.file-input 
                             name="options[1][images][]"
                             type="file"
@@ -83,7 +124,7 @@
                     </div>
 
                     <div class="absolute bottom-0 left-1/2 -ml-20 -mb-5">
-                        <x-back.form.button class="flex-col add-new-option" type="button">
+                        <x-back.form.button class="flex-col text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700 add-new-option" type="button">
                             <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
                             </svg>
@@ -93,7 +134,7 @@
                 </section>
 
                 <div class="flex justify-end mt-4 save-button">
-                    <x-back.form.button>
+                    <x-back.form.button onclick="checkForm()" type="button">
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z" />
                         </svg>
@@ -107,71 +148,13 @@
 @endsection
 
 @push('scripts')
+    @include('includes.scripts.wysiwyg')
+
     <script>
-        const editor = document.querySelector('.content-editor');
-        if (editor) {
-            const editorButtons = document.querySelectorAll('.editor-button');
-            const showViews = document.querySelectorAll('.show-view');
-            // const htmlView = document.querySelector('.html-view');
+        function checkForm() {
+            document.querySelectorAll('.show-view').forEach(showView => pushContentInTextarea(showView));
 
-            checkListElements();
-
-            editorButtons.forEach((button) => {
-                button.addEventListener('click', function(e) {
-                    const action = this.getAttribute('data-action');
-
-                    switch (action) {
-                    case 'code':
-                        execCodeAction(e.currentTarget, e.currentTarget.parentNode.parentNode.parentNode.parentNode);
-                        break;
-                    case 'createLink':
-                        execLinkAction();
-                        break;
-                    default:
-                        execDefaultAction(action);
-                        break;
-                    }
-                });
-            });
-
-            function execDefaultAction(action) {
-                document.execCommand(action, false, null);
-                checkListElements();
-            }
-
-            function execLinkAction() {
-                let linkValue = prompt('URL (e.g. https://google.com/)');
-                document.execCommand('createLink', false, linkValue);
-                document.getSelection().focusNode.parentNode.classList.add("text-green-500", 'hover:underline');
-            }
-
-            function execCodeAction(button, editor){
-                
-                let htmlView = editor.querySelector('.html-view');
-                let showView = editor.querySelector('.show-view');
-                if (htmlView.classList.contains('hidden')) {
-                    htmlView.classList.replace('hidden', 'block');
-                    showView.classList.replace('block', 'hidden');
-                } else {
-                    showView.classList.replace('hidden', 'block');
-                    htmlView.classList.replace('block', 'hidden');
-                }
-
-                button.classList.toggle('bg-gray-200');
-            }
-
-            showViews.forEach(showView => showView.addEventListener('input', () => {
-                let htmlView = showView.parentNode.querySelector('.html-view');
-                htmlView.innerHTML = showView.innerHTML;
-            }));
-
-            function checkListElements() {
-                showViews.forEach(showView => showView.querySelectorAll('ul').forEach(list => {
-                    if (!list.classList.contains('list-disc')) {
-                        list.classList.add('p-2', 'bg-gray-100', 'my-2', 'list-disc', 'list-inside', 'dark:bg-gray-900', 'rounded');
-                    }
-                }));
-            }
+            document.getElementById('createProductForm').submit()
         }
 
         function readURL(input) {
@@ -216,7 +199,9 @@
                 let newName = element.name.substring(0, 8) + number + element.name.substring(9);
                 element.name = newName;
                 element.id = newName;
-                element.value = '';
+                if (element.type !== 'checkbox') {
+                    element.value = '';
+                }
             })
 
             div.querySelector('.previews').innerHTML = '';
@@ -224,6 +209,35 @@
             div.querySelector('input[type="file"]').addEventListener('change', function() {
                 readURL(this);
             });
+        }
+
+        function addQuantityField(input) {
+            if (input.checked) {
+                document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('block', 'hidden'));
+                
+                document.querySelectorAll('.variant').forEach(optionDiv => {
+                    let baseClone = optionDiv.querySelector('input');
+                    let clone = baseClone.parentNode.cloneNode(true);
+                    let quantityInput = clone.querySelector('input');
+                    let quantityLabel = clone.querySelector('label');
+                    let nameInput = quantityInput.name.replace('name', 'quantity');
+
+                    clone.classList.add('preorderQuantity');
+                    quantityInput.name = nameInput;
+                    quantityInput.id = nameInput;
+                    quantityInput.placeholder = 'Quantité de vêtements disponible en précommande';
+                    quantityInput.value = '';
+                    quantityLabel.htmlFor = nameInput;
+                    quantityLabel.innerHTML = "Quantité de vêtements disponible en précommande";
+
+                    optionDiv.appendChild(clone)
+                });
+            }else{
+                document.querySelectorAll('.preorderQuantity').forEach(quantityDiv => {
+                    document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('hidden', 'block'));
+                    quantityDiv.remove()
+                });
+            }
         }
     </script>
 @endpush

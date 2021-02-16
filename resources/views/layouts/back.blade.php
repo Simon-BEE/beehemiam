@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Admin' }}</title>
+    <title>ADMIN @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
@@ -33,13 +33,7 @@
         </div>
 
         @if (session()->has('type'))
-            <div class="fixed bottom-2 right-6 max-w-5xl p-4 shadow text-white bg-purple-600 rounded-lg shadow-xs">
-                <button class="absolute top-1 right-1 text-xl font-bold px-2 py-1 rounded hover:bg-purple-500 focus:outline-none" onclick="this.parentNode.remove()">
-                    &times;
-                </button>
-                <h4 class="mb-4 font-semibold">{{ session('type') }}</h4>
-                <p>{{ session('message') }}</p>
-            </div>
+            <x-back.alert />
         @endif
 
 
@@ -103,12 +97,15 @@
             trapCleanup: null,
             openModal() {
                 this.isModalOpen = true
-                this.trapCleanup = focusTrap(document.querySelector('#modal'))
+                // this.trapCleanup = focusTrap(document.querySelector('#modal'))
             },
             closeModal() {
                 this.isModalOpen = false
                 this.trapCleanup()
             },
+            changeModalButtonLink(link){
+                document.querySelector('#modal').querySelector('form.delete-modal-form').action = link;
+            }
         }
     }
 </script>

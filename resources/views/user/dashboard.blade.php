@@ -6,30 +6,80 @@
 
 @section('content')
 
-<div class="absolute top-2 left-3">
-    <a href="{{ route('welcome') }}" class="p-3 flex items-center text-sm uppercase font-bold text-gray-600 hover:bg-gray-100">
-        <svg class="h-4 w-4 mr-2" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M18.41,7.41L17,6L11,12L17,18L18.41,16.59L13.83,12L18.41,7.41M12.41,7.41L11,6L5,12L11,18L12.41,16.59L7.83,12L12.41,7.41Z" />
-        </svg>
-        Retourner à l'accueil
-    </a>
-    @if (auth()->user()->is_admin)
-        <a href="{{ route('admin.dashboard') }}" class="p-3 flex items-center text-sm uppercase font-bold text-gray-600 hover:bg-gray-100">
-            <svg class="h-4 w-4 mr-2" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M21.7 18.6V17.6L22.8 16.8C22.9 16.7 23 16.6 22.9 16.5L21.9 14.8C21.9 14.7 21.7 14.7 21.6 14.7L20.4 15.2C20.1 15 19.8 14.8 19.5 14.7L19.3 13.4C19.3 13.3 19.2 13.2 19.1 13.2H17.1C16.9 13.2 16.8 13.3 16.8 13.4L16.6 14.7C16.3 14.9 16.1 15 15.8 15.2L14.6 14.7C14.5 14.7 14.4 14.7 14.3 14.8L13.3 16.5C13.3 16.6 13.3 16.7 13.4 16.8L14.5 17.6V18.6L13.4 19.4C13.3 19.5 13.2 19.6 13.3 19.7L14.3 21.4C14.4 21.5 14.5 21.5 14.6 21.5L15.8 21C16 21.2 16.3 21.4 16.6 21.5L16.8 22.8C16.9 22.9 17 23 17.1 23H19.1C19.2 23 19.3 22.9 19.3 22.8L19.5 21.5C19.8 21.3 20 21.2 20.3 21L21.5 21.4C21.6 21.4 21.7 21.4 21.8 21.3L22.8 19.6C22.9 19.5 22.9 19.4 22.8 19.4L21.7 18.6M18 19.5C17.2 19.5 16.5 18.8 16.5 18S17.2 16.5 18 16.5 19.5 17.2 19.5 18 18.8 19.5 18 19.5M11.29 20H5C3.89 20 3 19.1 3 18V6C3 4.89 3.9 4 5 4H19C20.11 4 21 4.9 21 6V11.68C20.38 11.39 19.71 11.18 19 11.08V8H5V18H11C11 18.7 11.11 19.37 11.29 20Z" />
-            </svg>
-            Aller à l'administration
-        </a>
-    @endif
-</div>
+<section class="flex flex-col md:flex-row items-start">
+    <aside class="w-full md:w-1/4 bg-primary-300 pt-5 px-5 pb-32">
+        <p>Mes informations personnelles</p>
+        <p>Modifier mon mot de passe</p>
+        <p>Mes adresses</p>
+        <p>Mon historique de commande</p>
+    </aside>
 
-<div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 bg-white border-b border-gray-200">
-                Vous êtes connecté !
+    <div class="w-full md:w-3/4 p-5">
+        <section class="breadcrumb mb-6 flex items-center flex-wrap space-x-2 text-sm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+            </svg>
+            {{-- <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
+            <span class="text-gray-500">/</span> --}}
+            <p>Mon compte</p>
+        </section>
+
+        <section class="">
+            <div class="title pb-3 border-b flex items-start justify-between">
+                <div class="">
+                    <h2 class="font-bold text-2xl">Mon compte</h2>
+                    <p class="text-sm">Gérer mes informations personnelles et mes préférences.</p>
+                </div>
             </div>
-        </div>
+
+            <article class="px-3 py-2 my-6 flex flex-col space-y-3">
+                <p>
+                    <span class="uppercase text-xs mr-2">Prénom</span>
+                    <span class="font-semibold">{{ $user->firstname }}</span>
+                </p>
+
+                <p>
+                    <span class="uppercase text-xs mr-2">Nom de famille</span>
+                    <span class="font-semibold">{{ $user->lastname }}</span>
+                </p>
+
+                <div>
+                    <span class="uppercase text-xs mr-2">Adresse email</span>
+                    <span class="font-semibold">{{ $user->email }}</span>
+                    <x-form.form action="#" method="POST" class="inline-flex mt-3 md:mt-0">
+                        <button class="ml-4 px-2 py-1 inline-flex items-center bg-primary-300 text-sm">
+                            <svg class="h-4 w-4 mr-2" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                            </svg>
+                            Adresse email non vérifiée
+                        </button>
+                    </x-form.form>
+                </div>
+
+                {{-- NEWSLETTER --}}
+
+                <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 pt-6">
+                    <a href="#" class="flex items-center rounded p-2 bg-primary-200 border border-transparent transition-colors duration-200 hover:border-primary-700">
+                        <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M2 17V20H10V18.11H3.9V17C3.9 16.36 7.03 14.9 10 14.9C10.96 14.91 11.91 15.04 12.83 15.28L14.35 13.76C12.95 13.29 11.5 13.03 10 13C7.33 13 2 14.33 2 17M10 4C7.79 4 6 5.79 6 8S7.79 12 10 12 14 10.21 14 8 12.21 4 10 4M10 10C8.9 10 8 9.11 8 8S8.9 6 10 6 12 6.9 12 8 11.11 10 10 10M21.7 13.35L20.7 14.35L18.65 12.35L19.65 11.35C19.86 11.14 20.21 11.14 20.42 11.35L21.7 12.63C21.91 12.84 21.91 13.19 21.7 13.4M12 18.94L18.06 12.88L20.11 14.88L14.11 20.95H12V18.94" />
+                        </svg>
+                        Modifier mes informations
+                    </a>
+
+                    <a href="#" class="flex items-center rounded p-2 transition-colors border border-transparent bg-primary-200 duration-200 hover:border-primary-700">
+                        <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M5.83,10C5.42,8.83 4.31,8 3,8A3,3 0 0,0 0,11A3,3 0 0,0 3,14C4.31,14 5.42,13.17 5.83,12H8V14H10V12H11V10H5.83M3,12A1,1 0 0,1 2,11A1,1 0 0,1 3,10A1,1 0 0,1 4,11A1,1 0 0,1 3,12M16,4A4,4 0 0,0 12,8A4,4 0 0,0 16,12A4,4 0 0,0 20,8A4,4 0 0,0 16,4M16,10.1A2.1,2.1 0 0,1 13.9,8A2.1,2.1 0 0,1 16,5.9C17.16,5.9 18.1,6.84 18.1,8C18.1,9.16 17.16,10.1 16,10.1M16,13C13.33,13 8,14.33 8,17V20H24V17C24,14.33 18.67,13 16,13M22.1,18.1H9.9V17C9.9,16.36 13,14.9 16,14.9C18.97,14.9 22.1,16.36 22.1,17V18.1Z" />
+                        </svg>
+                        Modifier mon mot de passe
+                    </a>
+                </div>
+            </article>
+
+            <article class="my-8">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita maxime mollitia animi sit ipsam enim dolorum laborum obcaecati iure iusto quis vero nihil debitis consequuntur ad, eaque incidunt similique itaque.
+            </article>
+        </section>
     </div>
-</div>
+</section>
+
 @endsection

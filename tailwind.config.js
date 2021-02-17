@@ -1,6 +1,5 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-const plugin = require('tailwindcss/plugin');
 const Color = require('color');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
     purge: ['./storage/framework/views/*.php', './resources/views/**/*.blade.php'],
@@ -31,26 +30,6 @@ module.exports = {
                 '700': '#24262d',
                 '800': '#1a1c23',
                 '900': '#121317',
-                // default values from Tailwind UI palette
-                // '300': '#d2d6dc',
-                // '400': '#9fa6b2',
-                // '500': '#6b7280',
-                // '600': '#4b5563',
-                // '700': '#374151',
-                // '800': '#252f3f',
-                // '900': '#161e2e',
-            },
-            'cool-gray': {
-                '50': '#fbfdfe',
-                '100': '#f1f5f9',
-                '200': '#e2e8f0',
-                '300': '#cfd8e3',
-                '400': '#97a6ba',
-                '500': '#64748b',
-                '600': '#475569',
-                '700': '#364152',
-                '800': '#27303f',
-                '900': '#1a202e',
             },
             red: {
                 '50': '#fdf2f2',
@@ -62,18 +41,6 @@ module.exports = {
                 '600': '#e02424',
                 '700': '#c81e1e',
                 '800': '#9b1c1c',
-                '900': '#771d1d',
-            },
-            orange: {
-                '50': '#fff8f1',
-                '100': '#feecdc',
-                '200': '#fcd9bd',
-                '300': '#fdba8c',
-                '400': '#ff8a4c',
-                '500': '#ff5a1f',
-                '600': '#d03801',
-                '700': '#b43403',
-                '800': '#8a2c0d',
                 '900': '#771d1d',
             },
             yellow: {
@@ -100,18 +67,6 @@ module.exports = {
                 '800': '#03543f',
                 '900': '#014737',
             },
-            teal: {
-                '50': '#edfafa',
-                '100': '#d5f5f6',
-                '200': '#afecef',
-                '300': '#7edce2',
-                '400': '#16bdca',
-                '500': '#0694a2',
-                '600': '#047481',
-                '700': '#036672',
-                '800': '#05505c',
-                '900': '#014451',
-            },
             blue: {
                 '50': '#ebf5ff',
                 '100': '#e1effe',
@@ -123,18 +78,6 @@ module.exports = {
                 '700': '#1a56db',
                 '800': '#1e429f',
                 '900': '#233876',
-            },
-            indigo: {
-                '50': '#f0f5ff',
-                '100': '#e5edff',
-                '200': '#cddbfe',
-                '300': '#b4c6fc',
-                '400': '#8da2fb',
-                '500': '#6875f5',
-                '600': '#5850ec',
-                '700': '#5145cd',
-                '800': '#42389d',
-                '900': '#362f78',
             },
             purple: {
                 '50': '#f6f5ff',
@@ -148,18 +91,6 @@ module.exports = {
                 '800': '#5521b5',
                 '900': '#4a1d96',
             },
-            pink: {
-                '50': '#fdf2f8',
-                '100': '#fce8f3',
-                '200': '#fad1e8',
-                '300': '#f8b4d9',
-                '400': '#f17eb8',
-                '500': '#e74694',
-                '600': '#d61f69',
-                '700': '#bf125d',
-                '800': '#99154b',
-                '900': '#751a3d',
-            },
         },
         extend: {
             maxHeight: {
@@ -167,11 +98,28 @@ module.exports = {
                 xl: '36rem',
             },
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Nunito', 'sans-serif'],
+                cursive: ['Cedarville Cursive', 'cursive'],
             },
             height: {
                 '60-screen': '65vh',
             },
+            colors: {
+                kaki: {
+                    '300': '#98d2fb',
+                    '800': '#757459',
+                    '900': '#5F5E48',
+                  },
+                primary: {
+                    100: "#FAFAFA",
+                    200: "#F6EFE4",
+                    300: "#F1EDEA",
+                    400: "#E3B7A0",
+                    500: "#E4A075",
+                    600: "#AD836B",
+                    700: "#edddc5",
+                },
+            }
         },
     },
 
@@ -202,32 +150,12 @@ module.exports = {
         divideColor: ['dark'],
         boxShadow: ['focus', 'dark:focus'],
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        ringOpacity: ['hover', 'active'],
+        ringOpacity: ['hover', 'active', 'focus'],
+        outline: ['focus', 'responsive', 'hover'],
     },
 
     plugins: [
         require('@tailwindcss/forms'),
         require('tailwindcss-multi-theme'),
-        require('@tailwindcss/custom-forms'),
-        require('@tailwindcss/ui'),
-        plugin(({
-            addUtilities,
-            e,
-            theme,
-            variants
-        }) => {
-            const newUtilities = {}
-            Object.entries(theme('colors')).map(([name, value]) => {
-                if (name === 'transparent' || name === 'current') return
-                const color = value[300] ? value[300] : value
-                const hsla = Color(color).alpha(0.45).hsl().string()
-
-                newUtilities[`.shadow-outline-${name}`] = {
-                    'box-shadow': `0 0 0 3px ${hsla}`,
-                }
-            })
-
-            addUtilities(newUtilities, variants('boxShadow'))
-        }),
     ],
-};
+}

@@ -100,7 +100,7 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-500">
                                     Aucun vêtement n'a été enregisté. <a href="{{ route('admin.products.create') }}"
-                                        class="text-indigo-500 hover:underline">Créez en un !</a>
+                                        class="text-purple-500 hover:underline">Créez en un !</a>
                                 </td>
                             </tr>
                         @endforelse

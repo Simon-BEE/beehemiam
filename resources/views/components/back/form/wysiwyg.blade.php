@@ -75,11 +75,11 @@
         </div>
     </div>
     <div class="content-area">
-        <div class="show-view block w-full mt-4 h-96 border border-gray-300 dark:border-transparent dark:bg-gray-700 dark:text-gray-400 form-input rounded" contenteditable>
+        <div class="show-view block w-full mt-4 px-4 py-2 h-96 rounded border-gray-300 dark:border-transparent dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" contenteditable>
             {!! isset($value) ? $value : old($name) ?? $label !!}
         </div>
         <textarea 
-            class="html-view hidden form-input w-full h-96 border-gray-300 dark:border-transparent dark:bg-gray-700 dark:text-gray-300 form-input rounded" 
+            class="html-view hidden px-4 py-2 w-full h-96 rounded border-gray-300 dark:border-transparent dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" 
             name={{ $name }}
             id={{ $name }}
             {{ ($required ?? false) ? 'required' : '' }}>

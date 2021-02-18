@@ -12,7 +12,7 @@
         type="{{ $type ?? 'text' }}"
         name="{{ $name }}"
         id="{{ $name }}"
-        class="w-full mt-2 px-4 py-2 block rounded bg-gray-100 text-gray-800 border border-transparent focus:bg-white focus:outline-none focus:shadow-outline @error($name) border-red-500 @enderror {{ $class ?? '' }}"
+        class="w-full mt-2 px-4 py-2 block rounded bg-primary-200 text-gray-800 border border-transparent focus:bg-white focus:outline-none focus:border-transparent focus:ring-2 focus:ring-primary-500 @error($name) border-red-500 @enderror {{ $class ?? '' }}"
         placeholder="{{ $placeholder ?? '' }}"
         value="{{ isset($value) ? $value : old($name) }}"
         {{ ($required ?? false) ? 'required' : '' }}

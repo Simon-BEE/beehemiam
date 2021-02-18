@@ -52,6 +52,10 @@
 
 <body class="font-nunito bg-primary-100 text-kaki-900 overflow-x-hidden">
 
+    @if (session()->has('type') && session()->has('message'))
+        <x-alert />
+    @endif
+
 <div class="wrapper container mx-auto md:my-4">
 
     @include('layouts.front.header')

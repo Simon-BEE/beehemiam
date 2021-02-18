@@ -26,6 +26,10 @@ input:checked ~ .toggle__dot {
     transform: translateX(100%);
     background-color: #7E3AF2;
 }
+  
+input:checked ~ .toggle__dot.front-switch {
+    background-color: #e4a075;
+}
 
 a.nav-link::before{
     content: "";

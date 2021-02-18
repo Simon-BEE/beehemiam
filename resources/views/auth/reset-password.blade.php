@@ -36,7 +36,7 @@
                 required
             />
 
-            <x-form.button class="block w-full bg-yellow-500 text-gray-900 font-bold hover:bg-yellow-600 mt-4">
+            <x-form.button class="block w-full bg-primary-500 text-gray-900 font-bold hover:bg-primary-600 mt-4">
                 {{ __('Reset Password') }}
             </x-form.button>
         </x-form.form>

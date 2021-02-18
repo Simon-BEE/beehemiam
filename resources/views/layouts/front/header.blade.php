@@ -47,7 +47,7 @@
                     @endif
                     <li>
                         @auth
-                            <a href="{{ route('user.dashboard') }}" class="flex p-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25"
+                            <a href="{{ route('user.profile.dashboard') }}" class="flex p-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25"
                                 title="Mon compte">
                                 <svg class="w-6 h-6" viewBox="0 0 24 24">
                                     <path fill="currentColor"
@@ -78,17 +78,19 @@
                             </span> --}}
                         </a>
                     </li>
-                    <li>
-                        <x-form.form action="{{ route('logout') }}" method="POST">
-                            <button type="submit"
-                                class="relative flex p-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25"
-                                title="Me déconnecter">
-                                <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
-                                </svg>
-                            </button>
-                        </x-form.form>
-                    </li>
+                    @auth
+                        <li>
+                            <x-form.form action="{{ route('logout') }}" method="POST">
+                                <button type="submit"
+                                    class="relative flex p-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25"
+                                    title="Me déconnecter">
+                                    <svg class="w-6 h-6" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
+                                    </svg>
+                                </button>
+                            </x-form.form>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </nav>

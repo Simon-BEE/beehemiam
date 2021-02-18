@@ -63,7 +63,7 @@
                 J'ai lu et je suis d'accord avec <a href="#" class="underline">les CGU</a> et <a href="#" class="underline">les CGV</a>
             </x-form.checkbox>
 
-            <x-form.button class="block w-full bg-yellow-500 text-gray-900 font-bold hover:bg-yellow-600 mt-4">
+            <x-form.button class="block w-full bg-primary-500 text-gray-900 font-bold hover:bg-primary-600 mt-4">
                 {{ __('Create Account') }}
             </x-form.button>
         </x-form.form>

@@ -279,5 +279,39 @@ class UserAdressTest extends TestCase
         $this->assertTrue($fourthAddress->fresh()->is_billing);
         $this->assertNull($secondAddress->fresh());
     }
+
+    /** @test */
+    public function a_user_can_see_all_his_addresses()
+    {
+        $user = $this->signIn();
+        Address::factory()->times(5)->create(['user_id' => $user->id]);
+
+        $this->get(route('user.addresses.index'))
+            ->assertSuccessful()
+            ->assertViewIs('user.addresses.index')
+            ->assertSee(Address::inRandomOrder()->first()->street);
+    }
+    
+    /** @test */
+    public function an_address_can_be_set_easily_as_main()
+    {
+        $user = $this->signIn();
+        $firstAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => true,
+            'is_billing' => true,
+        ]);
+        $secondAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => false,
+            'is_billing' => false,
+        ]);
+
+        $this->followingRedirects()->patch(route('user.addresses.update.main', $secondAddress))
+            ->assertSuccessful();
+
+        $this->assertTrue($secondAddress->fresh()->is_main);
+        $this->assertFalse($firstAddress->fresh()->is_main);
+    }
     
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\Address\CreateAddressController;
 use App\Http\Controllers\User\Address\DeleteAddressController;
 use App\Http\Controllers\User\Address\EditAddressController;
+use App\Http\Controllers\User\Address\IndexAddressController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\EditUserController;
 use App\Http\Controllers\User\UserProfileController;
@@ -48,11 +49,14 @@ Route::group(['middleware' => ['auth']], function () {
 
             Route::group(['as' => 'addresses.', 'prefix' => 'adresses'], function () {
 
+                Route::get('/', IndexAddressController::class)->name('index');
+
                 Route::get('/creer', [CreateAddressController::class, 'create'])->name('create');
                 Route::post('/', [CreateAddressController::class, 'store'])->name('store');
 
                 Route::get('/{address}/editer', [EditAddressController::class, 'edit'])->name('edit');
                 Route::patch('/{address}', [EditAddressController::class, 'update'])->name('update');
+                Route::patch('/{address}/main', [EditAddressController::class, 'setAsMain'])->name('update.main');
 
                 Route::delete('/{address}', DeleteAddressController::class)->name('destroy');
             });

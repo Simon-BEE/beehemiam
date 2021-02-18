@@ -29,6 +29,13 @@ class UserAddressRepository
         ]));
     }
 
+    public function setAsMain(Address $address): void
+    {
+        $address->update([
+            'is_main' => true,
+        ]);
+    }
+
     public function delete(Address $address): void
     {
         $address->delete();

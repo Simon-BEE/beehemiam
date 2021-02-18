@@ -13,7 +13,7 @@
         </svg>
         <a href="{{ route('user.profile.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Mon compte</a>
         <span class="text-gray-500">/</span>
-        <a href="{{ route('user.profile.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Mes adresses</a>
+        <a href="{{ route('user.addresses.index') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Mes adresses</a>
         <span class="text-gray-500">/</span>
         <p>Modifier une adresse</p>
     </section>

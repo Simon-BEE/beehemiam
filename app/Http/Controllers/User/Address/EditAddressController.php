@@ -39,4 +39,18 @@ class EditAddressController extends Controller
             throw new \Exception($e->getMessage(), 1);
         }
     }
+
+    public function setAsMain(UserAddressRepository $repository, Address $address): RedirectResponse
+    {
+        try {
+            $repository->setAsMain($address);
+
+            return back()->with([
+                'type' => 'Succès',
+                'message' => 'Votre adresse a bien été définie comme principale.',
+            ]);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
+        }
+    }
 }

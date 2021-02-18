@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
 
             Route::get('/editer', [EditUserController::class, 'edit'])->name('edit');
             Route::patch('/', [EditUserController::class, 'update'])->name('update');
+            Route::get('/mot-de-passe', [EditUserController::class, 'editPassword'])->name('edit.password');
+            Route::patch('/mot-de-passe', [EditUserController::class, 'updatePassword'])->name('update.password');
 
             Route::post('email-verification', [UserProfileController::class, 'sendEmailVerification'])
                 ->name('email-verification');

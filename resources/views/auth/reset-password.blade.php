@@ -25,7 +25,7 @@
                 type="password"
                 label="Mot de passe"
                 placeholder="Votre mot de passe"
-                helper="Pour votre sécurité, le mot de passe doit contenir au moins 8 caractères."
+                helper="Le mot de passe doit contenir au moins 8 caractères."
                 required
             />
             <x-form.input 

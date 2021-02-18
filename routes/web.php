@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\EditUserController;
+use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +29,17 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::group(['as' => 'user.'], function () {
 
-        Route::get('mon-compte', UserDashboardController::class)->name('dashboard');
+        
+        Route::group(['as' => 'profile.', 'prefix' => 'mon-compte'], function () {
+
+            Route::get('/', UserDashboardController::class)->name('dashboard');
+
+            Route::get('/editer', [EditUserController::class, 'edit'])->name('edit');
+            Route::patch('/', [EditUserController::class, 'update'])->name('update');
+
+            Route::post('email-verification', [UserProfileController::class, 'sendEmailVerification'])
+                ->name('email-verification');
+        });
     });
 });
 

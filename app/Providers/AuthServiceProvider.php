@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\CacheUserProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,8 +24,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        Auth::provider('cache-user', function() {
+            return resolve(CacheUserProvider::class);
+        });
 
-        //
+        $this->registerPolicies();
     }
 }

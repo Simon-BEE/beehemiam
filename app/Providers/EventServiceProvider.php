@@ -7,10 +7,12 @@ use App\Models\Category;
 use App\Models\ImageOption;
 use App\Models\Product;
 use App\Models\ProductOption;
+use App\Models\User;
 use App\Observers\CategoryObserver;
 use App\Observers\ImageOptionObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ProductOptionObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -57,5 +59,6 @@ class EventServiceProvider extends ServiceProvider
         ProductOption::observe(ProductOptionObserver::class);
         ImageOption::observe(ImageOptionObserver::class);
         Category::observe(CategoryObserver::class);
+        User::observe(UserObserver::class);
     }
 }

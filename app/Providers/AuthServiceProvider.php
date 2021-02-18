@@ -24,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Auth::provider('cache-user', function() {
+        Auth::provider('cache-user', function () {
             return resolve(CacheUserProvider::class);
         });
 

@@ -185,7 +185,7 @@
                             </tbody>
                         </table>
                         <p class="mt-4 md:mt-20 text-right">
-                            <a href="#" class="text-primary-500">Plus de détails</a>
+                            <a href="#" class="text-primary-500 hover:underline">Plus de détails</a>
                         </p>
                     </div>
                 </article>

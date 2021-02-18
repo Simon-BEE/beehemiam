@@ -16,8 +16,7 @@ class UserAdressTest extends TestCase
         $this->get(route('user.addresses.create'))
             ->assertSuccessful()
             ->assertViewIs('user.addresses.create')
-            ->assertSee(Country::inRandomOrder()->first()->name)    
-        ;
+            ->assertSee(Country::inRandomOrder()->first()->name);
     }
 
     /** @test */
@@ -39,8 +38,7 @@ class UserAdressTest extends TestCase
             'is_main' => true,
             'is_billing' => true,
         ])
-            ->assertSuccessful()
-        ;
+            ->assertSuccessful();
 
         $this->assertEquals('Mon adresse', $user->addresses()->first()->name);
         $this->assertEquals('Mon adresse', $user->address->name);
@@ -65,8 +63,7 @@ class UserAdressTest extends TestCase
             'is_main' => false,
             'is_billing' => false,
         ])
-            ->assertSuccessful()
-        ;
+            ->assertSuccessful();
 
         $this->assertEquals('Mon adresse', $user->addresses()->first()->name);
         $this->assertTrue($user->address->is_main);
@@ -116,4 +113,171 @@ class UserAdressTest extends TestCase
         $this->assertFalse($firstAddress->fresh()->is_billing);
         $this->assertTrue($secondAddress->is_billing);
     }
+
+    /** @test */
+    public function a_user_can_see_edit_address_form()
+    {
+        $user = $this->signIn();
+        $address = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => true,
+            'is_billing' => true,
+        ]);
+
+        $this->get(route('user.addresses.edit', $address))
+            ->assertSuccessful()
+            ->assertViewIs('user.addresses.edit')
+            ->assertSee($address->street);
+    }
+
+    /** @test */
+    public function a_user_cannot_see_edit_address_form_of_an_address_that_does_not_belongs_to_him()
+    {
+        $this->signIn();
+        $address = Address::factory()->create();
+
+        $this->get(route('user.addresses.edit', $address))
+            ->assertNotFound();
+    }
+
+    /** @test */
+    public function a_user_can_edit_an_address()
+    {
+        $user = $this->signIn();
+        $address = Address::factory()->create([
+            'name' => 'Mon adresse',
+            'user_id' => $user->id,
+        ]);
+
+        $this->followingRedirects()->patch(route('user.addresses.update', $address), [
+            'name' => 'Mon adresse éditée',
+            'country_id' => 1,
+            'firstname' => $user->firstname,
+            'lastname' => $user->lastname,
+            'street' => '30 rue des cocotiers',
+            'additionnal' => '2ème étage',
+            'zipcode' => '13100',
+            'city' => 'Marseille',
+            'phone' => '0615141213',
+            'email' => $user->email,
+            'is_main' => true,
+            'is_billing' => true,
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals('Mon adresse éditée', $address->fresh()->name);
+        $this->assertEquals('Mon adresse éditée', $user->address->name);
+    }
+
+    /** @test */
+    public function a_user_cannot_edit_an_address_that_does_not_belongs_to_him()
+    {
+        $user = $this->signIn();
+        $address = Address::factory()->create([
+            'name' => 'Mon adresse',
+        ]);
+
+        $this->followingRedirects()->patch(route('user.addresses.update', $address), [
+            'name' => 'Mon adresse éditée',
+            'country_id' => 1,
+            'firstname' => $user->firstname,
+            'lastname' => $user->lastname,
+            'street' => '30 rue des cocotiers',
+            'additionnal' => '2ème étage',
+            'zipcode' => '13100',
+            'city' => 'Marseille',
+            'phone' => '0615141213',
+            'email' => $user->email,
+            'is_main' => true,
+            'is_billing' => true,
+        ])
+            ->assertForbidden();
+
+        $this->assertEquals('Mon adresse', $address->fresh()->name);
+    }
+
+    /** @test */
+    public function a_user_can_delete_an_address()
+    {
+        $user = $this->signIn();
+        $address = Address::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->followingRedirects()->delete(route('user.addresses.destroy', $address))
+            ->assertSuccessful();
+
+        $this->assertNull($user->addresses()->first());
+    }
+
+    /** @test */
+    public function a_user_cannot_delete_an_address_that_does_not_belongs_to_him()
+    {
+        $this->signIn();
+        $address = Address::factory()->create();
+
+        $this->followingRedirects()->delete(route('user.addresses.destroy', $address))
+            ->assertForbidden();
+
+        $this->assertNotNull($address);
+    }
+
+    /** @test */
+    public function if_an_address_is_deleted_and_another_address_exists_so_its_become_main_and_billing_address()
+    {
+        $user = $this->signIn();
+        $firstAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => true,
+            'is_billing' => true,
+        ]);
+        $secondAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => false,
+            'is_billing' => false,
+        ]);
+
+        $firstAddress->delete();
+
+        $this->assertTrue($secondAddress->fresh()->is_main);
+        $this->assertTrue($secondAddress->fresh()->is_billing);
+    }
+
+    /** @test */
+    public function if_an_address_is_deleted_and_has_is_main_or_is_billing_to_true_then_another_address_get_this_property_to_true()
+    {
+        $user = $this->signIn();
+        $firstAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => true,
+            'is_billing' => true,
+        ]);
+        $secondAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => true,
+            'is_billing' => true,
+        ]);
+        $thirdAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => false,
+            'is_billing' => false,
+        ]);
+        $fourthAddress = Address::factory()->create([
+            'user_id' => $user->id,
+            'is_main' => false,
+            'is_billing' => true,
+        ]);
+        $this->assertFalse($firstAddress->fresh()->is_main);
+        $this->assertFalse($firstAddress->fresh()->is_billing);
+        $this->assertTrue($secondAddress->fresh()->is_main);
+        $this->assertFalse($secondAddress->fresh()->is_billing);
+        
+        $secondAddress->fresh()->delete();
+        
+        $this->assertTrue($firstAddress->fresh()->is_main);
+        $this->assertFalse($thirdAddress->fresh()->is_main);
+        $this->assertTrue($fourthAddress->fresh()->is_billing);
+        $this->assertNull($secondAddress->fresh());
+    }
+    
 }

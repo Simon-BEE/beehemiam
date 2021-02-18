@@ -9,16 +9,28 @@ class UserAddressRepository
 {
     public function save(User $user, array $validatedData): Address
     {
-        if (!isset($validatedData['is_main'])) {
-            $validatedData['is_main'] = false;
-        }
+        return $user->addresses()->create(array_merge($validatedData, [
+            'is_main' => isset($validatedData['is_main']),
+            'is_billing' => isset($validatedData['is_billing']),
+        ]));
+    }
 
-        if (!isset($validatedData['is_billing'])) {
-            $validatedData['is_billing'] = false;
-        }
+    public function update(Address $address, array $validatedData): Address
+    {
+        $validatedData['is_main'] = $validatedData['is_main']
+            ?? ($address->user->address->is($address) ?? false);
 
-        $address = $user->addresses()->create($validatedData);
+        $validatedData['is_billing'] = $validatedData['is_billing']
+            ?? ($address->user->address->is($address) ?? false);
 
-        return $address;
+        return tap($address)->update(array_merge($validatedData, [
+            'is_main' => $validatedData['is_main'],
+            'is_billing' => $validatedData['is_billing'],
+        ]));
+    }
+
+    public function delete(Address $address): void
+    {
+        $address->delete();
     }
 }

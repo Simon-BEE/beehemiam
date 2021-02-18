@@ -1,7 +1,7 @@
-@props(['name', 'value', 'isCheck'])
+@props(['name', 'value', 'isCheck', 'classDiv'])
 <label 
     for="{{ $name }}"
-    class="flex items-center cursor-pointer"
+    class="flex items-center cursor-pointer {{ $classDiv ?? 'mt-4' }}"
   >
     <!-- toggle -->
     <div class="relative">
@@ -26,7 +26,7 @@
     </div>
     <!-- label -->
     <div
-      class="ml-3 text-gray-700 dark:text-gray-400 font-medium"
+      class="ml-3 text-kaki-900 font-medium"
     >
       {{ $slot }}
     </div>

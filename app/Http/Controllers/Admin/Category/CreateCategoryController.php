@@ -18,7 +18,7 @@ class CreateCategoryController extends Controller
     public function store(StoreCategoryRequest $request, CategoryRepository $repository): RedirectResponse
     {
         try {
-            $repository->store($request->validated());
+            $repository->save($request->validated());
 
             return redirect()->route('admin.categories.index')->with([
                 'type' => 'Succès',

@@ -54,7 +54,7 @@ class AddressObserver
         $this->checkAddressDefault($address, 'is_billing');
     }
 
-    private function checkAddressDefault(Address $address, string $property)
+    private function checkAddressDefault(Address $address, string $property): void
     {
         if ($property !== 'is_billing' && $property !== 'is_main') {
             throw new \Exception("Property '$property' is not defined in Address Model", 1);

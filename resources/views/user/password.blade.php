@@ -58,6 +58,8 @@
                 </x-form.button>
             </div>
         </x-form.form>
+
+    </section>
 </x-layouts.user>
 
 @endsection

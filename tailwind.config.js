@@ -104,6 +104,9 @@ module.exports = {
             height: {
                 '60-screen': '65vh',
             },
+            width: {
+                '47p': '47%',
+            },
             colors: {
                 kaki: {
                     '300': '#98d2fb',

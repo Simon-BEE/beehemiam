@@ -5,6 +5,7 @@ namespace App\Repositories\Users;
 use App\Events\PasswordEdited;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 class UserRepository
 {
@@ -44,5 +45,10 @@ class UserRepository
     public function resendEmailVerification(User $user): void
     {
         $user->sendEmailVerificationNotification();
+    }
+
+    public function exportPersonnalData(User $user): void
+    {
+        dispatch(new CreatePersonalDataExportJob($user));
     }
 }

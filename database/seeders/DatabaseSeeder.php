@@ -35,5 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(SizesSeeder::class);
+
+        $this->call(ShopSeeder::class);
     }
 }

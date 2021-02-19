@@ -50,4 +50,7 @@ Route::group(['as' => 'settings.', 'prefix' => 'parametres'], function () {
     Route::get('/', [SettingsUserController::class, 'index'])->name('index');
 
     Route::post('/donnees-personnelles', [SettingsUserController::class, 'personnalData'])->name('personnal-data');
+
+    Route::get('/suppression/{user}', [SettingsUserController::class, 'deleteAccount'])->name('delete-account');
+    Route::post('/suppression', [SettingsUserController::class, 'emailDeleteAccount'])->name('email-delete-account');
 });

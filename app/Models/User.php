@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Mail\Users\DeleteAccountMail;
 use App\Notifications\VerifyEmailQueued;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
@@ -47,9 +51,14 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
         'newsletter' => 'boolean',
     ];
 
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmailQueued);
+    }
+
+    public function sendEmailToDeleteAccount(): void
+    {
+        Mail::to($this)->send(new DeleteAccountMail($this));
     }
     
     /**
@@ -77,7 +86,10 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
      * ? SCOPES
      */
 
-    // ...
+    public function scopeAdministrators(Builder $query): Collection
+    {
+        return $query->where('role', self::ADMIN_ROLE)->get();
+    }
 
     /**
      * ? RELATIONS

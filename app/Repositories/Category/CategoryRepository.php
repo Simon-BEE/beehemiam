@@ -6,7 +6,7 @@ use App\Models\Category;
 
 class CategoryRepository
 {
-    public function store(array $validatedData): Category
+    public function save(array $validatedData): Category
     {
         $category = Category::create($validatedData);
 

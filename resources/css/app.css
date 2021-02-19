@@ -2,13 +2,49 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+::selection{
+    background: #E4A075;
+    color: #fff;
+}
+
 .toggle__dot {
     top: -.25rem;
     left: -.25rem;
     transition: all 0.3s ease-in-out;
 }
+
+input[type='checkbox'] {
+    border-radius: 5px !important
+}
+
+input[type='checkbox']:focus {
+    outline: none;
+    --tw-ring-color: transparent;
+}
   
 input:checked ~ .toggle__dot {
     transform: translateX(100%);
     background-color: #7E3AF2;
+}
+  
+input:checked ~ .toggle__dot.front-switch {
+    background-color: #e4a075;
+}
+
+a.nav-link::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #E4A075;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+a.nav-link:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
 }

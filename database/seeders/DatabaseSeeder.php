@@ -35,5 +35,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(SizesSeeder::class);
+
+        if (app()->env !== 'testing') {
+            $this->call(ShopSeeder::class);
+        }
     }
 }

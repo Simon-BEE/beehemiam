@@ -110,7 +110,7 @@
                             <tr>
                                 <td colspan="4" class="text-center py-8 text-gray-500">
                                     Aucune catégorie n'a été enregistée. <a href="{{ route('admin.categories.create') }}"
-                                        class="text-indigo-500 hover:underline">Créez en une !</a>
+                                        class="text-purple-500 hover:underline">Créez en une !</a>
                                 </td>
                             </tr>
                         @endforelse

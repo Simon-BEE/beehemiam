@@ -35,7 +35,7 @@ class CreateProductController extends Controller
     public function store(StoreProductRequest $request, CreateProductRepository $repository): RedirectResponse
     {
         try {
-            $product = $repository->store($request->validated());
+            $product = $repository->save($request->validated());
 
             return redirect()->route('admin.products.edit', $product)->with([
                 'type' => 'Succès',

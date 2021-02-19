@@ -36,15 +36,11 @@ class RegisterUserRequest extends FormRequest
         ];
     }
 
-    public function withValidator(Validator $validator): void
+    public function messages(): array
     {
-        $validator->after(function ($validator) {
-            $failedRules = $validator->failed();
-            // dd($failedRules, $this->all());
-            // if (!empty($failedRules)) {
-            //     session()->flash('type', 'error');
-            //     session()->flash('message', 'Please fill correctly the form.');
-            // }
-        });
+        return [
+            'password.between' => "Le mot de passe ne correspond pas aux valeurs attendues",
+            'email.unique' => "Cette adresse email est déjà utilisée.",
+        ];
     }
 }

@@ -14,7 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->is_admin;
+        return auth()->check();
     }
 
     /**
@@ -32,11 +32,20 @@ class UpdateUserRequest extends FormRequest
                 'required', 'between:2,255',
             ],
             'email' => [
-                'required', 'email', Rule::unique('users', 'email')->ignore($this->route('user')->id),
+                'required', 'email', Rule::unique('users', 'email')->ignore(
+                    $this->route('user') ? $this->route('user')->id : auth()->id()
+                ),
             ],
             'newsletter' => [
                 'nullable', 'boolean',
             ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.unique' => "Cette adresse email est déjà utilisée.",
         ];
     }
 }

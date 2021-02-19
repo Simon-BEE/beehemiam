@@ -6,7 +6,7 @@ use App\Models\Product;
 
 class CreateProductRepository extends ProductRepository
 {
-    public function store(array $validatedData): Product
+    public function save(array $validatedData): Product
     {
         if (!isset($validatedData['is_preorder'])) {
             $validatedData = $this->checkAndReOrderSizeAndQuantity($validatedData);

@@ -49,6 +49,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('welcome')->with([
+            'type' => 'Succès',
+            'message' => 'Vous êtes bien déconnecté. À bientôt 👋',
+        ]);
     }
 }

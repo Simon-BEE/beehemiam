@@ -10,9 +10,19 @@ class UserRepository
 {
     public function update(User $user, array $validatedData): User
     {
-        return tap($user)->update(array_merge($validatedData, [
+        if (!auth()->user()->is_admin && $user->email !== $validatedData['email']) {
+            $validatedData['email_verified_at'] = null;
+        }
+
+        $user = tap($user)->update(array_merge($validatedData, [
             'newsletter' => isset($validatedData['newsletter']),
         ]));
+
+        if (!$user->hasVerifiedEmail()) {
+            $this->resendEmailVerification($user);
+        }
+
+        return $user;
     }
 
     public function updatePassword(User $user, string $newPassword): User

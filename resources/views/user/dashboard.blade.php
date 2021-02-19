@@ -92,18 +92,17 @@
 
                     <h3 class="absolute -top-4 py-1 px-4 bg-primary-100 uppercase text-sm">Adresse par défaut</h3>
 
-
                     <article class="p-3 flex items-center flex-wrap rounded">
                         <svg class="h-5 w-5 mr-3" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M22,3H2C0.91,3.04 0.04,3.91 0,5V19C0.04,20.09 0.91,20.96 2,21H22C23.09,20.96 23.96,20.09 24,19V5C23.96,3.91 23.09,3.04 22,3M22,19H2V5H22V19M14,17V15.75C14,14.09 10.66,13.25 9,13.25C7.34,13.25 4,14.09 4,15.75V17H14M9,7A2.5,2.5 0 0,0 6.5,9.5A2.5,2.5 0 0,0 9,12A2.5,2.5 0 0,0 11.5,9.5A2.5,2.5 0 0,0 9,7M14,7V8H20V7H14M14,9V10H20V9H14M14,11V12H18V11H14" />
                         </svg>
                         <span class="mr-3">
                             <span class="mr-2 text-xs uppercase text-gray-500">Prénom</span>
-                            <span>{{ $user->firstname }}</span>
+                            <span>{{ $user->address->firstname }}</span>
                         </span>
                         <span>
                             <span class="mr-2 text-xs uppercase text-gray-500">Nom</span>
-                            <span>{{ $user->lastname }}</span>
+                            <span>{{ $user->address->lastname }}</span>
                         </span>
                     </article>
 
@@ -151,7 +150,7 @@
                     Modifier ou ajouter une adresse
                 </a>
             @else
-                <p class="mt-4">Vous n'avez enregistré aucune adresse par défaut. <a href="#" class="text-kaki-800 underline">Ajouter une adresse</a>.</p>
+                <p class="mt-4">Vous n'avez enregistré aucune adresse par défaut. <a href="{{ route('user.addresses.index') }}" class="text-kaki-800 underline">Ajouter une adresse</a>.</p>
             @endif
         </section>
 

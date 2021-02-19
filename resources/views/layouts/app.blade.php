@@ -56,7 +56,12 @@
         <x-alert />
     @endif
 
-<div class="wrapper container mx-auto md:my-4">
+    <div class="clickable-overlay hidden h-full w-full fixed"></div>
+    <x-modal>
+        @stack('modal')
+    </x-modal>
+
+<div class="wrapper container mx-auto md:py-4">
 
     @include('layouts.front.header')
 
@@ -69,6 +74,8 @@
 </div>
 
     @include('layouts.front.footer')
+
+    @stack('scripts')
 
 </body>
 

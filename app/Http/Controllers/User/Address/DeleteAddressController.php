@@ -16,7 +16,7 @@ class DeleteAddressController extends Controller
         try {
             $repository->delete($address);
 
-            return redirect()->route('welcome')->with([
+            return redirect()->route('user.addresses.index')->with([
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été supprimée.',
             ]);

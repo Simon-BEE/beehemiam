@@ -24,7 +24,7 @@ class CreateAddressController extends Controller
         try {
             $repository->save(auth()->user(), $request->validated());
 
-            return back()->with([
+            return redirect()->route('user.addresses.index')->with([
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été créée.',
             ]);

@@ -31,7 +31,7 @@
         </div>
 
         <section class="flex flex-col md:flex-row justify-between md:space-x-4 space-y-4 md:space-y-0 py-8">
-            @foreach ($addresses as $address)
+            @forelse ($addresses as $address)
                 <div class="relative border border-primary-400 p-4 rounded-sm w-full md:w-1/2 flex flex-col space-y-2">
                     @if ($address->is_main)
                         <h3 class="absolute -top-3 py-1 px-4 bg-primary-100 uppercase text-sm">Adresse par défaut</h3>
@@ -49,14 +49,14 @@
                         @endif
                         <a href="{{ route('user.addresses.edit', $address) }}" class="px-2 py-1 rounded hover:bg-primary-300" title="Éditer">
                             <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
-                            </svg>
-                        </a>
-                        <a href="{{ route('user.addresses.destroy', $address) }}" class="px-2 py-1 rounded hover:bg-primary-300" title="Supprimer">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                             </svg>
                         </a>
+                        <button type="button" data-route="{{ route('user.addresses.destroy', $address) }}" class="modal-button px-2 py-1 rounded hover:bg-primary-300" title="Supprimer">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+                            </svg>
+                        </button>
                     </div>
 
 
@@ -110,8 +110,50 @@
                         @endif
                     </article>
                 </div>
-            @endforeach
+            @empty
+                <p class="w-full my-4 text-center">
+                    Vous n'avez enregistré aucune adresse. 
+                    <a href="{{ route('user.addresses.create') }}" class="text-primary-500 hover:underline">Ajoutez en une</a>.
+                </p>
+            @endforelse
         </section>
 </x-layouts.user>
 
 @endsection
+
+@push('modal')
+    <div class="w-full text-kaki-800 flex flex-col space-y-4">
+        <h3 class="text-2xl font-bold">Suppression d'une adresse</h3>
+        <p>En confirmant cette action, vous allez supprimer cette adresse. Vous ne pourrez plus la récupérer. Si c'est une erreur, vous pouvez cliquer sur le bouton <strong>Annuler</strong> ci-dessous.</p>
+    </div>
+    <div class="mt-12 flex justify-end items-center">
+        <button class="bg-primary-200 rounded px-3 py-2 hover:bg-primary-300 inline-flex items-center mr-4">
+            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </svg>
+            Annuler
+        </button>
+        <x-form.form method="DELETE" action="#" class="modal-form inline-flex">
+            <button class="inline-flex items-center rounded p-2 transition-colors text-white bg-red-500 duration-200 hover:bg-red-600 font-semibold">
+                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+                </svg>
+                Je veux supprimer définitivement cette adresse
+            </button>
+        </x-form.form>
+    </div>
+@endpush
+
+@push('scripts')
+
+    <script>
+        const modalForm = document.querySelector('.modal-form');
+
+        document.querySelectorAll('.modal-button').forEach(button => {
+            button.addEventListener('click', () => {
+                modalForm.action = button.getAttribute('data-route');
+            });
+        });
+    </script>
+    
+@endpush

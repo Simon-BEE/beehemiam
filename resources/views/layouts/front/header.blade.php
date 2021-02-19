@@ -6,13 +6,13 @@
             <span class="relative z-10">Beehemiam</span>
         </a>
 
-        <button type="button" class="flex md:hidden p-4">
+        <button type="button" class="responsive-button flex md:hidden p-4 focus:outline-none">
             <svg class="w-7 h-7 focus:outline-none" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
             </svg>
         </button>
 
-        <nav class="flex items-center space-x-6 w-full md:w-auto">
+        <nav class="responsive-menu hidden md:flex items-center space-x-6 w-full md:w-auto">
 
             <div class="flex flex-col md:flex-row mt-4 w-full md:space-x-6">
                 <ul class="flex flex-col md:flex-row md:space-x-4 w-full">

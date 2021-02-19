@@ -1,5 +1,5 @@
 <section class="flex flex-col md:flex-row items-start">
-    <aside class="w-full md:w-1/4 bg-primary-300 pt-5 px-5 pb-32">
+    <aside class="w-full md:w-1/4 bg-primary-300 pt-5 px-5 pb-6 md:pb-32">
         <ul class="flex flex-col space-y-1">
             <li>
                 <a href="{{ route('user.profile.dashboard') }}" class="flex items-center px-2 py-3 transition-colors duration-300 font-semibold rounded-sm {{ request()->routeIs('user.profile.dashboard') ? 'bg-primary-700' : '' }} hover:bg-primary-700">

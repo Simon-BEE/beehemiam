@@ -45,7 +45,7 @@ class EditAddressController extends Controller
         try {
             $repository->setAsMain($address);
 
-            return back()->with([
+            return redirect()->route('user.addresses.index')->with([
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été définie comme principale.',
             ]);

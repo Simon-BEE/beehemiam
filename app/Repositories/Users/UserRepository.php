@@ -61,7 +61,7 @@ class UserRepository
     {
         DB::transaction(function () use ($user) {
             DB::table('delete_users')->upsert([
-                'email' => $user->email, 
+                'email' => $user->email,
                 'created_at' => now(),
             ], 'email');
         });
@@ -69,11 +69,11 @@ class UserRepository
         $user->sendEmailToDeleteAccount();
     }
 
-    public function deleteAccount(User $user)
+    public function deleteAccount(User $user): void
     {
         if (!DB::table('delete_users')->where('email', $user->email)->whereNull('deleted_at')->exists()) {
             throw new CannotDeleteUserAccountException(
-                'Une erreur est survenue, nous ne pouvons compléter la requête demandée.', 
+                'Une erreur est survenue, nous ne pouvons compléter la requête demandée.',
                 1
             );
         }

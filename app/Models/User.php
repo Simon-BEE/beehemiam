@@ -112,10 +112,10 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
                 'prénom' => $this->firstname,
                 'nom' => $this->lastname,
                 'email' => $this->email,
-                'adresse' => $this->address 
-                    ? $this->address->street 
-                        . ' ' 
-                        . $this->address->zipcode 
+                'adresse' => $this->address
+                    ? $this->address->street
+                        . ' '
+                        . $this->address->zipcode
                         . ' '
                         . $this->address->city
                         . ' '

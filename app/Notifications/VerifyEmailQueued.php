@@ -15,10 +15,14 @@ class VerifyEmailQueued extends VerifyEmail implements ShouldQueue
     protected function buildMailMessage($url): MailMessage
     {
         return (new MailMessage)
-            ->subject(Lang::get('Verify Email Address'))
-            ->line(Lang::get('Please click the button below to verify your email address.'))
-            ->action(Lang::get('Verify Email Address'), $url)
+            ->subject("Vérification de l'adresse email")
+            ->line("Veuillez cliquer sur le bouton ci-dessous pour vérifier votre adresse email :")
+            ->action("Vérfier l'adresse email", $url)
             ->line("Si vous n'avez pas créé de compte, vous pouvez ignorer ce message.")
-            ->line("Si vous aviez déjà un compte et n'êtes pas à l'origine de cette démarche, veuillez contacter un administrateur à cette adresse email contact@beehemiam.fr ou depuis le formulaire de contact sur beehemiam.fr.");
+            ->line(
+                "Si vous aviez déjà un compte et n'êtes pas à l'origine de cette démarche, 
+                veuillez contacter un administrateur à cette adresse email contact@beehemiam.fr 
+                ou depuis le formulaire de contact sur beehemiam.fr."
+            );
     }
 }

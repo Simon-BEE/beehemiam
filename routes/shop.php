@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Shop\IndexShopController;
+use App\Http\Controllers\Shop\Category\IndexCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,4 +12,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', IndexShopController::class)->name('index');
+Route::group(['as' => 'categories.'], function () {
+    Route::get('/', IndexCategoryController::class)->name('index');
+});

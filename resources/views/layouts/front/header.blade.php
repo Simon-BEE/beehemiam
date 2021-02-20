@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('shop.index') }}" class="nav-link relative flex p-2 rounded font-semibold">
+                        <a href="{{ route('shop.categories.index') }}" class="nav-link relative flex p-2 rounded font-semibold">
                             La boutique
                         </a>
                     </li>

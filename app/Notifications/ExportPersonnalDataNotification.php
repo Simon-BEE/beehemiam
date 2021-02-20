@@ -35,12 +35,12 @@ class ExportPersonnalDataNotification extends Notification implements ShouldQueu
         $this->deletionDatetime = now()->addDays(config('personal-data-export.delete_after_days'));
     }
 
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable): MailMessage
     {
         $downloadUrl = route('personal-data-exports', $this->zipFilename);
 
@@ -50,12 +50,17 @@ class ExportPersonnalDataNotification extends Notification implements ShouldQueu
 
         return (new MailMessage)
             ->subject('Téléchargement de vos données personnelles')
-            ->line("Veuillez cliquer sur le bouton ci-dessous pour télécharger le fichier zip contenant toutes vos données enregistrées sur Beehemiam.fr.")
+            ->line(
+                "Veuillez cliquer sur le bouton ci-dessous pour télécharger le fichier zip 
+                contenant toutes vos données enregistrées sur Beehemiam.fr."
+            )
             ->action("Télécharger mes données", $downloadUrl)
-            ->line("Le fichier sera supprimé à la date suivante : " . $this->deletionDatetime->format('d/m/Y à H:i') . '.');
+            ->line(
+                "Le fichier sera supprimé à la date suivante : " . $this->deletionDatetime->format('d/m/Y à H:i') . '.'
+            );
     }
 
-    public static function toMailUsing($callback)
+    public static function toMailUsing(mixed $callback): void
     {
         static::$toMailCallback = $callback;
     }

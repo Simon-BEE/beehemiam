@@ -45,7 +45,8 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME)->with([
             'type' => 'Succès',
-            'message' => "Votre compte a bien été créé sur Beehemiam.fr ! Pensez à confirmer votre adresse email depuis votre messagerie."
+            'message' => "Votre compte a bien été créé sur Beehemiam.fr ! 
+                Pensez à confirmer votre adresse email depuis votre messagerie."
         ]);
     }
 }

@@ -8,7 +8,7 @@ if (!function_exists('notify_administrators')) {
     function notify_administrators(string $eventType): void
     {
         Notification::send(
-            User::administrators(), 
+            User::administrators(),
             new SimpleAdminNotification($eventType)
         );
     }

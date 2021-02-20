@@ -150,7 +150,7 @@
                     Modifier ou ajouter une adresse
                 </a>
             @else
-                <p class="mt-4">Vous n'avez enregistré aucune adresse par défaut. <a href="{{ route('user.addresses.index') }}" class="text-kaki-800 underline">Ajouter une adresse</a>.</p>
+                <p class="mt-10 mb-12">Vous n'avez enregistré aucune adresse par défaut. <a href="{{ route('user.addresses.index') }}" class="text-kaki-800 underline">Ajouter une adresse</a>.</p>
             @endif
         </section>
 

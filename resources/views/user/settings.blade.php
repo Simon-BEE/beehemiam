@@ -36,7 +36,7 @@
             </x-form.form>
         </article>
 
-        <article class="w-full md:w-1/2 mt-8">
+        <article class="w-full md:w-1/2 mt-16">
             <p>Vous pouvez supprimer votre compte de <a href="{{ url('/') }}" class="font-bold">Beehemiam.fr</a> si vous le désirez. Également dans le cadre des réglèmentations stipulées par la <a href="https://www.cnil.fr/fr/comprendre-le-rgpd" class="font-bold underline">RGPD</a>, vous avez le droit à l'effacement, soit le droit à l'oubli numérique. pour effectuer cette démarche, vous devez cliquer sur le bouton ci-dessous. Vous recevrez un e-mail afin de confirmer cette action.</p>
             <x-form.form method="POST" action="{{ route('user.settings.email-delete-account') }}" class="mt-4">
                 <x-form.button class="bg-red-500 text-white hover:bg-red-600">

@@ -11617,6 +11617,17 @@
                         /** @var \Illuminate\Routing\Router $instance */
                         return $instance->macroCall($method, $parameters);
         }
+                    /**
+         * 
+         *
+         * @see \Spatie\PersonalDataExport\PersonalDataExportServiceProvider::boot()
+         * @param string $url
+         * @static 
+         */ 
+        public static function personalDataExports($url)
+        {
+                        return \Illuminate\Routing\Router::personalDataExports($url);
+        }
          
     }
             /**
@@ -15845,6 +15856,29 @@
         public static function hasValidRelativeSignature()
         {
                         return \Illuminate\Http\Request::hasValidRelativeSignature();
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Routing { 
+            /**
+     * 
+     *
+     * @mixin \Illuminate\Routing\RouteRegistrar
+     */ 
+        class Router {
+                    /**
+         * 
+         *
+         * @see \Spatie\PersonalDataExport\PersonalDataExportServiceProvider::boot()
+         * @param string $url
+         * @static 
+         */ 
+        public static function personalDataExports($url)
+        {
+                        return \Illuminate\Routing\Router::personalDataExports($url);
         }
          
     }

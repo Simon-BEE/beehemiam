@@ -161,7 +161,7 @@ module.exports = {
         borderColor: ['focus', 'hover', 'dark', 'dark:focus', 'dark:hover'],
         divideColor: ['dark'],
         boxShadow: ['focus', 'dark:focus'],
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        opacity: ['responsive', 'hover', 'focus', 'disabled', 'group-hover'],
         ringOpacity: ['hover', 'active', 'focus'],
         outline: ['focus', 'responsive', 'hover'],
     },

@@ -11,7 +11,7 @@ class IndexCategoryController extends Controller
     public function __invoke(): View
     {
         return view('shop.categories.index', [
-            'categories' => Category::active()->get(),
+            'categories' => Category::withCount('products')->active()->get(),
         ]);
     }
 }

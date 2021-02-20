@@ -9,6 +9,8 @@
     <meta name="keywords"
         content="vêtements, allaitement, éthiques, naturels, écologique, bébé, maternel, maternelle" />
 
+    <title>{{ config('app.name') }} @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
+
     @hasSection ('meta-desc')
         <meta name="description" content="@yield('meta-desc')" />
         <meta name="og:description" content="@yield('meta-desc')" />
@@ -36,8 +38,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     <link rel="manifest" href="/favicons/site.webmanifest">
-
-<title>{{ config('app.name') }} @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com">

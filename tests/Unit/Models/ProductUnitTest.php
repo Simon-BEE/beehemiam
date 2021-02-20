@@ -41,9 +41,16 @@ class ProductUnitTest extends TestCase
             'filename' => 'image.jpg',
             'full_path' => 'path/image.jpg',
         ]);
+        ImageOption::create([
+            'product_option_id' => ProductOption::first()->id,
+            'filename' => 'image.jpg',
+            'full_path' => 'path/image.jpg',
+            'is_thumb' => true,
+        ]);
 
         $this->assertNotNull($product->optionDescription);
         $this->assertNotNull($product->optionImage);
+        $this->assertNotNull($product->optionThumbImage);
         $this->assertNotNull($product->optionName);
         $this->assertNotNull($product->optionFormattedPrice);
         $this->assertEquals($product->optionDescription, ProductOption::first()->description);

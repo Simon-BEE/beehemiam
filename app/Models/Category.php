@@ -29,7 +29,10 @@ class Category extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getImageAttribute(): string
+    {
+        return 'https://source.unsplash.com/500x600/weekly?' . $this->name;
+    }
 
     /**
      * ? SCOPES

@@ -19,6 +19,7 @@
     <section class="w-full md:p-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-16">
         @forelse ($categories as $category)
             <a href="{{ route('shop.categories.show', $category) }}" class="flex flex-col justify-between transform transition-transform duration-500 hover:scale-105 relative">
+                {{-- <img src="{{ $category->image }}" alt="{{ $category->name }} image" class="w-full rounded shadow-xl"> --}}
                 <img src="https://source.unsplash.com/500x600/weekly?boho" alt="{{ $category->name }} image" class="w-full rounded shadow-xl">
                 <div class="absolute inset-0 bg-black bg-opacity-25 text-white flex flex-col items-center justify-center">
                     <h4 class="text-4xl font-bold">{{ $category->name }}</h4>

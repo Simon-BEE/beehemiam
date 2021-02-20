@@ -77,6 +77,11 @@ class Product extends Model
         return $this->firstProductOption()?->main_image;
     }
 
+    public function getOptionThumbImageAttribute(): ?ImageOption
+    {
+        return $this->firstProductOption()?->thumb_image;
+    }
+
     /**
      * ? SCOPES
      */

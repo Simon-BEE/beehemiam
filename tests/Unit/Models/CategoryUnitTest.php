@@ -21,4 +21,12 @@ class CategoryUnitTest extends TestCase
         $this->assertCount(1, Category::active()->get());
     }
     
+    /** @test */
+    public function a_category_has_a_property_img_with_unsplash_api()
+    {
+        $category = Category::factory()->create();
+
+        $this->assertNotNull($category->image);
+    }
+    
 }

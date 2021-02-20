@@ -12,7 +12,7 @@ class ShowCategoryController extends Controller
     {
         return view('shop.categories.show', [
             'category' => $category,
-            'products' => $category->products()->with('productOptions')->get(),
+            'products' => $category->products()->with('productOptions.images')->get(),
         ]);
     }
 }

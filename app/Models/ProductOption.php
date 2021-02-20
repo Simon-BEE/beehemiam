@@ -49,7 +49,7 @@ class ProductOption extends Model
 
     public function getMainImageAttribute(): ?ImageOption
     {
-        return $this->images()
+        return $this->images
             ->where('is_main', true)
             ->where('is_thumb', false)
             ->first();
@@ -57,7 +57,7 @@ class ProductOption extends Model
 
     public function getThumbImageAttribute(): ?ImageOption
     {
-        return $this->images()
+        return $this->images
             ->where('is_thumb', true)
             ->first();
     }

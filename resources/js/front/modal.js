@@ -9,6 +9,30 @@ try {
 } catch (error) {
     console.error(error, "Cannot load JS correctly");
 }
+
+try {
+    document.querySelectorAll('.modal-close').forEach(button => {
+        button.addEventListener('click', () => {
+            toggleModal(document.querySelector('.modal-content:not(.opacity-0)'));
+            toggleOverlay();
+        });
+    });
+} catch (error) {
+    console.error(error, "Cannot load JS correctly");
+}
+
+// Popover user avatar click
+try {
+    document.querySelectorAll('.popover-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            togglePopover(e.currentTarget.parentNode.querySelector('.popover-menu'));
+            toggleOverlay();
+        });
+    });
+} catch (error) {
+    console.error(error, "Cannot load JS correctly");
+}
+
 // Overlay click to close popover or modal
 try {
     document.querySelector('.clickable-overlay').addEventListener('click', () => {
@@ -19,16 +43,6 @@ try {
             toggleModal(modal);
         });
         toggleOverlay();
-    });
-} catch (error) {
-    console.error(error, "Cannot load JS correctly");
-}
-try {
-    document.querySelectorAll('.modal-close').forEach(button => {
-        button.addEventListener('click', () => {
-            toggleModal(document.querySelector('.modal-content:not(.opacity-0)'));
-            toggleOverlay();
-        });
     });
 } catch (error) {
     console.error(error, "Cannot load JS correctly");
@@ -50,4 +64,10 @@ function toggleOverlay(modal = false) {
     }else{
         overlay.classList.remove('bg-black', 'bg-opacity-25');
     }
+}
+
+function togglePopover(popover) {
+    popover.classList.toggle('md:opacity-0');
+    popover.classList.toggle('-z-1');
+    popover.classList.toggle('z-30');
 }

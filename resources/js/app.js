@@ -12,9 +12,3 @@ try {
 } catch (error) {
     console.error(error, "Cannot load JS correctly");
 }
-
-// function togglePopover(popover) {
-//     popover.classList.toggle('opacity-0');
-//     popover.classList.toggle('-z-1');
-//     popover.classList.toggle('z-30');
-// }

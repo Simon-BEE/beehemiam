@@ -67,6 +67,7 @@ namespace App\Models{
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|Category active()
@@ -364,6 +365,11 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
  * @property-read bool $has_options_quantities
+ * @property-read string|null $option_description
+ * @property-read float|null $option_formatted_price
+ * @property-read \App\Models\ImageOption|null $option_image
+ * @property-read string|null $option_name
+ * @property-read \App\Models\ImageOption|null $option_thumb_image
  * @property-read int $total_stock
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOption[] $productOptions
  * @property-read int|null $product_options_count

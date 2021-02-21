@@ -20,7 +20,6 @@ class ShowingShopTest extends TestCase
     /** @test */
     public function visitors_can_see_a_category_shop_page()
     {
-        $this->withoutExceptionHandling();
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
@@ -31,6 +30,21 @@ class ShowingShopTest extends TestCase
             ->assertViewIs('shop.categories.show')
             ->assertSee($product->name)
             ->assertSee($product->optionFormattedPrice);
+    }
+
+    /** @test */
+    public function visitors_can_see_a_product_shop_page()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->get(route('shop.products.show', [$category, $product]))
+            ->assertSuccessful()
+            ->assertViewIs('shop.products.show')
+            ->assertSee($product->name)
+            ->assertSee($productOption->name);
     }
     
 }

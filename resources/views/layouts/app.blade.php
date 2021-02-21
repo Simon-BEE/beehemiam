@@ -39,15 +39,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     <link rel="manifest" href="/favicons/site.webmanifest">
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- Styles -->
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Scripts -->
+    @livewireStyles
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body class="font-nunito bg-primary-100 text-kaki-900 overflow-x-hidden">
@@ -73,6 +74,7 @@
 
 </div>
 
+    @livewireScripts
     @include('layouts.front.footer')
 
     @stack('scripts')

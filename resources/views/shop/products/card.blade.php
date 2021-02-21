@@ -1,4 +1,4 @@
-<a href="#" class="group flex flex-col relative bg-primary-200 p-4 rounded-lg items-center">
+<a href="{{ route('shop.products.show', [$category, $product]) }}" class="group flex flex-col relative bg-primary-200 p-4 rounded-lg items-center">
     
     <figure class="relative">
         <img src="{{ $product->optionThumbImage?->path }}" alt="{{ $product->name }} image" class="w-full h-96 object-cover rounded-lg shadow-xl">

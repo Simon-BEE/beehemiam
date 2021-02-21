@@ -47,7 +47,6 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
-    @livewireStyles
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
@@ -62,7 +61,7 @@
         @stack('modal')
     </x-modal>
 
-<div class="wrapper container mx-auto md:py-4">
+<div class="wrapper container mx-auto md:py-4" id="app">
 
     @include('layouts.front.header')
 
@@ -74,7 +73,6 @@
 
 </div>
 
-    @livewireScripts
     @include('layouts.front.footer')
 
     @stack('scripts')

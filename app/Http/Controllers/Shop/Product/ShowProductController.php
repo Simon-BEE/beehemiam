@@ -10,9 +10,16 @@ class ShowProductController extends Controller
 {
     public function __invoke(Category $category, Product $product)
     {
+        $product->load(['productOptions.sizes.size', 'productOptions.images']);
+
+        $productOption = $product->firstProductOption();
+
         return view('shop.products.show', [
             'category' => $category,
-            'product' => $product->load(['productOptions.images']),
+            'product' => $product,
+            'productOptions' => $product->productOptions,
+            'currentOption' => $productOption,
+            'selectedSize' => $productOption->default_size,
         ]);
     }
 }

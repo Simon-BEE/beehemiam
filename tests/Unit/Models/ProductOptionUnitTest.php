@@ -28,4 +28,38 @@ class ProductOptionUnitTest extends TestCase
         $this->assertCount(1, $productOption->imagesWithoutThumb);
     }
     
+    /** @test */
+    public function an_option_has_a_default_size()
+    {
+        $productOption = ProductOption::factory()->create();
+        $productOption->sizes()->create([
+            'size_id' => 1, 'quantity' => 10,
+        ]);
+        $productOption->sizes()->create([
+            'size_id' => 2, 'quantity' => 10,
+        ]);
+        $productOption->sizes()->create([
+            'size_id' => 3, 'quantity' => 10,
+        ]);
+
+        $this->assertNotNull($productOption->defaultSize);
+        $this->assertEquals('XS', $productOption->defaultSize->size->name);
+    }
+
+    /** @test */
+    public function an_option_has_a_property_is_available()
+    {
+        $productOption = ProductOption::factory()->create();
+
+        $this->assertNotNull($productOption->is_available);
+        $this->assertFalse($productOption->is_available);
+        
+        $productOption->sizes()->create([
+            'size_id' => 1, 'quantity' => 10,
+        ]);
+
+        $this->assertTrue($productOption->fresh()->is_available);
+    }
+    
+    
 }

@@ -62,6 +62,16 @@ class ProductOption extends Model
             ->first();
     }
 
+    public function getDefaultSizeAttribute(): ?ProductOptionSize
+    {
+        return $this->sizes->first();
+    }
+
+    public function getIsAvailableAttribute(): bool
+    {
+        return $this->sizes->where('quantity', '>', 0)->isNotEmpty();
+    }
+
     /**
      * ? SCOPES
      */

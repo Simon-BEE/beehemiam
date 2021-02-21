@@ -62,13 +62,16 @@
                         <h3 class="font-bold text-xl">La boutique</h3>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">Voir la boutique</a>
+                        <a href="{{ route('shop.categories.index') }}" class="inline-flex p-1 hover:underline">Voir la boutique</a>
                     </li>
                     <li class="">
                         <a href="#" class="inline-flex p-1 hover:underline">Rechercher un vêtement</a>
                     </li>
                     <li class="">
                         <a href="#" class="inline-flex p-1 hover:underline">Précommandes</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class="inline-flex p-1 hover:underline">Livraisons & retours</a>
                     </li>
                 </ul>
 

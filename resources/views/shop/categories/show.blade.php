@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="breadcrumb -mt-6 mb-6 p-0 md:p-4 flex items-center justify-end flex-wrap space-x-2 text-kaki-800">
+<section class="breadcrumb -mt-6 mb-6 p-0 md:p-4 flex items-center md:justify-end flex-wrap space-x-2 text-kaki-800">
     <svg class="w-4 h-4" viewBox="0 0 24 24">
         <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
     </svg>

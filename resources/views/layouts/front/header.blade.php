@@ -6,11 +6,12 @@
             <span class="relative z-10">Beehemiam</span>
         </a>
 
-        <button type="button" class="responsive-button flex md:hidden p-4 focus:outline-none">
+        {{-- <button type="button" class="responsive-button flex md:hidden p-4 focus:outline-none">
             <svg class="w-7 h-7 focus:outline-none" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
             </svg>
-        </button>
+        </button> --}}
+        <responsive-button></responsive-button>
 
         <nav class="responsive-menu hidden md:flex items-center space-x-6 w-full md:w-auto">
 
@@ -61,13 +62,7 @@
                     </li>
                     <li class="w-full">
                         @auth
-                            <button class="popover-button hidden md:flex p-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25 focus:outline-none"
-                                title="Mon compte">
-                                <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-                                </svg>
-                            </button>
+                            <auth-button title="Mon compte"></auth-button>
                             <ul class="popover-menu w-full md:absolute top-12 right-0 md:bg-primary-100 md:shadow-lg md:rounded-lg md:w-72 py-1 transition-opacity duration-100 md:opacity-0 -z-1">
                                 @if (auth()->check() && auth()->user()->is_admin)
                                     <li>
@@ -103,13 +98,7 @@
                                 </li>
                             </ul>
                         @else
-                            <button class="popover-button hidden md:flex p-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25 focus:outline-none"
-                                title="Me connecter">
-                                <svg class="w-6 h-6" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-                                </svg>
-                            </button>
+                            <auth-button title="Me connecter"></auth-button>
                             <ul class="popover-menu w-full md:absolute top-12 right-0 md:bg-primary-100 md:shadow-lg md:rounded-lg md:w-72 py-1 transition-opacity duration-100 md:opacity-0 -z-1">
                                 <li>
                                     <a href="{{ route('login') }}" class="flex items-center px-3 py-2 transition-colors duration-300 hover:bg-primary-300">

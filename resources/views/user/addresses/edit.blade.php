@@ -28,12 +28,21 @@
                 @if ($address->is_main)
                     <span class="mr-2">Adresse par défaut</span>
                 @endif
-                <button class="modal-button text-red-400 flex items-center px-2 py-1 rounded hover:bg-primary-200">
+                {{-- <button class="modal-button text-red-400 flex items-center px-2 py-1 rounded hover:bg-primary-200">
                     <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
                     </svg>
                     Supprimer cette adresse
-                </button>
+                </button> --}}
+                <open-modal-button 
+                    classes="modal-button text-red-400 flex items-center px-2 py-1 rounded hover:bg-primary-200"
+                    title="Supprimer"
+                >
+                    <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+                    </svg>
+                    Supprimer cette adresse
+                </open-modal-button>
             </div>
         </div>
 
@@ -169,12 +178,12 @@
         <p>En confirmant cette action, vous allez supprimer cette adresse. Vous ne pourrez plus la récupérer. Si c'est une erreur, vous pouvez cliquer sur le bouton <strong>Annuler</strong> ci-dessous.</p>
     </div>
     <div class="mt-12 flex justify-end items-center">
-        <button class="bg-primary-200 rounded px-3 py-2 hover:bg-primary-300 inline-flex items-center mr-4">
+        <close-modal-button classes="bg-primary-200 rounded px-3 py-2 hover:bg-primary-300 inline-flex items-center mr-4">
             <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
             </svg>
             Annuler
-        </button>
+        </close-modal-button>
         <x-form.form method="DELETE" action="{{ route('user.addresses.destroy', $address) }}" class="modal-form inline-flex">
             <button class="inline-flex items-center rounded p-2 transition-colors text-white bg-red-500 duration-200 hover:bg-red-600 font-semibold">
                 <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">

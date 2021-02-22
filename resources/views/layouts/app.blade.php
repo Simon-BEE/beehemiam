@@ -55,13 +55,14 @@
     @if (session()->has('type') && session()->has('message'))
         <x-alert />
     @endif
+    
+<div class="wrapper relative container mx-auto md:py-4" id="app">
 
-    <div class="clickable-overlay hidden h-full w-full fixed"></div>
+    <overlay-background></overlay-background>
+
     <x-modal>
         @stack('modal')
     </x-modal>
-
-<div class="wrapper container mx-auto md:py-4" id="app">
 
     @include('layouts.front.header')
 

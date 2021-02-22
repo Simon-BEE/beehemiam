@@ -35,11 +35,6 @@ export default {
     };
   },
 
-  mounted() {
-    console.log(this.sizes, this.selectedSize);
-    document.cookie = 'cookie1=test; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/'
-  },
-
   methods: {
     selectNewSize(size) {
       this.newSelectedSize = size;

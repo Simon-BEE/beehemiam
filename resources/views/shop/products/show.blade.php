@@ -82,22 +82,11 @@
             </article>
     
             @if ($currentOption->is_available)
-                <x-form.form action="" method="">
+                <x-form.form action="#" method="#" id="addCartForm">
                     <article>
                         <p class="font-semibold">Séléctionner ma taille</p>
-        
+
                         <sizes-selector :selected-size="{{ json_encode($selectedSize) }}" :sizes="{{ json_encode($currentOption->sizes) }}" />
-            
-                        {{-- <div class="mt-4">
-                            @foreach ($currentOption->sizes as $size)
-                                <button 
-                                    class="p-4 rounded font-bold transition-colors duration-300 {{ $selectedSize->id == $size->id ? 'bg-primary-500 hover:bg-primary-400' : 'bg-primary-300 hover:bg-primary-400' }} focus:outline-none"
-                                    wire:click="selectSize({{ $size->id }})"
-                                >
-                                    {{ $size->size->name }}
-                                </button>
-                            @endforeach
-                        </div> --}}
                     </article>
             
                     <article class="flex flex-col md:flex-row items-center mt-8 space-x-4">
@@ -109,6 +98,8 @@
                             </svg>
                             Ajouter au panier
                         </button>
+
+                        <add-cart :product-option="{{ json_encode($currentOption) }}"></add-cart>
                     </article>
                 </x-form.form>
             @else

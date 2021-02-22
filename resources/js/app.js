@@ -1,6 +1,6 @@
 require('./bootstrap');
 
-// require('./front/alert');
+import Vue from 'vue';
 
 import ResponsiveButton from './components/header/ResponsiveButton';
 import AuthButton from './components/header/AuthButton';
@@ -8,8 +8,8 @@ import OpenModalButton from './components/OpenModalButton';
 import CloseModalButton from './components/CloseModalButton';
 import OverlayBackground from './components/OverlayBackground';
 import SizesSelector from './components/SizesSelector';
-
-import Vue from 'vue';
+import AddCart from './components/AddCart';
+import CartIcon from './components/header/CartIcon';
 
 Vue.mixin({
   methods: {
@@ -45,5 +45,6 @@ new Vue({
   components: {
     SizesSelector, ResponsiveButton, AuthButton, 
     OpenModalButton, OverlayBackground, CloseModalButton,
+    AddCart, CartIcon,
   },
 });

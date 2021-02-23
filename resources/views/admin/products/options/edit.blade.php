@@ -215,7 +215,7 @@ Modifier l'option : {{ $productOption->name }}
             let parent = button.parentNode;
             let img = parent.querySelector('img');
 
-            axios.post(`/produits/options/images/${img.getAttribute('data-img')}/delete`, {_method: 'DELETE'})
+            axios.post(`/yW4YQwtUCqbpswckCXLoiYmxg7d2GG/produits/options/images/${img.getAttribute('data-img')}/delete`, {_method: 'DELETE'})
                 .then(() => {
                     parent.classList.add('opacity-0');
 

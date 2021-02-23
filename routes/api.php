@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Products\ProductOptionImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => [], 'as' => 'api.', 'prefix' => config('auth.protected_token')], function () {
-    
-    Route::delete('/produits/options/images/{image}/delete', [ProductOptionImageController::class, 'destroy'])
-        ->name('products.options.images.delete');
+Route::group(['middleware' => [], 'as' => 'api.'], function () {
+
+    Route::group(['as' => 'cart.'], function () {
+        Route::post('/cart/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
+    });
+
+    Route::group(['prefix' => config('auth.protected_token')], function () {
+        
+        Route::delete('/produits/options/images/{image}/delete', [ProductOptionImageController::class, 'destroy'])
+            ->name('products.options.images.delete');
+    });
 });

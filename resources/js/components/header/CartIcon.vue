@@ -25,7 +25,6 @@ export default {
 
         // ! IMPORTANT
         window.addEventListener('new-product-added-to-cart', (event) => {
-            console.log(event);
             this.items = JSON.parse(event.detail.storage);
         });
     },

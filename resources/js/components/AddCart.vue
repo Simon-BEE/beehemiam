@@ -34,26 +34,14 @@ export default {
 
     methods: {
         addToCart(e) {
+            e.preventDefault();
             let selectedSize = document.getElementById('addCartForm').querySelector('input[name="size_id"]').value;
 
-            let cartItems = [];
-            if(localStorage.getItem('cart')){
-                cartItems = JSON.parse(localStorage.getItem('cart'));
-            }
-            cartItems.push({'productOptionSizeId' : selectedSize});
+            axios.post('/cart/add/sizes/' + selectedSize).then(response => {
+                console.log(response);
+            }).catch(error => console.error(error));
 
-            cartItems = [...new Map(cartItems.map(item => [item['productOptionSizeId'], item])).values()];
-
-            localStorage.setItem('cart', JSON.stringify(cartItems));
-
-            // ! IMPORTANT
-            window.dispatchEvent(new CustomEvent('new-product-added-to-cart', {
-                detail: {
-                    storage: localStorage.getItem('cart')
-                }
-            }));
-
-            e.currentTarget.innerHTML = "Produit ajouté au panier";
+            this.addItemToCart('productOptionSizeId', selectedSize);
         },
     },
 }

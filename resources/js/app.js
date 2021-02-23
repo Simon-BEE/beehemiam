@@ -36,6 +36,25 @@ Vue.mixin({
         modal.classList.toggle('-z-1');
         modal.classList.toggle('z-40');
     },
+
+    addItemToCart(itemKey, itemValue) {
+      let cartItems = [];
+      if(localStorage.getItem('cart')){
+          cartItems = JSON.parse(localStorage.getItem('cart'));
+      }
+      cartItems.push({itemKey : itemValue});
+
+      cartItems = [...new Map(cartItems.map(item => [item[itemKey], item])).values()];
+
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+
+      // ! IMPORTANT
+      window.dispatchEvent(new CustomEvent('new-product-added-to-cart', {
+          detail: {
+              storage: localStorage.getItem('cart')
+          }
+      }));
+    },
   }
 });
 

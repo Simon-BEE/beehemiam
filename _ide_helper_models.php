@@ -400,7 +400,9 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Discount|null $discount
+ * @property-read \App\Models\ProductOptionSize|null $default_size
  * @property-read float $formatted_price
+ * @property-read bool $is_available
  * @property-read \App\Models\ImageOption|null $main_image
  * @property-read \App\Models\ImageOption|null $thumb_image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $images

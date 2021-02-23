@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Cart\AddCartController;
+use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Api\Products\ProductOptionImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => [], 'as' => 'api.'], function () {
-
-    Route::group(['as' => 'cart.'], function () {
-        Route::post('/cart/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
-    });
 
     Route::group(['prefix' => config('auth.protected_token')], function () {
         

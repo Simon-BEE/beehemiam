@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 import Vue from 'vue';
+Vue.use(require('vue-cookies'))
 
 import ResponsiveButton from './components/header/ResponsiveButton';
 import AuthButton from './components/header/AuthButton';
@@ -39,19 +40,19 @@ Vue.mixin({
 
     addItemToCart(itemKey, itemValue) {
       let cartItems = [];
-      if(localStorage.getItem('cart')){
-          cartItems = JSON.parse(localStorage.getItem('cart'));
+      if(this.$cookies.get('beehemiamCart')){
+          cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
       }
-      cartItems.push({itemKey : itemValue});
-
-      cartItems = [...new Map(cartItems.map(item => [item[itemKey], item])).values()];
-
-      localStorage.setItem('cart', JSON.stringify(cartItems));
+      cartItems.push({'productOptionSizeId' : itemValue});
+      
+      cartItems = [...new Map(cartItems.map(item => [item['productOptionSizeId'], item])).values()];
+      
+      this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
       // ! IMPORTANT
       window.dispatchEvent(new CustomEvent('new-product-added-to-cart', {
           detail: {
-              storage: localStorage.getItem('cart')
+              storage: this.$cookies.get('beehemiamCart')
           }
       }));
     },

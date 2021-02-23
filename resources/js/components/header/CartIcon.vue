@@ -21,7 +21,7 @@ export default {
     },
 
     mounted() {
-        this.items = JSON.parse(localStorage.getItem('cart'));
+        this.items = JSON.parse(this.$cookies.get('beehemiamCart'));
 
         // ! IMPORTANT
         window.addEventListener('new-product-added-to-cart', (event) => {

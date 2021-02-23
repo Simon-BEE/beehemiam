@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Cart\AddCartController;
+use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,14 @@ use Illuminate\Support\Facades\Route;
 //     // return new \App\Mail\Users\PasswordHasChangedMail(auth()->user());
 //     return (new \App\Notifications\VerifyEmailQueued)->toMail(auth()->user());
 // });
+Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
+
+    Route::group(['as' => 'cart.'], function () {
+        Route::post('/cart/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
+
+        Route::patch('/cart/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
+    });
+});
 
 Route::get('/', WelcomeController::class)->name('welcome');
 

@@ -25,6 +25,7 @@
         "tailwindcss-multi-theme": "1.0.3",
         "turbolinks": "^5.2.0",
         "vue": "^2.6.12",
+        "vue-cookies": "^1.7.4",
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12"
     }

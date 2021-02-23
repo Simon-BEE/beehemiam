@@ -28,17 +28,19 @@ export default {
         },
     },
 
-    mounted() {
-        console.log(this.productOption);
-    },
-
     methods: {
         addToCart(e) {
             e.preventDefault();
             let selectedSize = document.getElementById('addCartForm').querySelector('input[name="size_id"]').value;
 
-            axios.post('/cart/add/sizes/' + selectedSize).then(response => {
-                console.log(response);
+            axios.post('/cart/add/sizes/' + selectedSize, 
+                null, 
+                {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
+                    }
+                }).then(response => {
+                console.info(response.data.message);
             }).catch(error => console.error(error));
 
             this.addItemToCart('productOptionSizeId', selectedSize);

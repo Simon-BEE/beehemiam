@@ -35,6 +35,7 @@ class ShowingShopTest extends TestCase
     /** @test */
     public function visitors_can_see_a_product_shop_page()
     {
+        $this->withoutExceptionHandling();
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);

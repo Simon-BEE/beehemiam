@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('cart.index') }}"
                             class="relative flex px-3 py-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25"
                             title="Mon panier">
                             <cart-icon></cart-icon>

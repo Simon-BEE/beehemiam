@@ -10,7 +10,7 @@ class CartRepository
 {
     public function add(ProductOptionSize $productOptionSize): void
     {
-        if ($cartItem = $this->existsInCart($productOptionSize)) {
+        if ($cartItem = $this->getIfExistsInCart($productOptionSize)) {
             /** @var CartItem $cartItem */
             $this->update($productOptionSize, $cartItem->qty + 1);
 
@@ -30,7 +30,7 @@ class CartRepository
         Cart::update(get_cart_row_id($productOptionSize), $quantity);
     }
 
-    private function existsInCart(ProductOptionSize $productOptionSize): CartItem|bool
+    private function getIfExistsInCart(ProductOptionSize $productOptionSize): CartItem|bool
     {
         try {
             return Cart::get(get_cart_row_id($productOptionSize));

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 //     // return new \App\Mail\Users\PasswordHasChangedMail(auth()->user());
 //     return (new \App\Notifications\VerifyEmailQueued)->toMail(auth()->user());
 // });
-/** 
+/**
  * Cart api routes
 */
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {

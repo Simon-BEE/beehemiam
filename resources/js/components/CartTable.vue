@@ -79,9 +79,19 @@ export default {
     },
 
     methods: {
+        updateQuantity(id) {
+            // todo
+            // api update product in session cart
+            // update product in cookies
+        },
+
         removeProduct(id) {
             this.loading = true;
             this.products = this.products.filter(product => product.id != id);
+
+            // todo
+            // api remove product in session cart
+            // remove product in cookies
         },
     },
 }

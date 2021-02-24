@@ -12,6 +12,7 @@ Site e-commerce destiné à la marque de vêtements pour mère allaitante **Beeh
 
 - [x] Importer Larawind (admin template)
 - [ ] Créer le template front
+- [ ] Panier (update; delete; Vuejs)
 
 
 ### Informations générales

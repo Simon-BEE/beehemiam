@@ -28,6 +28,8 @@ class ProductOption extends Model
         'price' => 'integer',
     ];
 
+    protected $appends = ['formatted_price'];
+
     public function hasSize(int $sizeId): bool
     {
         return $this->sizes->contains('size_id', $sizeId);

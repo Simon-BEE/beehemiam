@@ -27,6 +27,8 @@ class ImageOption extends Model
         'is_thumb' => 'boolean',
     ];
 
+    protected $appends = ['path'];
+
     /**
      * ? ATTRIBUTES
      */

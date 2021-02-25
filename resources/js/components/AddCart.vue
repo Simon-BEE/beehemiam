@@ -19,6 +19,7 @@
 
 <script>
 import OpenModalButton from './OpenModalButton';
+
 export default {
     components: {OpenModalButton},
 

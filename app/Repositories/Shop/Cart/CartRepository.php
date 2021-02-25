@@ -31,6 +31,9 @@ class CartRepository
         Cart::update(get_cart_row_id($productOptionSize), $quantity);
     }
 
+    /**
+     * @psalm-suppress UndefinedDocblockClass
+     */
     public function remove(ProductOptionSize $productOptionSize): void
     {
         Cart::remove(get_cart_row_id($productOptionSize));
@@ -40,6 +43,9 @@ class CartRepository
         }
     }
 
+    /**
+     * @psalm-suppress UndefinedDocblockClass
+     */
     public function getProductsFromCart(): array
     {
         if (Cart::content()->isEmpty()) {

@@ -6,8 +6,8 @@
         </svg>
         <span class="md:hidden">Mon panier</span>
         <span
-            class="absolute -top-0.5 -right-0.5 bg-primary-600 text-white py-0.5 px-1 rounded-full text-xs" v-if="items && items.length > 0">
-            {{ items.length }}
+            class="absolute -top-0.5 -right-0.5 bg-primary-600 text-white py-0.5 px-1 rounded-full text-xs" v-if="numberProductsInCart">
+            {{ numberProductsInCart }}
         </span>
     </span>
 </template>
@@ -17,15 +17,15 @@ export default {
     data() {
         return {
             items: null,
+            numberProductsInCart: null,
         }
     },
 
     mounted() {
-        this.items = JSON.parse(this.$cookies.get('beehemiamCart'));
+        this.numberProductsInCart = JSON.parse(this.$cookies.get('beehemiamCart')).length;
 
-        // ! IMPORTANT
-        window.addEventListener('new-product-added-to-cart', (event) => {
-            this.items = JSON.parse(event.detail.storage);
+        window.addEventListener('cart-change-event', (event) => {
+            this.numberProductsInCart = event.detail.storage;
         });
     },
 }

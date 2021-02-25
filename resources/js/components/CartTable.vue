@@ -57,6 +57,7 @@
 
 <script>
 import Loader from './LoaderIcon';
+import EventBus from '../event-bus';
 
 export default {
     components: { Loader },
@@ -77,8 +78,6 @@ export default {
 
     methods: {
         updateQuantity(product) {
-            this.loading = true;
-
             if (product.cart_quantity < 1) {
                 let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
                 cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
@@ -92,6 +91,7 @@ export default {
                 product.cart_quantity = 10;
             }
 
+            EventBus.$emit('test-event', this);
 
             axios.patch('/cart/update/sizes/' + product.id, 
                 {quantity: product.cart_quantity}, 
@@ -102,12 +102,14 @@ export default {
                 }).then(response => {
                 console.info(response.data.message);
             }).catch(error => console.error(error))
-            .finally(() => this.loading = false);
+            .finally(() => {
+                if (!this.products.length) {
+                    window.location.reload();
+                }
+            });
         },
 
         removeProduct(id) {
-            this.loading = true;
-
             let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
             cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != id);
             this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
@@ -121,8 +123,18 @@ export default {
                 }).then(response => {
                 console.info(response.data.message);
                 this.products = this.products.filter(product => product.id != id);
+
+                window.dispatchEvent(new CustomEvent('cart-change-event', {
+                    detail: {
+                        storage: this.products.length,
+                    }
+                }));
             }).catch(error => console.error(error))
-            .finally(() => this.loading = false);
+            .finally(() => {
+                if (!this.products.length) {
+                    window.location.reload();
+                }
+            });
         },
     },
 }

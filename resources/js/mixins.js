@@ -34,11 +34,10 @@ export default {
         cartItems = [...new Map(cartItems.map(item => [item['productOptionSizeId'], item])).values()];
         
         this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
-  
-        // ! IMPORTANT
-        window.dispatchEvent(new CustomEvent('new-product-added-to-cart', {
+
+        window.dispatchEvent(new CustomEvent('cart-change-event', {
             detail: {
-                storage: this.$cookies.get('beehemiamCart')
+                storage: cartItems.length,
             }
         }));
       },

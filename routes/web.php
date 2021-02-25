@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Cart\AddCartController;
+use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\WelcomeController;
@@ -30,6 +31,8 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
         Route::post('/cart/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
 
         Route::patch('/cart/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
+
+        Route::delete('/cart/delete/sizes/{productOptionSize}', RemoveCartController::class)->name('delete.sizes');
     });
 });
 

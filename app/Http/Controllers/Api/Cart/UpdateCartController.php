@@ -17,7 +17,7 @@ class UpdateCartController extends Controller
     ): JsonResponse {
         $request->validate([
             'quantity' => [
-                'required', 'numeric', 'between:1,10',
+                'required', 'numeric', 'between:0,10',
             ]
         ]);
 

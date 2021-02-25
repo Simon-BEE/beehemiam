@@ -24,7 +24,7 @@ class VerifyCookieCart
         /** @var array $cookies */
         $cookies = filter_input_array(INPUT_COOKIE);
 
-        if (Cart::content()->isEmpty() && isset($cookies['beehemiamCart'])) {
+        if (Cart::content()->isEmpty() && isset($cookies['beehemiamCart']) && $cookies['beehemiamCart'] !== "[]") {
             $productOptionSizes = $this->getProductOptionSizesFromCookies(json_decode($cookies['beehemiamCart']));
 
             foreach ($productOptionSizes as $productOptionSize) {

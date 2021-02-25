@@ -26,7 +26,7 @@ export default {
   
       addItemToCart(itemKey, itemValue) {
         let cartItems = [];
-        if(this.$cookies.get('beehemiamCart')){
+        if(this.$cookies.isKey('beehemiamCart')){
             cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
         }
         cartItems.push({'productOptionSizeId' : itemValue});

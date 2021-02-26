@@ -28,7 +28,7 @@ class ProductOption extends Model
         'price' => 'integer',
     ];
 
-    protected $appends = ['formatted_price'];
+    protected $appends = ['formatted_price', 'path'];
 
     public function hasSize(int $sizeId): bool
     {
@@ -72,6 +72,12 @@ class ProductOption extends Model
     public function getIsAvailableAttribute(): bool
     {
         return $this->sizes->where('quantity', '>', 0)->isNotEmpty();
+    }
+
+    public function getPathAttribute(): string
+    {
+        // dd($this->product, $this);
+        return route('shop.products.show', [$this->product->categories->first(), $this->product]);
     }
 
     /**

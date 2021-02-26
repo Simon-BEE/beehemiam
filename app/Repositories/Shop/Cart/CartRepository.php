@@ -54,12 +54,24 @@ class CartRepository
 
         $productOptionSizes = ProductOptionSize::with([
             'productOption' => function ($query) {
-                $query->with(['images' => function ($query) {
-                    $query->where('is_main', true);
-                }])->select('id', 'name', 'price');
+                $query
+                ->with(['product' => function ($query) {
+                    $query->select(['id', 'name', 'slug'])
+                        ->with(['categories' => function ($query) {
+                            $query->select('id', 'name', 'slug');
+                        }]);
+                }])
+                ->with(['images' => function ($query) {
+                    $query->where('is_thumb', true)
+                        ->select(['id', 'product_option_id','full_path', 'filename']);
+                }])
+                ->select('id', 'product_id', 'name', 'price')
+                ;
             }
-        ])->with('size')
-            ->find(Cart::content()->pluck('id')->toArray());
+        ])
+            ->with(['size'])
+            ->find(Cart::content()->pluck('id')->toArray())
+            ->makeHidden(['created_at', 'updated_at', 'quantity', 'size_id', 'product_option_id']);
 
         return $productOptionSizes->map(function (ProductOptionSize $productOptionSize) {
             return collect($productOptionSize)

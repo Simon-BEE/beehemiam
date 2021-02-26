@@ -2,7 +2,9 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Category;
 use App\Models\ImageOption;
+use App\Models\Product;
 use App\Models\ProductOption;
 use Tests\TestCase;
 
@@ -59,6 +61,21 @@ class ProductOptionUnitTest extends TestCase
         ]);
 
         $this->assertTrue($productOption->fresh()->is_available);
+    }
+
+    /** @test */
+    public function an_option_has_a_property_path()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->assertNotNull($productOption->path);
+        $this->assertEquals(
+            route('shop.products.show', 
+                [$productOption->product->categories()->first(), $productOption->product])
+            , $productOption->path);
     }
     
     

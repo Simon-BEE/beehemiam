@@ -18,7 +18,7 @@
             </tr>
             <tr v-for="product in products" :key="product.id" v-else-if="products.length && !loading" class="transition-colors duration-500 hover:bg-gray-100">
                 <td class="hidden md:table-cell px-2 py-6 md:w-1/6">
-                    <img src="https://source.unsplash.com/150x150/daily?boho" alt="Product image" class="w-24 h-24 rounded">
+                    <img :src="product.product_option.images[0].path" alt="Product image" class="w-24 h-24 rounded">
                 </td>
                 <td class="px-2 py-6 md:w-1/2">
                     <h3 class="font-bold text-xl mb-1">{{ product.product_option.name }}</h3>

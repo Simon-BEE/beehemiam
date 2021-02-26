@@ -13,7 +13,7 @@ class IndexProductController extends Controller
         return view('admin.products.index', [
             'products' => Product::with(['productOptions.sizes', 'productOptions.preOrderStock'])
                 ->orderBy('id', 'desc')
-                ->paginate(16),
+                ->paginate(10),
         ]);
     }
 }

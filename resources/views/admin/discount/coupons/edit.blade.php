@@ -22,11 +22,25 @@
             <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Éditer le code promo : {{ $coupon->code }}
             </h2>
-            @if ($coupon->is_expired)
-                <span class="px-3 py-1 rounded-full bg-red-500 text-white">Expirée</span>
-            @else
-                <span class="px-3 py-1 rounded-full bg-green-500 text-white">En cours</span>
-            @endif
+            <div class="flex items-center space-x-2">
+                @if ($coupon->is_expired)
+                    <span class="px-3 py-1 rounded-full bg-red-500 text-white">Expirée</span>
+                @else
+                    <span class="px-3 py-1 rounded-full bg-green-500 text-white">En cours</span>
+                @endif
+                @if ($coupon->orders->isEmpty())
+                <button
+                    @click="openModal();"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 bg-red-500 text-white hover:bg-red-600 rounded focus:outline-none focus:shadow-outline-gray"
+                    aria-label="Delete">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                @endif
+            </div>
         </div>
     
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -75,4 +89,32 @@
         </div>
 
     </div>
+
+    <x-back.modal>
+        <div class="mt-4 mb-6">
+            <!-- Modal title -->
+            <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                Êtes-vous sûr de vouloir supprimer ce coupon de réduction ?
+            </p>
+            <!-- Modal description -->
+            <p class="text-sm text-gray-700 dark:text-gray-400">
+                En confirmant cette action, vous allez supprimer le coupon de réduction. Cela est possible car <strong>aucune commande</strong> n'a été passé avec ce code promo. Vous pouvez annuler cette action en cliquant sur le bouton <strong>annuler</strong> ci-dessous.
+            </p>
+        </div>
+        <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+            <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-gray-500 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                Annuler
+            </button>
+            <form action="{{ route('admin.discount.coupons.destroy', $coupon) }}" method="POST" class="inline-flex items-center">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="w-full inline-flex items-center px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
+                    {{-- <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+                    </svg> --}}
+                    Je supprime ce coupon de réduction
+                </button>
+            </form>
+        </footer>
+    </x-back.modal>
 @endsection

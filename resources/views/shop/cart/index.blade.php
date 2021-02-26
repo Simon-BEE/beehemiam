@@ -28,7 +28,7 @@
             </section>
 
             <section class="w-full md:w-1/3 mt-8 md:mt-0 ">
-                <section class="bg-primary-200 p-4 rounded flex flex-col space-y-4">
+                {{-- <section class="bg-primary-200 p-4 rounded flex flex-col space-y-4">
                     <article class="flex flex-col space-y-2">
                         <h4 class="font-bold text-lg">Vous avez un code promo ?</h4>
                         <x-form.form method="POST" action="#" class="flex items-center">
@@ -63,7 +63,8 @@
                             <p class="text-lg font-semibold">45€</p>
                         </div>
                     </article>
-                </section>
+                </section> --}}
+                <cart-resume :cart-sub-total="{{ $subTotal }}"></cart-resume>
         
                 <section class="w-full flex justify-center mt-12">
                     <a href="#" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-bold text-lg">

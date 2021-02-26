@@ -13,6 +13,7 @@ import SizesSelector from './components/SizesSelector';
 import AddCart from './components/AddCart';
 import CartIcon from './components/header/CartIcon';
 import CartTable from './components/CartTable';
+import CartResume from './components/CartResume';
 import LoaderIcon from './components/LoaderIcon';
 
 Vue.mixin(mixins);
@@ -24,5 +25,6 @@ new Vue({
     SizesSelector, ResponsiveButton, AuthButton, 
     OpenModalButton, OverlayBackground, CloseModalButton,
     AddCart, CartIcon, CartTable, LoaderIcon,
+    CartResume,
   },
 });

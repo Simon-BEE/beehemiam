@@ -10,9 +10,10 @@ class IndexCartController extends Controller
 {
     public function __invoke(CartRepository $repository): View
     {
-        // dd(\Cart::content());
+        // dd((float)\Cart::subtotal(2, '.', '.') * 10, \Cart::content());
         return view('shop.cart.index', [
             'cart' => $repository->getProductsFromCart(),
+            'subTotal' => (float)\Cart::subtotal(2, '.', '.') * 10,
         ]);
     }
 }

@@ -57,7 +57,6 @@
 
 <script>
 import Loader from './LoaderIcon';
-import EventBus from '../event-bus';
 
 export default {
     components: { Loader },
@@ -91,8 +90,6 @@ export default {
                 product.cart_quantity = 10;
             }
 
-            EventBus.$emit('test-event', this);
-
             axios.patch('/cart/update/sizes/' + product.id, 
                 {quantity: product.cart_quantity}, 
                 {
@@ -101,6 +98,14 @@ export default {
                     }
                 }).then(response => {
                 console.info(response.data.message);
+
+                window.dispatchEvent(new CustomEvent('cart-amount-change', {
+                    detail: {
+                        storage: this.products.reduce(function (acc, current) {
+                            return acc + (current.cart_quantity * current.product_option.formatted_price);
+                        }, 0),
+                    }
+                }));
             }).catch(error => console.error(error))
             .finally(() => {
                 if (!this.products.length) {
@@ -124,9 +129,11 @@ export default {
                 console.info(response.data.message);
                 this.products = this.products.filter(product => product.id != id);
 
-                window.dispatchEvent(new CustomEvent('cart-change-event', {
+                window.dispatchEvent(new CustomEvent('cart-amount-change', {
                     detail: {
-                        storage: this.products.length,
+                        storage: this.products.reduce(function (acc, current) {
+                            return acc + (current.cart_quantity * current.product_option.price);
+                        }, 0),
                     }
                 }));
             }).catch(error => console.error(error))

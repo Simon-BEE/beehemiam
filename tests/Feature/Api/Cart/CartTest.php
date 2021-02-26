@@ -124,4 +124,24 @@ class CartTest extends TestCase
         $this->assertCount(0, Cart::content());
     }
     
+    /** @test */
+    public function sum_of_products_in_cart_can_be_rerieve_easily()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 15]);
+        $productOptionSize1 = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
+        $productOptionSize2 = $productOption->sizes()->create(['size_id' => 2, 'quantity' => 10]);
+
+        $this->post(route('api.cart.add.sizes', $productOptionSize1))
+            ->assertSuccessful();
+        $this->post(route('api.cart.add.sizes', $productOptionSize2))
+            ->assertSuccessful();
+
+        $this->assertCount(2, Cart::content());
+        $this->assertEquals(30, get_cart_subtotal(true));
+        $this->assertEquals(3000, get_cart_subtotal());
+    }
+    
 }

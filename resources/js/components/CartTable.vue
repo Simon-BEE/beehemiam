@@ -132,7 +132,7 @@ export default {
                 window.dispatchEvent(new CustomEvent('cart-amount-change', {
                     detail: {
                         storage: this.products.reduce(function (acc, current) {
-                            return acc + (current.cart_quantity * current.product_option.price);
+                            return acc + (current.cart_quantity * current.product_option.formatted_price);
                         }, 0),
                     }
                 }));

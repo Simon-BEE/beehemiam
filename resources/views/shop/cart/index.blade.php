@@ -28,42 +28,6 @@
             </section>
 
             <section class="w-full md:w-1/3 mt-8 md:mt-0 ">
-                {{-- <section class="bg-primary-200 p-4 rounded flex flex-col space-y-4">
-                    <article class="flex flex-col space-y-2">
-                        <h4 class="font-bold text-lg">Vous avez un code promo ?</h4>
-                        <x-form.form method="POST" action="#" class="flex items-center">
-                            <x-form.input 
-                                name="discount"
-                                placeholder="Code promo"
-                                class="bg-primary-100"
-                                required
-                            />
-                            <x-form.button class="bg-primary-500 text-white  hover:bg-primary-400 font-semibold -mt-2 ml-2">
-                                Ajouter
-                            </x-form.button>
-                        </x-form.form>
-                    </article>
-                    <article class="flex flex-col space-y-2">
-                        <h4 class="font-bold text-lg">Montant total de la commande</h4>
-                        <div class="flex items-center justify-between px-2 py-1 rounded">
-                            <p>Sous-total</p>
-                            <p class="text-lg font-semibold">45€</p>
-                        </div>
-                        <div class="flex items-center justify-between px-2 py-1 rounded">
-                            <p>Frais de livraison</p>
-                            <p class="text-lg font-semibold">5€</p>
-                        </div>
-                        <div class="flex items-center justify-between bg-primary-100 px-2 py-1 rounded">
-                            <p>Code promo <span class="font-bold">EASY13</span></p>
-                            <p class="text-lg font-semibold">-5€</p>
-                        </div>
-        
-                        <div class="flex items-center justify-between pt-4 border-t border-primary-400 px-2 py-1">
-                            <p>Montant total</p>
-                            <p class="text-lg font-semibold">45€</p>
-                        </div>
-                    </article>
-                </section> --}}
                 <cart-resume :cart-sub-total="{{ $subTotal }}"></cart-resume>
         
                 <section class="w-full flex justify-center mt-12">

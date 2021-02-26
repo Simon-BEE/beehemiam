@@ -18,5 +18,4 @@ class HelpersTest extends TestCase
 
         Notification::assertSentTo(User::administrators(), SimpleAdminNotification::class);
     }
-    
 }

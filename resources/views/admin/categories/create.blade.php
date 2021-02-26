@@ -23,7 +23,7 @@
         </h2>
     
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <x-form.form action="{{ route('admin.categories.store') }}" method="POST" files>
+            <x-form.form action="{{ route('admin.categories.store') }}" method="POST">
                 <x-back.form.input 
                     name="name"
                     type="text"

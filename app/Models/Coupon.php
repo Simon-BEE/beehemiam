@@ -31,7 +31,10 @@ class Coupon extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getIsExpiredAttribute(): bool
+    {
+        return $this->expired_at ? $this->expired_at->isPast() : false;
+    }
 
     /**
      * ? SCOPES

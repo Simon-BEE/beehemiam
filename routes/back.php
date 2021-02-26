@@ -5,6 +5,10 @@ use App\Http\Controllers\Admin\Category\DeleteCategoryController;
 use App\Http\Controllers\Admin\Category\EditCategoryController;
 use App\Http\Controllers\Admin\Category\IndexCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Discount\CreateCouponController;
+use App\Http\Controllers\Admin\Discount\DeleteCouponController;
+use App\Http\Controllers\Admin\Discount\EditCouponController;
+use App\Http\Controllers\Admin\Discount\IndexDiscountController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
 use App\Http\Controllers\Admin\Products\DeleteProductController;
 use App\Http\Controllers\Admin\Products\EditProductController;
@@ -89,4 +93,23 @@ Route::group(['as' => 'users.', 'prefix' => 'clients'], function () {
         ->name('features.resend-verification-email');
 
     Route::delete('/{user}', DeleteUserController::class)->name('destroy');
+});
+
+/**
+ * Discount routes
+ */
+Route::group(['as' => 'discount.', 'prefix' => 'promotions'], function () {
+
+    Route::get('/', IndexDiscountController::class)->name('index');
+
+    Route::group(['as' => 'coupons.', 'prefix' => 'coupons'], function () {
+
+        Route::get('/creer', [CreateCouponController::class, 'create'])->name('create');
+        Route::post('/', [CreateCouponController::class, 'store'])->name('store');
+
+        Route::get('/{coupon}/editer', [EditCouponController::class, 'edit'])->name('edit');
+        Route::patch('/{coupon}', [EditCouponController::class, 'update'])->name('update');
+
+        Route::delete('/{coupon}', DeleteCouponController::class)->name('destroy');
+    });
 });

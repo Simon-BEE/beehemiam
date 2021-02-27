@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Discount;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CouponRequest;
-use App\Repositories\CouponRepository;
+use App\Repositories\Coupon\CouponRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 

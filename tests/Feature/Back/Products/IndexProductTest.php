@@ -15,7 +15,7 @@ class IndexProductTest extends TestCase
             'role' => User::ADMIN_ROLE,
         ]);
         $this->signIn($user);
-        Product::factory()->count(10)->create();
+        Product::factory()->count(10)->active()->create();
 
         $this->get(route('admin.products.index'))
             ->assertSuccessful()

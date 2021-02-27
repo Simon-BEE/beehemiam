@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Cart\AddCartController;
+use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
@@ -18,21 +19,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('test', function () {
-//     // return new \App\Mail\Users\PasswordHasChangedMail(auth()->user());
-//     return (new \App\Notifications\VerifyEmailQueued)->toMail(auth()->user());
-// });
 /**
  * Cart api routes
 */
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
-    Route::group(['as' => 'cart.'], function () {
-        Route::post('/cart/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
+    Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
+        Route::post('/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
+        Route::patch('/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
+        Route::delete('/delete/sizes/{productOptionSize}', RemoveCartController::class)->name('delete.sizes');
 
-        Route::patch('/cart/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
-
-        Route::delete('/cart/delete/sizes/{productOptionSize}', RemoveCartController::class)->name('delete.sizes');
+        Route::post('/coupons/add', [ApiCouponController::class, 'add'])->name('coupons.add');
     });
 });
 

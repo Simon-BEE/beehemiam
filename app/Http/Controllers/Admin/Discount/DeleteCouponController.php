@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Discount;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
-use App\Repositories\CouponRepository;
+use App\Repositories\Coupon\CouponRepository;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteCouponController extends Controller

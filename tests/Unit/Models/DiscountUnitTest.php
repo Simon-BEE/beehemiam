@@ -18,5 +18,17 @@ class DiscountUnitTest extends TestCase
         $this->assertFalse($couponExpireIn2Months->is_expired);
         $this->assertTrue($couponExpired->is_expired);
     }
+
+    /** @test */
+    public function model_coupon_has_a_scope_to_get_all_no_expired_coupons()
+    {
+        Coupon::factory()->create(['expired_at' => null]);
+        Coupon::factory()->create(['expired_at' => null]);
+        Coupon::factory()->create(['expired_at' => null]);
+        Coupon::factory()->create(['expired_at' => now()->addMonths(2)]);
+        Coupon::factory()->create(['expired_at' => now()->subMonth()]);
+
+        $this->assertCount(4, Coupon::active()->get());
+    }
     
 }

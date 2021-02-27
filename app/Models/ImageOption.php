@@ -27,15 +27,19 @@ class ImageOption extends Model
         'is_thumb' => 'boolean',
     ];
 
+    protected $appends = ['path'];
+
     /**
      * ? ATTRIBUTES
      */
 
     public function getPathAttribute(): string
     {
+        $optionId = $this->filename === 'image.jpg' ? 'x' : $this->product_option_id;
+
         return url('storage/products')
             . ($this->is_thumb ? '/thumbs/' : '/')
-            . $this->product_option_id
+            . $optionId
             . '/'
             . $this->filename;
     }

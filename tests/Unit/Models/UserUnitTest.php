@@ -42,4 +42,19 @@ class UserUnitTest extends TestCase
 
         $this->assertEquals($address->id, $user->address->id);
     }
+
+    /** @test */
+    public function there_is_a_scope_to_get_admin_users()
+    {
+        $admin = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $user = User::factory()->create([
+            'role' => User::USER_ROLE,
+        ]);
+
+        $this->assertTrue(User::administrators()->contains($admin));
+        $this->assertFalse(User::administrators()->contains($user));
+    }
+    
 }

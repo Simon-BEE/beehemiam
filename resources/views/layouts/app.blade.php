@@ -9,6 +9,8 @@
     <meta name="keywords"
         content="vêtements, allaitement, éthiques, naturels, écologique, bébé, maternel, maternelle" />
 
+    <title>{{ config('app.name') }} @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
+
     @hasSection ('meta-desc')
         <meta name="description" content="@yield('meta-desc')" />
         <meta name="og:description" content="@yield('meta-desc')" />
@@ -37,17 +39,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     <link rel="manifest" href="/favicons/site.webmanifest">
 
-<title>{{ config('app.name') }} @hasSection ('meta-title') &mdash; @yield('meta-title') @endif</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-<!-- Styles -->
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body class="font-nunito bg-primary-100 text-kaki-900 overflow-x-hidden">
@@ -55,13 +55,14 @@
     @if (session()->has('type') && session()->has('message'))
         <x-alert />
     @endif
+    
+<div class="wrapper relative container mx-auto md:py-4" id="app">
 
-    <div class="clickable-overlay hidden h-full w-full fixed"></div>
+    <overlay-background></overlay-background>
+
     <x-modal>
         @stack('modal')
     </x-modal>
-
-<div class="wrapper container mx-auto md:py-4">
 
     @include('layouts.front.header')
 

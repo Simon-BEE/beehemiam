@@ -1,20 +1,30 @@
 require('./bootstrap');
 
-require('./front/alert');
-require('./front/modal');
+import Vue from 'vue';
+import mixins from './mixins';
+Vue.use(require('vue-cookies'))
 
+import ResponsiveButton from './components/header/ResponsiveButton';
+import AuthButton from './components/header/AuthButton';
+import OpenModalButton from './components/OpenModalButton';
+import CloseModalButton from './components/CloseModalButton';
+import OverlayBackground from './components/OverlayBackground';
+import SizesSelector from './components/SizesSelector';
+import AddCart from './components/AddCart';
+import CartIcon from './components/header/CartIcon';
+import CartTable from './components/CartTable';
+import CartResume from './components/CartResume';
+import LoaderIcon from './components/LoaderIcon';
 
-// Responsive menu click
-try {
-    document.querySelector('.responsive-button').addEventListener('click', () => {
-        document.querySelector('.responsive-menu').classList.toggle('hidden')
-    });
-} catch (error) {
-    console.error(error, "Cannot load JS correctly");
-}
+Vue.mixin(mixins);
 
-// function togglePopover(popover) {
-//     popover.classList.toggle('opacity-0');
-//     popover.classList.toggle('-z-1');
-//     popover.classList.toggle('z-30');
-// }
+new Vue({
+  el: '#app',
+
+  components: {
+    SizesSelector, ResponsiveButton, AuthButton, 
+    OpenModalButton, OverlayBackground, CloseModalButton,
+    AddCart, CartIcon, CartTable, LoaderIcon,
+    CartResume,
+  },
+});

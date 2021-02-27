@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductOption;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,12 @@ class ShopSeeder extends Seeder
      */
     public function run()
     {
+        Coupon::insert([
+            ['code' => 'CODEPROMO10', 'amount' => 10, 'expired_at' => null, 'created_at' => now(), 'updated_at' => now()],
+            ['code' => 'CODEPROMO20', 'amount' => 20, 'expired_at' => now()->addMonth(), 'created_at' => now(), 'updated_at' => now()],
+            ['code' => 'CODEPROMO25', 'amount' => 25, 'expired_at' => now()->addMonths(2), 'created_at' => now(), 'updated_at' => now()],
+        ]);
+
         $categories = Category::factory()->count(4)->create();
 
         $categories->each(function ($category) {
@@ -46,6 +53,31 @@ class ShopSeeder extends Seeder
 
                     $productOption->sizes()->create([
                         'size_id' => mt_rand(4, 7),
+                        'quantity' => mt_rand(10, 50),
+                    ]);
+                });
+            });
+
+            $preorders = Product::factory()->active()->preorder()->create();
+
+            $preorders->each(function ($product) {
+
+                $productOptions = ProductOption::factory()->count(mt_rand(1, 3))->create([
+                    'product_id' => $product->id,
+                ]);
+
+                $productOptions->each(function ($productOption) {
+                    $productOption->images()->create([
+                        'filename' => 'image.jpg',
+                        'full_path' => 'x/image.jpg',
+                    ]);
+                    $productOption->images()->create([
+                        'filename' => 'image.jpg',
+                        'full_path' => 'thumbs/x/image.jpg',
+                        'is_thumb' => true,
+                    ]);
+
+                    $productOption->preOrderStock()->create([
                         'quantity' => mt_rand(10, 50),
                     ]);
                 });

@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.27.0.
+ * Generated for Laravel 8.28.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -254,6 +254,20 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->resourcePath($path);
+        }
+                    /**
+         * Get the path to the views directory.
+         * 
+         * This method returns the first configured path in the array of view paths.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function viewPath($path = '')
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->viewPath($path);
         }
                     /**
          * Get the path to the environment file directory.
@@ -11261,6 +11275,17 @@
                         return $instance->pushMiddlewareToGroup($group, $middleware);
         }
                     /**
+         * Flush the router's middleware groups.
+         *
+         * @return \Illuminate\Routing\Router 
+         * @static 
+         */ 
+        public static function flushMiddlewareGroups()
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->flushMiddlewareGroups();
+        }
+                    /**
          * Add a new route parameter binder.
          *
          * @param string $key
@@ -11616,6 +11641,17 @@
         {
                         /** @var \Illuminate\Routing\Router $instance */
                         return $instance->macroCall($method, $parameters);
+        }
+                    /**
+         * 
+         *
+         * @see \Spatie\PersonalDataExport\PersonalDataExportServiceProvider::boot()
+         * @param string $url
+         * @static 
+         */ 
+        public static function personalDataExports($url)
+        {
+                        return \Illuminate\Routing\Router::personalDataExports($url);
         }
          
     }
@@ -14754,6 +14790,258 @@
      
 }
 
+    namespace Gloudemans\Shoppingcart\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Cart {
+                    /**
+         * Set the current cart instance.
+         *
+         * @param string|null $instance
+         * @return \Cart 
+         * @static 
+         */ 
+        public static function instance($instance = null)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->instance($instance);
+        }
+                    /**
+         * Get the current cart instance.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function currentInstance()
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->currentInstance();
+        }
+                    /**
+         * Add an item to the cart.
+         *
+         * @param mixed $id
+         * @param mixed $name
+         * @param int|float $qty
+         * @param float $price
+         * @param array $options
+         * @return \Gloudemans\Shoppingcart\CartItem 
+         * @static 
+         */ 
+        public static function add($id, $name = null, $qty = null, $price = null, $options = [])
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->add($id, $name, $qty, $price, $options);
+        }
+                    /**
+         * Sets/adds an additional cost on the cart.
+         *
+         * @param string $name
+         * @param float $price
+         * @todo add in session
+         * @static 
+         */ 
+        public static function addCost($name, $price)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->addCost($name, $price);
+        }
+                    /**
+         * Gets an additional cost by name
+         *
+         * @param $name
+         * @param int|null $decimals
+         * @param string|null $decimalPoint
+         * @param string|null $thousandSeparator
+         * @return string 
+         * @static 
+         */ 
+        public static function getCost($name, $decimals = null, $decimalPoint = null, $thousandSeparator = null)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->getCost($name, $decimals, $decimalPoint, $thousandSeparator);
+        }
+                    /**
+         * Update the cart item with the given rowId.
+         *
+         * @param string $rowId
+         * @param mixed $qty
+         * @return \Gloudemans\Shoppingcart\CartItem 
+         * @static 
+         */ 
+        public static function update($rowId, $qty)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->update($rowId, $qty);
+        }
+                    /**
+         * Remove the cart item with the given rowId from the cart.
+         *
+         * @param string $rowId
+         * @return void 
+         * @static 
+         */ 
+        public static function remove($rowId)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        $instance->remove($rowId);
+        }
+                    /**
+         * Get a cart item from the cart by its rowId.
+         *
+         * @param string $rowId
+         * @return \Gloudemans\Shoppingcart\CartItem 
+         * @static 
+         */ 
+        public static function get($rowId)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->get($rowId);
+        }
+                    /**
+         * Destroy the current cart instance.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function destroy()
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        $instance->destroy();
+        }
+                    /**
+         * Get the content of the cart.
+         *
+         * @return \Gloudemans\Shoppingcart\Collection 
+         * @static 
+         */ 
+        public static function content()
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->content();
+        }
+                    /**
+         * Get the number of items in the cart.
+         *
+         * @return int|float 
+         * @static 
+         */ 
+        public static function count()
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->count();
+        }
+                    /**
+         * Get the total price of the items in the cart.
+         *
+         * @param int $decimals
+         * @param string $decimalPoint
+         * @param string $thousandSeparator
+         * @return string 
+         * @static 
+         */ 
+        public static function total($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->total($decimals, $decimalPoint, $thousandSeparator);
+        }
+                    /**
+         * Get the total tax of the items in the cart.
+         *
+         * @param int $decimals
+         * @param string $decimalPoint
+         * @param string $thousandSeparator
+         * @return float 
+         * @static 
+         */ 
+        public static function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->tax($decimals, $decimalPoint, $thousandSeparator);
+        }
+                    /**
+         * Get the subtotal (total - tax) of the items in the cart.
+         *
+         * @param int $decimals
+         * @param string $decimalPoint
+         * @param string $thousandSeparator
+         * @return float 
+         * @static 
+         */ 
+        public static function subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->subtotal($decimals, $decimalPoint, $thousandSeparator);
+        }
+                    /**
+         * Search the cart content for a cart item matching the given search closure.
+         *
+         * @param \Closure $search
+         * @return \Gloudemans\Shoppingcart\Collection 
+         * @static 
+         */ 
+        public static function search($search)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        return $instance->search($search);
+        }
+                    /**
+         * Associate the cart item with the given rowId with the given model.
+         *
+         * @param string $rowId
+         * @param mixed $model
+         * @return void 
+         * @static 
+         */ 
+        public static function associate($rowId, $model)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        $instance->associate($rowId, $model);
+        }
+                    /**
+         * Set the tax rate for the cart item with the given rowId.
+         *
+         * @param string $rowId
+         * @param int|float $taxRate
+         * @return void 
+         * @static 
+         */ 
+        public static function setTax($rowId, $taxRate)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        $instance->setTax($rowId, $taxRate);
+        }
+                    /**
+         * Store an the current instance of the cart.
+         *
+         * @param mixed $identifier
+         * @return void 
+         * @static 
+         */ 
+        public static function store($identifier)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        $instance->store($identifier);
+        }
+                    /**
+         * Restore the cart with the given identifier.
+         *
+         * @param mixed $identifier
+         * @return void 
+         * @static 
+         */ 
+        public static function restore($identifier)
+        {
+                        /** @var \Gloudemans\Shoppingcart\Cart $instance */
+                        $instance->restore($identifier);
+        }
+         
+    }
+     
+}
+
     namespace Barryvdh\Debugbar { 
             /**
      * 
@@ -15845,6 +16133,29 @@
         public static function hasValidRelativeSignature()
         {
                         return \Illuminate\Http\Request::hasValidRelativeSignature();
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Routing { 
+            /**
+     * 
+     *
+     * @mixin \Illuminate\Routing\RouteRegistrar
+     */ 
+        class Router {
+                    /**
+         * 
+         *
+         * @see \Spatie\PersonalDataExport\PersonalDataExportServiceProvider::boot()
+         * @param string $url
+         * @static 
+         */ 
+        public static function personalDataExports($url)
+        {
+                        return \Illuminate\Routing\Router::personalDataExports($url);
         }
          
     }
@@ -19126,6 +19437,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Image extends \Intervention\Image\Facades\Image {}
+            class Cart extends \Gloudemans\Shoppingcart\Facades\Cart {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Livewire extends \Livewire\Livewire {}

@@ -37,12 +37,16 @@ class RegisteredUserController extends Controller
             'lastname' => $request->get('lastname'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            'newsletter' => $request->get('newsletter'),
+            'newsletter' => $request->get('newsletter') ?? false,
             'role' => User::USER_ROLE,
         ]));
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)->with([
+            'type' => 'Succès',
+            'message' => "Votre compte a bien été créé sur Beehemiam.fr ! 
+                Pensez à confirmer votre adresse email depuis votre messagerie."
+        ]);
     }
 }

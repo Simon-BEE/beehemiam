@@ -101,7 +101,7 @@
             },
             closeModal() {
                 this.isModalOpen = false
-                this.trapCleanup()
+                // this.trapCleanup()
             },
             changeModalButtonLink(link){
                 document.querySelector('#modal').querySelector('form.delete-modal-form').action = link;

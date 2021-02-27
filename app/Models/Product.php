@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -56,11 +57,39 @@ class Product extends Model
         });
     }
 
+    public function getOptionDescriptionAttribute(): ?string
+    {
+        return $this->firstProductOption()?->description;
+    }
+
+    public function getOptionNameAttribute(): ?string
+    {
+        return $this->firstProductOption()?->name;
+    }
+
+    public function getOptionFormattedPriceAttribute(): ?float
+    {
+        return $this->firstProductOption()?->formatted_price;
+    }
+
+    public function getOptionImageAttribute(): ?ImageOption
+    {
+        return $this->firstProductOption()?->main_image;
+    }
+
+    public function getOptionThumbImageAttribute(): ?ImageOption
+    {
+        return $this->firstProductOption()?->thumb_image;
+    }
+
     /**
      * ? SCOPES
      */
 
-    // ...
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereIsActive(true);
+    }
 
     /**
      * ? RELATIONS
@@ -74,5 +103,10 @@ class Product extends Model
     public function productOptions(): HasMany
     {
         return $this->hasMany(ProductOption::class);
+    }
+
+    public function firstProductOption(): ?ProductOption
+    {
+        return $this->productOptions->first();
     }
 }

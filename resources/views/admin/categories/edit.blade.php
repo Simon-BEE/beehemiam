@@ -23,7 +23,7 @@
                 Editer la catégorie : {{ $category->name }}
             </h2>
             <button
-                @click="changeModalButtonLink(`{{ route('admin.categories.destroy', $category) }}`);openModal();"
+                @click="openModal();"
                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 bg-red-500 text-white hover:bg-red-600 rounded focus:outline-none focus:shadow-outline-gray"
                 aria-label="Delete">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -79,7 +79,7 @@
             <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-gray-500 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
                 Annuler
             </button>
-            <form action="#" method="POST" class="inline delete-modal-form">
+            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline delete-modal-form">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="delete-modal-button w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">

@@ -5,9 +5,8 @@ if (alertBox) {
         box.addEventListener('click', () => hideAlertBox(box));
 
         setTimeout(() => {
-            console.log('e')
             hideAlertBox(box);
-        }, 4500);
+        }, 5500);
     });
 }
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Auth;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
 
 class RegisterUserRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class RegisterUserRequest extends FormRequest
                 'required', 'between:8,255', 'confirmed',
             ],
             'newsletter' => [
-                'required', 'boolean',
+                'nullable', 'boolean',
             ],
             'terms' => [
                 'required', 'accepted',
@@ -42,5 +42,17 @@ class RegisterUserRequest extends FormRequest
             'password.between' => "Le mot de passe ne correspond pas aux valeurs attendues",
             'email.unique' => "Cette adresse email est déjà utilisée.",
         ];
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function ($validator) {
+            $failedRules = $validator->failed();
+            // dd($failedRules, $this->all());
+            if (!empty($failedRules)) {
+                session()->flash('type', 'Erreur');
+                session()->flash('message', 'Le formulaire est rempli incorrectement.');
+            }
+        });
     }
 }

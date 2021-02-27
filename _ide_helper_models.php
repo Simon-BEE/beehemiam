@@ -67,8 +67,10 @@ namespace App\Models{
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Category active()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
@@ -363,6 +365,11 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
  * @property-read bool $has_options_quantities
+ * @property-read string|null $option_description
+ * @property-read float|null $option_formatted_price
+ * @property-read \App\Models\ImageOption|null $option_image
+ * @property-read string|null $option_name
+ * @property-read \App\Models\ImageOption|null $option_thumb_image
  * @property-read int $total_stock
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOption[] $productOptions
  * @property-read int|null $product_options_count
@@ -393,7 +400,9 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Discount|null $discount
+ * @property-read \App\Models\ProductOptionSize|null $default_size
  * @property-read float $formatted_price
+ * @property-read bool $is_available
  * @property-read \App\Models\ImageOption|null $main_image
  * @property-read \App\Models\ImageOption|null $thumb_image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $images
@@ -507,13 +516,14 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $addresses
  * @property-read int|null $addresses_count
- * @property-read \App\Models\Address $address
+ * @property-read \App\Models\Address|null $address
  * @property-read string $full_name
  * @property-read bool $is_admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User administrators()
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
@@ -530,6 +540,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
+	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail, \Spatie\PersonalDataExport\ExportsPersonalData {}
 }
 

@@ -28,6 +28,8 @@ class ProductOption extends Model
         'price' => 'integer',
     ];
 
+    protected $appends = ['formatted_price', 'path'];
+
     public function hasSize(int $sizeId): bool
     {
         return $this->sizes->contains('size_id', $sizeId);
@@ -49,7 +51,7 @@ class ProductOption extends Model
 
     public function getMainImageAttribute(): ?ImageOption
     {
-        return $this->images()
+        return $this->images
             ->where('is_main', true)
             ->where('is_thumb', false)
             ->first();
@@ -57,9 +59,25 @@ class ProductOption extends Model
 
     public function getThumbImageAttribute(): ?ImageOption
     {
-        return $this->images()
+        return $this->images
             ->where('is_thumb', true)
             ->first();
+    }
+
+    public function getDefaultSizeAttribute(): ?ProductOptionSize
+    {
+        return $this->sizes->first();
+    }
+
+    public function getIsAvailableAttribute(): bool
+    {
+        return $this->sizes->where('quantity', '>', 0)->isNotEmpty();
+    }
+
+    public function getPathAttribute(): string
+    {
+        // dd($this->product, $this);
+        return route('shop.products.show', [$this->product->categories->first(), $this->product]);
     }
 
     /**

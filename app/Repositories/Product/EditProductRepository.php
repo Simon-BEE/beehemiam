@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Product;
 
-use App\Exceptions\ProductActiveStatusException;
+use App\Exceptions\Product\ProductActiveStatusException;;
 use App\Models\Product;
 
 class EditProductRepository extends ProductRepository

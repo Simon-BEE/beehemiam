@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Products\Options;
 
-use App\Exceptions\ProductActiveStatusException;
+use App\Exceptions\Product\ProductActiveStatusException;;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\UpdateOptionRequest;
 use App\Models\Product;

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,13 +32,20 @@ class Coupon extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getIsExpiredAttribute(): bool
+    {
+        return $this->expired_at ? $this->expired_at->isPast() : false;
+    }
 
     /**
      * ? SCOPES
      */
 
-    // ...
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereDate('expired_at', '>=', now())
+            ->orWhere('expired_at', null);
+    }
 
     /**
      * ? RELATIONS

@@ -2,7 +2,11 @@ const Color = require('color');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-    purge: ['./storage/framework/views/*.php', './resources/views/**/*.blade.php'],
+    purge: [
+        './storage/framework/views/*.php', 
+        './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue'
+    ],
 
     theme: {
         themeVariants: ['dark'],
@@ -104,6 +108,9 @@ module.exports = {
             height: {
                 '60-screen': '65vh',
             },
+            width: {
+                '47p': '47%',
+            },
             colors: {
                 kaki: {
                     '300': '#98d2fb',
@@ -143,6 +150,7 @@ module.exports = {
             'dark:focus',
             'dark:active',
             'dark:odd',
+            'responsive'
         ],
         display: ['responsive', 'dark'],
         textColor: [
@@ -157,8 +165,8 @@ module.exports = {
         placeholderColor: ['focus', 'dark', 'dark:focus'],
         borderColor: ['focus', 'hover', 'dark', 'dark:focus', 'dark:hover'],
         divideColor: ['dark'],
-        boxShadow: ['focus', 'dark:focus'],
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        boxShadow: ['focus', 'dark:focus', 'responsive'],
+        opacity: ['responsive', 'hover', 'focus', 'disabled', 'group-hover'],
         ringOpacity: ['hover', 'active', 'focus'],
         outline: ['focus', 'responsive', 'hover'],
     },

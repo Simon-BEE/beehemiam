@@ -21,9 +21,9 @@ class ShowingShopTest extends TestCase
     public function visitors_can_see_a_category_shop_page()
     {
         $category = Category::factory()->create();
-        $product = Product::factory()->create();
+        $product = Product::factory()->active()->create();
         $category->products()->attach($product->id);
-        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+        ProductOption::factory()->create(['product_id' => $product->id]);
 
         $this->get(route('shop.categories.show', $category))
             ->assertSuccessful()
@@ -33,11 +33,19 @@ class ShowingShopTest extends TestCase
     }
 
     /** @test */
+    public function visitors_cannot_see_an_empty_category_shop_page()
+    {
+        $category = Category::factory()->create();
+
+        $this->get(route('shop.categories.show', $category))
+            ->assertNotFound();
+    }
+
+    /** @test */
     public function visitors_can_see_a_product_shop_page()
     {
-        $this->withoutExceptionHandling();
         $category = Category::factory()->create();
-        $product = Product::factory()->create();
+        $product = Product::factory()->active()->create();
         $category->products()->attach($product->id);
         $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
 
@@ -46,6 +54,18 @@ class ShowingShopTest extends TestCase
             ->assertViewIs('shop.products.show')
             ->assertSee($product->name)
             ->assertSee($productOption->name);
+    }
+
+    /** @test */
+    public function visitors_cannot_see_an_inactive_product_shop_page()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->get(route('shop.products.show', [$category, $product]))
+            ->assertNotFound();
     }
     
 }

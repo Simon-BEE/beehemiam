@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 
 class Product extends Model
 {
@@ -86,7 +86,10 @@ class Product extends Model
      * ? SCOPES
      */
 
-    // ...
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereIsActive(true);
+    }
 
     /**
      * ? RELATIONS

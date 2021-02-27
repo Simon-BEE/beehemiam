@@ -56,4 +56,14 @@ class ProductUnitTest extends TestCase
         $this->assertEquals($product->optionDescription, ProductOption::first()->description);
     }
     
+    /** @test */
+    public function model_product_has_a_scope_to_get_only_active_products()
+    {
+        Product::factory()->count(10)->active()->create();
+        Product::factory()->count(5)->create();
+
+        $this->assertCount(15, Product::all());
+        $this->assertCount(10, Product::active()->get());
+    }
+    
 }

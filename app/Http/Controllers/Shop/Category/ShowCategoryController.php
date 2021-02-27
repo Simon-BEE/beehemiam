@@ -10,9 +10,16 @@ class ShowCategoryController extends Controller
 {
     public function __invoke(Category $category): View
     {
+        $products = $category->products()
+            ->active()
+            ->with('productOptions.images')
+            ->get();
+
+        abort_unless($products->isNotEmpty(), 404);
+
         return view('shop.categories.show', [
             'category' => $category,
-            'products' => $category->products()->with('productOptions.images')->get(),
+            'products' => $products,
         ]);
     }
 }

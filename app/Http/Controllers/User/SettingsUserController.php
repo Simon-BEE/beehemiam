@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Exceptions\User\CannotDeleteUserAccountException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\Users\UserRepository;
+use App\Exceptions\User\CannotDeleteUserAccountException;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -27,8 +28,8 @@ class SettingsUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Vos données sont en préparation. Un email va vous être envoyé pour les récupérer.',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 
@@ -41,8 +42,8 @@ class SettingsUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Un email vous permettant de supprimer votre compte vient de vous être envoyé.',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 
@@ -60,8 +61,8 @@ class SettingsUserController extends Controller
                 'type' => 'Erreur',
                 'message' => 'Une erreur est survenue, nous ne pouvons compléter la requête demandée.',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Categories\StoreCategoryRequest;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepository;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -30,8 +31,8 @@ class EditCategoryController extends Controller
                 'type' => 'Succès',
                 'message' => 'La catégorie a bien été modifiée !',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

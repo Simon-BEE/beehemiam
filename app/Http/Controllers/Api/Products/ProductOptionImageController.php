@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Products;
 
 use App\Http\Controllers\Controller;
 use App\Models\ImageOption;
+use Exception;
 use Illuminate\Http\JsonResponse;
 
 class ProductOptionImageController extends Controller
@@ -16,8 +17,8 @@ class ProductOptionImageController extends Controller
             return response()->json([
                 'message' => 'OK',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

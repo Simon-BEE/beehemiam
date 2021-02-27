@@ -22,10 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['as' => 'profile.'], function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
-    Route::get('/editer', [EditUserController::class, 'edit'])->name('edit');
+    Route::get('editer', [EditUserController::class, 'edit'])->name('edit');
     Route::patch('/', [EditUserController::class, 'update'])->name('update');
-    Route::get('/mot-de-passe', [EditUserController::class, 'editPassword'])->name('edit.password');
-    Route::patch('/mot-de-passe', [EditUserController::class, 'updatePassword'])->name('update.password');
+    Route::get('mot-de-passe', [EditUserController::class, 'editPassword'])->name('edit.password');
+    Route::patch('mot-de-passe', [EditUserController::class, 'updatePassword'])->name('update.password');
 
     Route::post('email-verification', [UserProfileController::class, 'sendEmailVerification'])
         ->name('email-verification');
@@ -35,22 +35,22 @@ Route::group(['as' => 'addresses.', 'prefix' => 'adresses'], function () {
 
     Route::get('/', IndexAddressController::class)->name('index');
 
-    Route::get('/creer', [CreateAddressController::class, 'create'])->name('create');
+    Route::get('creer', [CreateAddressController::class, 'create'])->name('create');
     Route::post('/', [CreateAddressController::class, 'store'])->name('store');
 
-    Route::get('/{address}/editer', [EditAddressController::class, 'edit'])->name('edit');
-    Route::patch('/{address}', [EditAddressController::class, 'update'])->name('update');
-    Route::patch('/{address}/main', [EditAddressController::class, 'setAsMain'])->name('update.main');
+    Route::get('{address}/editer', [EditAddressController::class, 'edit'])->name('edit');
+    Route::patch('{address}', [EditAddressController::class, 'update'])->name('update');
+    Route::patch('{address}/main', [EditAddressController::class, 'setAsMain'])->name('update.main');
 
-    Route::delete('/{address}', DeleteAddressController::class)->name('destroy');
+    Route::delete('{address}', DeleteAddressController::class)->name('destroy');
 });
 
 Route::group(['as' => 'settings.', 'prefix' => 'parametres'], function () {
 
     Route::get('/', [SettingsUserController::class, 'index'])->name('index');
 
-    Route::post('/donnees-personnelles', [SettingsUserController::class, 'personnalData'])->name('personnal-data');
+    Route::post('donnees-personnelles', [SettingsUserController::class, 'personnalData'])->name('personnal-data');
 
-    Route::get('/suppression/{user}', [SettingsUserController::class, 'deleteAccount'])->name('delete-account');
-    Route::post('/suppression', [SettingsUserController::class, 'emailDeleteAccount'])->name('email-delete-account');
+    Route::get('suppression/{user}', [SettingsUserController::class, 'deleteAccount'])->name('delete-account');
+    Route::post('suppression', [SettingsUserController::class, 'emailDeleteAccount'])->name('email-delete-account');
 });

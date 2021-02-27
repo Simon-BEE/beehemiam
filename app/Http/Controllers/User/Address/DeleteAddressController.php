@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Address;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Repositories\Users\UserAddressRepository;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteAddressController extends Controller
@@ -20,8 +21,8 @@ class DeleteAddressController extends Controller
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été supprimée.',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

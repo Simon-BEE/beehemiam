@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Http\Requests\User\UpdateUserPasswordRequest;
 use App\Repositories\Users\UserRepository;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -27,8 +28,8 @@ class EditUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Vos informations ont bien été mises à jour.',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 
@@ -50,8 +51,8 @@ class EditUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Votre mot de passe a bien été modifié !',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

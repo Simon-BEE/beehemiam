@@ -3,6 +3,7 @@
 namespace App\Repositories\Shop\Cart;
 
 use App\Models\ProductOptionSize;
+use Exception;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -82,7 +83,7 @@ class CartRepository
     {
         try {
             return Cart::get(get_cart_row_id($productOptionSize));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

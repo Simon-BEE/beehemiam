@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Users\UpdateUserPasswordRequest;
 use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\User;
 use App\Repositories\Users\UserRepository;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -28,8 +29,8 @@ class EditUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Le client a bien été modifié !',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 
@@ -45,8 +46,8 @@ class EditUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Le client a bien été modifié !',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

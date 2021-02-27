@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Address\CreateAddressRequest;
 use App\Models\Country;
 use App\Repositories\Users\UserAddressRepository;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -28,8 +29,8 @@ class CreateAddressController extends Controller
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été créée.',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

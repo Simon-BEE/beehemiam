@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\Users\UserRepository;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteUserController extends Controller
@@ -20,8 +21,8 @@ class DeleteUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Le client a bien été supprimé !',
             ]);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
         }
     }
 }

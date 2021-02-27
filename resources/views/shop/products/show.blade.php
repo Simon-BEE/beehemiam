@@ -65,7 +65,7 @@
     
         <section class="card w-full mt-8 md:mt-0 md:w-2/3 md:pl-16 flex flex-col space-y-6">
             <div class="title">
-                <h2 class="font-bold text-7xl">{{ $currentOption->name }}</h2>
+                <h2 class="font-bold text-4xl md:text-7xl">{{ $currentOption->name }}</h2>
                 <p class="">
                     @if ($currentOption->is_available)
                     <span class="inline-flex items-center">

@@ -19,7 +19,7 @@
             <tr v-for="product in products" :key="product.id" v-else-if="products.length && !loading" class="transition-colors duration-500 hover:bg-gray-100">
                 <td class="hidden md:table-cell px-2 py-6 md:w-1/6">
                     <a :href="product.product_option.path">
-                        <img :src="product.product_option.images[0].path" alt="Product image" class="w-24 h-24 rounded">
+                        <img :src="product.product_option.images[0].path" :alt="product.product_option.name + ' image'" class="w-24 h-24 object-cover rounded">
                     </a>
                 </td>
                 <td class="px-2 py-6 md:w-1/2">
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import Loader from './LoaderIcon';
+import Loader from '../LoaderIcon';
 
 export default {
     components: { Loader },

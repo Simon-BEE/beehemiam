@@ -4,10 +4,9 @@ use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
+use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\WelcomeController;
-use App\Models\PreOrderProductOptionQuantity;
-use App\Models\ProductOptionSize;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,13 +19,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('test', function () {
-    \Cart::destroy();
-    // \Cart::add(ProductOptionSize::first());
-    // \Cart::add(ProductOptionSize::find(2));
-    // \Cart::add(PreOrderProductOptionQuantity::first());
-    // dd(\Cart::content());
-});
 
 /**
  * Cart api routes
@@ -45,6 +37,11 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
     
     Route::get('/', IndexCartController::class)->name('index');
+
+    Route::get('/livraisons', AddressCartController::class)->name('shippings');
+    Route::post('/livraisons', function() {
+        dd(request()->all());
+    })->name('shippings.store');
 });
 
 Route::get('/', WelcomeController::class)->name('welcome');

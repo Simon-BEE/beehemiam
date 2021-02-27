@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductOption;
 use App\Repositories\Product\OptionRepository;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteOptionController extends Controller
@@ -23,8 +22,8 @@ class DeleteOptionController extends Controller
                 'type' => 'Succès',
                 'message' => 'La variante a bien été supprimée !',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

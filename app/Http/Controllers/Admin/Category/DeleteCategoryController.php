@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Category;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepository;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteCategoryController extends Controller
@@ -19,8 +18,8 @@ class DeleteCategoryController extends Controller
                 'type' => 'Succès',
                 'message' => 'La catégorie a bien été supprimée !',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

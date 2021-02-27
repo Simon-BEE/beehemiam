@@ -6,7 +6,6 @@ use App\Exceptions\Coupon\CouponDoesNotExistException;
 use App\Exceptions\Coupon\CouponIsNotEligibleException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Coupon\CartCouponRepository;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -29,8 +28,8 @@ class ApiCouponController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], 419);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

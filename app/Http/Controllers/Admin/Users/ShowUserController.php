@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\Users\UserRepository;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -41,8 +40,8 @@ class ShowUserController extends Controller
                 'type' => 'Succès',
                 'message' => 'Le client va recevoir un nouveau mail de vérification !',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

@@ -25,7 +25,7 @@ Route::group(['middleware' => [], 'as' => 'api.'], function () {
 
     Route::group(['prefix' => config('auth.protected_token')], function () {
         
-        Route::delete('produits/options/images/{image}/delete', [ProductOptionImageController::class, 'destroy'])
+        Route::delete('/produits/options/images/{image}/delete', [ProductOptionImageController::class, 'destroy'])
             ->name('products.options.images.delete');
     });
 });

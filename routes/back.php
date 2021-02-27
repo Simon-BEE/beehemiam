@@ -40,22 +40,22 @@ Route::group(['as' => 'products.', 'prefix' => 'produits'], function () {
     Route::get('/', IndexProductController::class)->name('index');
 
     Route::post('/', [CreateProductController::class, 'store'])->name('store');
-    Route::get('creer', [CreateProductController::class, 'create'])->name('create');
+    Route::get('/creer', [CreateProductController::class, 'create'])->name('create');
 
-    Route::get('{product}/editer', [EditProductController::class, 'edit'])->name('edit');
-    Route::patch('{product}', [EditProductController::class, 'update'])->name('update');
+    Route::get('/{product}/editer', [EditProductController::class, 'edit'])->name('edit');
+    Route::patch('/{product}', [EditProductController::class, 'update'])->name('update');
 
-    Route::delete('{product}', DeleteProductController::class)->name('destroy');
+    Route::delete('/{product}', DeleteProductController::class)->name('destroy');
 
     /**
      * Product Options routes
      */
     Route::group(['as' => 'options.', 'prefix' => 'options'], function () {
 
-        Route::get('{product}/{productOption}/editer', [EditOptionController::class, 'edit'])->name('edit');
-        Route::patch('{product}/{productOption}', [EditOptionController::class, 'update'])->name('update');
+        Route::get('/{product}/{productOption}/editer', [EditOptionController::class, 'edit'])->name('edit');
+        Route::patch('/{product}/{productOption}', [EditOptionController::class, 'update'])->name('update');
 
-        Route::delete('{product}/{productOption}', DeleteOptionController::class)->name('destroy');
+        Route::delete('/{product}/{productOption}', DeleteOptionController::class)->name('destroy');
     });
 });
 
@@ -66,13 +66,13 @@ Route::group(['as' => 'categories.', 'prefix' => 'categories'], function () {
 
     Route::get('/', IndexCategoryController::class)->name('index');
 
-    Route::get('creer', [CreateCategoryController::class, 'create'])->name('create');
+    Route::get('/creer', [CreateCategoryController::class, 'create'])->name('create');
     Route::post('/', [CreateCategoryController::class, 'store'])->name('store');
 
-    Route::get('{category}/editer', [EditCategoryController::class, 'edit'])->name('edit');
-    Route::patch('{category}', [EditCategoryController::class, 'update'])->name('update');
+    Route::get('/{category}/editer', [EditCategoryController::class, 'edit'])->name('edit');
+    Route::patch('/{category}', [EditCategoryController::class, 'update'])->name('update');
 
-    Route::delete('{category}', DeleteCategoryController::class)->name('destroy');
+    Route::delete('/{category}', DeleteCategoryController::class)->name('destroy');
 });
 
 /**
@@ -82,14 +82,14 @@ Route::group(['as' => 'users.', 'prefix' => 'clients'], function () {
 
     Route::get('/', IndexUserController::class)->name('index');
 
-    Route::get('{user}', [ShowUserController::class, 'show'])->name('show');
-    Route::get('{user}/commandes', [ShowUserController::class, 'orders'])->name('orders');
+    Route::get('/{user}', [ShowUserController::class, 'show'])->name('show');
+    Route::get('/{user}/commandes', [ShowUserController::class, 'orders'])->name('orders');
 
-    Route::get('{user}/editer', [EditUserController::class, 'edit'])->name('edit');
-    Route::patch('{user}', [EditUserController::class, 'update'])->name('update');
-    Route::patch('{user}/password', [EditUserController::class, 'updatePassword'])->name('update.password');
+    Route::get('/{user}/editer', [EditUserController::class, 'edit'])->name('edit');
+    Route::patch('/{user}', [EditUserController::class, 'update'])->name('update');
+    Route::patch('/{user}/password', [EditUserController::class, 'updatePassword'])->name('update.password');
 
-    Route::post('{user}/features/resend-verification-email', [ShowUserController::class, 'sendEmailVerification'])
+    Route::post('/{user}/features/resend-verification-email', [ShowUserController::class, 'sendEmailVerification'])
         ->name('features.resend-verification-email');
 
     Route::delete('/{user}', DeleteUserController::class)->name('destroy');
@@ -104,12 +104,12 @@ Route::group(['as' => 'discount.', 'prefix' => 'promotions'], function () {
 
     Route::group(['as' => 'coupons.', 'prefix' => 'coupons'], function () {
 
-        Route::get('creer', [CreateCouponController::class, 'create'])->name('create');
+        Route::get('/creer', [CreateCouponController::class, 'create'])->name('create');
         Route::post('/', [CreateCouponController::class, 'store'])->name('store');
 
-        Route::get('{coupon}/editer', [EditCouponController::class, 'edit'])->name('edit');
-        Route::patch('{coupon}', [EditCouponController::class, 'update'])->name('update');
+        Route::get('/{coupon}/editer', [EditCouponController::class, 'edit'])->name('edit');
+        Route::patch('/{coupon}', [EditCouponController::class, 'update'])->name('update');
 
-        Route::delete('{coupon}', DeleteCouponController::class)->name('destroy');
+        Route::delete('/{coupon}', DeleteCouponController::class)->name('destroy');
     });
 });

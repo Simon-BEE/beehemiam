@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Discount;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Repositories\Coupon\CouponRepository;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class DeleteCouponController extends Controller
@@ -26,8 +25,8 @@ class DeleteCouponController extends Controller
                 'type' => 'Succès',
                 'message' => 'Le code de réduction a bien été supprimé !',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

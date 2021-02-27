@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\ProductOptionSize;
 use App\Repositories\Shop\Cart\CartRepository;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,7 +18,7 @@ class UpdateCartController extends Controller
         $request->validate([
             'quantity' => [
                 'required', 'numeric', 'between:0,10',
-            ],
+            ]
         ]);
 
         try {
@@ -28,8 +27,8 @@ class UpdateCartController extends Controller
             return response()->json([
                 'message' => 'Quantité mise à jour',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

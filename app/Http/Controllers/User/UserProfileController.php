@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\Users\UserRepository;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class UserProfileController extends Controller
@@ -26,8 +25,8 @@ class UserProfileController extends Controller
                 'type' => 'Succès',
                 'message' => 'Vous allez recevoir un nouvel e-mail de vérification.',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

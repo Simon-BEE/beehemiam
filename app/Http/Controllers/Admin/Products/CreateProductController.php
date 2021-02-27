@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Size;
 use App\Repositories\Product\CreateProductRepository;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -42,8 +41,8 @@ class CreateProductController extends Controller
                 'type' => 'Succès',
                 'message' => 'Le produit a bien été créé !',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

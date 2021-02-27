@@ -7,7 +7,6 @@ use App\Http\Requests\User\Address\EditAddressRequest;
 use App\Models\Address;
 use App\Models\Country;
 use App\Repositories\Users\UserAddressRepository;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -36,8 +35,8 @@ class EditAddressController extends Controller
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été modifiée.',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 
@@ -50,8 +49,8 @@ class EditAddressController extends Controller
                 'type' => 'Succès',
                 'message' => 'Votre adresse a bien été définie comme principale.',
             ]);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), 1);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
         }
     }
 }

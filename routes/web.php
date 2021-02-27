@@ -38,10 +38,8 @@ Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
     
     Route::get('/', IndexCartController::class)->name('index');
 
-    Route::get('/livraisons', AddressCartController::class)->name('shippings');
-    Route::post('/livraisons', function() {
-        dd(request()->all());
-    })->name('shippings.store');
+    Route::get('/livraisons', [AddressCartController::class, 'index'])->name('shippings.index');
+    Route::post('/livraisons', [AddressCartController::class, 'store'])->name('shippings.store');
 });
 
 Route::get('/', WelcomeController::class)->name('welcome');

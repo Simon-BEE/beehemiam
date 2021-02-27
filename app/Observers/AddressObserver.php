@@ -14,6 +14,10 @@ class AddressObserver
      */
     public function creating(Address $address)
     {
+        if (!auth()->check()) {
+            return;
+        }
+
         if ($address->user->addresses()->count() < 1) {
             $address->is_main = true;
             $address->is_billing = true;
@@ -50,6 +54,10 @@ class AddressObserver
      */
     public function saving(Address $address)
     {
+        if (!auth()->check()) {
+            return;
+        }
+
         $this->checkAddressDefault($address, 'is_main');
         $this->checkAddressDefault($address, 'is_billing');
     }

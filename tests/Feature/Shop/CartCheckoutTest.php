@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Shop;
 
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -20,7 +21,7 @@ class CartCheckoutTest extends TestCase
     /** @test */
     public function cart_shipping_address_page_is_not_accessible_if_cart_is_empty()
     {
-        $this->get(route('cart.shippings'))
+        $this->get(route('cart.shippings.index'))
             ->assertRedirect(route('shop.categories.index'));
     }
 
@@ -29,10 +30,65 @@ class CartCheckoutTest extends TestCase
     {
         $this->addAProductToCart();
 
-        $this->get(route('cart.shippings'))
+        $this->get(route('cart.shippings.index'))
             ->assertSuccessful()
             ->assertViewIs('shop.cart.shipping');
     }
+
+    /** @test */
+    public function a_user_can_confirm_shippings_informations_without_have_an_account()
+    {
+        $this->addAProductToCart();
+
+        $this->followingRedirects()->post(route('cart.shippings.store'), [
+            'country_id' => 1,
+            'firstname' => 'Jean',
+            'lastname' => 'Valjean',
+            'street' => '30 rue des cocotiers',
+            'additionnal' => '2ème étage',
+            'zipcode' => '13100',
+            'city' => 'Marseille',
+            'phone' => '0615141213',
+            'email' => 'email@email.com',
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals(session('billing_address')->street, '30 rue des cocotiers');
+    }
+
+    /** @test */
+    public function a_user_can_confirm_shippings_and_billing_informations_without_have_an_account()
+    {
+        $this->addAProductToCart();
+
+        $this->followingRedirects()->post(route('cart.shippings.store'), [
+            'country_id' => 1,
+            'firstname' => 'Jean',
+            'lastname' => 'Valjean',
+            'street' => '30 rue des cocotiers',
+            'additionnal' => '2ème étage',
+            'zipcode' => '13100',
+            'city' => 'Marseille',
+            'phone' => '0615141213',
+            'email' => 'email@email.com',
+            'billing' => [
+                'country_id' => 1,
+                'firstname' => 'Jean',
+                'lastname' => 'Valjean',
+                'street' => '12 rue des cocotiers',
+                'additionnal' => '2ème étage',
+                'zipcode' => '13100',
+                'city' => 'Marseille',
+                'phone' => '0615141213',
+                'email' => 'email@email.com',
+            ],
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals(session('billing_address')->street, '12 rue des cocotiers');
+        $this->assertEquals(session('shipping_address')->street, '30 rue des cocotiers');
+    }
+    
 
     private function addAProductToCart(): void
     {

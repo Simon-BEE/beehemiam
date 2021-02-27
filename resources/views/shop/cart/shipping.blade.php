@@ -38,7 +38,7 @@
                     </a>
                 </article>
 
-                <x-form.form id="addressForm" action="#" method="POST" class="flex flex-col p-8 rounded-xl border border-dashed border-primary-400">
+                <x-form.form id="addressForm" action="{{ route('cart.shippings.store') }}" method="POST" class="flex flex-col p-8 rounded-xl border border-dashed border-primary-400">
                     <h2 class="text-xl font-bold text-primary-500 mx-auto inline-flex items-center">
                         <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M8,4A5,5 0 0,0 3,9V18H1V20H21A2,2 0 0,0 23,18V9A5,5 0 0,0 18,4H8M8,6A3,3 0 0,1 11,9V18H5V9A3,3 0 0,1 8,6M13,13V7H17V9H15V13H13Z" />

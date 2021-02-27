@@ -57,7 +57,10 @@
                                 type="text"
                                 label="Prénom"
                                 placeholder="Prénom"
-                                value="{{ old('firstname') }}"
+                                value="{{ old('firstname') 
+                                    ?? session('shipping_address')?->firstname
+                                    ?? session('billing_address')?->firstname
+                                }}"
                                 required
                             />
                             <x-form.input 
@@ -66,7 +69,10 @@
                                 type="text"
                                 label="Nom de famille"
                                 placeholder="Nom de famille"
-                                value="{{ old('lastname') }}"
+                                value="{{ old('lastname') 
+                                    ?? session('shipping_address')?->lastname
+                                    ?? session('billing_address')?->lastname
+                                }}"
                                 required
                             />
                         </div>
@@ -78,7 +84,10 @@
                                 type="email"
                                 label="Adresse email"
                                 placeholder="Adresse email"
-                                value="{{ old('email') }}"
+                                value="{{ old('email') 
+                                    ?? session('shipping_address')?->email
+                                    ?? session('billing_address')?->email
+                                }}"
                                 required
                             />
                             <x-form.input 
@@ -87,7 +96,10 @@
                                 type="text"
                                 label="Numéro de télephone"
                                 placeholder="Numéro de télephone"
-                                value="{{ old('phone') }}"
+                                value="{{ old('phone') 
+                                    ?? session('shipping_address')?->phone
+                                    ?? session('billing_address')?->phone
+                                }}"
                                 required
                             />
                         </div>
@@ -97,7 +109,10 @@
                             type="text"
                             label="Adresse"
                             placeholder="Adresse"
-                            value="{{ old('street') }}"
+                            value="{{ old('street') 
+                                ?? session('shipping_address')?->street
+                                ?? session('billing_address')?->street
+                            }}"
                             required
                         />
             
@@ -106,7 +121,10 @@
                             type="text"
                             label="Complément d'adresse"
                             placeholder="Complément d'adresse"
-                            value="{{ old('additionnal') }}"
+                            value="{{ old('additionnal') 
+                                ?? session('shipping_address')?->additionnal
+                                ?? session('billing_address')?->additionnal
+                            }}"
                         />
             
                         <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-3 mb-4">
@@ -116,7 +134,10 @@
                                 type="text"
                                 label="Ville"
                                 placeholder="Ville"
-                                value="{{ old('city') }}"
+                                value="{{ old('city') 
+                                    ?? session('shipping_address')?->city
+                                    ?? session('billing_address')?->city
+                                }}"
                                 required
                             />
             
@@ -126,7 +147,10 @@
                                 type="text"
                                 label="Code postal"
                                 placeholder="Code postal"
-                                value="{{ old('zipcode') }}"
+                                value="{{ old('zipcode') 
+                                    ?? session('shipping_address')?->zipcode
+                                    ?? session('billing_address')?->zipcode
+                                }}"
                                 required
                             />
             

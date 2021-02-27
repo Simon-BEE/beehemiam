@@ -28,7 +28,7 @@
                         <span class="font-bold text-xl">{{ product.product_option.formatted_price * product.cart_quantity }}€</span>
                         <span class="text-xs ml-1 md:ml-0">({{ product.product_option.formatted_price }}€ x {{ product.cart_quantity }})</span>
                     </p>
-                    <button @click="removeProduct(product.id)" class="flex justify-center text-red-400 hover:bg-primary-100 rounded p-1" title="Supprimer du panier">
+                    <button @click="removeProduct(product.id)" class="flex justify-center text-red-400 hover:bg-primary-300 rounded p-1" title="Supprimer du panier">
                         <svg class="w-5 h-5" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
                         </svg>

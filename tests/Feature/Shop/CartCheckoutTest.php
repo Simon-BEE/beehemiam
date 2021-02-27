@@ -89,6 +89,7 @@ class CartCheckoutTest extends TestCase
         $this->assertEquals(session('shipping_address')->street, '30 rue des cocotiers');
     }
     
+    // todo BILLING_ADDRESS IF ONLY ONE ADDRESS OTHERWISE SHIPPING_ADDRESS AND BILLING_ADDRESS
 
     private function addAProductToCart(): void
     {

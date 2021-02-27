@@ -19,6 +19,10 @@ class CreateInvoicesTable extends Migration
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
+            $table->foreignId('address_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->string('reference');
             $table->text('full_path');
             $table->longText('content');

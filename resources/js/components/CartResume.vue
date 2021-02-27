@@ -1,20 +1,26 @@
 <template>
     <section class="bg-primary-200 p-4 rounded flex flex-col space-y-4">
-        <article class="flex flex-col space-y-2">
-            <h4 class="font-bold text-lg">Vous avez un code promo ?</h4>
+        <div class="text-center" v-if="loading">
+            <loader />
+        </div>
+        <article class="flex flex-col" v-else>
+            <h4 class="font-bold text-lg mb-2">Vous avez un code promo ?</h4>
 
-            <div class="flex items-center">
-                <div class="w-full mb-4">
+            <form class="flex items-center" @submit.prevent="submitCoupon">
+                <div class="w-full mb-2">
                     <input 
                         type="text" name="discount" id="discount" 
-                        placeholder="Code promo" value="" required="required" 
+                        placeholder="Code promo" required="required" 
                         class="w-full mt-2 px-4 py-2 block rounded text-kaki-900 border border-transparent focus:bg-white focus:outline-none focus:border-transparent focus:ring-2 focus:ring-primary-500 bg-primary-100"
+                        v-model="discountCode"
                     >
                 </div>
-                <button type="button" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold -mt-2 ml-2">
+                <button type="submit" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold -mt-2 ml-2">
                     Ajouter
                 </button>
-            </div>
+            </form>
+            <small class="text-red-400" v-if="errorCoupon">{{ errorCoupon }}</small>
+            <small class="text-green-400" v-if="successCoupon">{{ successCoupon }}</small>
         </article>
         <article class="flex flex-col space-y-2">
             <h4 class="font-bold text-lg">Montant total de la commande</h4>
@@ -40,7 +46,11 @@
 </template>
 
 <script>
+import Loader from './LoaderIcon';
+
 export default {
+    components: { Loader },
+
     props: {
         cartSubTotal: {
             required: true,
@@ -50,11 +60,14 @@ export default {
 
     data() {
         return {
+            loading: false,
             subTotal: this.cartSubTotal,
             shippingFees: 5,
             total: 0,
             discount: 0,
             discountCode: null,
+            errorCoupon: null,
+            successCoupon: null,
         }
     },
     watch: {
@@ -74,6 +87,35 @@ export default {
     methods: {
         calculateCartTotalAmount() {
             this.total = this.subTotal + this.shippingFees - this.discount;
+        },
+
+        submitCoupon() {
+            this.loading = true;
+            this.errorCoupon = null;
+            this.successCoupon = null;
+
+            axios.post('/cart/coupons/add/', 
+                {coupon: this.discountCode}, 
+                {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
+                    }
+                }).then(response => {
+                this.successCoupon = response.data.message;
+
+                this.discount = response.data.amount;
+
+                this.calculateCartTotalAmount();
+            }).catch(error => {
+                this.errorCoupon = error.response.data.message;
+
+                this.discount = 0;
+
+                this.calculateCartTotalAmount();
+            })
+            .finally(() => {
+                this.loading = false;
+            });
         },
     },
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\PreOrderProductOptionQuantity;
+use App\Models\ProductOptionSize;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('test', function () {
+    \Cart::destroy();
+    \Cart::add(ProductOptionSize::first());
+    \Cart::add(ProductOptionSize::find(2));
+    \Cart::add(PreOrderProductOptionQuantity::first());
+    dd(\Cart::content());
+});
 
 /**
  * Cart api routes

@@ -57,6 +57,31 @@ class ShopSeeder extends Seeder
                     ]);
                 });
             });
+
+            $preorders = Product::factory()->active()->preorder()->create();
+
+            $preorders->each(function ($product) {
+
+                $productOptions = ProductOption::factory()->count(mt_rand(1, 3))->create([
+                    'product_id' => $product->id,
+                ]);
+
+                $productOptions->each(function ($productOption) {
+                    $productOption->images()->create([
+                        'filename' => 'image.jpg',
+                        'full_path' => 'x/image.jpg',
+                    ]);
+                    $productOption->images()->create([
+                        'filename' => 'image.jpg',
+                        'full_path' => 'thumbs/x/image.jpg',
+                        'is_thumb' => true,
+                    ]);
+
+                    $productOption->preOrderStock()->create([
+                        'quantity' => mt_rand(10, 50),
+                    ]);
+                });
+            });
         });
 
     }

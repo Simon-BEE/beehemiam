@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Exceptions\CannotDeleteUserAccountException;
+use App\Exceptions\User\CannotDeleteUserAccountException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\Users\UserRepository;

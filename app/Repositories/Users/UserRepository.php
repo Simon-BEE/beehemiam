@@ -3,7 +3,7 @@
 namespace App\Repositories\Users;
 
 use App\Events\PasswordEdited;
-use App\Exceptions\CannotDeleteUserAccountException;
+use App\Exceptions\User\CannotDeleteUserAccountException;
 use App\Mail\Users\UserAccountDeletedMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;

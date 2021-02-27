@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Back\Products;
 
-use App\Exceptions\ProductActiveStatusException;
+use App\Exceptions\Product\ProductActiveStatusException;;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductOption;

@@ -12,10 +12,10 @@
                         type="text" name="discount" id="discount" 
                         placeholder="Code promo" required="required" 
                         class="w-full mt-2 px-4 py-2 block rounded text-kaki-900 border border-transparent focus:bg-white focus:outline-none focus:border-transparent focus:ring-2 focus:ring-primary-500 bg-primary-100"
-                        v-model="discountCode"
+                        v-model="discountCodeInput"
                     >
                 </div>
-                <button type="submit" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold -mt-2 ml-2">
+                <button type="submit" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold ml-2">
                     Ajouter
                 </button>
             </form>
@@ -65,10 +65,11 @@ export default {
         return {
             loading: false,
             subTotal: this.cartSubTotal,
-            shippingFees: 5,
+            shippingFees: 4.95,
             total: 0,
             discount: this.coupon ? this.coupon.amount : 0,
             discountCode: this.coupon ? this.coupon.code : null,
+            discountCodeInput: '',
             errorCoupon: null,
             successCoupon: null,
         }
@@ -89,7 +90,7 @@ export default {
 
     methods: {
         calculateCartTotalAmount() {
-            this.total = this.subTotal + this.shippingFees - this.discount;
+            this.total = (this.subTotal + this.shippingFees - this.discount).toFixed(2);
         },
 
         submitCoupon() {
@@ -98,7 +99,7 @@ export default {
             this.successCoupon = null;
 
             axios.post('/cart/coupons/add/', 
-                {coupon: this.discountCode}, 
+                {coupon: this.discountCodeInput}, 
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -106,9 +107,15 @@ export default {
                 }).then(response => {
                 this.successCoupon = response.data.message;
 
+                setTimeout(() => {
+                    this.successCoupon = null;
+                }, 5000);
+
                 this.discount = response.data.amount;
 
                 this.calculateCartTotalAmount();
+
+                this.discountCodeInput = '';
             }).catch(error => {
                 this.errorCoupon = error.response.data.message;
 

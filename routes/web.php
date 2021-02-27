@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
         Route::patch('/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
         Route::delete('/delete/sizes/{productOptionSize}', RemoveCartController::class)->name('delete.sizes');
 
-        Route::post('/coupons/add', [ApiCouponController::class, 'add'])->name('coupons.add');
+        Route::post('/coupons/add', ApiCouponController::class)->name('coupons.add');
     });
 });
 

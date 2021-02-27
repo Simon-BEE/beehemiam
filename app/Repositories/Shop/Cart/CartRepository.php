@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Shop\Cart;
 
-use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Facades\Cart;

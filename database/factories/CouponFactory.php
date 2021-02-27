@@ -22,7 +22,7 @@ class CouponFactory extends Factory
     public function definition()
     {
         return [
-            'code' => "COUPON" . mt_rand(10, 99),
+            'code' => "COUPON" . mt_rand(1111, 9999),
             'amount' => mt_rand(1, 50),
             'expired_at' => now()->addWeeks(mt_rand(1,5)),
         ];

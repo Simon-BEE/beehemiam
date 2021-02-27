@@ -22,10 +22,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('test', function () {
     \Cart::destroy();
-    \Cart::add(ProductOptionSize::first());
-    \Cart::add(ProductOptionSize::find(2));
-    \Cart::add(PreOrderProductOptionQuantity::first());
-    dd(\Cart::content());
+    // \Cart::add(ProductOptionSize::first());
+    // \Cart::add(ProductOptionSize::find(2));
+    // \Cart::add(PreOrderProductOptionQuantity::first());
+    // dd(\Cart::content());
 });
 
 /**

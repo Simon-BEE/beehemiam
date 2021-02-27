@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Product;
 
-use App\Exceptions\Product\ProductActiveStatusException;;
+use App\Exceptions\Product\ProductActiveStatusException;
 use App\Models\ProductOption;
 
 class OptionRepository extends ProductAndOptionRepository

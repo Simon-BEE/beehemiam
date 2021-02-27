@@ -56,6 +56,9 @@ export default {
             required: true,
             type: Number,
         },
+        coupon: {
+            type: Object,
+        },
     },
 
     data() {
@@ -64,8 +67,8 @@ export default {
             subTotal: this.cartSubTotal,
             shippingFees: 5,
             total: 0,
-            discount: 0,
-            discountCode: null,
+            discount: this.coupon ? this.coupon.amount : 0,
+            discountCode: this.coupon ? this.coupon.code : null,
             errorCoupon: null,
             successCoupon: null,
         }

@@ -13,6 +13,9 @@ class IndexCartController extends Controller
         return view('shop.cart.index', [
             'cart' => $repository->getProductsFromCart(),
             'subTotal' => get_cart_subtotal(true),
+            'coupon' => session()->has('coupon') 
+                ? session('coupon')->get('coupon')->only(['code', 'amount']) 
+                : null,
         ]);
     }
 }

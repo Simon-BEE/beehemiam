@@ -28,7 +28,7 @@
             </section>
 
             <section class="w-full md:w-1/3 mt-8 md:mt-0 ">
-                <cart-resume :cart-sub-total="{{ $subTotal }}"></cart-resume>
+                <cart-resume :cart-sub-total="{{ $subTotal }}" :coupon="{{ json_encode($coupon) }}"></cart-resume>
         
                 <section class="w-full flex justify-center mt-12">
                     <a href="#" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-bold text-lg">

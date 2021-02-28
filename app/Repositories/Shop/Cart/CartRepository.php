@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Shop\Cart;
 
+use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Collection;
 
 class CartRepository
 {
@@ -17,7 +19,7 @@ class CartRepository
             return;
         }
 
-        Cart::add(
+        Cart::instance('order')->add(
             $productOptionSize->id,
             $productOptionSize->productOption->name,
             1,
@@ -27,28 +29,50 @@ class CartRepository
 
     public function update(ProductOptionSize $productOptionSize, float|int $quantity): void
     {
-        Cart::update(get_cart_row_id($productOptionSize), $quantity);
+        Cart::instance('order')->update(get_cart_row_id($productOptionSize), $quantity);
     }
 
-    /**
-     * @psalm-suppress UndefinedDocblockClass
-     */
     public function remove(ProductOptionSize $productOptionSize): void
     {
-        Cart::remove(get_cart_row_id($productOptionSize));
+        Cart::instance('order')->remove(get_cart_row_id($productOptionSize));
 
-        if (Cart::content()->isEmpty()) {
-            Cart::destroy();
+        if (cart_is_empty('order')) {
+            Cart::instance('order')->destroy();
+        }
+    }
+
+    public function getProductsFromCart(): array
+    {
+        if (cart_is_empty('order') || cart_is_empty('preorder')) {
+            return [];
+        }
+
+        $productOptionSizes = $this->getProductOptionsSizes();
+        $productOptionPreOrders = $this->getProductOptionsPreOrders();
+
+        // dd($productOptionSizes, $productOptionPreOrders, array_values($productOptionSizes->merge($productOptionPreOrders)->toArray()));
+        return array_values($productOptionSizes->merge($productOptionPreOrders)->toArray());
+    }
+
+    private function getIfExistsInCart(ProductOptionSize $productOptionSize): CartItem|bool
+    {
+        try {
+            return Cart::instance('order')->get(get_cart_row_id($productOptionSize));
+        } catch (\Exception $e) {
+            return false;
         }
     }
 
     /**
-     * @psalm-suppress UndefinedDocblockClass
+     * Get productOptionsSizes with productOption, product, images and format.
+     * And transform to a Collection with a property cart_quantity
+     *
+     * @return Collection
      */
-    public function getProductsFromCart(): array
+    private function getProductOptionsSizes(): Collection
     {
-        if (Cart::content()->isEmpty()) {
-            return [];
+        if (cart_is_empty('order')) {
+            return collect();
         }
 
         $productOptionSizes = ProductOptionSize::with([
@@ -69,21 +93,58 @@ class CartRepository
             }
         ])
             ->with(['size'])
-            ->find(Cart::content()->pluck('id')->toArray())
+            ->find(Cart::instance('order')->content()->pluck('id')->toArray())
             ->makeHidden(['created_at', 'updated_at', 'quantity', 'size_id', 'product_option_id']);
 
         return $productOptionSizes->map(function (ProductOptionSize $productOptionSize) {
             return collect($productOptionSize)
-                ->put('cart_quantity', Cart::get(get_cart_row_id($productOptionSize))->qty);
-        })->toArray();
+                ->put('cart_quantity', Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty);
+        });
     }
 
-    private function getIfExistsInCart(ProductOptionSize $productOptionSize): CartItem|bool
+    /**
+     * Create Collection with (productOptions with preOrderStock, product, images and format) and size.
+     * And format to match with productOptionsSizes results
+     *
+     * @return Collection
+     */
+    private function getProductOptionsPreOrders(): Collection
     {
-        try {
-            return Cart::get(get_cart_row_id($productOptionSize));
-        } catch (\Exception $e) {
-            return false;
+        if (cart_is_empty('preorder')) {
+            return collect();
         }
+
+        $productOptions = Cart::instance('preorder')->content()->map(function (CartItem $cartItem) {
+            return collect([
+                    'productOption' => ProductOption::with(['product' => function ($query) {
+                        $query->select(['id', 'name', 'slug'])
+                            ->with(['categories' => function ($query) {
+                                $query->select('id', 'name', 'slug');
+                            }]);
+                    }])
+                    ->with(['images' => function ($query) {
+                        $query->where('is_thumb', true)
+                            ->select(['id', 'product_option_id','full_path', 'filename']);
+                    }])
+                    ->select('id', 'product_id', 'name', 'price')
+                    ->with(['preOrderStock:id,product_option_id'])
+                    ->find($cartItem->id),
+                    'size' => $cartItem->options,
+                ]);
+        });
+
+        return $productOptions->map(function (Collection $productOption) {
+
+            return collect([
+                'product_option' => $productOption->get('productOption'),
+                'size' => collect([
+                    'id' => $productOption->get('size')->sizeId,
+                    'name' => $productOption->get('size')->sizeName,
+                ]),
+                'cart_quantity' => Cart::instance('preorder')
+                    ->get(get_cart_row_id($productOption->get('productOption'), 'preorder'))
+                    ->qty,
+            ]);
+        });
     }
 }

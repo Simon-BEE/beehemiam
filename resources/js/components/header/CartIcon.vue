@@ -22,7 +22,8 @@ export default {
     },
 
     mounted() {
-        this.numberProductsInCart = JSON.parse(this.$cookies.get('beehemiamCart')).length;
+        let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
+        this.numberProductsInCart = cartItems ? cartItems.length : null;
 
         window.addEventListener('cart-change-event', (event) => {
             this.numberProductsInCart = event.detail.storage;

@@ -29,9 +29,15 @@ export default {
         if(this.$cookies.isKey('beehemiamCart')){
             cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
         }
-        cartItems.push({'productOptionSizeId' : itemValue});
-        
-        cartItems = [...new Map(cartItems.map(item => [item['productOptionSizeId'], item])).values()];
+
+        let cartItem = {};
+
+        cartItem[itemKey] = itemValue;
+
+        cartItems.push(cartItem);
+
+        const uniqueArray = a => [...new Set(a.map(o => JSON.stringify(o)))].map(s => JSON.parse(s))
+        cartItems = uniqueArray(cartItems);
         
         this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 

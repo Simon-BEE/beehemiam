@@ -29,8 +29,8 @@ class CartTest extends TestCase
         $this->post(route('api.cart.add.sizes', $productOptionSize))
             ->assertSuccessful();
 
-        $this->assertCount(1, Cart::content());
-        $this->assertTrue(Cart::content()->contains('id', $productOptionSize->id));
+        $this->assertCount(1, Cart::instance('order')->content());
+        $this->assertTrue(Cart::instance('order')->content()->contains('id', $productOptionSize->id));
     }
 
     /** @test */
@@ -45,7 +45,7 @@ class CartTest extends TestCase
         $this->post(route('api.cart.add.sizes', $productOptionSize))
             ->assertSuccessful();
 
-        $this->assertEquals($productOptionSize->id, Cart::get(get_cart_row_id($productOptionSize))->id);
+        $this->assertEquals($productOptionSize->id, Cart::instance('order')->get(get_cart_row_id($productOptionSize))->id);
     }
 
     /** @test */
@@ -63,7 +63,7 @@ class CartTest extends TestCase
         $this->patch(route('api.cart.update.sizes', $productOptionSize), ['quantity' => 2])
             ->assertSuccessful();
 
-        $this->assertEquals(2, Cart::get(get_cart_row_id($productOptionSize))->qty);
+        $this->assertEquals(2, Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty);
     }
 
     /** @test */
@@ -81,7 +81,7 @@ class CartTest extends TestCase
         $this->post(route('api.cart.add.sizes', $productOptionSize))
             ->assertSuccessful();
 
-        $this->assertEquals(2, Cart::get(get_cart_row_id($productOptionSize))->qty);
+        $this->assertEquals(2, Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty);
     }
 
     /** @test */
@@ -96,12 +96,12 @@ class CartTest extends TestCase
         $this->post(route('api.cart.add.sizes', $productOptionSize))
             ->assertSuccessful();
 
-        $this->assertCount(1, Cart::content());
+        $this->assertCount(1, Cart::instance('order')->content());
 
         $this->patch(route('api.cart.update.sizes', $productOptionSize), ['quantity' => 0])
             ->assertSuccessful();
 
-        $this->assertCount(0, Cart::content());
+        $this->assertCount(0, Cart::instance('order')->content());
     }
     
     /** @test */
@@ -116,12 +116,12 @@ class CartTest extends TestCase
         $this->post(route('api.cart.add.sizes', $productOptionSize))
             ->assertSuccessful();
 
-        $this->assertCount(1, Cart::content());
+        $this->assertCount(1, Cart::instance('order')->content());
 
         $this->delete(route('api.cart.delete.sizes', $productOptionSize))
             ->assertSuccessful();
 
-        $this->assertCount(0, Cart::content());
+        $this->assertCount(0, Cart::instance('order')->content());
     }
     
     /** @test */
@@ -139,7 +139,7 @@ class CartTest extends TestCase
         $this->post(route('api.cart.add.sizes', $productOptionSize2))
             ->assertSuccessful();
 
-        $this->assertCount(2, Cart::content());
+        $this->assertCount(2, Cart::instance('order')->content());
         $this->assertEquals(30, get_cart_subtotal(true));
         $this->assertEquals(3000, get_cart_subtotal());
     }

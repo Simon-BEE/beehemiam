@@ -7,7 +7,6 @@ use App\Http\Requests\StoreGuestAddressRequest;
 use App\Models\Country;
 use App\Repositories\Shop\Cart\AddressCartRepository;
 use App\Repositories\Shop\Cart\CartRepository;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -18,7 +17,7 @@ class AddressCartController extends Controller
      */
     public function index(CartRepository $repository): RedirectResponse|View
     {
-        if (Cart::content()->isEmpty()) {
+        if (carts_are_empty()) {
             return redirect()->route('shop.categories.index');
         }
 

@@ -24,7 +24,10 @@
                 </td>
                 <td class="px-2 py-6 md:w-1/2">
                     <a :href="product.product_option.path">
-                        <h3 class="font-bold text-xl mb-1">{{ product.product_option.name }}</h3>
+                        <h3 class="mb-1">
+                            <span class="font-bold text-xl">{{ product.product_option.name }}</span>
+                            <span class="text-xs uppercase ml-2" v-if="!product.id">(précommande)</span>
+                        </h3>
                         <p class="inline text-sm uppercase font-semibold px-2 py-1 rounded-full bg-primary-200">Taille {{ product.size.name }}</p>
                     </a>
                 </td>

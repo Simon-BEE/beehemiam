@@ -26,9 +26,17 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
     Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
-        Route::post('/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
-        Route::patch('/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
-        Route::delete('/delete/sizes/{productOptionSize}', RemoveCartController::class)->name('delete.sizes');
+        Route::post('/add/sizes/{productOptionSize}', [AddCartController::class, 'addOrder'])->name('add.sizes');
+        Route::patch('/update/sizes/{productOptionSize}', [UpdateCartController::class, 'updateOrder'])
+            ->name('update.sizes');
+        Route::delete('/delete/sizes/{productOptionSize}', [RemoveCartController::class, 'deleteOrder'])
+            ->name('delete.sizes');
+
+        Route::post('/add/preorder', [AddCartController::class, 'addPreOrder'])->name('add.preorder');
+        Route::patch('/update/preorder', [UpdateCartController::class, 'updatePreOrder'])
+            ->name('update.preorder');
+        Route::patch('/delete/preorder', [RemoveCartController::class, 'deletePreOrder'])
+            ->name('delete.preorder');
 
         Route::post('/coupons/add', ApiCouponController::class)->name('coupons.add');
     });

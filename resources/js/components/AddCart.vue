@@ -21,11 +21,6 @@ export default {
         productOption: {
             type: Object
         },
-
-        isPreorder: {
-            required: true,
-            type: Boolean,
-        },
     },
 
     methods: {
@@ -33,10 +28,32 @@ export default {
             e.preventDefault();
             let selectedSize = document.getElementById('addCartForm').querySelector('input[name="size_id"]').value;
 
+            if (this.productOption.product.is_preorder) {
+                this.addPreOrderToCart(selectedSize);
+                return;
+            }
+
             axios.post('/cart/add/sizes/' + selectedSize, 
-                { 
-                    is_preorder: this.isPreorder, 
-                    cart_item: JSON.stringify({productOptionId: this.productOption.id, sizeId: selectedSize}) 
+                null,
+                {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
+                    }
+                }).then(response => {
+                console.info(response.data.message);
+            }).catch(error => console.error(error));
+
+            this.addItemToCart(
+                'productOptionSizeId', 
+                selectedSize, 
+            );
+        },
+
+        addPreOrderToCart(selectedSize) {
+            axios.post('/cart/add/preorder', 
+                {
+                    product_option_id: this.productOption.id,
+                    size_id: selectedSize,
                 }, 
                 {
                     headers: {
@@ -47,9 +64,8 @@ export default {
             }).catch(error => console.error(error));
 
             this.addItemToCart(
-                this.isPreorder ? 'preOrderStockId' : 'productOptionSizeId', 
-                this.isPreorder ? {productOptionId: this.productOption.id, sizeId: selectedSize} : selectedSize, 
-                
+                'preOrderStockId', 
+                {productOptionId: this.productOption.id, sizeId: selectedSize}, 
             );
         },
     },

@@ -22,9 +22,30 @@ if (!function_exists('get_cart_row_id')) {
     /**
      * @psalm-suppress UndefinedDocblockClass
      */
-    function get_cart_row_id(ProductOption|ProductOptionSize $productOption, string $instance = "order"): string
+    function get_cart_row_id(
+        ProductOption|ProductOptionSize $productOption, 
+        string $instance = "order", 
+        ?int $sizeId = null
+    ): string
     {
-        return Cart::instance($instance)->content()->where('id', $productOption->id)->first()->rowId;
+        if ($instance === 'preorder') {
+
+            if (is_null($sizeId)) {
+                throw new \Exception("Argument 'sizeId' cannot be null", 1);
+            }
+
+            return Cart::instance($instance)
+                ->content()
+                ->where('id', $productOption->id)
+                ->whereIn('options.sizeId', $sizeId)
+                ->first()
+                ->rowId;
+        }
+
+        return Cart::instance('order')
+            ->content()
+            ->firstWhere('id', $productOption->id)
+            ->rowId;
     }
 }
 

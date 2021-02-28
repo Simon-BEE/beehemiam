@@ -144,4 +144,71 @@ class CartTest extends TestCase
         $this->assertEquals(3000, get_cart_subtotal());
     }
     
+    /** @test */
+    public function a_preorder_product_can_be_added_to_cart()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->preorder()->active()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 15]);
+        $productOption->preOrderStock()->create(['quantity' => 10]);
+
+        $this->post(route('api.cart.add.preorder'), [
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ])
+            ->assertSuccessful();
+
+        $this->assertCount(1, Cart::instance('preorder')->content());
+        $this->assertTrue(Cart::instance('preorder')->content()->contains('id', $productOption->id));
+    }
+
+    /** @test */
+    public function a_preorder_product_option_can_be_updated_in_cart()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->preorder()->active()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 15]);
+        $productOption->preOrderStock()->create(['quantity' => 10]);
+
+        $this->post(route('api.cart.add.preorder'), [
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ]);
+
+        $this->patch(route('api.cart.update.preorder'), [
+            'quantity' => 2,
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals(2, Cart::instance('preorder')->get(get_cart_row_id($productOption, 'preorder', 1))->qty);
+    }
+    
+    /** @test */
+    public function a_preorder_product_can_be_removed_from_cart()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->preorder()->active()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 15]);
+        $productOption->preOrderStock()->create(['quantity' => 10]);
+
+        $this->post(route('api.cart.add.preorder'), [
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ]);
+
+        $this->assertCount(1, Cart::instance('preorder')->content());
+
+        $this->delete(route('api.cart.delete.preorder'), [
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ])
+            ->assertSuccessful();
+
+        $this->assertCount(0, Cart::instance('preorder')->content());
+    }
 }

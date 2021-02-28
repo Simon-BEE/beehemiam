@@ -23,7 +23,7 @@ class AddressCartController extends Controller
 
         return view('shop.cart.shipping', [
             'cart' => $repository->getProductsFromCart(),
-            'subTotal' => get_cart_subtotal(true),
+            'subTotal' => get_cart_subtotal(true, 'order') + get_cart_subtotal(true, 'preorder'),
             'coupon' => session()->has('coupon')
                 ? session('coupon')->get('coupon')->only(['code', 'amount'])
                 : null,

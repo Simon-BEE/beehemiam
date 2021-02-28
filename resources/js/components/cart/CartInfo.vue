@@ -28,7 +28,7 @@
                         <span class="font-bold text-xl">{{ product.product_option.formatted_price * product.cart_quantity }}€</span>
                         <span class="text-xs ml-1 md:ml-0">({{ product.product_option.formatted_price }}€ x {{ product.cart_quantity }})</span>
                     </p>
-                    <button @click="removeProduct(product.id)" class="flex justify-center text-red-400 hover:bg-primary-300 rounded p-1" title="Supprimer du panier">
+                    <button @click="removeProduct(product)" class="flex justify-center text-red-400 hover:bg-primary-300 rounded p-1" title="Supprimer du panier">
                         <svg class="w-5 h-5" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
                         </svg>
@@ -121,6 +121,8 @@ export default {
                 : (event.detail.storage === '2' 
                     ? 'Belgique'
                     : 'Suisse' ) ;
+            
+            this.calculateCartTotalAmount();
         });
     },
 
@@ -129,8 +131,13 @@ export default {
             this.total = (this.subTotal + this.shippingFeesAmount - this.discount).toFixed(2);
         },
 
-        removeProduct(id) {
-            axios.delete('/cart/delete/sizes/' + id, 
+        removeProduct(product) {
+            if (!product.id) {
+                this.removePreOrderProduct(product);
+                return;
+            }
+
+            axios.delete('/cart/delete/sizes/' + product.id, 
                 null, 
                 {
                     headers: {
@@ -140,7 +147,7 @@ export default {
             ).then(response => {
                 console.info(response.data.message);
 
-                this.products = this.products.filter(product => product.id != id);
+                this.products = this.products.filter(productOption => productOption.id != product.id);
 
                 this.subTotal = this.products.reduce(function (acc, current) {
                     return acc + (current.cart_quantity * current.product_option.formatted_price);
@@ -149,7 +156,55 @@ export default {
                 this.calculateCartTotalAmount();
 
                 let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
-                cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != id);
+                cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
+                this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
+
+                window.dispatchEvent(new CustomEvent('cart-change-event', {
+                    detail: {
+                        storage: cartItems.length,
+                    }
+                }));
+            }).catch(error => console.error(error))
+            .finally(() => {
+                if (!this.products.length) {
+                    window.location.href = '/panier';
+                }
+            });
+        },
+
+        removePreOrderProduct(product) {
+            axios.patch('/cart/delete/preorder', 
+                { 
+                    product_option_id: product.product_option.id,
+                    size_id: product.size.id,
+                }, 
+                {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
+                    }
+                }).then(response => {
+                console.info(response.data.message);
+
+                this.products = this.products.filter(productOption => {
+                    return (productOption.size.id != product.size.id || productOption.product_option.id != product.product_option.id)
+                });
+
+                this.subTotal = this.products.reduce(function (acc, current) {
+                    return acc + (current.cart_quantity * current.product_option.formatted_price);
+                }, 0);
+
+                this.calculateCartTotalAmount();
+
+                let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
+
+                cartItems = cartItems.filter(cartItem => {
+                    if (cartItem.preOrderStockId) {
+                        return (cartItem.preOrderStockId.sizeId != product.size.id || cartItem.preOrderStockId.productOptionId != product.product_option.id)
+                    } else {
+                        return cartItem;
+                    }
+                });
+
                 this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
                 window.dispatchEvent(new CustomEvent('cart-change-event', {

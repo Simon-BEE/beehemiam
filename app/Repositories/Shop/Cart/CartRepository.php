@@ -10,57 +10,16 @@ use Illuminate\Support\Collection;
 
 class CartRepository
 {
-    public function add(ProductOptionSize $productOptionSize): void
-    {
-        if ($cartItem = $this->getIfExistsInCart($productOptionSize)) {
-            /** @var CartItem $cartItem */
-            $this->update($productOptionSize, $cartItem->qty + 1);
-
-            return;
-        }
-
-        Cart::instance('order')->add(
-            $productOptionSize->id,
-            $productOptionSize->productOption->name,
-            1,
-            $productOptionSize->productOption->price
-        );
-    }
-
-    public function update(ProductOptionSize $productOptionSize, float|int $quantity): void
-    {
-        Cart::instance('order')->update(get_cart_row_id($productOptionSize), $quantity);
-    }
-
-    public function remove(ProductOptionSize $productOptionSize): void
-    {
-        Cart::instance('order')->remove(get_cart_row_id($productOptionSize));
-
-        if (cart_is_empty('order')) {
-            Cart::instance('order')->destroy();
-        }
-    }
-
     public function getProductsFromCart(): array
     {
-        if (cart_is_empty('order') || cart_is_empty('preorder')) {
+        if (carts_are_empty()) {
             return [];
         }
 
         $productOptionSizes = $this->getProductOptionsSizes();
         $productOptionPreOrders = $this->getProductOptionsPreOrders();
 
-        // dd($productOptionSizes, $productOptionPreOrders, array_values($productOptionSizes->merge($productOptionPreOrders)->toArray()));
         return array_values($productOptionSizes->merge($productOptionPreOrders)->toArray());
-    }
-
-    private function getIfExistsInCart(ProductOptionSize $productOptionSize): CartItem|bool
-    {
-        try {
-            return Cart::instance('order')->get(get_cart_row_id($productOptionSize));
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 
     /**
@@ -142,7 +101,10 @@ class CartRepository
                     'name' => $productOption->get('size')->sizeName,
                 ]),
                 'cart_quantity' => Cart::instance('preorder')
-                    ->get(get_cart_row_id($productOption->get('productOption'), 'preorder'))
+                    ->get(get_cart_row_id(
+                        $productOption->get('productOption'), 
+                        'preorder', 
+                        $productOption->get('size')->sizeId))
                     ->qty,
             ]);
         });

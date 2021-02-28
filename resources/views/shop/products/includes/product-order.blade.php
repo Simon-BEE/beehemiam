@@ -27,7 +27,7 @@
             <article class="flex flex-col md:flex-row items-center mt-8 md:space-x-4">
                 <span class="p-6 font-bold text-5xl bg-primary-300">{{ $currentOption->formatted_price }}€</span>
 
-                <add-cart :product-option="{{ json_encode($currentOption) }}" :is-preorder="{{ json_encode(false) }}"></add-cart>
+                <add-cart :product-option="{{ json_encode($currentOption) }}"></add-cart>
             </article>
         </x-form.form>
     @else

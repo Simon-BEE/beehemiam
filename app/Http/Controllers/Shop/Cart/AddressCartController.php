@@ -13,6 +13,9 @@ use Illuminate\Http\RedirectResponse;
 
 class AddressCartController extends Controller
 {
+    /**
+     * @psalm-suppress UndefinedDocblockClass
+     */
     public function index(CartRepository $repository): RedirectResponse|View
     {
         if (Cart::content()->isEmpty()) {
@@ -29,7 +32,7 @@ class AddressCartController extends Controller
         ]);
     }
 
-    public function store(AddressCartRepository $repository, StoreGuestAddressRequest $request)
+    public function store(AddressCartRepository $repository, StoreGuestAddressRequest $request): RedirectResponse
     {
         try {
             $repository->prepare($request->validated());

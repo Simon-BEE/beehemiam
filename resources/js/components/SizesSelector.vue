@@ -10,7 +10,7 @@
       :key="size.id"
       @click="selectNewSize(size)"
     >
-      {{ size.size.name }}
+      {{ size.size ? size.size.name : size.name }}
     </button>
     <input type="hidden" name="size_id" :value="newSelectedSize.id" />
   </div>

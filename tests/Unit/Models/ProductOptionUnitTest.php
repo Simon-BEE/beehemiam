@@ -49,7 +49,7 @@ class ProductOptionUnitTest extends TestCase
     }
 
     /** @test */
-    public function an_option_has_a_property_is_available()
+    public function an_option_has_a_property_is_available_for_normal_order()
     {
         $productOption = ProductOption::factory()->create();
 
@@ -61,6 +61,40 @@ class ProductOptionUnitTest extends TestCase
         ]);
 
         $this->assertTrue($productOption->fresh()->is_available);
+    }
+
+    /** @test */
+    public function an_option_has_a_property_is_available_for_preorder()
+    {
+        $product = Product::factory()->preorder()->active()->create();
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->assertNotNull($productOption->is_available);
+        $this->assertFalse($productOption->is_available);
+        
+        $productOption->preOrderStock()->create([
+            'quantity' => 10,
+        ]);
+
+        $this->assertTrue($productOption->fresh()->is_available);
+    }
+
+    /** @test */
+    public function a_preorder_option_has_a_property_release_date()
+    {
+        $product = Product::factory()->preorder()->active()->create();
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+
+        $this->assertNull($productOption->release_at);
+        
+        $productOption->preOrderStock()->create([
+            'quantity' => 10,
+        ]);
+
+        $this->assertEquals(
+            now()->addWeeks(config('beehemiam.preorder.release_date_weeks'))->startOfDay(), 
+            $productOption->fresh()->release_date->startOfDay()
+        );
     }
 
     /** @test */
@@ -77,6 +111,5 @@ class ProductOptionUnitTest extends TestCase
                 [$productOption->product->categories()->first(), $productOption->product])
             , $productOption->path);
     }
-    
     
 }

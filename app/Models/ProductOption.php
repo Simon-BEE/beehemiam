@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 class ProductOption extends Model
 {
@@ -73,7 +74,7 @@ class ProductOption extends Model
     public function getIsAvailableAttribute(): bool
     {
         if ($this->product->is_preorder) {
-            return $this->preOrderStock 
+            return $this->preOrderStock
                 ? $this->preOrderStock->quantity > 0
                 : false;
         }
@@ -93,6 +94,16 @@ class ProductOption extends Model
         }
 
         return $this->preOrderStock?->created_at->addWeeks(config('beehemiam.preorder.release_date_weeks'));
+    }
+
+    public function getThumbnailsAttribute(): Collection
+    {
+        return $this->images->where('is_thumb', true);
+    }
+
+    public function getRealImagesAttribute(): Collection
+    {
+        return $this->images->where('is_thumb', false);
     }
 
     /**

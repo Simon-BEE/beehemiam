@@ -6,6 +6,6 @@ return [
     ],
 
     'preorder' => [
-        'release_date_weeks' => 6, 
+        'release_date_weeks' => 6,
     ],
 ];

@@ -29,7 +29,9 @@ class ShowProductController extends Controller
             'product' => $product,
             'currentOption' => $productOption,
             'productOptions' => $product->productOptions,
-            'selectedSize' => $product->is_preorder 
+            'images' => $productOption->real_images->pluck('path')->toArray(),
+            'thumbs' => $productOption->thumbnails->pluck('path')->toArray(),
+            'selectedSize' => $product->is_preorder
                 ? $sizes->first()
                 : $productOption->default_size,
             'sizes' => $sizes ?? null,

@@ -26,6 +26,8 @@ class CartRepository
      * Get productOptionsSizes with productOption, product, images and format.
      * And transform to a Collection with a property cart_quantity
      *
+     * @psalm-suppress UndefinedDocblockClass
+     *
      * @return Collection
      */
     private function getProductOptionsSizes(): Collection
@@ -65,6 +67,8 @@ class CartRepository
      * Create Collection with (productOptions with preOrderStock, product, images and format) and size.
      * And format to match with productOptionsSizes results
      *
+     * @psalm-suppress UndefinedDocblockClass
+     *
      * @return Collection
      */
     private function getProductOptionsPreOrders(): Collection
@@ -102,9 +106,10 @@ class CartRepository
                 ]),
                 'cart_quantity' => Cart::instance('preorder')
                     ->get(get_cart_row_id(
-                        $productOption->get('productOption'), 
-                        'preorder', 
-                        $productOption->get('size')->sizeId))
+                        $productOption->get('productOption'),
+                        'preorder',
+                        $productOption->get('size')->sizeId
+                    ))
                     ->qty,
             ]);
         });

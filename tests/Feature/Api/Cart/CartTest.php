@@ -203,7 +203,7 @@ class CartTest extends TestCase
 
         $this->assertCount(1, Cart::instance('preorder')->content());
 
-        $this->delete(route('api.cart.delete.preorder'), [
+        $this->patch(route('api.cart.delete.preorder'), [
             'product_option_id' => $productOption->id,
             'size_id' => 1,
         ])

@@ -23,13 +23,11 @@ if (!function_exists('get_cart_row_id')) {
      * @psalm-suppress UndefinedDocblockClass
      */
     function get_cart_row_id(
-        ProductOption|ProductOptionSize $productOption, 
-        string $instance = "order", 
+        ProductOption|ProductOptionSize $productOption,
+        string $instance = "order",
         ?int $sizeId = null
-    ): string
-    {
+    ): string {
         if ($instance === 'preorder') {
-
             if (is_null($sizeId)) {
                 throw new \Exception("Argument 'sizeId' cannot be null", 1);
             }

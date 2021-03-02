@@ -27,7 +27,7 @@ class VerifyCookieCart
         $cookies = filter_input_array(INPUT_COOKIE);
 
         if (carts_are_empty()
-            && isset($cookies['beehemiamCart']) 
+            && isset($cookies['beehemiamCart'])
             && $cookies['beehemiamCart'] !== "[]") {
             $rawCartItems = json_decode($cookies['beehemiamCart']);
 

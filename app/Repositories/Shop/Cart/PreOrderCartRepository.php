@@ -13,7 +13,7 @@ class PreOrderCartRepository extends CartRepository
     {
         if ($cartItem = $this->getIfExistsInCart($productOption, $size)) {
             /** @var CartItem $cartItem */
-            $this->update($productOption, $size,$cartItem->qty + 1);
+            $this->update($productOption, $size, $cartItem->qty + 1);
 
             return;
         }

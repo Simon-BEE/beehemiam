@@ -40,7 +40,7 @@ class UpdateCartController extends Controller
         $size = Size::findOrFail($request->get('size_id'));
 
         try {
-            $repository->update($productOption, $size,$request->get('quantity'));
+            $repository->update($productOption, $size, $request->get('quantity'));
 
             return response()->json([
                 'message' => 'Quantité mise à jour',

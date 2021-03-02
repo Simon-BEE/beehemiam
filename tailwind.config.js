@@ -169,6 +169,7 @@ module.exports = {
         opacity: ['responsive', 'hover', 'focus', 'disabled', 'group-hover'],
         ringOpacity: ['hover', 'active', 'focus'],
         outline: ['focus', 'responsive', 'hover'],
+        borderRadius: ['hover', 'group-hover'],
     },
 
     plugins: [

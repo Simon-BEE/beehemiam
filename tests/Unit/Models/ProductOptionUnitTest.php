@@ -111,5 +111,47 @@ class ProductOptionUnitTest extends TestCase
                 [$productOption->product->categories()->first(), $productOption->product])
             , $productOption->path);
     }
+
+    /** @test */
+    public function an_option_has_a_property_thumbnails()
+    {
+        $product = Product::factory()->create();
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+        ImageOption::create([
+            'product_option_id' => $productOption->id,
+            'filename' => 'image.jpg',
+            'full_path' => 'path/image.jpg',
+        ]);
+        $thumb = ImageOption::create([
+            'product_option_id' => $productOption->id,
+            'filename' => 'image_thumb.jpg',
+            'full_path' => 'path/image_thumb.jpg',
+            'is_thumb' => true,
+        ]);
+
+        $this->assertNotNull($productOption->thumbnails);
+        $this->assertEquals($thumb->filename, $productOption->thumbnails->first()->filename);
+    }
+
+    /** @test */
+    public function an_option_has_a_property_real_images()
+    {
+        $product = Product::factory()->create();
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+        $realImage = ImageOption::create([
+            'product_option_id' => $productOption->id,
+            'filename' => 'image.jpg',
+            'full_path' => 'path/image.jpg',
+        ]);
+        ImageOption::create([
+            'product_option_id' => $productOption->id,
+            'filename' => 'image_thumb.jpg',
+            'full_path' => 'path/image_thumb.jpg',
+            'is_thumb' => true,
+        ]);
+
+        $this->assertNotNull($productOption->real_images);
+        $this->assertEquals($realImage->filename, $productOption->real_images->first()->filename);
+    }
     
 }

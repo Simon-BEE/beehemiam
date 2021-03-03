@@ -52,9 +52,11 @@
 
 <body class="font-nunito bg-primary-100 text-kaki-900 overflow-x-hidden">
 
-    @if (session()->has('type') && session()->has('message'))
-        <x-alert />
-    @endif
+    <section class="alert-container fixed bottom-2 right-2 z-20 mx-2 min-w-3/4 md:min-w-1/4 max-w-screen-sm">
+        @if (session()->has('type') && session()->has('message'))
+            <x-alert />
+        @endif
+    </section>
     
 <div class="wrapper relative container mx-auto md:py-4" id="app">
 

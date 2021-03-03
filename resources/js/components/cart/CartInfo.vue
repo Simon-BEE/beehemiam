@@ -147,6 +147,8 @@ export default {
             ).then(response => {
                 console.info(response.data.message);
 
+                this.callAlert('Vêtement retiré du panier');
+
                 this.products = this.products.filter(productOption => productOption.id != product.id);
 
                 this.subTotal = this.products.reduce(function (acc, current) {
@@ -184,6 +186,8 @@ export default {
                     }
                 }).then(response => {
                 console.info(response.data.message);
+
+                this.callAlert('Vêtement retiré du panier');
 
                 this.products = this.products.filter(productOption => {
                     return (productOption.size.id != product.size.id || productOption.product_option.id != product.product_option.id)

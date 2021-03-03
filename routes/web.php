@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/test', function () {
+    dd(redirect()->intended(), session('url.intended'));
+});
+
 /**
  * Cart api routes
 */

@@ -32,4 +32,18 @@ new Vue({
     CartResume, BillingAddress, CartInfo,
     ImagesGallery,
   },
+
+  mounted() {
+    const alertBox = document.querySelectorAll('.alert-box');
+
+    if (alertBox) {
+        alertBox.forEach(box => {
+            box.addEventListener('click', () => this.hideAlertBox(box));
+
+            setTimeout(() => {
+                this.hideAlertBox(box);
+            }, 5500);
+        });
+    }
+  },
 });

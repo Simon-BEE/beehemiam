@@ -36,7 +36,7 @@ Modifier l'option : {{ $productOption->name }}
             </button>
         </div>
     
-        <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div class="px-4 py-8 mb-20 bg-white rounded-lg shadow dark:bg-gray-800">
             <x-form.form action="{{ route('admin.products.options.update', [$product, $productOption]) }}" method="PATCH" id="editProductForm" files>
                 <x-back.form.input 
                     name="name"
@@ -107,7 +107,7 @@ Modifier l'option : {{ $productOption->name }}
                     </div>
                 @endif
 
-                <x-back.form.wysiwyg name="description" label="{{ __('Description du produit') }}" />
+                <x-back.form.wysiwyg name="description" label="{{ __('Description du produit') }}" value="{{ $productOption->description }}" />
 
                 <div class="previews my-3 flex flex-wrap justify-center items-center lg:space-x-4">
                     @foreach ($productOption->imagesWithoutThumb as $image)

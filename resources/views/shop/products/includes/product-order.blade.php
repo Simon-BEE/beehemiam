@@ -1,15 +1,16 @@
 <div class=" flex flex-col space-y-6">
     <div class="title">
-        <h2 class="font-bold text-4xl md:text-7xl">{{ $currentOption->name }}</h2>
-        <p class="">
-            @if ($currentOption->is_available)
-            <span class="inline-flex items-center">
-                <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M18 18.5C18.83 18.5 19.5 17.83 19.5 17C19.5 16.17 18.83 15.5 18 15.5C17.17 15.5 16.5 16.17 16.5 17C16.5 17.83 17.17 18.5 18 18.5M19.5 9.5H17V12H21.46L19.5 9.5M6 18.5C6.83 18.5 7.5 17.83 7.5 17C7.5 16.17 6.83 15.5 6 15.5C5.17 15.5 4.5 16.17 4.5 17C4.5 17.83 5.17 18.5 6 18.5M20 8L23 12V17H21C21 18.66 19.66 20 18 20C16.34 20 15 18.66 15 17H9C9 18.66 7.66 20 6 20C4.34 20 3 18.66 3 17H1V6C1 4.89 1.89 4 3 4H17V8H20M3 6V15H3.76C4.31 14.39 5.11 14 6 14C6.89 14 7.69 14.39 8.24 15H15V6H3M5 10.5L6.5 9L8 10.5L11.5 7L13 8.5L8 13.5L5 10.5Z" />
-                </svg>
-                <span class="text-xs uppercase">Le vêtement est actuellement en stock</span>
-            </span>
-            @endif
+        <h2 class="font-cursive text-4xl md:text-6xl">{{ $currentOption->name }}</h2>
+        @if ($currentOption->is_available)
+            <p class="">
+                <span class="inline-flex items-center">
+                    <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M18 18.5C18.83 18.5 19.5 17.83 19.5 17C19.5 16.17 18.83 15.5 18 15.5C17.17 15.5 16.5 16.17 16.5 17C16.5 17.83 17.17 18.5 18    18.5M19.5 9.5H17V12H21.46L19.5 9.5M6 18.5C6.83 18.5 7.5 17.83 7.5 17C7.5 16.17 6.83 15.5 6 15.5C5.17 15.5 4.5 16.17 4.5 17C4.5 17.83 5.17 18.5 6 18.5M20   8L23 12V17H21C21 18.66 19.66 20 18 20C16.34 20 15 18.66 15 17H9C9 18.66 7.66 20 6 20C4.34 20 3 18.66 3 17H1V6C1 4.89 1.89 4 3 4H17V8H20M3 6V15H3.76C4.31  14.39 5.11 14 6 14C6.89 14 7.69 14.39 8.24 15H15V6H3M5 10.5L6.5 9L8 10.5L11.5 7L13 8.5L8 13.5L5 10.5Z" />
+                    </svg>
+                    <span class="text-xs uppercase">Le vêtement est actuellement en stock</span>
+                </span>
+            </p>
+        @endif
     </div>
 
     <article class="w-full md:w-2/3">

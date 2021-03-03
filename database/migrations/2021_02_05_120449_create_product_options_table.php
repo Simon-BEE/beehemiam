@@ -21,6 +21,8 @@ class CreateProductOptionsTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('price');
             $table->timestamps();
+
+            $table->index('name');
         });
     }
 

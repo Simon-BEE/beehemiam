@@ -3,6 +3,7 @@
 use App\Http\Controllers\Shop\Category\IndexCategoryController;
 use App\Http\Controllers\Shop\Category\ShowCategoryController;
 use App\Http\Controllers\Shop\Product\ShowProductController;
+use App\Http\Controllers\Shop\Search\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 | Only shop routes are here
 |
 */
+
+Route::group(['as' => 'search.'], function () {
+
+    Route::get('/recherche', [SearchController::class, 'index'])->name('index');
+});
 
 Route::group(['as' => 'categories.'], function () {
 

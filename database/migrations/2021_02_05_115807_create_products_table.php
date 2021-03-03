@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->boolean('is_preorder')->default(false);
             $table->boolean('is_active')->default(false);
             $table->timestamps();
+
+            $table->index('name');
         });
     }
 

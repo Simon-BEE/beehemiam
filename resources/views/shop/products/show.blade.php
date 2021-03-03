@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta-title'){{ $product->name }} &mdash; {{ $category->name }} @endsection
+@section('meta-title'){{ $product->name }} / {{ $product->optionName }} &mdash; {{ $category->name }} @endsection
 
 @section('meta-desc'){{ $product->optionDescription }}@endsection
 
@@ -14,19 +14,24 @@
     <span class="text-primary-500">/</span>
     <a href="{{ route('shop.categories.show', $category) }}" class="hover:text-primary-600">{{ $category->name }}</a>
     <span class="text-primary-500">/</span>
-    <p>{{ $product->name }}</p>
+    <p>{{ $product->name }} - {{ $product->optionName }}</p>
 </section>
+
+
+{{-- <input class="rounded-lg overflow-hidden appearance-none bg-gray-400 h-3 w-128 focus:outline-none" type="range" min="1" max="100" step="1" value="15" /> --}}
+
+
 
 <section class="flex flex-col items-center justify-center p-4 md:p-0">
     <article class="w-full md:w-1/2 text-center mb-12">
-        <h1 class="text-5xl md:text-7xl font-cursive">{{ $product->name }}</h1>
+        {{-- <h1 class="text-5xl md:text-7xl font-cursive">{{ $product->optionName }}</h1> --}}
     </article>
 
     <section class="w-full flex flex-col md:flex-row items-start justify-between">
         {{-- Images --}}
-        <section class="images w-full p-4 bg-primary-100 rounded shadow-lg md:w-1/3 overflow-x-hidden">
+        <section class="images w-full p-4 bg-primary-100 rounded shadow-lg md:w-1/3 overflow-x-hidden md:mt-4">
             <images-gallery 
-                :product-name="{{ json_encode($product->name . ' ' . $currentOption->name) }}" 
+                :product-name="{{ json_encode($product->optionName . ' ' . $currentOption->name) }}" 
                 :product-images="{{ json_encode($images) }}"
                 :product-thumbs="{{ json_encode($thumbs) }}"
             >

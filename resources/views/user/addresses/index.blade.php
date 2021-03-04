@@ -63,6 +63,25 @@
                         </open-modal-button>
                     </div>
 
+                    @if ($address->is_main || $address->is_billing)
+                        <div class="absolute bottom-2 right-2 flex items-center space-x-2">
+                            @if ($address->is_main)
+                                <div class="">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z" />
+                                    </svg>
+                                </div>
+                            @endif
+
+                            @if ($address->is_billing)
+                                <div class="">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M2,17H22V21H2V17M6.25,7H9V6H6V3H14V6H11V7H17.8C18.8,7 19.8,8 20,9L20.5,16H3.5L4.05,9C4.05,8 5.05,7 6.25,7M13,9V11H18V9H13M6,9V10H8V9H6M9,9V10H11V9H9M6,11V12H8V11H6M9,11V12H11V11H9M6,13V14H8V13H6M9,13V14H11V13H9M7,4V5H13V4H7Z" />
+                                    </svg>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
 
                     <article class="p-3 flex items-center flex-wrap rounded">
                         <svg class="h-5 w-5 mr-3" viewBox="0 0 24 24">

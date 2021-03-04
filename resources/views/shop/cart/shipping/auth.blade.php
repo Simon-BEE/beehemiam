@@ -15,7 +15,7 @@
                     <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
                     </svg>
-                    Adresse selectionnée {{ $user->address->name }}
+                    Adresse selectionnée <strong class="ml-1">{{ $user->address->name }}</strong>
                 </h3>
     
                 <div class="absolute top-4 right-2 opacity-75 flex md:flex-col">
@@ -106,7 +106,7 @@
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
                         </svg>
-                        Adresse de facturation {{ $address->name }}
+                        Adresse selectionnée <strong class="ml-1">{{ $address->name }}</strong>
                     </h3>
     
                     <div class="absolute top-4 right-2 opacity-75 flex md:flex-col">
@@ -197,7 +197,7 @@
             <path fill="currentColor" d="M8,4A5,5 0 0,0 3,9V18H1V20H21A2,2 0 0,0 23,18V9A5,5 0 0,0 18,4H8M8,6A3,3 0 0,1 11,9V18H5V9A3,3 0 0,1 8,6M13,13V7H17V9H15V13H13Z" />
         </svg>
         @if ($user->address)
-            Enregistrer une nouvelle adresse de livraison
+            Enregistrer une autre adresse de livraison
         @else
             Votre adresse de livraison
         @endif

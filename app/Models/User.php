@@ -78,8 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     public function getAddressAttribute(): ?Address
     {
         return $this->addresses
-            ->where('is_main', true)
-            ->first();
+            ->firstWhere('is_main', true);
     }
 
     /**

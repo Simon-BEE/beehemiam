@@ -48,6 +48,10 @@ export default {
             }));
         },
 
+        formatNumber(number) {
+            return number.toFixed(2).toString().replace(/\./g, ',');
+        },
+
         callAlert(message, type = 'success') {
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert-box relative p-6 pr-9 mb-4 rounded-lg shadow-xl z-40 transition-opacity duration-500 bg-primary-100 border border-b-8 border-primary-200 w-full`;

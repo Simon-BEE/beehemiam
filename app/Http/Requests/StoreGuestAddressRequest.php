@@ -14,7 +14,7 @@ class StoreGuestAddressRequest extends FormRequest
      */
     public function authorize()
     {
-        return !auth()->check();
+        return true;
     }
 
     /**

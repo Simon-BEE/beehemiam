@@ -44,7 +44,7 @@
                     <path fill="currentColor" d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z" />
                 </svg>
                 <span>
-                    Livraison en <strong>{{ shippingFeesCountry }}</strong> par <strong>Colissimo</strong> - <strong>{{ shippingFeesAmount.toString().replace(/\./g, ',') }}€</strong>
+                    Livraison en <strong>{{ shippingFeesCountry }}</strong> par <strong>Colissimo</strong> - <strong>{{ formatNumber(shippingFeesAmount) }}€</strong>
                 </span>
             </p>
         </article>
@@ -53,20 +53,20 @@
             <h4 class="font-bold text-lg">Montant total de la commande</h4>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Sous-total</p>
-                <p class="text-lg font-semibold">{{ subTotal.toString().replace(/\./g, ',') }}€</p>
+                <p class="text-lg font-semibold">{{ formatNumber(subTotal) }}€</p>
             </div>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Frais de livraison</p>
-                <p class="text-lg font-semibold">{{ shippingFeesAmount.toString().replace(/\./g, ',') }}€</p>
+                <p class="text-lg font-semibold">{{ formatNumber(shippingFeesAmount) }}€</p>
             </div>
             <div class="flex items-center justify-between bg-primary-100 px-2 py-1 rounded" v-if="discount !== 0 && discountCode">
                 <p>Code promo <span class="font-bold">{{ discountCode }}</span></p>
-                <p class="text-lg font-semibold">-{{ discount }}€</p>
+                <p class="text-lg font-semibold">-{{ formatNumber(discount) }}€</p>
             </div>
 
             <div class="flex items-center justify-between pt-4 border-t border-primary-400 px-2 py-1">
                 <p>Montant total</p>
-                <p class="text-lg font-semibold">{{ total.toString().replace(/\./g, ',') }}€</p>
+                <p class="text-lg font-semibold">{{ formatNumber(total) }}€</p>
             </div>
         </article>
     </section>
@@ -90,6 +90,10 @@ export default {
             required: true,
             type: Array,
         },
+        countryId: {
+            required: true,
+            type: Number,
+        },
     },
 
     data() {
@@ -111,16 +115,12 @@ export default {
     
     mounted() {
         this.calculateCartTotalAmount();
+        this.getShippingFeesFromCountryId(this.countryId);
+        this.getShippingCountryFromCountryId(this.countryId);
 
         window.addEventListener('country-selected', (event) => {
-            this.shippingFeesAmount = event.detail.storage === '1' 
-                ? 4.95 
-                : 12.90 ;
-            this.shippingFeesCountry = event.detail.storage === '1' 
-                ? 'France métropolitaine'
-                : (event.detail.storage === '2' 
-                    ? 'Belgique'
-                    : 'Suisse' ) ;
+            this.getShippingFeesFromCountryId(event.detail.storage);
+            this.getShippingCountryFromCountryId(event.detail.storage);
             
             this.calculateCartTotalAmount();
         });
@@ -128,7 +128,7 @@ export default {
 
     methods: {
         calculateCartTotalAmount() {
-            this.total = (this.subTotal + this.shippingFeesAmount - this.discount).toFixed(2);
+            this.total = this.subTotal + this.shippingFeesAmount - this.discount;
         },
 
         removeProduct(product) {
@@ -222,6 +222,20 @@ export default {
                     window.location.href = '/panier';
                 }
             });
+        },
+
+        getShippingFeesFromCountryId(countryId) {
+            this.shippingFeesAmount = countryId == '1' 
+                ? 4.95 
+                : 12.90;
+        },
+
+        getShippingCountryFromCountryId(countryId) {
+            this.shippingFeesCountry = countryId == '1' 
+                ? 'France métropolitaine'
+                : (countryId == '2' 
+                    ? 'Belgique'
+                    : 'Suisse' ) ;
         },
     },
 }

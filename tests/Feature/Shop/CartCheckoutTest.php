@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Shop;
 
-use App\Models\Address;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -32,7 +31,15 @@ class CartCheckoutTest extends TestCase
 
         $this->get(route('cart.shippings.index'))
             ->assertSuccessful()
-            ->assertViewIs('shop.cart.shipping');
+            ->assertViewIs('shop.cart.shipping')
+            ->assertSee('Créer un compte');
+
+        $this->signIn();
+
+        $this->get(route('cart.shippings.index'))
+            ->assertSuccessful()
+            ->assertViewIs('shop.cart.shipping')
+            ->assertSee('Choisir mon adresse de livraison');
     }
 
     /** @test */
@@ -88,6 +95,65 @@ class CartCheckoutTest extends TestCase
         $this->assertEquals(session('billing_address')->street, '12 rue des cocotiers');
         $this->assertEquals(session('shipping_address')->street, '30 rue des cocotiers');
     }
+
+    /** @test */
+    public function a_logged_user_can_confirm_shippings_informations_without_have_already_register_an_address()
+    {
+        $user = $this->signIn();
+        $this->addAProductToCart();
+
+        $this->followingRedirects()->post(route('cart.shippings.store'), [
+            'country_id' => 1,
+            'firstname' => 'Jean',
+            'lastname' => 'Valjean',
+            'street' => '30 rue des cocotiers',
+            'additionnal' => '2ème étage',
+            'zipcode' => '13100',
+            'city' => 'Marseille',
+            'phone' => '0615141213',
+            'email' => 'email@email.com',
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals($user->address->street, '30 rue des cocotiers');
+        $this->assertEquals($user->addresses->firstWhere('is_billing', true)->street, '30 rue des cocotiers');
+    }
+
+    /** @test */
+    public function a_logged_user_can_confirm_shippings_and_billing_informations_without_have_already_register_an_address()
+    {
+        $user = $this->signIn();
+        $this->addAProductToCart();
+
+        $this->followingRedirects()->post(route('cart.shippings.store'), [
+            'country_id' => 1,
+            'firstname' => 'Jean',
+            'lastname' => 'Valjean',
+            'street' => '30 rue des cocotiers',
+            'additionnal' => '2ème étage',
+            'zipcode' => '13100',
+            'city' => 'Marseille',
+            'phone' => '0615141213',
+            'email' => 'email@email.com',
+            'billing' => [
+                'country_id' => 1,
+                'firstname' => 'Jean',
+                'lastname' => 'Valjean',
+                'street' => '12 rue des cocotiers',
+                'additionnal' => '2ème étage',
+                'zipcode' => '13100',
+                'city' => 'Marseille',
+                'phone' => '0615141213',
+                'email' => 'email@email.com',
+            ],
+        ])
+            ->assertSuccessful();
+
+        $this->assertEquals($user->address->street, '30 rue des cocotiers');
+        $this->assertEquals($user->addresses->firstWhere('is_billing', true)->street, '12 rue des cocotiers');
+    }
+
+    // test user has already addresses
     
     // todo BILLING_ADDRESS IF ONLY ONE ADDRESS OTHERWISE SHIPPING_ADDRESS AND BILLING_ADDRESS
 

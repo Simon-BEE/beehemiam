@@ -28,13 +28,19 @@ class AddressCartController extends Controller
                 ? session('coupon')->get('coupon')->only(['code', 'amount'])
                 : null,
             'countries' => Country::all(),
+            'user' => auth()->user(),
         ]);
     }
 
     public function store(AddressCartRepository $repository, StoreGuestAddressRequest $request): RedirectResponse
     {
         try {
-            $repository->prepare($request->validated());
+
+            if (auth()->check()) {
+                $repository->save($request->validated());
+            } else {
+                $repository->prepare($request->validated());
+            }
 
             return redirect()->route('cart.shippings.index');
         } catch (\Exception $e) {

@@ -7,6 +7,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreGuestAddressRequest extends FormRequest
 {
+    private array $requiredAddressFields = [
+        'firstname', 'lastname', 'city', 'street', 'zipcode',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,33 +28,43 @@ class StoreGuestAddressRequest extends FormRequest
      */
     public function rules()
     {
+        $requiredOrNullable = $this->requiredOrNullable();
+
         return [
             'country_id' => [
-                'required', 'exists:countries,id',
+                $requiredOrNullable,
+                'exists:countries,id',
             ],
             'firstname' => [
-                'required', 'string', 'between:2,255',
+                $requiredOrNullable,
+                'string', 'between:2,255',
             ],
             'lastname' => [
-                'required', 'string', 'between:2,255',
+                $requiredOrNullable,
+                'string', 'between:2,255',
             ],
             'street' => [
-                'required', 'string', 'between:2,255',
+                $requiredOrNullable,
+                'string', 'between:2,255',
             ],
             'additionnal' => [
                 'nullable', 'string', 'between:2,255',
             ],
             'zipcode' => [
-                'required', 'string', 'between:3,15',
+                $requiredOrNullable,
+                'string', 'between:2,255',
             ],
             'city' => [
-                'required', 'string', 'between:2,255',
+                $requiredOrNullable,
+                'string', 'between:2,255',
             ],
             'phone' => [
-                'required', 'between:6,25',
+                $requiredOrNullable,
+                'string', 'between:6,25',
             ],
             'email' => [
-                'required', 'between:2,255',
+                $requiredOrNullable,
+                'email', 'between:2,255',
             ],
             'billing' => [
                 'nullable', 'array',
@@ -80,7 +94,7 @@ class StoreGuestAddressRequest extends FormRequest
                 'required_with:billing', 'between:6,25',
             ],
             'billing.email' => [
-                'required_with:billing', 'between:2,255',
+                'required_with:billing', 'email', 'between:2,255',
             ],
         ];
     }
@@ -95,5 +109,25 @@ class StoreGuestAddressRequest extends FormRequest
                 session()->flash('message', 'Le formulaire est rempli incorrectement.');
             }
         });
+    }
+
+    private function requiredOrNullable(): string
+    {
+        $required = false;
+
+        foreach ($this->requiredAddressFields as $field) {
+            if (isset($this->all()[$field])) {
+                $required = true;
+                break;
+            }
+        }
+
+        if ($required === false) {
+             $required = $this->user()
+                ? ($this->user()->address ? false : true)
+                : true;
+        }
+
+        return $required ? 'required' : 'nullable';
     }
 }

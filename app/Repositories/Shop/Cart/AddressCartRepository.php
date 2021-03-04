@@ -30,12 +30,20 @@ class AddressCartRepository
     {
         /** @var \App\Models\User */
         $user = auth()->user();
+        
+        if (!isset($validatedData['firstname'])
+            && !is_null($user->address)
+            && !isset($validatedData['billing'])) {
+            return;
+        }
 
-        $user->addresses()->create(array_merge($validatedData, [
-            'is_main' => true,
-            'is_billing' => isset($validatedData['billing']) ? false : true,
-        ]));
-
+        if (isset($validatedData['firstname'])) {
+            $user->addresses()->create(array_merge($validatedData, [
+                'is_main' => true,
+                'is_billing' => isset($validatedData['billing']) ? false : true,
+            ]));
+        }
+        
         if (isset($validatedData['billing']) && !empty($validatedData['billing'])) {
             $user->addresses()->create(array_merge($validatedData['billing'], [
                 'is_main' => false,

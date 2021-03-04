@@ -20,6 +20,8 @@ class ShowProductController extends Controller
             $sizes = Size::orderBy('id')->get();
         } else {
             $product->load(['productOptions.sizes.size', 'productOptions.images']);
+
+            $sizes = null;
         }
 
         $productOption = $product->firstProductOption();

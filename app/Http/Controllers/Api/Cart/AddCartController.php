@@ -28,7 +28,9 @@ class AddCartController extends Controller
 
     public function addPreOrder(PreOrderCartRepository $repository, Request $request): JsonResponse
     {
+        /** @var ProductOption $productOption */
         $productOption = ProductOption::findOrFail($request->get('product_option_id'));
+        /** @var Size $size */
         $size = Size::findOrFail($request->get('size_id'));
 
         try {

@@ -35,7 +35,6 @@ class AddressCartController extends Controller
     public function store(AddressCartRepository $repository, StoreGuestAddressRequest $request): RedirectResponse
     {
         try {
-
             if (auth()->check()) {
                 $repository->save($request->validated());
             } else {

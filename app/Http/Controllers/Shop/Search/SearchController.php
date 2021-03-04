@@ -15,7 +15,7 @@ class SearchController extends Controller
         $products = Product::query();
         $searchTerm = $request->get('q');
 
-        $products->when($searchTerm, function(Builder $query, $searchTerm) {
+        $products->when($searchTerm, function (Builder $query, $searchTerm) {
             return $query->with(['productOptions.images', 'categories:id,slug'])
                 ->where('name', 'LIKE', "%$searchTerm%")
                 ->orWhereHas('productOptions', function (Builder $query) use ($searchTerm) {

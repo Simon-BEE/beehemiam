@@ -62,9 +62,7 @@
 
     <overlay-background></overlay-background>
 
-    <x-modal>
-        @stack('modal')
-    </x-modal>
+    @stack('modal')
 
     @include('layouts.front.header')
 

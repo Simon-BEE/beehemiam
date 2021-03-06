@@ -173,6 +173,7 @@
 @endsection
 
 @push('modal')
+<x-modal>
     <div class="w-full text-kaki-800 flex flex-col space-y-4">
         <h3 class="text-2xl font-bold">Suppression d'une adresse</h3>
         <p>En confirmant cette action, vous allez supprimer cette adresse. Vous ne pourrez plus la récupérer. Si c'est une erreur, vous pouvez cliquer sur le bouton <strong>Annuler</strong> ci-dessous.</p>
@@ -193,4 +194,5 @@
             </button>
         </x-form.form>
     </div>
+</x-modal>
 @endpush

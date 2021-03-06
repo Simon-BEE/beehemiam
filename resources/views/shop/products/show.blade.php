@@ -66,6 +66,7 @@
 @endsection
 
 @push('modal')
+<x-modal>
     <div class="w-full text-kaki-800 flex flex-col justify-center items-center space-y-4">
         <h3 class="text-2xl font-bold">Vêtement ajouté au panier</h3>
         <svg class="w-32 h-32 my-8" viewBox="0 0 24 24">
@@ -87,4 +88,36 @@
             Je finalise ma commande
         </a>
     </div>
+</x-modal>
+
+
+<x-modal modalName="modalAvailability">
+    <div class="w-full text-kaki-800 flex flex-col justify-center items-center space-y-8">
+        <h3 class="text-2xl font-bold">M'avertir de la disponibilité du vêtement</h3>
+        <x-form.form method="POST" action="{{ route('shop.products.notify-availability', $currentOption) }}" class="w-full md:w-2/3" id="formAvailability">
+            Veuillez indiquez l'adresse email sur laquelle vous souhaitez être prévenue de la future disponibilité du vêtement.
+
+            <x-form.input 
+                name="email"
+                label=""
+                placeholder="Adresse email"
+                required
+            />
+        </x-form.form>
+    </div>
+    <div class="mt-12 flex justify-center items-center">
+        <close-modal-button classes="bg-primary-200 rounded px-3 py-2 hover:bg-primary-300 inline-flex items-center mr-4">
+            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </svg>
+            Annuler
+        </close-modal-button>
+        <button type="submit" form="formAvailability" class="inline-flex items-center rounded p-2 transition-colors text-white bg-primary-500 duration-200 hover:bg-primary-600 font-semibold">
+            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M23.5 17L18.5 22L15 18.5L16.5 17L18.5 19L22 15.5L23.5 17M13 18H3V8L11 13L19 8V13H21V6C21 4.9 20.1 4 19 4H3C1.9 4 1 4.9 1 6V18C1 19.1 1.9 20 3 20H13V18M19 6L11 11L3 6H19Z" />
+            </svg>
+            Prévenez-moi dès que possible
+        </button>
+    </div>
+</x-modal>
 @endpush

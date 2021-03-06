@@ -81,7 +81,7 @@ class ShowingShopTest extends TestCase
 
         $this->assertFalse($productOption->is_available);
 
-        $this->followingRedirects()->post(route('api.products.notify-availability', $productOption), [
+        $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption), [
             'email' => 'example@email.net',
         ])->assertSuccessful();
 
@@ -101,7 +101,7 @@ class ShowingShopTest extends TestCase
 
         $this->assertFalse($productOption->is_available);
 
-        $this->followingRedirects()->post(route('api.products.notify-availability', $productOption))->assertSuccessful();
+        $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption))->assertSuccessful();
 
         $this->assertDatabaseCount('product_notifications', 1);
         $this->assertEquals($user->email, ProductNotification::first()->user->email);
@@ -119,11 +119,11 @@ class ShowingShopTest extends TestCase
 
         $this->assertFalse($productOption->is_available);
 
-        $this->followingRedirects()->post(route('api.products.notify-availability', $productOption), [
+        $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption), [
             'email' => 'example@email.net',
         ])->assertSuccessful();
         $this->signIn();
-        $this->followingRedirects()->post(route('api.products.notify-availability', $productOption))->assertSuccessful();
+        $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption))->assertSuccessful();
 
         $this->assertDatabaseCount('product_notifications', 2);
         
@@ -145,11 +145,11 @@ class ShowingShopTest extends TestCase
 
         $this->assertFalse($productOption->is_available);
 
-        $this->followingRedirects()->post(route('api.products.notify-availability', $productOption), [
+        $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption), [
             'email' => 'example@email.net',
         ])->assertSuccessful();
         $this->signIn();
-        $this->followingRedirects()->post(route('api.products.notify-availability', $productOption))->assertSuccessful();
+        $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption))->assertSuccessful();
 
         $this->assertDatabaseCount('product_notifications', 2);
         

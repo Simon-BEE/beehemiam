@@ -27,7 +27,9 @@ class UpdateCartController extends Controller
                 'message' => 'Quantité mise à jour',
             ]);
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+            return response()->json([
+                'message' => 'Erreur du serveur',
+            ]);
         }
     }
 
@@ -49,7 +51,9 @@ class UpdateCartController extends Controller
                 'message' => 'Quantité mise à jour',
             ]);
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+            return response()->json([
+                'message' => 'Erreur du serveur',
+            ]);
         }
     }
 

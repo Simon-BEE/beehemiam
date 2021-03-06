@@ -22,7 +22,9 @@ class RemoveCartController extends Controller
                 'message' => 'Vêtement supprimé du panier',
             ]);
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+            return response()->json([
+                'message' => 'Erreur du serveur',
+            ]);
         }
     }
 
@@ -40,7 +42,9 @@ class RemoveCartController extends Controller
                 'message' => 'Vêtement supprimé du panier',
             ]);
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), 1);
+            return response()->json([
+                'message' => 'Erreur du serveur',
+            ]);
         }
     }
 }

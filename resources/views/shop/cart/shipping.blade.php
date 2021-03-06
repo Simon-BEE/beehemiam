@@ -52,6 +52,7 @@
 @endsection
 
 @push('modal')
+<x-modal>
     <div class="w-full text-kaki-800 flex flex-col justify-center items-center space-y-4">
         <h3 class="text-2xl font-bold">Vêtement ajouté au panier</h3>
         <svg class="w-32 h-32 my-8" viewBox="0 0 24 24">
@@ -73,4 +74,5 @@
             Je finalise ma commande
         </button>
     </div>
+</x-modal>
 @endpush

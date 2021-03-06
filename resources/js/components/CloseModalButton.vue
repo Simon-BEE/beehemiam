@@ -11,16 +11,13 @@ export default {
             required: true,
             type: String,
         },
-
-        modalName: {
-            type: String,
-            default: null,
-        },
     },
 
     methods: {
         close() {
-            this.toggleModal(document.querySelector(this.modalName ?? '.modal-content'));
+            document.querySelectorAll('.modal-content:not(.opacity-0)').forEach(modal => {
+                this.toggleModal(modal);
+            })
 
             this.toggleOverlay(true)
         },

@@ -19,6 +19,8 @@ class CreateProductNotificationsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('email')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'product_option_id']);
         });
     }
 

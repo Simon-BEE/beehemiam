@@ -19,6 +19,7 @@ import CloseModalButton from './components/CloseModalButton';
 import OverlayBackground from './components/OverlayBackground';
 import SizesSelector from './components/SizesSelector';
 import ImagesGallery from './components/ImagesGallery';
+import NotifyAvailability from './components/NotifyAvailability';
 
 Vue.mixin(mixins);
 
@@ -30,7 +31,7 @@ new Vue({
     OpenModalButton, OverlayBackground, CloseModalButton,
     AddCart, CartIcon, CartTable, LoaderIcon,
     CartResume, BillingAddress, CartInfo,
-    ImagesGallery,
+    ImagesGallery, NotifyAvailability,
   },
 
   mounted() {

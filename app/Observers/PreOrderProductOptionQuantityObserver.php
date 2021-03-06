@@ -9,7 +9,7 @@ class PreOrderProductOptionQuantityObserver
 {
     public function saving(PreOrderProductOptionQuantity $preOrderProductOptionQuantity): void
     {
-        if ($preOrderProductOptionQuantity->quantity > 0 
+        if ($preOrderProductOptionQuantity->quantity > 0
             && $preOrderProductOptionQuantity->productOption->availabilityNotifications->isNotEmpty()) {
             event(new ProductOptionUpdatedEvent($preOrderProductOptionQuantity->productOption));
         }

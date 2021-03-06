@@ -10,12 +10,13 @@ class ProductAvailabilityRepository extends ProductAndOptionRepository
     public function save(ProductOption $productOption, ?string $email = null): void
     {
         if (($email && $productOption->availabilityNotifications()->where('email', $email)->exists())
-            || (auth()->check() && $productOption->availabilityNotifications()->where('user_id', auth()->id())->exists())
+            || (auth()->check()
+                && $productOption->availabilityNotifications()->where('user_id', auth()->id())->exists())
         ) {
             throw new ProductAvailabilityException(
                 "Vous êtes déjà mis sur la liste des personnes 
-                qui seront averties lors de la prochaine disponibilité du vêtement"
-                , 1
+                qui seront averties lors de la prochaine disponibilité du vêtement",
+                1
             );
         }
 

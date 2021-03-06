@@ -11,11 +11,11 @@ use Illuminate\Http\RedirectResponse;
 
 class ProductAvailabilityController extends Controller
 {
-    public function __invoke(StoreProductAvailabilityRequest $request, 
-        ProductAvailabilityRepository $repository, 
+    public function __invoke(
+        StoreProductAvailabilityRequest $request,
+        ProductAvailabilityRepository $repository,
         ProductOption $productOption
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
         try {
             $repository->save($productOption, $request->get('email'));
 

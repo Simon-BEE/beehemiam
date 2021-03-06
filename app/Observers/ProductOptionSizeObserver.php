@@ -9,7 +9,7 @@ class ProductOptionSizeObserver
 {
     public function saving(ProductOptionSize $productOptionSize): void
     {
-        if ($productOptionSize->quantity > 0 
+        if ($productOptionSize->quantity > 0
             && $productOptionSize->productOption->availabilityNotifications->isNotEmpty()) {
             event(new ProductOptionUpdatedEvent($productOptionSize->productOption));
         }

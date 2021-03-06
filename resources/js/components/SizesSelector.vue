@@ -1,16 +1,16 @@
 <template>
-  <div class="mt-4 flex items-center space-x-3">
+  <div class="mt-4 flex flex-wrap items-center">
     <button
       type="button"
       v-for="size in sizes"
-      class="p-4 rounded font-bold transition-colors duration-300 focus:outline-none hover:bg-primary-500"
+      class="p-3 md:p-4 rounded font-bold transition-colors duration-300 focus:outline-none hover:bg-primary-500 mr-2 mb-2"
       :class="
         size.id === newSelectedSize.id ? 'bg-primary-500' : 'bg-primary-200'
       "
       :key="size.id"
       @click="selectNewSize(size)"
     >
-      {{ size.size.name }}
+      {{ size.size ? size.size.name : size.name }}
     </button>
     <input type="hidden" name="size_id" :value="newSelectedSize.id" />
   </div>

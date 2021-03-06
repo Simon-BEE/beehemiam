@@ -295,6 +295,7 @@ class UserAdressTest extends TestCase
     /** @test */
     public function an_address_can_be_set_easily_as_main()
     {
+        $this->withoutExceptionHandling();
         $user = $this->signIn();
         $firstAddress = Address::factory()->create([
             'user_id' => $user->id,

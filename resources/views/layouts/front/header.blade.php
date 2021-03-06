@@ -6,11 +6,6 @@
             <span class="relative z-10">Beehemiam</span>
         </a>
 
-        {{-- <button type="button" class="responsive-button flex md:hidden p-4 focus:outline-none">
-            <svg class="w-7 h-7 focus:outline-none" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-            </svg>
-        </button> --}}
         <responsive-button></responsive-button>
 
         <nav class="responsive-menu hidden md:flex items-center space-x-6 w-full md:w-auto">
@@ -36,7 +31,7 @@
 
                 <ul class="relative flex flex-col md:flex-row md:items-center flex-wrap md:flex-nowrap md:space-x-1 mt-2 md:mt-0">
                     <li>
-                        <a href="#"
+                        <a href="{{ route('shop.search.index') }}"
                             class="relative flex px-3 py-2 transition-colors duration-200 rounded hover:bg-primary-400 hover:bg-opacity-25"
                             title="Rechercher">
                             <svg class="w-6 h-6 mr-3 md:mr-0" viewBox="0 0 24 24">

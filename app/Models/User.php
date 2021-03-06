@@ -78,8 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     public function getAddressAttribute(): ?Address
     {
         return $this->addresses
-            ->where('is_main', true)
-            ->first();
+            ->firstWhere('is_main', true);
     }
 
     /**
@@ -103,6 +102,11 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function availabilityNotifications(): HasMany
+    {
+        return $this->hasMany(ProductNotification::class);
     }
 
     public function selectPersonalData(PersonalDataSelection $personalData): void

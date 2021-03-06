@@ -26,11 +26,11 @@
             <h4 class="font-bold text-lg">Montant total de la commande</h4>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Sous-total</p>
-                <p class="text-lg font-semibold">{{ subTotal }}€</p>
+                <p class="text-lg font-semibold">{{ formatNumber(subTotal) }}€</p>
             </div>
             <div class="flex items-center justify-between px-2 py-1 rounded">
-                <p>Frais de livraison</p>
-                <p class="text-lg font-semibold">{{ shippingFees }}€</p>
+                <p>Frais de livraison*</p>
+                <p class="text-lg font-semibold">{{ formatNumber(shippingFees) }}€</p>
             </div>
             <div class="flex items-center justify-between bg-primary-100 px-2 py-1 rounded" v-if="discount !== 0 && discountCode">
                 <p>Code promo <span class="font-bold">{{ discountCode }}</span></p>
@@ -39,14 +39,16 @@
 
             <div class="flex items-center justify-between pt-4 border-t border-primary-400 px-2 py-1">
                 <p>Montant total</p>
-                <p class="text-lg font-semibold">{{ total }}€</p>
+                <p class="text-lg font-semibold">{{ formatNumber(total) }}€</p>
             </div>
+
+            <p class="text-xs pt-4 text-right">*Estimation pour une livraison en France métropolitaine</p>
         </article>
     </section>
 </template>
 
 <script>
-import Loader from './LoaderIcon';
+import Loader from '../LoaderIcon';
 
 export default {
     components: { Loader },
@@ -90,7 +92,7 @@ export default {
 
     methods: {
         calculateCartTotalAmount() {
-            this.total = (this.subTotal + this.shippingFees - this.discount).toFixed(2);
+            this.total = this.subTotal + this.shippingFees - this.discount;
         },
 
         submitCoupon() {

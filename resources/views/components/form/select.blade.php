@@ -9,6 +9,7 @@
             name="{{ $name }}" 
             {{ ($required ?? false) ? 'required' : '' }}
             {{ ($mutliple ?? false) ? "multiple" : '' }} 
+            {{ $attributes }}
         >
             {{ $slot }}
         </select>

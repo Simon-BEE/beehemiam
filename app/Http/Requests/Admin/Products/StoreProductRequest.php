@@ -55,7 +55,7 @@ class StoreProductRequest extends FormRequest
                 'file', 'max:5000'
             ],
             'options.*.quantity' => [
-                'required_if:is_preorder,1', 'numeric', 'min:1',
+                'required_if:is_preorder,1', 'numeric', 'min:0',
             ],
             'options.*.sizes' => [
                 Rule::requiredIf($this->is_preorder != 1), 'array'
@@ -64,7 +64,7 @@ class StoreProductRequest extends FormRequest
                 'nullable', 'exists:sizes,id',
             ],
             'options.*.sizes.*.quantity' => [
-                'nullable', 'numeric', 'min:1',
+                'nullable', 'numeric', 'min:0',
             ],
         ];
     }

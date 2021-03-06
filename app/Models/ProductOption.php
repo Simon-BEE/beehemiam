@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 class ProductOption extends Model
 {
@@ -71,13 +73,37 @@ class ProductOption extends Model
 
     public function getIsAvailableAttribute(): bool
     {
+        if ($this->product->is_preorder) {
+            return $this->preOrderStock
+                ? $this->preOrderStock->quantity > 0
+                : false;
+        }
+
         return $this->sizes->where('quantity', '>', 0)->isNotEmpty();
     }
 
     public function getPathAttribute(): string
     {
-        // dd($this->product, $this);
         return route('shop.products.show', [$this->product->categories->first(), $this->product]);
+    }
+
+    public function getReleaseDateAttribute(): ?Carbon
+    {
+        if (!$this->product->is_preorder) {
+            return null;
+        }
+
+        return $this->preOrderStock?->created_at->addWeeks(config('beehemiam.preorder.release_date_weeks'));
+    }
+
+    public function getThumbnailsAttribute(): Collection
+    {
+        return $this->images->where('is_thumb', true);
+    }
+
+    public function getRealImagesAttribute(): Collection
+    {
+        return $this->images->where('is_thumb', false);
     }
 
     /**
@@ -123,5 +149,10 @@ class ProductOption extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function availabilityNotifications(): HasMany
+    {
+        return $this->hasMany(ProductNotification::class);
     }
 }

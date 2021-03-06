@@ -2,6 +2,8 @@
 
 @section('content')
 
+<div class="back">
+
     <section class="flex flex-col md:flex-row items-center justify-between">
         <article class="w-full md:w-1/3 relative z-10 p-8 flex flex-col">
             <p class="text-xs uppercase mb-4">Lorem ipsum dolor sit amet.</p>

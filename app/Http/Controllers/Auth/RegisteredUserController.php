@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME)->with([
+        return redirect()->intended(route('user.profile.dashboard'))->with([
             'type' => 'Succès',
             'message' => "Votre compte a bien été créé sur Beehemiam.fr ! 
                 Pensez à confirmer votre adresse email depuis votre messagerie."

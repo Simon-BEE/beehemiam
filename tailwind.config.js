@@ -97,6 +97,13 @@ module.exports = {
             },
         },
         extend: {
+            minWidth: {
+                '1/4': '25%',
+                '1/2': '50%',
+                '3/4': '75%',
+                'full': '100%',
+                '90vw': '90vw',
+            },
             maxHeight: {
                 '0': '0',
                 xl: '36rem',
@@ -169,6 +176,7 @@ module.exports = {
         opacity: ['responsive', 'hover', 'focus', 'disabled', 'group-hover'],
         ringOpacity: ['hover', 'active', 'focus'],
         outline: ['focus', 'responsive', 'hover'],
+        borderRadius: ['hover', 'group-hover'],
     },
 
     plugins: [

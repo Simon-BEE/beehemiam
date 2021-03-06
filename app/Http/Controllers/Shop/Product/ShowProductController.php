@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Contracts\View\View;
 
 class ShowProductController extends Controller
@@ -13,16 +14,29 @@ class ShowProductController extends Controller
     {
         abort_unless($product->is_active, 404);
 
-        $product->load(['productOptions.sizes.size', 'productOptions.images']);
+        if ($product->is_preorder) {
+            $product->load(['productOptions.preOrderStock', 'productOptions.images']);
+
+            $sizes = Size::orderBy('id')->get();
+        } else {
+            $product->load(['productOptions.sizes.size', 'productOptions.images']);
+
+            $sizes = null;
+        }
 
         $productOption = $product->firstProductOption();
 
         return view('shop.products.show', [
             'category' => $category,
             'product' => $product,
-            'productOptions' => $product->productOptions,
             'currentOption' => $productOption,
-            'selectedSize' => $productOption->default_size,
+            'productOptions' => $product->productOptions,
+            'images' => $productOption->real_images->pluck('path')->toArray(),
+            'thumbs' => $productOption->thumbnails->pluck('path')->toArray(),
+            'selectedSize' => $product->is_preorder
+                ? $sizes->first()
+                : $productOption->default_size,
+            'sizes' => $sizes ?? null,
         ]);
     }
 }

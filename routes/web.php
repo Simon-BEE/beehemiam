@@ -4,10 +4,10 @@ use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
+use App\Http\Controllers\Api\Products\ProductAvailabilityController;
+use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\WelcomeController;
-use App\Models\PreOrderProductOptionQuantity;
-use App\Models\ProductOptionSize;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +20,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('test', function () {
-    \Cart::destroy();
-    // \Cart::add(ProductOptionSize::first());
-    // \Cart::add(ProductOptionSize::find(2));
-    // \Cart::add(PreOrderProductOptionQuantity::first());
-    // dd(\Cart::content());
+
+Route::get('/test', function () {
+    dd(redirect()->intended(), session('url.intended'));
 });
 
 /**
@@ -34,17 +31,31 @@ Route::get('test', function () {
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
     Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
-        Route::post('/add/sizes/{productOptionSize}', AddCartController::class)->name('add.sizes');
-        Route::patch('/update/sizes/{productOptionSize}', UpdateCartController::class)->name('update.sizes');
-        Route::delete('/delete/sizes/{productOptionSize}', RemoveCartController::class)->name('delete.sizes');
+        Route::post('/add/sizes/{productOptionSize}', [AddCartController::class, 'addOrder'])->name('add.sizes');
+        Route::patch('/update/sizes/{productOptionSize}', [UpdateCartController::class, 'updateOrder'])
+            ->name('update.sizes');
+        Route::delete('/delete/sizes/{productOptionSize}', [RemoveCartController::class, 'deleteOrder'])
+            ->name('delete.sizes');
+
+        Route::post('/add/preorder', [AddCartController::class, 'addPreOrder'])->name('add.preorder');
+        Route::patch('/update/preorder', [UpdateCartController::class, 'updatePreOrder'])
+            ->name('update.preorder');
+        Route::patch('/delete/preorder', [RemoveCartController::class, 'deletePreOrder'])
+            ->name('delete.preorder');
 
         Route::post('/coupons/add', ApiCouponController::class)->name('coupons.add');
     });
+
+    Route::post('/products/{productOption}/notify-availability', ProductAvailabilityController::class)
+        ->name('products.notify-availability');
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
     
     Route::get('/', IndexCartController::class)->name('index');
+
+    Route::get('/livraisons', [AddressCartController::class, 'index'])->name('shippings.index');
+    Route::post('/livraisons', [AddressCartController::class, 'store'])->name('shippings.store');
 });
 
 Route::get('/', WelcomeController::class)->name('welcome');

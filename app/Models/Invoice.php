@@ -44,4 +44,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
 }

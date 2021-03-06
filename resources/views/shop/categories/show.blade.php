@@ -21,11 +21,11 @@
         <p class="mt-8">{{ $category->description }}</p>
     </article>
 
-    <section class="w-full md:p-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-16">
+    <section class="w-full md:p-0 {{ $products->count() > 1 ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-16' : 'flex items-center justify-center' }}">
         @forelse ($products as $product)
             @include('shop.products.card', ['product' => $product])
         @empty
-            <p class="text-2xl font-semibold text-center w-full"><strong>Oups!</strong> Aucun produit disponible à la vente 😶</p>
+            <p class="text-2xl inline mx-auto font-semibold text-center px-8 py-12 rounded bg-primary-700"><strong>Oups!</strong> Aucun produit disponible à la vente 😶</p>
         @endforelse
     </section>
 </section>

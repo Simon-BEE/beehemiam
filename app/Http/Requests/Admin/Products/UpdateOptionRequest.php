@@ -57,7 +57,7 @@ class UpdateOptionRequest extends FormRequest
                     $product = $this->route('product');
 
                     return $product->is_preorder;
-                }), 'numeric', 'min:1',
+                }), 'numeric', 'min:0',
             ],
             'sizes' => [
                 Rule::requiredIf(function () {
@@ -71,7 +71,7 @@ class UpdateOptionRequest extends FormRequest
                 'nullable', 'exists:sizes,id',
             ],
             'sizes.*.quantity' => [
-                'nullable', 'numeric', 'min:1',
+                'nullable', 'numeric', 'min:0',
             ],
         ];
     }

@@ -31,6 +31,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Country $country
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invoice[] $invoices
+ * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
  * @property-read \App\Models\User|null $user
@@ -115,8 +117,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $expired_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read bool $is_expired
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Coupon active()
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon query()
@@ -189,15 +193,18 @@ namespace App\Models{
  *
  * @property int $id
  * @property int|null $order_id
+ * @property int|null $address_id
  * @property string $reference
  * @property string $full_path
  * @property string $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Address|null $address
  * @property-read \App\Models\Order|null $order
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereAddressId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice whereFullPath($value)
@@ -373,6 +380,7 @@ namespace App\Models{
  * @property-read int $total_stock
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOption[] $productOptions
  * @property-read int|null $product_options_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Product active()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
@@ -404,7 +412,11 @@ namespace App\Models{
  * @property-read float $formatted_price
  * @property-read bool $is_available
  * @property-read \App\Models\ImageOption|null $main_image
+ * @property-read string $path
+ * @property-read \Illuminate\Support\Collection $real_images
+ * @property-read \Carbon\Carbon|null $release_date
  * @property-read \App\Models\ImageOption|null $thumb_image
+ * @property-read \Illuminate\Support\Collection $thumbnails
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $images
  * @property-read int|null $images_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ImageOption[] $imagesWithoutThumb

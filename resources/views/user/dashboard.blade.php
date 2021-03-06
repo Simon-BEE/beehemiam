@@ -154,7 +154,7 @@
             @endif
         </section>
 
-        @if ($user->orders->isNotEmpty() || true)
+        @if ($user->orders->isNotEmpty())
             <section>
                 <article class="w-full md:w-2/3 flex flex-col md:flex-row items-start">
                     <div class="w-full md:w-1/2">
@@ -196,6 +196,11 @@
                     Voir toutes mes commandes
                 </a>
             </section>
+
+        @else
+            <x-info>
+                <p>Aucun historique de commande à afficher pour le moment 😏</p>
+            </x-info>
         @endif
 
 

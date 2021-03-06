@@ -150,4 +150,9 @@ class ProductOption extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function availabilityNotifications(): HasMany
+    {
+        return $this->hasMany(ProductNotification::class);
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Shop\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreGuestAddressRequest;
+use App\Http\Requests\Shop\StoreGuestAddressRequest;
 use App\Models\Country;
 use App\Repositories\Shop\Cart\AddressCartRepository;
 use App\Repositories\Shop\Cart\CartRepository;

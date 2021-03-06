@@ -182,12 +182,9 @@
             @endif
         </section>
     @else
-        <div class="p-6 rounded bg-primary-200 flex items-center">
-            <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
-            </svg>
+        <x-info>
             <p>Aucune adresse n'est enregistré avec votre compte, pour continuer veuillez en créer une ci-dessous.</p>
-        </div>
+        </x-info>
     @endif
 </section>
 

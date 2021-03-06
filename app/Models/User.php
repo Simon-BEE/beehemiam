@@ -104,6 +104,11 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
         return $this->hasMany(Order::class);
     }
 
+    public function availabilityNotifications(): HasMany
+    {
+        return $this->hasMany(ProductNotification::class);
+    }
+
     public function selectPersonalData(PersonalDataSelection $personalData): void
     {
         $personalData

@@ -6,14 +6,18 @@ use App\Listeners\Products\UpdateProductStatus;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\ImageOption;
+use App\Models\PreOrderProductOptionQuantity;
 use App\Models\Product;
 use App\Models\ProductOption;
+use App\Models\ProductOptionSize;
 use App\Models\User;
 use App\Observers\AddressObserver;
 use App\Observers\CategoryObserver;
 use App\Observers\ImageOptionObserver;
+use App\Observers\PreOrderProductOptionQuantityObserver;
 use App\Observers\ProductObserver;
 use App\Observers\ProductOptionObserver;
+use App\Observers\ProductOptionSizeObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -32,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\PasswordEdited::class => [
             \App\Listeners\Users\PasswordHasChanged::class,
+        ],
+        \App\Events\Product\ProductOptionUpdatedEvent::class => [
+            \App\Listeners\Products\ProductOptionAvalaibilityListener::class,
         ],
     ];
 
@@ -63,5 +70,7 @@ class EventServiceProvider extends ServiceProvider
         Category::observe(CategoryObserver::class);
         User::observe(UserObserver::class);
         Address::observe(AddressObserver::class);
+        PreOrderProductOptionQuantity::observe(PreOrderProductOptionQuantityObserver::class);
+        ProductOptionSize::observe(ProductOptionSizeObserver::class);
     }
 }

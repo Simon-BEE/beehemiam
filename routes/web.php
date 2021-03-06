@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
+use App\Http\Controllers\Shop\Product\ProductAvailabilityController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,9 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
         Route::post('/coupons/add', ApiCouponController::class)->name('coupons.add');
     });
+
+    Route::post('/products/{productOption}/notify-availability', ProductAvailabilityController::class)
+        ->name('products.notify-availability');
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {

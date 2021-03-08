@@ -41,7 +41,7 @@ class AddressCartController extends Controller
                 $repository->prepare($request->validated());
             }
 
-            return redirect()->route('cart.shippings.index');
+            return redirect()->route('cart.orders.index');
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
+use App\Http\Controllers\Shop\Order\IndexOrderController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,8 @@ Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
 
     Route::get('/livraisons', [AddressCartController::class, 'index'])->name('shippings.index');
     Route::post('/livraisons', [AddressCartController::class, 'store'])->name('shippings.store');
+
+    Route::get('/validation', IndexOrderController::class)->name('orders.index');
 });
 
 Route::get('/', WelcomeController::class)->name('welcome');

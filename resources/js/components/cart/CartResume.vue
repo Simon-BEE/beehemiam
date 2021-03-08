@@ -53,7 +53,7 @@
             </div>
 
             <div class="flex items-center justify-between font-black text-lg pt-3 border-t border-primary-400 px-2">
-                <p>Montant total</p>
+                <p>Montant total à  payer</p>
                 <p class="">{{ formatNumber(total) }}€</p>
             </div>
 

@@ -42,6 +42,15 @@ class UserUnitTest extends TestCase
 
         $this->assertEquals($address->id, $user->address->id);
     }
+    
+    /** @test */
+    public function a_user_has_a_property_billing_address()
+    {
+        $user = User::factory()->create();
+        $address = Address::factory()->create(['user_id' => $user->id]);
+
+        $this->assertEquals($address->id, $user->billing_address->id);
+    }
 
     /** @test */
     public function there_is_a_scope_to_get_admin_users()

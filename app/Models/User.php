@@ -81,6 +81,12 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
             ->firstWhere('is_main', true);
     }
 
+    public function getBillingAddressAttribute(): ?Address
+    {
+        return $this->addresses
+            ->firstWhere('is_billing', true);
+    }
+
     /**
      * ? SCOPES
      */

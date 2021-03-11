@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd(redirect()->intended(), session('url.intended'));
+    dd();
 });
 
 /**
@@ -51,7 +51,7 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
-    
+
     Route::get('/', IndexCartController::class)->name('index');
 
     Route::get('/livraisons', [AddressCartController::class, 'index'])->name('shippings.index');

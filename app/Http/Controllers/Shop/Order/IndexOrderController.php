@@ -12,8 +12,8 @@ class IndexOrderController extends Controller
 {
     public function __invoke(CartRepository $repository): RedirectResponse|View
     {
-        if (carts_are_empty() 
-            || (!auth()->check() && !session()->has('billing_address')) 
+        if (carts_are_empty()
+            || (!auth()->check() && !session()->has('billing_address'))
             || (auth()->check() && is_null(auth()->user()->address))
         ) {
             return redirect('/')->with([
@@ -25,8 +25,8 @@ class IndexOrderController extends Controller
         $user = auth()->user();
 
         return view('shop.cart.orders.index', [
-            'contactEmail' => session()->has('billing_address') 
-                ? session('billing_address')->email 
+            'contactEmail' => session()->has('billing_address')
+                ? session('billing_address')->email
                 : $user->email,
             'shippingAddress' => session('shipping_address') ?? session('billing_address') ?? $user->address,
             'billingAddress' => session('billing_address') ?? $user->billing_address,

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
+use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
@@ -27,10 +28,13 @@ Route::get('/test', function () {
 });
 
 /**
- * Cart api routes
+ * Api routes
 */
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
+    /**
+     * Cart api routes
+     */
     Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
         Route::post('/add/sizes/{productOptionSize}', [AddCartController::class, 'addOrder'])->name('add.sizes');
         Route::patch('/update/sizes/{productOptionSize}', [UpdateCartController::class, 'updateOrder'])
@@ -47,12 +51,21 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
         Route::post('/coupons/add', ApiCouponController::class)->name('coupons.add');
     });
 
+    /**
+     * Product availability api routes
+     */
     Route::post('/products/{productOption}/notify-availability', ProductAvailabilityController::class)
         ->name('products.notify-availability');
+
+    /**
+     * Payment api routes
+     */
+    Route::get('/payments/stripe/payment-intent', PaymentIntentController::class)
+        ->name('payments.stripe.payment-intent');
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
-    
+
     Route::get('/', IndexCartController::class)->name('index');
 
     Route::get('/livraisons', [AddressCartController::class, 'index'])->name('shippings.index');

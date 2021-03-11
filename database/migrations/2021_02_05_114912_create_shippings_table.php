@@ -18,7 +18,6 @@ class CreateShippingsTable extends Migration
             $table->foreignId('country_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->unsignedInteger('price');
-            $table->timestamps();
         });
     }
 

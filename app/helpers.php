@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Address;
 use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
 use App\Models\User;
@@ -80,5 +81,21 @@ if (!function_exists('carts_are_empty')) {
     function carts_are_empty(): bool
     {
         return Cart::instance('order')->content()->isEmpty() && Cart::instance('preorder')->content()->isEmpty();
+    }
+}
+
+if (!function_exists('get_client_shipping_address')) {
+    function get_client_shipping_address(): ?Address
+    {
+        return session('shipping_address') ?? session('billing_address') ?? request()->user()?->address;
+    }
+}
+
+if (!function_exists('get_client_email')) {
+    function get_client_email(): ?string
+    {
+        return session()->has('billing_address')
+            ? session('billing_address')->email
+            : request()->user()?->email;
     }
 }

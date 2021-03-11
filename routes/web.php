@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
+use App\Http\Controllers\Api\Order\RegisterOrderController;
 use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
@@ -58,10 +59,13 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
         ->name('products.notify-availability');
 
     /**
-     * Payment api routes
+     * Payment and order api routes
      */
     Route::get('/payments/stripe/payment-intent', PaymentIntentController::class)
         ->name('payments.stripe.payment-intent');
+
+    Route::post('/orders', RegisterOrderController::class)
+        ->name('orders.store');
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {

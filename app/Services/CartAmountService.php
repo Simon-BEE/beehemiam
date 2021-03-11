@@ -28,7 +28,7 @@ class CartAmountService
         return config('cart.tax');
     }
 
-    private function getShipping(): Shipping
+    public function getShipping(): Shipping
     {
         $address = get_client_shipping_address();
 

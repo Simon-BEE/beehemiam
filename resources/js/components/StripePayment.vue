@@ -74,6 +74,7 @@ export default {
             totalAmount: 0,
             loading: false,
             orderLink: '/',
+            clientKey: null,
         }
     },
 
@@ -93,6 +94,7 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     this.totalAmount = response.data.total_amount;
+                    this.clientKey = response.data.client_secret;
 
                     const card = this.buildStripeForm();
                     const thisElement = this;
@@ -124,7 +126,8 @@ export default {
         },
 
         registerOrder() {
-            axios.post('/payments/confirm-order').then(response => {
+            axios.post('/orders', {client_secret: this.clientKey})
+            .then(response => {
                 this.callAlert('Le paiement a été accepté et la commande vient d\'etre enregistré.');
                 this.orderLink = response.data.order_link;
             }).catch(() => {

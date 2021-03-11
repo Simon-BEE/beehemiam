@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api\Stripe;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOption;
 use Tests\TestCase;
@@ -12,7 +13,6 @@ class PaymentCheckoutTest extends TestCase
     /** @test */
     public function a_user_generate_a_payment_intent_token()
     {
-        $this->withoutExceptionHandling();
         $this->addAProductToCart();
         $this->setSessionAddress();
 
@@ -20,6 +20,31 @@ class PaymentCheckoutTest extends TestCase
             ->assertSuccessful()
             ->assertJsonStructure(['client_secret', 'total_amount']);
     }
+
+    /** @test */
+    public function a_user_can_pay_and_so_register_his_order()
+    {
+        $this->withoutExceptionHandling();
+        $this->addAProductToCart();
+        $this->setSessionAddress();
+        $address = get_client_shipping_address();
+
+        $this->post(route('api.orders.store'), ['client_secret' => 'secret_key'])
+            ->assertSuccessful()
+            ->assertJsonStructure(['success', 'order_link']);
+
+        $order = Order::first();
+
+        $this->assertNotNull($order);
+        $this->assertTrue($order->orderItems->isNotEmpty());
+        $this->assertTrue(carts_are_empty());
+        $this->assertNull(get_client_shipping_address());
+        $this->assertEquals($address->email, $order->address->email);
+        $this->assertEquals($address->email, $order->invoice->address->email);
+        $this->assertEquals('En préparation', $order->status->name);
+        $this->assertDatabaseCount('payments', 1);
+    }
+
 
     private function addAProductToCart(): void
     {

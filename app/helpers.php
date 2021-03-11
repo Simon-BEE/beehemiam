@@ -85,9 +85,16 @@ if (!function_exists('carts_are_empty')) {
 }
 
 if (!function_exists('get_client_shipping_address')) {
-    function get_client_shipping_address(): ?Address
+    function get_client_shipping_address()
     {
         return session('shipping_address') ?? session('billing_address') ?? request()->user()?->address;
+    }
+}
+
+if (!function_exists('get_client_billing_address')) {
+    function get_client_billing_address()
+    {
+        return session('billing_address') ?? request()->user()?->billing_address;
     }
 }
 
@@ -97,5 +104,12 @@ if (!function_exists('get_client_email')) {
         return session()->has('billing_address')
             ? session('billing_address')->email
             : request()->user()?->email;
+    }
+}
+
+if (!function_exists('clean_session_addresses')) {
+    function clean_session_addresses(): void
+    {
+        session()->forget(['billing_address', 'shipping_address']);
     }
 }

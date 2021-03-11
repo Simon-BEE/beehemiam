@@ -9,8 +9,10 @@ use Illuminate\Http\JsonResponse;
 
 class PaymentIntentController extends Controller
 {
-    public function __invoke(StripeInteractorService $stripeInteractorService, CartAmountService $cartAmountService): JsonResponse
-    {
+    public function __invoke(
+        StripeInteractorService $stripeInteractorService,
+        CartAmountService $cartAmountService
+    ): JsonResponse {
         try {
             $totalAmount = $cartAmountService->getTotalAmount();
             $paymentIntent = $stripeInteractorService->createPaymentIntent($totalAmount);

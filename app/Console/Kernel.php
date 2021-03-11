@@ -25,7 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('personal-data-export:clean')->daily();
+        $schedule->command('logs:clean')->daily()->at('00:10');
+        $schedule->command('personal-data-export:clean')->daily()->at('00:30');
+        $schedule->command('backup:clean')->daily()->at('01:00');
+        $schedule->command('backup:run')->daily()->at('01:30');
 
         $schedule->command('queue:checkup')->everyFiveMinutes();
     }

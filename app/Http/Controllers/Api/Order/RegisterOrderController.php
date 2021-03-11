@@ -18,10 +18,11 @@ class RegisterOrderController extends Controller
 
         try {
             $repository->save($request->get('client_secret'));
+            // todo: order_link
 
             return response()->json([
                 'success' => true,
-                'order_link' => 'https://google.fr'
+                'order_link' => url('/'),
             ]);
         } catch (\Exception $e) {
             return response()->json([

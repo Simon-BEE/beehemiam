@@ -136,6 +136,8 @@ export default {
                 document.querySelector('#payment-form').classList.add('hidden');
                 document.querySelector('.result-message').classList.replace('hidden', 'flex');
 
+                this.$cookies.remove('beehemiamCart');
+
                 setTimeout(() => {
                     window.location.href = this.orderLink;
                 }, 3000);

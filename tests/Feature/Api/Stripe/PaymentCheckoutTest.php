@@ -43,6 +43,7 @@ class PaymentCheckoutTest extends TestCase
         $this->assertEquals($address->email, $order->invoice->address->email);
         $this->assertEquals('En préparation', $order->status->name);
         $this->assertDatabaseCount('payments', 1);
+        // todo coupon order
     }
 
 

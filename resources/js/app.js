@@ -20,6 +20,7 @@ import OverlayBackground from './components/OverlayBackground';
 import SizesSelector from './components/SizesSelector';
 import ImagesGallery from './components/ImagesGallery';
 import NotifyAvailability from './components/NotifyAvailability';
+import StripePayment from './components/StripePayment';
 
 Vue.mixin(mixins);
 
@@ -27,11 +28,11 @@ new Vue({
   el: '#app',
 
   components: {
-    SizesSelector, ResponsiveButton, AuthButton, 
+    SizesSelector, ResponsiveButton, AuthButton,
     OpenModalButton, OverlayBackground, CloseModalButton,
     AddCart, CartIcon, CartTable, LoaderIcon,
     CartResume, BillingAddress, CartInfo,
-    ImagesGallery, NotifyAvailability,
+    ImagesGallery, NotifyAvailability, StripePayment,
   },
 
   mounted() {

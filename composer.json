@@ -35,6 +35,7 @@
         "overtrue/phplint": "^2.3",
         "phpunit/phpunit": "^9.3.3",
         "psalm/plugin-laravel": "^1.4",
+        "thedoctor0/laravel-factory-generator": "^1.0",
         "vimeo/psalm": "^4.4"
     },
     "config": {

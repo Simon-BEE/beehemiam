@@ -48,10 +48,10 @@
                 </div>
                 <div class="">
                     <p>
-                        {{ $billingAddress->firstname }} {{ $billingAddress->lastname }}
+                        {{ $shippingAddress->firstname }} {{ $shippingAddress->lastname }}
                     </p>
                     <p>
-                        {{ $billingAddress->street }} {{ $billingAddress->additionnal }} {{ $billingAddress->city }} {{ $billingAddress->zipcode }} - {{ $billingAddress->country->name }}
+                        {{ $shippingAddress->street }} {{ $shippingAddress->additionnal }} {{ $shippingAddress->city }} {{ $shippingAddress->zipcode }} - {{ $shippingAddress->country->name }}
                     </p>
                 </div>
             </div>

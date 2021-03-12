@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Example 2</title>
+    <title>Beehemiam &mdash; Facture n°4569644</title>
     <style>
         * {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -42,8 +42,8 @@
 
         header {
             padding: 10px 0;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #AAAAAA;
+            margin-bottom: 3em;
+            border-bottom: 1px solid #DDD;
         }
 
         #logo {
@@ -214,7 +214,7 @@
             width: 100%;
             height: 100px;
             margin-top: auto;
-            border-top: 1px solid #AAAAAA;
+            border-top: 1px solid #DDD;
             padding: 8px 0;
             text-align: center;
         }

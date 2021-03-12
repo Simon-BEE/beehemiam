@@ -35,7 +35,10 @@ class OrderItem extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFormattedPriceAttribute(): float
+    {
+        return number_format($this->price / 100, 2);
+    }
 
     /**
      * ? SCOPES

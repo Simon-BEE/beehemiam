@@ -24,7 +24,7 @@
         }
 
         a {
-            color: #FFA726;
+            color: #757459;
             text-decoration: none;
         }
 
@@ -67,7 +67,7 @@
 
         #client {
             padding-left: 1em;
-            border-left: 6px solid #FFA726;
+            border-left: 6px solid #757459;
             float: left;
         }
 
@@ -91,7 +91,7 @@
         }
 
         #invoice h1 {
-            color: #FFA726;
+            color: #757459;
             font-size: 2.4em;
             line-height: 1em;
             font-weight: normal;
@@ -128,7 +128,7 @@
         }
 
         table td h3 {
-            color: #FF9800;
+            color: #757459;
             font-size: 1.2em;
             font-weight: normal;
             margin: 0 0 0.2em 0;
@@ -151,7 +151,7 @@
         }
 
         table .total {
-            background: #FF9800;
+            background: #757459;
             color: #FFFFFF;
             width: 25%;
         }
@@ -180,9 +180,9 @@
         }
 
         table tfoot tr:last-child td {
-            color: #FF9800;
+            color: #757459;
             font-size: 1.4em;
-            border-top: 1px solid #FF9800;
+            border-top: 1px solid #757459;
 
         }
 
@@ -196,7 +196,7 @@
 
         #notices {
             padding-left: 1em;
-            border-left: 6px solid #FFA726;
+            border-left: 6px solid #757459;
             margin-top: 5em;
         }
 

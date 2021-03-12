@@ -11,6 +11,8 @@ use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\Shop\Order\IndexOrderController;
 use App\Http\Controllers\WelcomeController;
+use App\Mail\Orders\OrderSummaryMail;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +27,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    return view('layouts.invoice');
+    $order = Order::first();
+    return new OrderSummaryMail($order, $order->orderItems, $order->address);
     dd(redirect()->intended(), session('url.intended'));
 });
 

@@ -43,6 +43,11 @@ class Order extends Model
         return $this->price / 100;
     }
 
+    public function getPathAttribute(): string
+    {
+        return '/order';
+    }
+
     /**
      * ? SCOPES
      */

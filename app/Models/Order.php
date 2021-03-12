@@ -38,7 +38,10 @@ class Order extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFormattedPriceAttribute(): float
+    {
+        return $this->price / 100;
+    }
 
     /**
      * ? SCOPES

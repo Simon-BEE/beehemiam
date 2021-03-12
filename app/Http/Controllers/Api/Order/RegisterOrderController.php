@@ -17,7 +17,7 @@ class RegisterOrderController extends Controller
 
 
         try {
-            $repository->save($request->get('client_secret'));
+            $order = $repository->save($request->get('client_secret'));
             // todo: order_link
 
             return response()->json([

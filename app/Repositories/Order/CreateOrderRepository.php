@@ -2,56 +2,24 @@
 
 namespace App\Repositories\Order;
 
+use App\Events\Order\NewOrderReceivedEvent;
 use App\Models\Order;
 use App\Models\OrderStatus;
-use App\Models\Payment;
-use App\Repositories\Shop\Cart\CartRepository;
 use App\Services\CartAmountService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 
 class CreateOrderRepository
 {
-    public function __construct(public CartAmountService $cartAmountService, public CartRepository $cartRepository)
+    public function __construct(public CartAmountService $cartAmountService)
     {
     }
 
-    public function save(string $clientSecretKey): void
+    public function save(string $clientSecretKey): Order
     {
         $this->verifyAddress();
 
-        $order = $this->storeOrder();
-
-        $this->storeOrderItems($order);
-
-        $this->generateInvoice($order);
-
-        $this->savePayment($order, $clientSecretKey);
-
-        $this->cleanCart();
-
-        clean_session_addresses();
-    }
-
-    private function storeOrderItems(Order $order): void
-    {
-        foreach ($this->cartRepository->getProductsFromCart() as $cartItem) {
-            $cartItem = collect($cartItem);
-
-            $order->orderItems()->create([
-                'product_option_id' => $cartItem->get('product_option')['id'],
-                'size_id' => $cartItem->get('size')['id'],
-                'name' => $cartItem->get('product_option')['name'],
-                'price' => $cartItem->get('product_option')['price'],
-                'quantity' => $cartItem->get('cart_quantity'),
-                'tax' => config('cart.tax'),
-            ]);
-        }
-    }
-
-    private function storeOrder(): Order
-    {
-        return Order::create([
+        $order = Order::create([
             'order_status_id' => OrderStatus::PREPARATION,
             'user_id' => auth()->id(),
             'shipping_id' => $this->cartAmountService->getShipping()->id,
@@ -61,26 +29,12 @@ class CreateOrderRepository
             // todo preorder change
             'is_preorder' => false,
         ]);
-    }
 
-    public function generateInvoice($order): void
-    {
-        // todo: improve
-        $order->invoice()->create([
-            'address_id' => get_client_billing_address()->id,
-            'reference' => mt_rand(1000, 99999),
-            'full_path' => '//',
-            'content' => 'HELLO',
-        ]);
-    }
+        event(new NewOrderReceivedEvent($order, $clientSecretKey));
 
-    private function savePayment(Order $order, string $clientSecretKey): void
-    {
-        $order->payment()->create([
-            'reference' => $clientSecretKey,
-            'type' => Payment::CARD_TYPE,
-            'amount' => $order->price,
-        ]);
+        $this->cleanSessions();
+
+        return $order;
     }
 
     private function verifyAddress(): void
@@ -98,16 +52,11 @@ class CreateOrderRepository
         }
     }
 
-    private function cleanCart(): void
+    private function cleanSessions(): void
     {
         Cart::instance('order')->destroy();
         Cart::instance('preorder')->destroy();
 
-        $this->cleanCookieCart();
-    }
-
-    private function cleanCookieCart(): void
-    {
-        unset($_COOKIE['beehemiamCart']);
+        clean_session_addresses();
     }
 }

@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Api\Stripe;
 
+use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOption;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class PaymentCheckoutTest extends TestCase
@@ -24,7 +26,7 @@ class PaymentCheckoutTest extends TestCase
     /** @test */
     public function a_user_can_pay_and_so_register_his_order()
     {
-        $this->withoutExceptionHandling();
+        Mail::fake();
         $this->addAProductToCart();
         $this->setSessionAddress();
         $address = get_client_shipping_address();
@@ -43,6 +45,8 @@ class PaymentCheckoutTest extends TestCase
         $this->assertEquals($address->email, $order->invoice->address->email);
         $this->assertEquals('En préparation', $order->status->name);
         $this->assertDatabaseCount('payments', 1);
+
+        Mail::assertQueued(OrderSummaryMail::class);
         // todo coupon order
     }
 

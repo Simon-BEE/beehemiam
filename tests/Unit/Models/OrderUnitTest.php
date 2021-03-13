@@ -22,6 +22,6 @@ class OrderUnitTest extends TestCase
         $order = Order::factory()->create();
 
         $this->assertNotNull($order->path);
-        $this->assertEquals('/order', $order->path);
+        $this->assertEquals(route('user.orders.show', $order), $order->path);
     }
 }

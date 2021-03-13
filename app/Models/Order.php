@@ -45,7 +45,7 @@ class Order extends Model
 
     public function getPathAttribute(): string
     {
-        return '/order';
+        return route('user.orders.show', $this);
     }
 
     /**

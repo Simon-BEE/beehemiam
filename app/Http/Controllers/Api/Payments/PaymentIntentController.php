@@ -14,6 +14,7 @@ class PaymentIntentController extends Controller
         CartAmountService $cartAmountService
     ): JsonResponse {
         try {
+            /** @var int $totalAmount */
             $totalAmount = $cartAmountService->getTotalAmount();
             $paymentIntent = $stripeInteractorService->createPaymentIntent($totalAmount);
 

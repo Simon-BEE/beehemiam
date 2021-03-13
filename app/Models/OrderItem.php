@@ -37,7 +37,7 @@ class OrderItem extends Model
 
     public function getFormattedPriceAttribute(): float
     {
-        return number_format($this->price / 100, 2);
+        return $this->price / 100;
     }
 
     /**

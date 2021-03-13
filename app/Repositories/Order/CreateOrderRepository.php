@@ -3,6 +3,7 @@
 namespace App\Repositories\Order;
 
 use App\Events\Order\NewOrderReceivedEvent;
+use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Services\CartAmountService;
@@ -40,13 +41,17 @@ class CreateOrderRepository
     private function verifyAddress(): void
     {
         if (session('shipping_address')) {
-            $address = tap(session('shipping_address'))->save();
+            /** @var Address $address */
+            $address = session('shipping_address');
+            $address = tap($address)->save();
 
             Session::put('shipping_address', $address);
         }
 
         if (session('billing_address')) {
-            $address = tap(session('billing_address'))->save();
+            /** @var Address $address */
+            $address = session('billing_address');
+            $address = tap($address)->save();
 
             Session::put('billing_address', $address);
         }

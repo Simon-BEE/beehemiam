@@ -9,9 +9,9 @@ class CartAmountService
     /**
      * Return total amount (all products, shipping fees, taxes) in cents
      *
-     * @return integer
+     * @return int|float
      */
-    public function getTotalAmount(): int
+    public function getTotalAmount(): int|float
     {
         return get_cart_subtotal(false, 'order')
             + get_cart_subtotal(false, 'preorder')

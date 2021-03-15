@@ -17,11 +17,59 @@ class OrderUnitTest extends TestCase
     }
 
     /** @test */
+    public function an_order_has_a_property_formatted_shipping_fees()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->formatted_shipping_fees);
+        $this->assertEquals($order->shipping_fees / 100, $order->formatted_shipping_fees);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_price_without_taxes()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->price_without_taxes);
+        $this->assertEquals($order->price - ($order->price * ($order->tax / 100)), $order->price_without_taxes);
+    }
+    /** @test */
+    public function an_order_has_a_property_formatted_price_without_taxes()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->formatted_price_without_taxes);
+        $this->assertEquals(number_format($order->price_without_taxes / 100, 2), $order->formatted_price_without_taxes);
+    }
+
+    /** @test */
     public function an_order_has_a_property_path()
     {
         $order = Order::factory()->create();
 
         $this->assertNotNull($order->path);
         $this->assertEquals(route('user.orders.show', $order), $order->path);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_verbose_status()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->verbose_status);
+        $this->assertEquals("Votre commande est en cours de préparation.", $order->verbose_status);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_is_in_progress()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->is_in_progress);
+        $this->assertTrue($order->is_in_progress);
+
+        $preorder = Order::factory()->create(['has_preorder' => true]);
+
+        $this->assertTrue($preorder->has_preorder && $order->is_in_progress);
     }
 }

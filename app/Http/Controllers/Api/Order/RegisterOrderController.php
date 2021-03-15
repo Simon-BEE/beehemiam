@@ -19,7 +19,6 @@ class RegisterOrderController extends Controller
         try {
             $order = $repository->save($request->get('client_secret'));
 
-
             return response()->json([
                 'success' => true,
                 'order_link' => $order->user ? $order->path : url('/'),

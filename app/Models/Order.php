@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+use function PHPUnit\Framework\matches;
+
 /**
  * ! Price include all taxes with shipping fees
  */
@@ -38,14 +40,55 @@ class Order extends Model
      * ? ATTRIBUTES
      */
 
-    public function getFormattedPriceAttribute(): float
+    public function getFormattedPriceAttribute(): string
     {
-        return $this->price / 100;
+        return number_format($this->price / 100, 2);
+    }
+
+    public function getFormattedShippingFeesAttribute(): string
+    {
+        return number_format($this->shipping_fees / 100, 2);
+    }
+
+    public function getPriceWithoutTaxesAttribute(): float
+    {
+        return $this->price - ($this->price * ($this->tax / 100));
+    }
+
+    public function getFormattedPriceWithoutTaxesAttribute(): string
+    {
+        return number_format($this->price_without_taxes / 100, 2);
     }
 
     public function getPathAttribute(): string
     {
         return route('user.orders.show', $this);
+    }
+
+    public function getVerboseStatusAttribute(): string
+    {
+        return match($this->status->id) {
+            OrderStatus::CANCELLED => "Votre commande a été annulée le {$this->updated_at->format('d/m/Y à H:i')}.",
+            OrderStatus::COMPLETED => "Votre commande est terminée.",
+            OrderStatus::FAILED => "Votre commande a échouée.",
+            OrderStatus::SHIPPING => "Votre commande est en cours de livraison.",
+            OrderStatus::MANUFACTURE => "Votre commande est en cours de confection (précommande).",
+            OrderStatus::REFUNDED => "Votre commande a remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
+            OrderStatus::PREPARATION => "Votre commande est en cours de préparation.",
+        };
+    }
+
+    public function getIsInProgressAttribute(): bool
+    {
+        return match($this->status->id) {
+            OrderStatus::CANCELLED => false,
+            OrderStatus::COMPLETED => false,
+            OrderStatus::FAILED => false,
+            OrderStatus::SHIPPING => true,
+            OrderStatus::MANUFACTURE => true,
+            OrderStatus::REFUNDED => false,
+            OrderStatus::PREPARATION => true,
+        };
     }
 
     /**

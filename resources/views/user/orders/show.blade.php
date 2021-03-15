@@ -76,13 +76,13 @@
                     @endforeach
                     <tr class="">
                         <td colspan="2" class="p-2"></td>
-                        <td class="p-2 border-b border-primary-300 font-bold">Frais de port TTC</td>
-                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_shipping_fees }}€</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">Montant total HT</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_price_without_taxes }}€</td>
                     </tr>
                     <tr class="">
                         <td colspan="2" class="p-2"></td>
-                        <td class="p-2 border-b border-primary-300 font-bold">Montant total HT</td>
-                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_price_without_taxes }}€</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">Frais de port TTC</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_shipping_fees }}€</td>
                     </tr>
                     <tr class="">
                         <td colspan="2" class="p-2"></td>

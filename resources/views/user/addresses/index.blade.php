@@ -30,7 +30,7 @@
             </a>
         </div>
 
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 py-8">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
             @forelse ($addresses as $address)
                 <div class="relative border border-primary-400 p-4 rounded-sm w-full flex flex-col space-y-2">
                     @if ($address->is_main)

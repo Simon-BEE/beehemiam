@@ -8,10 +8,6 @@
     <svg class="w-4 h-4" viewBox="0 0 24 24">
         <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
     </svg>
-    {{-- <a href="{{ route('shop.categories.index') }}" class="hover:text-primary-600">Toutes les collections</a>
-    <span class="text-primary-500">/</span>
-    <a href="{{ route('shop.categories.show', $category) }}" class="hover:text-primary-600">{{ $category->name }}</a>
-    <span class="text-primary-500">/</span> --}}
     <p>Mon panier</p>
 </section>
 
@@ -19,6 +15,8 @@
     <article class="w-full md:w-1/2 text-center mb-12">
         <h1 class="text-5xl md:text-7xl font-cursive">Mon panier</h1>
     </article>
+
+    @include('shop.cart.includes.order-preorder-alert')
 
     @if (count($cart) > 0)
         <section class="w-full flex flex-col md:flex-row items-start justify-between md:space-x-4 mt-12">
@@ -29,7 +27,7 @@
 
             <section class="w-full md:w-1/3 mt-8 md:mt-0 ">
                 <cart-resume :cart-sub-total="{{ $subTotal }}" :coupon="{{ json_encode($coupon) }}"></cart-resume>
-        
+
                 <section class="w-full flex justify-center mt-12">
                     <a href="{{ route('cart.shippings.index') }}" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-bold text-lg">
                         <svg class="w-8 h-8 mr-2" viewBox="0 0 24 24">

@@ -21,6 +21,8 @@
         <p class="mt-8">Dernière étape pour passer commande, le paiement. Vérifier vos informations enregistrées précédemment, puis choissisez votre moyen de paiement. Vous avez le choix entre <strong>PayPal</strong> et le paiement par <strong>Carte Bancaire</strong>. Pour toutes autres informations, nous vous invitons à vous rendre sur  <a href="#" class="text-primary-500 hover:underline">la page dédiée aux commandes</a>.</p>
     </article>
 
+    @include('shop.cart.includes.order-preorder-alert')
+
     <section class="w-full flex flex-col lg:flex-row items-start justify-between lg:space-x-4 mt-12">
 
         <section class="w-full lg:w-1/2 px-4 pt-4 pb-12 rounded bg-primary-200 relative">

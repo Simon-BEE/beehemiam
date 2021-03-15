@@ -19,8 +19,10 @@
         <p class="mt-8">Enregistrez vos coordonnées pour finaliser votre commande, les frais de port seront ajustés selon votre géolocalisation. Vous pouvez créer un compte, vous connecter, ou alors passer une commande sans être enregistré. C'est comme vous préférez.</p>
     </article>
 
+    @include('shop.cart.includes.order-preorder-alert')
+
     <section class="w-full flex flex-col lg:flex-row items-start justify-between lg:space-x-4 mt-12">
-        
+
         <section class="w-full lg:w-2/3">
             @includeWhen(!auth()->check(), 'shop.cart.shipping.guest')
 
@@ -28,9 +30,9 @@
         </section>
 
         <section class="w-full lg:w-1/3 mt-8 lg:mt-0 ">
-            <cart-info 
-                :cart-items="{{ json_encode($cart) }}" 
-                :coupon="{{ json_encode($coupon) }}" 
+            <cart-info
+                :cart-items="{{ json_encode($cart) }}"
+                :coupon="{{ json_encode($coupon) }}"
                 :cart-sub-total="{{ $subTotal }}"
                 :country-id="{{ json_encode(auth()->user()?->address?->country->id ?? 1) }}"
             ></cart-info>

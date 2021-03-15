@@ -24,15 +24,26 @@
                 <h2 class="font-bold text-2xl">Commande n°{{ $order->id }}</h2>
                 <p class="text-sm">Ma commande passée le {{ $order->created_at->format('d/m/Y') }}</p>
             </div>
-        </div>
-        <article class="flex items-center justify-end my-4 space-x-2">
             <x-form.button>
                 <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z" />
                 </svg>
                 Télécharger la facture
             </x-form.button>
-        </article>
+        </div>
+
+        <section class="my-6">
+            <x-info>
+                <p>{{ $order->verbose_status }} </p>
+                @if ($order->has_preorder && $order->is_in_progress)
+                    <p>&nbsp; Elle sera expédiée lorsque la précommande sera terminée.</p>
+                @endif
+            </x-info>
+        </section>
+
+        <section class="my-6">
+            <p>Vous avez passé commande le <strong>{{ $order->created_at->format('d/m/Y à H:i') }}</strong> pour un montant total TTC de <strong>{{ $order->formatted_price }}€</strong> contenant <strong>{{ $order->orderItems->count() < 2 ? '1 article' : $order->orderItems->count() . ' articles' }}</strong>.</p>
+        </section>
 
         <section class="w-full flex flex-col md:flex-row items-start justify-between md:space-x-5">
             <article class="w-full md:w-1/3">
@@ -41,7 +52,7 @@
 
             <table class="w-full md:w-2/3 text-center">
                 <thead>
-                    <tr class="bg-primary-700">
+                    <tr class="bg-primary-200">
                         <th class="px-2 py-3 font-bold">Nom du vêtement</th>
                         <th class="px-2 py-3 font-bold">Quantité</th>
                         <th class="px-2 py-3 font-bold">Prix Unitaire</th>
@@ -53,7 +64,7 @@
                         <tr class="{{ $loop->even ? 'bg-primary-200' : '' }} hover:bg-primary-300">
                             <td class="px-2 py-3">
                                 @if ($item->productOption)
-                                    <a href="{{ $item->productOption->path }}">{{ $item->name }}</a>
+                                    <a href="{{ $item->productOption->path }}" class="hover:underline">{{ $item->name }}</a>
                                 @else
                                     {{ $item->name }}
                                 @endif
@@ -64,25 +75,25 @@
                         </tr>
                     @endforeach
                     <tr class="">
-                        <td colspan="2" class="px-2 py-3"></td>
-                        <td class="px-2 py-3 font-bold">Frais de port TTC</td>
-                        <td class="px-2 py-3 font-bold">{{ $order->shipping_fees / 100 }}€</td>
+                        <td colspan="2" class="p-2"></td>
+                        <td class="p-2 border-b border-primary-300 font-bold">Frais de port TTC</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_shipping_fees }}€</td>
                     </tr>
                     <tr class="">
-                        <td colspan="2" class="px-2 py-3"></td>
-                        <td class="px-2 py-3 font-bold">Montant total HT</td>
-                        <td class="px-2 py-3 font-bold">{{ $order->formatted_price * $order->tax }}€</td>
+                        <td colspan="2" class="p-2"></td>
+                        <td class="p-2 border-b border-primary-300 font-bold">Montant total HT</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_price_without_taxes }}€</td>
                     </tr>
                     <tr class="">
-                        <td colspan="2" class="px-2 py-3"></td>
-                        <td class="px-2 py-3 font-bold">Montant total TTC</td>
-                        <td class="px-2 py-3 font-bold">{{ $order->formatted_price }}€</td>
+                        <td colspan="2" class="p-2"></td>
+                        <td class="p-2 border-b border-primary-300 font-bold">Montant total TTC</td>
+                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_price }}€</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        @if ($order->created_at < now()->addMinutes(15))
+        @if ($order->created_at->addMinutes(15) > now())
             <section class="mt-8 p-4 rounded bg-primary-300">
 
                 <p>Vous pouvez annuler votre commande dans les 15 minutes suivant la confirmation. pour cela veuillez cliquer sur le bouton ci-dessous.</p>

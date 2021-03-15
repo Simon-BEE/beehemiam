@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Order;
+use App\Models\OrderStatus;
 
 class OrderFactory extends Factory
 {
@@ -22,12 +23,12 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'order_status_id' => \App\Models\OrderStatus::factory(),
+            'order_status_id' => OrderStatus::PREPARATION,
             'address_id' => \App\Models\Address::factory(),
             'user_id' => \App\Models\User::factory(),
             'shipping_id' => \App\Models\Shipping::factory(),
-            'price' => $this->faker->randomNumber(),
-            'shipping_fees' => $this->faker->randomNumber(),
+            'price' => mt_rand(1000, 5000),
+            'shipping_fees' => 500,
             'tax' => 20,
             'has_preorder' => $this->faker->boolean,
         ];

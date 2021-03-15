@@ -35,6 +35,7 @@ class CreateOrderItems
                 'price' => $cartItem->get('product_option')['price'],
                 'quantity' => $cartItem->get('cart_quantity'),
                 'tax' => config('cart.tax'),
+                'is_preorder' => $cartItem->get('is_preorder'),
             ]);
         }
     }

@@ -29,6 +29,7 @@ class OrderItemFactory extends Factory
             'price' => $this->faker->randomNumber(),
             'tax' => $this->faker->randomNumber(),
             'quantity' => $this->faker->randomNumber(),
+            'is_preorder' => $this->faker->boolean(35),
         ];
     }
 }

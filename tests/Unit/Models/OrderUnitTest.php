@@ -72,15 +72,4 @@ class OrderUnitTest extends TestCase
 
         $this->assertTrue($preorder->has_preorder && $order->is_in_progress);
     }
-
-    /** @test */
-    public function an_order_has_a_scope_last()
-    {
-        $order1 = Order::factory()->create();
-        $this->travelTo(now()->addMinute());
-        $order2 = Order::factory()->create();
-
-        $this->assertNotNull(Order::last());
-        $this->assertTrue($order2->is(Order::last()));
-    }
 }

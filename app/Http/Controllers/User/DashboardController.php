@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
         return view('user.dashboard', [
             'user' => $user,
-            'lastOrder' => $user->orders()->with('status')->last(),
+            'lastOrder' => $user->orders()->with('status')->latest()->first(),
         ]);
     }
 }

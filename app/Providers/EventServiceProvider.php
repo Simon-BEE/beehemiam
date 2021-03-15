@@ -42,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\Order\NewOrderReceivedEvent::class => [
             \App\Listeners\Order\CreateOrderItems::class,
+            \App\Listeners\Order\AdjustStockQuantities::class,
             \App\Listeners\Order\GenerateOrderInvoice::class,
             \App\Listeners\Order\SavePaymentOrder::class,
             \App\Listeners\Order\SendOrderSummaryEmail::class,

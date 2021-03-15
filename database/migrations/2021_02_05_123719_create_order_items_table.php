@@ -31,6 +31,7 @@ class CreateOrderItemsTable extends Migration
             $table->unsignedInteger('price');
             $table->unsignedInteger('tax');
             $table->unsignedInteger('quantity');
+            $table->boolean('is_preorder');
             $table->timestamps();
         });
     }

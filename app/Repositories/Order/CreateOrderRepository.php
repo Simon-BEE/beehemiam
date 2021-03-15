@@ -31,7 +31,6 @@ class CreateOrderRepository
             'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
 
-        // todo update stock
         // todo notify admin
 
         event(new NewOrderReceivedEvent($order, $clientSecretKey));

@@ -94,10 +94,7 @@ class Order extends Model
      * ? SCOPES
      */
 
-    public function scopeLast(Builder $query): ?self
-    {
-        return $query->latest()->first();
-    }
+    //
 
     /**
      * ? RELATIONS

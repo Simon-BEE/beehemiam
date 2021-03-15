@@ -59,7 +59,8 @@ class CartRepository
 
         return $productOptionSizes->map(function (ProductOptionSize $productOptionSize) {
             return collect($productOptionSize)
-                ->put('cart_quantity', Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty);
+                ->put('cart_quantity', Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty)
+                ->put('is_preorder', false);
         });
     }
 
@@ -111,6 +112,7 @@ class CartRepository
                         $productOption->get('size')->sizeId
                     ))
                     ->qty,
+                'is_preorder' => true,
             ]);
         });
     }

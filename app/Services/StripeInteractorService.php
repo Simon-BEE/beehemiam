@@ -19,6 +19,7 @@ class StripeInteractorService
             'currency' => 'eur',
             'metadata' => [
                 'email_address' => get_client_email(),
+                'user_id' => auth()->id(),
             ],
         ]);
     }

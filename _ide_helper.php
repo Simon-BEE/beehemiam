@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.29.0.
+ * Generated for Laravel 8.32.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -930,15 +930,8 @@
                         return $instance->when($concrete);
         }
                     /**
-         * Returns true if the container can return an entry for the given identifier.
          * 
-         * Returns false otherwise.
-         * 
-         * `has($id)` returning true does not mean that `get($id)` will not throw an exception.
-         * It does however mean that `get($id)` will not throw a `NotFoundExceptionInterface`.
          *
-         * @param string $id Identifier of the entry to look for.
-         * @return bool 
          * @static 
          */ 
         public static function has($id)
@@ -1236,12 +1229,8 @@
                         return $instance->makeWith($abstract, $parameters);
         }
                     /**
-         * Finds an entry of the container by its identifier and returns it.
+         * 
          *
-         * @param string $id Identifier of the entry to look for.
-         * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
-         * @throws ContainerExceptionInterface Error while retrieving the entry.
-         * @return mixed Entry.
          * @static 
          */ 
         public static function get($id)
@@ -3205,14 +3194,8 @@
                         return $instance->many($keys);
         }
                     /**
-         * Obtains multiple cache items by their unique keys.
+         * 
          *
-         * @param \Psr\SimpleCache\iterable $keys A list of keys that can obtained in a single operation.
-         * @param mixed $default Default value to return for keys that do not exist.
-         * @return \Psr\SimpleCache\iterable A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
-         * @throws \Psr\SimpleCache\InvalidArgumentException
-         *   MUST be thrown if $keys is neither an array nor a Traversable,
-         *   or if any of the $keys are not a legal value.
          * @static 
          */ 
         public static function getMultiple($keys, $default = null)
@@ -3248,16 +3231,8 @@
                         return $instance->put($key, $value, $ttl);
         }
                     /**
-         * Persists data in the cache, uniquely referenced by a key with an optional expiration TTL time.
+         * 
          *
-         * @param string $key The key of the item to store.
-         * @param mixed $value The value of the item to store, must be serializable.
-         * @param null|int|\DateInterval $ttl Optional. The TTL value of this item. If no value is sent and
-         *                                      the driver supports TTL then the library may set a default value
-         *                                      for it or let the driver take care of that.
-         * @return bool True on success and false on failure.
-         * @throws \Psr\SimpleCache\InvalidArgumentException
-         *   MUST be thrown if the $key string is not a legal value.
          * @static 
          */ 
         public static function set($key, $value, $ttl = null)
@@ -3279,16 +3254,8 @@
                         return $instance->putMany($values, $ttl);
         }
                     /**
-         * Persists a set of key => value pairs in the cache, with an optional TTL.
+         * 
          *
-         * @param \Psr\SimpleCache\iterable $values A list of key => value pairs for a multiple-set operation.
-         * @param null|int|\DateInterval $ttl Optional. The TTL value of this item. If no value is sent and
-         *                                       the driver supports TTL then the library may set a default value
-         *                                       for it or let the driver take care of that.
-         * @return bool True on success and false on failure.
-         * @throws \Psr\SimpleCache\InvalidArgumentException
-         *   MUST be thrown if $values is neither an array nor a Traversable,
-         *   or if any of the $values are not a legal value.
          * @static 
          */ 
         public static function setMultiple($values, $ttl = null)
@@ -3402,12 +3369,8 @@
                         return $instance->forget($key);
         }
                     /**
-         * Delete an item from the cache by its unique key.
+         * 
          *
-         * @param string $key The unique cache key of the item to delete.
-         * @return bool True if the item was successfully removed. False if there was an error.
-         * @throws \Psr\SimpleCache\InvalidArgumentException
-         *   MUST be thrown if the $key string is not a legal value.
          * @static 
          */ 
         public static function delete($key)
@@ -3416,13 +3379,8 @@
                         return $instance->delete($key);
         }
                     /**
-         * Deletes multiple cache items in a single operation.
+         * 
          *
-         * @param \Psr\SimpleCache\iterable $keys A list of string-based keys to be deleted.
-         * @return bool True if the items were successfully removed. False if there was an error.
-         * @throws \Psr\SimpleCache\InvalidArgumentException
-         *   MUST be thrown if $keys is neither an array nor a Traversable,
-         *   or if any of the $keys are not a legal value.
          * @static 
          */ 
         public static function deleteMultiple($keys)
@@ -3431,9 +3389,8 @@
                         return $instance->deleteMultiple($keys);
         }
                     /**
-         * Wipes clean the entire cache's keys.
+         * 
          *
-         * @return bool True on success and false on failure.
          * @static 
          */ 
         public static function clear()
@@ -5076,7 +5033,7 @@
          * Register an event listener with the dispatcher.
          *
          * @param \Closure|string|array $events
-         * @param \Closure|string|null $listener
+         * @param \Closure|string|array|null $listener
          * @return void 
          * @static 
          */ 
@@ -6355,6 +6312,7 @@
      * @method static \Illuminate\Http\Client\PendingRequest bodyFormat(string $format)
      * @method static \Illuminate\Http\Client\PendingRequest contentType(string $contentType)
      * @method static \Illuminate\Http\Client\PendingRequest retry(int $times, int $sleep = 0)
+     * @method static \Illuminate\Http\Client\PendingRequest sink($to)
      * @method static \Illuminate\Http\Client\PendingRequest stub(callable $callback)
      * @method static \Illuminate\Http\Client\PendingRequest timeout(int $seconds)
      * @method static \Illuminate\Http\Client\PendingRequest withBasicAuth(string $username, string $password)
@@ -6366,6 +6324,8 @@
      * @method static \Illuminate\Http\Client\PendingRequest withToken(string $token, string $type = 'Bearer')
      * @method static \Illuminate\Http\Client\PendingRequest withoutRedirecting()
      * @method static \Illuminate\Http\Client\PendingRequest withoutVerifying()
+     * @method static \Illuminate\Http\Client\PendingRequest dump()
+     * @method static \Illuminate\Http\Client\PendingRequest dd()
      * @method static \Illuminate\Http\Client\Response delete(string $url, array $data = [])
      * @method static \Illuminate\Http\Client\Response get(string $url, array $query = [])
      * @method static \Illuminate\Http\Client\Response head(string $url, array $query = [])
@@ -7677,7 +7637,7 @@
      * 
      *
      * @method static mixed reset(array $credentials, \Closure $callback)
-     * @method static string sendResetLink(array $credentials)
+     * @method static string sendResetLink(array $credentials, \Closure $callback = null)
      * @method static \Illuminate\Contracts\Auth\CanResetPassword getUser(array $credentials)
      * @method static string createToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
      * @method static void deleteToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
@@ -8136,83 +8096,6 @@
                         return $instance->setConnectionName($name);
         }
                     /**
-         * Release a reserved job back onto the queue.
-         *
-         * @param string $queue
-         * @param \Illuminate\Queue\Jobs\DatabaseJobRecord $job
-         * @param int $delay
-         * @return mixed 
-         * @static 
-         */ 
-        public static function release($queue, $job, $delay)
-        {
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
-                        return $instance->release($queue, $job, $delay);
-        }
-                    /**
-         * Delete a reserved job from the queue.
-         *
-         * @param string $queue
-         * @param string $id
-         * @return void 
-         * @throws \Throwable
-         * @static 
-         */ 
-        public static function deleteReserved($queue, $id)
-        {
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
-                        $instance->deleteReserved($queue, $id);
-        }
-                    /**
-         * Delete a reserved job from the reserved queue and release it.
-         *
-         * @param string $queue
-         * @param \Illuminate\Queue\Jobs\DatabaseJob $job
-         * @param int $delay
-         * @return void 
-         * @static 
-         */ 
-        public static function deleteAndRelease($queue, $job, $delay)
-        {
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
-                        $instance->deleteAndRelease($queue, $job, $delay);
-        }
-                    /**
-         * Delete all of the jobs from the queue.
-         *
-         * @param string $queue
-         * @return int 
-         * @static 
-         */ 
-        public static function clear($queue)
-        {
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
-                        return $instance->clear($queue);
-        }
-                    /**
-         * Get the queue or return the default.
-         *
-         * @param string|null $queue
-         * @return string 
-         * @static 
-         */ 
-        public static function getQueue($queue)
-        {
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
-                        return $instance->getQueue($queue);
-        }
-                    /**
-         * Get the underlying database instance.
-         *
-         * @return \Illuminate\Database\Connection 
-         * @static 
-         */ 
-        public static function getDatabase()
-        {
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
-                        return $instance->getDatabase();
-        }
-                    /**
          * Get the backoff for an object-based queue handler.
          *
          * @param mixed $job
@@ -8221,7 +8104,7 @@
          */ 
         public static function getJobBackoff($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        /** @var \Illuminate\Queue\SyncQueue $instance */
                         return $instance->getJobBackoff($job);
         }
                     /**
@@ -8233,7 +8116,7 @@
          */ 
         public static function getJobExpiration($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        /** @var \Illuminate\Queue\SyncQueue $instance */
                         return $instance->getJobExpiration($job);
         }
                     /**
@@ -8245,7 +8128,7 @@
          */ 
         public static function createPayloadUsing($callback)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        \Illuminate\Queue\DatabaseQueue::createPayloadUsing($callback);
+                        \Illuminate\Queue\SyncQueue::createPayloadUsing($callback);
         }
                     /**
          * Set the IoC container instance.
@@ -8256,7 +8139,7 @@
          */ 
         public static function setContainer($container)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        /** @var \Illuminate\Queue\SyncQueue $instance */
                         $instance->setContainer($container);
         }
          
@@ -9891,7 +9774,7 @@
                         return $instance->getAcceptableContentTypes();
         }
                     /**
-         * Returns true if the request is a XMLHttpRequest.
+         * Returns true if the request is an XMLHttpRequest.
          * 
          * It works if your JavaScript library sets an X-Requested-With HTTP header.
          * It is known to work with common JavaScript frameworks:

@@ -117,7 +117,7 @@
                 :cart-items="{{ json_encode($cart) }}"
                 :coupon="{{ json_encode($coupon) }}"
                 :cart-sub-total="{{ $subTotal }}"
-                :country-id="{{ json_encode(auth()->user()?->address?->country->id ?? 1) }}"
+                :country-id="{{ json_encode($shippingAddress->country_id) }}"
             ></cart-info>
         </section>
     </section>

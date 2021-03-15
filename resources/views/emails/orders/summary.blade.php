@@ -13,17 +13,17 @@
     <table width="100%" style="background-color: #F4F4F7;padding.5em;margin-bottom:1.5em;">
         <thead>
             <tr>
-              <th scope="col">Nom du produit</th>
-              <th scope="col">Quantité</th>
-              <th scope="col">Sous Total TTC</th>
+              <th scope="col" style="padding-top:.5em;">Nom du produit</th>
+              <th scope="col" style="padding-top:.5em;">Quantité</th>
+              <th scope="col" style="padding-top:.5em;">Sous Total TTC</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($orderItems as $item)
                 <tr>
-                    <td style="padding:.1em .5em;text-align:center" data-label="Nom">{{ $item->name }}</td>
-                    <td style="padding:.1em .5em;text-align:center" data-label="Quantité">{{ $item->quantity }}</td>
-                    <td style="padding:.1em .5em;text-align:center" data-label="Prix">{{ $item->formatted_price }}€</td>
+                    <td style="padding-top:.5em;text-align:center" data-label="Nom">{{ $item->name }}</td>
+                    <td style="padding-top:.5em;text-align:center" data-label="Quantité">{{ $item->quantity }}</td>
+                    <td style="padding-top:.5em;text-align:center" data-label="Prix">{{ $item->formatted_price }}€</td>
                 </tr>
             @endforeach
             <tr>

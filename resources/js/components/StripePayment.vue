@@ -111,6 +111,10 @@ export default {
         },
 
         processPayment(card, clientSecret) {
+            const submitBtn = document.getElementById('submitButton');
+
+            submitBtn.disabled = true;
+
             this.stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: card,
@@ -118,11 +122,11 @@ export default {
             }).then(result => {
               if (result.error) {
                     document.querySelector("#card-error").textContent = result.error.message;
+                    submitBtn.disabled = false;
               } else {
                     this.registerOrder();
               }
-              this.loading = false;
-            });
+            }).catch(() => submitBtn.disabled = false);
         },
 
         registerOrder() {
@@ -135,6 +139,7 @@ export default {
             }).finally(() => {
                 document.querySelector('#payment-form').classList.add('hidden');
                 document.querySelector('.result-message').classList.replace('hidden', 'flex');
+                this.loading = false;
 
                 this.$cookies.remove('beehemiamCart');
 

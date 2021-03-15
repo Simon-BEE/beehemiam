@@ -18,13 +18,15 @@ class RegisterOrderController extends Controller
 
         try {
             $order = $repository->save($request->get('client_secret'));
-            // todo: order_link
+
 
             return response()->json([
                 'success' => true,
-                'order_link' => url('/'),
+                'order_link' => $order->user ? $order->path : url('/'),
             ]);
         } catch (\Exception $e) {
+            dd($e->getMessage());
+            logger($e->getMessage());
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

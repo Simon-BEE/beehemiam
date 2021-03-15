@@ -33,7 +33,8 @@ class CreateOrdersTable extends Migration
                 ->nullOnDelete();
             $table->unsignedInteger('price');
             $table->unsignedInteger('shipping_fees');
-            $table->boolean('is_preorder');
+            $table->unsignedInteger('tax');
+            $table->boolean('has_preorder');
             $table->timestamps();
         });
     }

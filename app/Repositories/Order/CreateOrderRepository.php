@@ -27,9 +27,12 @@ class CreateOrderRepository
             'address_id' => get_client_shipping_address()->id,
             'price' => $this->cartAmountService->getTotalAmount(),
             'shipping_fees' => $this->cartAmountService->getShippingFeesAmount(),
-            // todo preorder change
-            'is_preorder' => false,
+            'tax' => config('cart.tax'),
+            'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
+
+        // todo update stock
+        // todo notify admin
 
         event(new NewOrderReceivedEvent($order, $clientSecretKey));
 
@@ -61,6 +64,7 @@ class CreateOrderRepository
     {
         Cart::instance('order')->destroy();
         Cart::instance('preorder')->destroy();
+
 
         clean_session_addresses();
     }

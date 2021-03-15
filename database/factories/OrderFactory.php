@@ -28,7 +28,8 @@ class OrderFactory extends Factory
             'shipping_id' => \App\Models\Shipping::factory(),
             'price' => $this->faker->randomNumber(),
             'shipping_fees' => $this->faker->randomNumber(),
-            'is_preorder' => $this->faker->boolean,
+            'tax' => 20,
+            'has_preorder' => $this->faker->boolean,
         ];
     }
 }

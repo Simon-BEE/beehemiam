@@ -6,6 +6,7 @@ use App\Events\Order\NewOrderReceivedEvent;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Repositories\Shop\Cart\CartRepository;
 use App\Services\CartAmountService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
@@ -33,7 +34,7 @@ class CreateOrderRepository
 
         event(new NewOrderReceivedEvent($order, $paymentIntentId));
 
-        $this->cleanSessions();
+        $this->cleanCacheAndSessions();
 
         return $order;
     }
@@ -57,12 +58,13 @@ class CreateOrderRepository
         }
     }
 
-    private function cleanSessions(): void
+    private function cleanCacheAndSessions(): void
     {
         Cart::instance('order')->destroy();
         Cart::instance('preorder')->destroy();
 
-
         clean_session_addresses();
+
+        (new CartRepository)->resetFormattedCache();
     }
 }

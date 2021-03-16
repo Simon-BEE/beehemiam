@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Shop\Cart;
 
+use App\Exceptions\Product\ProductQuantityException;
+use App\Models\PreOrderProductOptionQuantity;
 use App\Models\ProductOption;
 use App\Models\Size;
 use Gloudemans\Shoppingcart\CartItem;
@@ -11,6 +13,8 @@ class PreOrderCartRepository extends CartRepository
 {
     public function add(ProductOption $productOption, Size $size): void
     {
+        $this->resetFormattedCache();
+
         if ($cartItem = $this->getIfExistsInCart($productOption, $size)) {
             /** @var CartItem $cartItem */
             $this->update($productOption, $size, $cartItem->qty + 1);
@@ -32,12 +36,23 @@ class PreOrderCartRepository extends CartRepository
 
     public function update(ProductOption $productOption, Size $size, float|int $quantity): void
     {
+        $this->resetFormattedCache();
+
+        if (PreOrderProductOptionQuantity::select('quantity')
+            ->firstWhere('product_option_id', $productOption->id)->quantity
+            <= Cart::instance('order')->get(get_cart_row_id($productOption, 'preorder', $size->id))->qty
+            && Cart::instance('order')->get(get_cart_row_id($productOption, 'preorder', $size->id))->qty < $quantity) {
+            throw new ProductQuantityException("Plus de stock disponible", 1);
+        }
+
         Cart::instance('preorder')
             ->update(get_cart_row_id($productOption, 'preorder', $size->id), $quantity);
     }
 
     public function remove(ProductOption $productOption, Size $size): void
     {
+        $this->resetFormattedCache();
+
         Cart::instance('preorder')
             ->remove(get_cart_row_id($productOption, 'preorder', $size->id));
 

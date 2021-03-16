@@ -28,7 +28,7 @@ class UpdateCartController extends Controller
                 'message' => 'Quantité mise à jour',
             ]);
         } catch (ProductQuantityException $e) {
-            logger($productOptionSize . ' - ' . $e->getMessage());
+            logger(get_class($productOptionSize) . ' - ' . $productOptionSize->id . ' - ' . $e->getMessage());
 
             return response()->json([
                 'message' => $e->getMessage(),
@@ -60,7 +60,7 @@ class UpdateCartController extends Controller
                 'message' => 'Quantité mise à jour',
             ]);
         } catch (ProductQuantityException $e) {
-            logger($productOption . ' - ' . $e->getMessage());
+            logger(get_class($productOption) . ' - ' . $productOption->id . ' - ' . $e->getMessage());
 
             return response()->json([
                 'message' => $e->getMessage(),

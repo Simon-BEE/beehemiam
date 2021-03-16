@@ -39,7 +39,10 @@ class NewOrderNotification extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->subject("Nouvelle commande sur Beehemiam.fr")
                     ->line('Une nouvelle commande a été passée sur Beehemiam.fr.')
-                    ->line("Pour un montant de {$this->order->formatted_price}€ comprenant {$this->order->orderItems->count()} articles.")
+                    ->line(
+                        "Pour un montant de {$this->order->formatted_price}€ comprenant
+                        {$this->order->orderItems->count()} articles."
+                    )
                     ->line("Cette commande a été passée par {$userType} ayant l'adresse email {$emaiLAddress}.")
                     ->line($preOrderMessage)
                     ->action('Aller sur Beehemiam.fr', url('/'));

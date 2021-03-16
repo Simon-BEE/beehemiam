@@ -6,7 +6,7 @@
         <article class="flex flex-col" v-else>
             <h4 class="font-bold text-lg mb-2">Votre panier</h4>
 
-            <div 
+            <div
                 v-for="product in products"
                 :key="product.id"
                 class="flex flex-col bg-primary-100 p-2 rounded"
@@ -131,7 +131,7 @@ export default {
             this.calculateCartTotalAmount();
         },
     },
-    
+
     mounted() {
         this.calculateCartTotalAmount();
         this.getShippingFeesFromCountryId(this.countryId);
@@ -140,7 +140,7 @@ export default {
         window.addEventListener('country-selected', (event) => {
             this.getShippingFeesFromCountryId(event.detail.storage);
             this.getShippingCountryFromCountryId(event.detail.storage);
-            
+
             this.calculateCartTotalAmount();
         });
     },
@@ -164,8 +164,8 @@ export default {
             cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
             this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
-            axios.delete('/cart/delete/sizes/' + product.id, 
-                null, 
+            axios.delete('/cart/delete/sizes/' + product.id,
+                null,
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -210,11 +210,11 @@ export default {
 
             this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
-            axios.patch('/cart/delete/preorder', 
-                { 
+            axios.patch('/cart/delete/preorder',
+                {
                     product_option_id: product.product_option.id,
                     size_id: product.size.id,
-                }, 
+                },
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -248,17 +248,21 @@ export default {
         },
 
         getShippingFeesFromCountryId(countryId) {
-            this.shippingFeesAmount = countryId == '1' 
-                ? 4.95 
+            this.shippingFeesAmount = countryId == '1'
+                ? 4.95
                 : 12.90;
+
+            this.calculateCartTotalAmount();
         },
 
         getShippingCountryFromCountryId(countryId) {
-            this.shippingFeesCountry = countryId == '1' 
+            this.shippingFeesCountry = countryId == '1'
                 ? 'France métropolitaine'
-                : (countryId == '2' 
+                : (countryId == '2'
                     ? 'Belgique'
                     : 'Suisse' ) ;
+
+                this.calculateCartTotalAmount();
         },
     },
 }

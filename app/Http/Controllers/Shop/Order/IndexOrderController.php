@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Shop\Order;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Shop\Cart\CartRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class IndexOrderController extends Controller
 {
-    public function __invoke(): RedirectResponse|View
+    public function __invoke(CartRepository $cartRepository): RedirectResponse|View
     {
         if (carts_are_empty()
             || (!auth()->check() && !session()->has('billing_address'))
@@ -19,6 +20,8 @@ class IndexOrderController extends Controller
                 'message' => 'Vous ne pouvez pas passer en commande.',
             ]);
         }
+
+        $cartRepository->resetFormattedCache();
 
         $user = auth()->user();
 

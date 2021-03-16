@@ -27,6 +27,6 @@ class NotifyAdministratorsOrderIsCancelled
      */
     public function handle(NewOrderCancelledEvent $event)
     {
-       notify_administrators("Commande n°{$event->order->id} annulée.");
+        notify_administrators("Commande n°{$event->order->id} annulée.");
     }
 }

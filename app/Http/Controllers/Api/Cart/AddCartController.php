@@ -23,7 +23,7 @@ class AddCartController extends Controller
                 'message' => 'Vêtement ajouté au panier',
             ]);
         } catch (ProductQuantityException $e) {
-            logger($productOptionSize . ' - ' . $e->getMessage());
+            logger(get_class($productOptionSize) . ' - ' . $productOptionSize->id . ' - ' . $e->getMessage());
 
             return response()->json([
                 'message' => $e->getMessage(),
@@ -51,7 +51,7 @@ class AddCartController extends Controller
                 'message' => 'Précommande ajouté au panier',
             ]);
         } catch (ProductQuantityException $e) {
-            logger($productOption . ' - ' . $e->getMessage());
+            logger(get_class($productOption) . ' - ' . $productOption->id . ' - ' . $e->getMessage());
 
             return response()->json([
                 'message' => $e->getMessage(),

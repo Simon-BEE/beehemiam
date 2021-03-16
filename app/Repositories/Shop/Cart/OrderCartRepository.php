@@ -11,6 +11,8 @@ class OrderCartRepository extends CartRepository
 {
     public function add(ProductOptionSize $productOptionSize): void
     {
+        $this->resetFormattedCache();
+
         if ($cartItem = $this->getIfExistsInCart($productOptionSize)) {
             /** @var CartItem $cartItem */
             $this->update($productOptionSize, $cartItem->qty + 1);
@@ -28,7 +30,10 @@ class OrderCartRepository extends CartRepository
 
     public function update(ProductOptionSize $productOptionSize, float|int $quantity): void
     {
-        if ($productOptionSize->quantity < Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty) {
+        $this->resetFormattedCache();
+
+        if ($productOptionSize->quantity <= Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty
+            && Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty < $quantity) {
             throw new ProductQuantityException("Plus de stock disponible", 1);
         }
 
@@ -37,6 +42,8 @@ class OrderCartRepository extends CartRepository
 
     public function remove(ProductOptionSize $productOptionSize): void
     {
+        $this->resetFormattedCache();
+
         Cart::instance('order')->remove(get_cart_row_id($productOptionSize));
 
         if (cart_is_empty('order')) {

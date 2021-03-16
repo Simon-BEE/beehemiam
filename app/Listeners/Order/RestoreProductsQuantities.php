@@ -18,7 +18,10 @@ class RestoreProductsQuantities
     {
         foreach ($event->order->orderItems as $orderItem) {
             if ($orderItem->is_preorder) {
-                $productOption = PreOrderProductOptionQuantity::firstWhere('product_option_id', $orderItem->product_option_id);
+                $productOption = PreOrderProductOptionQuantity::firstWhere(
+                    'product_option_id',
+                    $orderItem->product_option_id
+                );
             } else {
                 $productOption = ProductOptionSize::where('size_id', $orderItem->size_id)
                     ->where('product_option_id', $orderItem->product_option_id)

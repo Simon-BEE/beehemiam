@@ -6,15 +6,10 @@ use Tests\TestCase;
 
 class PaymentTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    /** @test */
+    public function test_function()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        // Test
     }
+
 }

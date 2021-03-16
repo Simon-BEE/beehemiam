@@ -16,7 +16,7 @@ class CreateOrderRepository
     {
     }
 
-    public function save(string $clientSecretKey): Order
+    public function save(string $paymentIntentId): Order
     {
         $this->verifyAddress();
 
@@ -31,7 +31,7 @@ class CreateOrderRepository
             'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
 
-        event(new NewOrderReceivedEvent($order, $clientSecretKey));
+        event(new NewOrderReceivedEvent($order, $paymentIntentId));
 
         $this->cleanSessions();
 

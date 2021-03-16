@@ -17,7 +17,7 @@ class SavePaymentOrder implements ShouldQueue
     public function handle(NewOrderReceivedEvent $event)
     {
         $event->order->payment()->create([
-            'reference' => $event->clientSecretKey,
+            'reference' => $event->paymentIntentId,
             'type' => Payment::CARD_TYPE,
             'amount' => $event->order->price,
         ]);

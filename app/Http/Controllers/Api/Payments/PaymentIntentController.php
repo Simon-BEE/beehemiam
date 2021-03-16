@@ -21,10 +21,11 @@ class PaymentIntentController extends Controller
             return response()->json([
                 'client_secret' => $stripeInteractorService->getClientSecret($paymentIntent),
                 'total_amount' => $totalAmount,
+                'payment_intent' => $stripeInteractorService->getPaymentIntentId($paymentIntent),
             ]);
         } catch (\Exception $e) {
             logger($e->getMessage());
-            
+
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

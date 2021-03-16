@@ -74,7 +74,7 @@ export default {
             totalAmount: 0,
             loading: false,
             orderLink: '/',
-            clientKey: null,
+            paymentIntentId: null,
             baseUrl: window.base_url,
         }
     },
@@ -94,7 +94,7 @@ export default {
             axios.get('/payments/stripe/payment-intent')
                 .then(response => {
                     this.totalAmount = response.data.total_amount;
-                    this.clientKey = response.data.client_secret;
+                    this.paymentIntentId = response.data.payment_intent;
 
                     const card = this.buildStripeForm();
                     const thisElement = this;
@@ -130,7 +130,7 @@ export default {
         },
 
         registerOrder() {
-            axios.post('/orders', {client_secret: this.clientKey})
+            axios.post('/orders', {payment_intent: this.paymentIntentId})
             .then(response => {
                 this.callAlert('Le paiement a été accepté et la commande vient d\'etre enregistré.');
                 this.orderLink = response.data.order_link;

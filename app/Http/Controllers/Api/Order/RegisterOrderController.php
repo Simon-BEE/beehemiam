@@ -11,13 +11,13 @@ class RegisterOrderController extends Controller
 {
     public function __invoke(CreateOrderRepository $repository, Request $request): JsonResponse
     {
-        $request->validate(['client_secret' => [
+        $request->validate(['payment_intent' => [
             'required', 'string',
         ]]);
 
 
         try {
-            $order = $repository->save($request->get('client_secret'));
+            $order = $repository->save($request->get('payment_intent'));
 
             return response()->json([
                 'success' => true,

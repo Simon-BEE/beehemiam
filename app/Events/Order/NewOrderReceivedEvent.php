@@ -16,7 +16,7 @@ class NewOrderReceivedEvent
      *
      * @return void
      */
-    public function __construct(public Order $order, public string $clientSecretKey)
+    public function __construct(public Order $order, public string $paymentIntentId)
     {
         //
     }

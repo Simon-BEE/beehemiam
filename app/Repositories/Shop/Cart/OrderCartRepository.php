@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Shop\Cart;
 
+use App\Exceptions\Product\ProductQuantityException;
 use App\Models\ProductOptionSize;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -27,6 +28,10 @@ class OrderCartRepository extends CartRepository
 
     public function update(ProductOptionSize $productOptionSize, float|int $quantity): void
     {
+        if ($productOptionSize->quantity < Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty) {
+            throw new ProductQuantityException("Plus de stock disponible", 1);
+        }
+
         Cart::instance('order')->update(get_cart_row_id($productOptionSize), $quantity);
     }
 

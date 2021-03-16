@@ -26,7 +26,7 @@ class RegisterOrderController extends Controller
             logger($e->getMessage());
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

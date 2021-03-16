@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Cart;
 
+use App\Exceptions\Product\ProductQuantityException;
 use App\Http\Controllers\Controller;
 use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
@@ -21,12 +22,18 @@ class AddCartController extends Controller
             return response()->json([
                 'message' => 'Vêtement ajouté au panier',
             ]);
+        } catch (ProductQuantityException $e) {
+            logger($productOptionSize . ' - ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
         } catch (\Exception $e) {
             logger($e->getMessage());
 
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 
@@ -43,12 +50,18 @@ class AddCartController extends Controller
             return response()->json([
                 'message' => 'Précommande ajouté au panier',
             ]);
+        } catch (ProductQuantityException $e) {
+            logger($productOption . ' - ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
         } catch (\Exception $e) {
             logger($e->getMessage());
-            
+
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

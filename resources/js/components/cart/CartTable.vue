@@ -122,7 +122,13 @@ export default {
                 if (!this.products.length) {
                     window.location.reload();
                 }
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                if (error.response.data.message == "Plus de stock disponible") {
+                    this.callAlert("Stock insuffisant.", "error")
+                }
+
+                console.error(error.response.data.message);
+            });
         },
 
         removeProduct(product) {
@@ -202,7 +208,13 @@ export default {
                 if (!this.products.length) {
                     window.location.reload();
                 }
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                if (error.response.data.message == "Plus de stock disponible") {
+                    this.callAlert("Stock insuffisant.", "error")
+                }
+
+                console.error(error.response.data.message);
+            });
         },
 
         removePreOrderProduct(product) {

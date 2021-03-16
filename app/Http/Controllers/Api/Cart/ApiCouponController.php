@@ -30,10 +30,10 @@ class ApiCouponController extends Controller
             ], 419);
         } catch (\Exception $e) {
             logger($e->getMessage());
-            
+
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

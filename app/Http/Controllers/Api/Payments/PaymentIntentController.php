@@ -28,7 +28,7 @@ class PaymentIntentController extends Controller
 
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

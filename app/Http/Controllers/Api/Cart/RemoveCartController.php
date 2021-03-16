@@ -26,7 +26,7 @@ class RemoveCartController extends Controller
 
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 
@@ -48,7 +48,7 @@ class RemoveCartController extends Controller
 
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

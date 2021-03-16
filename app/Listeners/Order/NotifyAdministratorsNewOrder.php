@@ -8,7 +8,7 @@ use App\Notifications\Order\NewOrderNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 
-class NotifyAdministrators implements ShouldQueue
+class NotifyAdministratorsNewOrder implements ShouldQueue
 {
     /**
      * Handle the event.

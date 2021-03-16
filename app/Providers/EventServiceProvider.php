@@ -46,7 +46,14 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Order\GenerateOrderInvoice::class,
             \App\Listeners\Order\SavePaymentOrder::class,
             \App\Listeners\Order\SendOrderSummaryEmail::class,
-            \App\Listeners\Order\NotifyAdministrators::class,
+            \App\Listeners\Order\NotifyAdministratorsNewOrder::class,
+        ],
+        \App\Events\Order\NewOrderCancelledEvent::class => [
+            \App\Listeners\Order\RefundTotalOrderAmount::class,
+            \App\Listeners\Order\CreateRefundEntity::class,
+            \App\Listeners\Order\RestoreProductsQuantities::class,
+            \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
+            \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,
         ],
     ];
 

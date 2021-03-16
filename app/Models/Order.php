@@ -104,6 +104,11 @@ class Order extends Model
         }
     }
 
+    public function getIsCancelledAttribute(): bool
+    {
+        return $this->status->id === OrderStatus::CANCELLED;
+    }
+
     /**
      * ? SCOPES
      */
@@ -152,5 +157,10 @@ class Order extends Model
     public function coupons(): BelongsToMany
     {
         return $this->belongsToMany(Coupon::class);
+    }
+
+    public function refund(): HasOne
+    {
+        return $this->hasOne(Refund::class);
     }
 }

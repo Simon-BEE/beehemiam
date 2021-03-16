@@ -182,13 +182,33 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_cancelled_within_15_minutes()
     {
-        $order = Order::factory()->create();
-        $orderReposiotry = new OrderRepository;
+        $user = $this->signIn();
+        $order = Order::factory()->create(['user_id' => $user->id]);
 
-        $this->travelTo(now()->addMinutes(5));
-        $this->assertTrue($order->created_at->betweenIncluded(now(), now()->subMinutes(15)));
+        $this->get(route('user.orders.show', $order))
+            ->assertSee('Annuler ma commande');
+    }
 
-        $orderReposiotry->cancel($order);
+    /** @test */
+    public function an_order_cannot_be_cancelled_after_15_minutes()
+    {
+        $user = $this->signIn();
+        $order = Order::factory()->create(['user_id' => $user->id]);
+
+        $this->travelTo(now()->addMinutes(16));
+
+        $this->get(route('user.orders.show', $order))
+            ->assertDontSee('Annuler ma commande');
+    }
+
+    /** @test */
+    public function an_order_can_be_cancelled_and_refunded_within_15_minutes()
+    {
+        $user = $this->signIn();
+        $order = Order::factory()->create(['user_id' => $user->id]);
+
+        $this->followingRedirects()->delete(route('user.orders.cancel', $order))
+            ->assertSuccessful();
 
         $this->assertEquals(OrderStatus::CANCELLED, $order->fresh()->status->id);
     }

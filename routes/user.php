@@ -6,6 +6,7 @@ use App\Http\Controllers\User\Address\EditAddressController;
 use App\Http\Controllers\User\Address\IndexAddressController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\EditUserController;
+use App\Http\Controllers\User\Order\CancelOrderController;
 use App\Http\Controllers\User\Order\ShowOrderController;
 use App\Http\Controllers\User\SettingsUserController;
 use App\Http\Controllers\User\UserProfileController;
@@ -50,6 +51,8 @@ Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
 
     Route::get('/', [ShowOrderController::class, 'index'])->name('index');
     Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
+
+    Route::delete('/{order}', CancelOrderController::class)->name('cancel');
 });
 
 Route::group(['as' => 'settings.', 'prefix' => 'parametres'], function () {

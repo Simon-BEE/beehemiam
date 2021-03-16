@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Tests\TestCase;
 
 class OrderUnitTest extends TestCase
@@ -71,5 +72,18 @@ class OrderUnitTest extends TestCase
         $preorder = Order::factory()->create(['has_preorder' => true]);
 
         $this->assertTrue($preorder->has_preorder && $order->is_in_progress);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_is_cancelled()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->is_cancelled);
+        $this->assertFalse($order->is_cancelled);
+
+        $order->update(['order_status_id' => OrderStatus::CANCELLED]);
+
+        $this->assertTrue($order->refresh()->is_cancelled);
     }
 }

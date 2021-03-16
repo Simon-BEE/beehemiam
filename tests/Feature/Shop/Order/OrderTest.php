@@ -14,6 +14,7 @@ use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
 use App\Models\User;
 use App\Notifications\Order\NewOrderNotification;
+use App\Notifications\Product\ProductOutOfStockNotification;
 use App\Notifications\SimpleAdminNotification;
 use App\Repositories\Order\CreateOrderRepository;
 use App\Repositories\Order\OrderRepository;
@@ -295,6 +296,25 @@ class OrderTest extends TestCase
         $orderRepo->cancelTest($order);
 
         Notification::assertSentTo(User::administrators(), SimpleAdminNotification::class);
+    }
+
+    /** @test */
+    public function when_a_user_set_an_order_and_it_was_last_product_available_an_alert_will_send_to_administrators()
+    {
+        Notification::fake();
+
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+        $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 1]);
+        $this->post(route('api.cart.add.sizes', $productOptionSize));
+        $this->setSessionAddress();
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+
+        Notification::assertSentTo(User::administrators(), ProductOutOfStockNotification::class);
     }
 
     private function addAProductToCart(bool $preorder = false): void

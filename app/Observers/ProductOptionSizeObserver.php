@@ -18,7 +18,7 @@ class ProductOptionSizeObserver
         }
     }
 
-    public function updated(ProductOptionSize $productOptionSize)
+    public function updated(ProductOptionSize $productOptionSize): void
     {
         if ($productOptionSize->quantity < 1) {
             Notification::send(User::administrators(), new ProductOutOfStockNotification($productOptionSize));

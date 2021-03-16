@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Discount\CreateCouponController;
 use App\Http\Controllers\Admin\Discount\DeleteCouponController;
 use App\Http\Controllers\Admin\Discount\EditCouponController;
 use App\Http\Controllers\Admin\Discount\IndexDiscountController;
+use App\Http\Controllers\Admin\Order\IndexOrderController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
 use App\Http\Controllers\Admin\Products\DeleteProductController;
 use App\Http\Controllers\Admin\Products\EditProductController;
@@ -112,4 +113,12 @@ Route::group(['as' => 'discount.', 'prefix' => 'promotions'], function () {
 
         Route::delete('/{coupon}', DeleteCouponController::class)->name('destroy');
     });
+});
+
+/**
+ * Orders routes
+ */
+Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
+
+    Route::get('/', IndexOrderController::class)->name('index');
 });

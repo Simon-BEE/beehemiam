@@ -26,6 +26,10 @@ class Country extends Model
      */
     protected $casts = [];
 
+    const FRANCE = 1;
+    const BELGIUM = 2;
+    const SWISS = 3;
+
     /**
      * ? ATTRIBUTES
      */

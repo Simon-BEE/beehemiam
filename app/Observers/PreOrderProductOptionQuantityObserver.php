@@ -18,7 +18,7 @@ class PreOrderProductOptionQuantityObserver
         }
     }
 
-    public function updated(PreOrderProductOptionQuantity $preOrderProductOptionQuantity)
+    public function updated(PreOrderProductOptionQuantity $preOrderProductOptionQuantity): void
     {
         if ($preOrderProductOptionQuantity->quantity < 1) {
             Notification::send(

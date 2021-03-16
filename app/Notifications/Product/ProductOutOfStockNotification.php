@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Product;
 
+use App\Models\PreOrderProductOptionQuantity;
 use App\Models\ProductOptionSize;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -19,7 +20,7 @@ class ProductOutOfStockNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Model $productOption)
+    public function __construct(public ProductOptionSize|PreOrderProductOptionQuantity $productOption)
     {
         //
     }

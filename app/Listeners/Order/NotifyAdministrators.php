@@ -3,10 +3,12 @@
 namespace App\Listeners\Order;
 
 use App\Events\Order\NewOrderReceivedEvent;
-use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\Order\NewOrderNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Notification;
 
-class SavePaymentOrder implements ShouldQueue
+class NotifyAdministrators implements ShouldQueue
 {
     /**
      * Handle the event.
@@ -16,10 +18,6 @@ class SavePaymentOrder implements ShouldQueue
      */
     public function handle(NewOrderReceivedEvent $event)
     {
-        $event->order->payment()->create([
-            'reference' => $event->clientSecretKey,
-            'type' => Payment::CARD_TYPE,
-            'amount' => $event->order->price,
-        ]);
+        Notification::send(User::administrators(), new NewOrderNotification($event->order));
     }
 }

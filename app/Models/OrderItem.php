@@ -29,6 +29,7 @@ class OrderItem extends Model
         'price' => 'integer',
         'tax' => 'integer',
         'quantity' => 'integer',
+        'is_preorder' => 'boolean'
     ];
 
     /**

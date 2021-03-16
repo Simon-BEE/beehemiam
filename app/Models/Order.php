@@ -32,7 +32,7 @@ class Order extends Model
     protected $casts = [
         'price' => 'integer',
         'shipping_fees' => 'integer',
-        'is_preorder' => 'boolean',
+        'has_preorder' => 'boolean',
     ];
 
     /**

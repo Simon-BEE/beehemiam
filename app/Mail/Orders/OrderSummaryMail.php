@@ -14,6 +14,8 @@ class OrderSummaryMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    public string $verboseStatus;
+
     /**
      * Create a new message instance.
      *
@@ -21,7 +23,9 @@ class OrderSummaryMail extends Mailable implements ShouldQueue
      */
     public function __construct(public Order $order, public Collection $orderItems, public Address $address)
     {
-        //
+        $this->verboseStatus = $order->has_preorder
+            ? 'attente de fin de précommande avant de vous être expédiée'
+            : 'en cours de préparation';
     }
 
     /**

@@ -46,6 +46,7 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Order\GenerateOrderInvoice::class,
             \App\Listeners\Order\SavePaymentOrder::class,
             \App\Listeners\Order\SendOrderSummaryEmail::class,
+            \App\Listeners\Order\NotifyAdministrators::class,
         ],
     ];
 

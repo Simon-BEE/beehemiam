@@ -31,8 +31,6 @@ class CreateOrderRepository
             'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
 
-        notify_administrators("Nouvelle commande d'un montant de {$order->formatted_price}€");
-
         event(new NewOrderReceivedEvent($order, $clientSecretKey));
 
         $this->cleanSessions();

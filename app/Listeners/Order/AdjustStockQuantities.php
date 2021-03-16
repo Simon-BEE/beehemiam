@@ -31,7 +31,9 @@ class AdjustStockQuantities
             $cartItem = collect($cartItem);
 
             if ($cartItem->get('is_preorder')) {
-                $productOptionQuantity = PreOrderProductOptionQuantity::find($cartItem->get('product_option')['id']);
+                $productOptionQuantity = PreOrderProductOptionQuantity::find(
+                    $cartItem->get('product_option')['pre_order_stock']['id']
+                );
             } else {
                 $productOptionQuantity = ProductOptionSize::where('size_id', $cartItem->get('size')['id'])
                     ->where('product_option_id', $cartItem->get('product_option')['id'])

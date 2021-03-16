@@ -5,21 +5,10 @@ namespace App\Listeners\Order;
 use App\Events\Order\NewOrderReceivedEvent;
 use App\Mail\Orders\OrderSummaryMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendOrderSummaryEmail
+class SendOrderSummaryEmail implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Handle the event.
      *

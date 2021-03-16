@@ -38,6 +38,7 @@ class AdjustStockQuantities
                     ->first();
             }
 
+            /** @var PreOrderProductOptionQuantity|ProductOptionSize $productOptionQuantity */
             $productOptionQuantity->decrement('quantity', $cartItem->get('cart_quantity'));
         }
     }

@@ -22,6 +22,8 @@ class RemoveCartController extends Controller
                 'message' => 'Vêtement supprimé du panier',
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);
@@ -42,6 +44,8 @@ class RemoveCartController extends Controller
                 'message' => 'Vêtement supprimé du panier',
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

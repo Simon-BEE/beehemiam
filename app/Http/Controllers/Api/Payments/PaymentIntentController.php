@@ -23,6 +23,8 @@ class PaymentIntentController extends Controller
                 'total_amount' => $totalAmount,
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+            
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

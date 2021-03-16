@@ -66,28 +66,42 @@ class Order extends Model
 
     public function getVerboseStatusAttribute(): string
     {
-        return match($this->status->id) {
-            OrderStatus::CANCELLED => "Votre commande a été annulée le {$this->updated_at->format('d/m/Y à H:i')}.",
-            OrderStatus::COMPLETED => "Votre commande est terminée.",
-            OrderStatus::FAILED => "Votre commande a échouée.",
-            OrderStatus::SHIPPING => "Votre commande est en cours de livraison.",
-            OrderStatus::MANUFACTURE => "Votre commande est en cours de confection (précommande).",
-            OrderStatus::REFUNDED => "Votre commande a remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
-            OrderStatus::PREPARATION => "Votre commande est en cours de préparation.",
-        };
+        try {
+            return match($this->status->id) {
+                OrderStatus::CANCELLED => "Votre commande a été annulée le {$this->updated_at->format('d/m/Y à H:i')}.",
+                OrderStatus::COMPLETED => "Votre commande est terminée.",
+                OrderStatus::FAILED => "Votre commande a échouée.",
+                OrderStatus::SHIPPING => "Votre commande est en cours de livraison.",
+                OrderStatus::MANUFACTURE => "Votre commande est en cours de confection (précommande).",
+                OrderStatus::REFUNDED => "Votre commande a remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
+                OrderStatus::PREPARATION => "Votre commande est en cours de préparation.",
+            default => "Impossible d'indiquer le statut de votre commande.",
+            };
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+
+            return "Impossible d'indiquer le statut de votre commande.";
+        }
     }
 
     public function getIsInProgressAttribute(): bool
     {
-        return match($this->status->id) {
-            OrderStatus::CANCELLED => false,
-            OrderStatus::COMPLETED => false,
-            OrderStatus::FAILED => false,
-            OrderStatus::SHIPPING => true,
-            OrderStatus::MANUFACTURE => true,
-            OrderStatus::REFUNDED => false,
-            OrderStatus::PREPARATION => true,
-        };
+        try {
+            return match($this->status->id) {
+                OrderStatus::CANCELLED => false,
+                OrderStatus::COMPLETED => false,
+                OrderStatus::FAILED => false,
+                OrderStatus::SHIPPING => true,
+                OrderStatus::MANUFACTURE => true,
+                OrderStatus::REFUNDED => false,
+                OrderStatus::PREPARATION => true,
+            default => false,
+            };
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+
+            return false;
+        }
     }
 
     /**

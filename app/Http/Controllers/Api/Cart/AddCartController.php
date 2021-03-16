@@ -22,6 +22,8 @@ class AddCartController extends Controller
                 'message' => 'Vêtement ajouté au panier',
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);
@@ -42,6 +44,8 @@ class AddCartController extends Controller
                 'message' => 'Précommande ajouté au panier',
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+            
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

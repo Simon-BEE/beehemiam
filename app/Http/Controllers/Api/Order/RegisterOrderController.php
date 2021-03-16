@@ -24,7 +24,6 @@ class RegisterOrderController extends Controller
                 'order_link' => $order->user ? $order->path : url('/'),
             ]);
         } catch (\Exception $e) {
-            dd($e->getMessage());
             logger($e->getMessage());
             return response()->json([
                 'message' => 'Erreur du serveur',

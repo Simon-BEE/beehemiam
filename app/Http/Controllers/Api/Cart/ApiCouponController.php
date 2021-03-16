@@ -29,6 +29,8 @@ class ApiCouponController extends Controller
                 'message' => $e->getMessage(),
             ], 419);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+            
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

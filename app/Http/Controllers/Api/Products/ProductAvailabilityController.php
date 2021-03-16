@@ -29,6 +29,8 @@ class ProductAvailabilityController extends Controller
                 'message' => $e->getMessage(),
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
             ]);

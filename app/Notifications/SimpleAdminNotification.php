@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -21,29 +22,24 @@ class SimpleAdminNotification extends Notification implements ShouldQueue
         //
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
+    public function via(User $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail(User $notifiable): MailMessage
     {
         return (new MailMessage)
                     ->subject("Information importante sur Beehemiam.fr")
                     ->line('Une nouvelle activité importante a été détectée sur le site Beehemiam.fr')
                     ->line($this->eventType)
                     ->action('Aller sur Beehemiam.fr', url('/'));
+    }
+
+    public function toArray(User $notifiable): array
+    {
+        return [
+            'event_type' => $this->eventType,
+        ];
     }
 }

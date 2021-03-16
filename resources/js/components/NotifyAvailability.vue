@@ -1,5 +1,5 @@
 <template>
-    <open-modal-button 
+    <!-- <open-modal-button
         classes="modal-button mt-4 p-5 rounded-lg bg-primary-100 inline-flex items-center text-primary-500 transition-colors duration-200 hover:bg-primary-500 hover:text-white"
         title="Être notifié lors de la disponibilité du produit"
         route=""
@@ -13,7 +13,8 @@
         ></path>
       </svg>
       Je veux être averti lorsque le vêtement sera en vente
-    </open-modal-button>
+    </open-modal-button> -->
+    <div class="text-red-500 uppercase text-9xl">OLD</div>
 </template>
 
 <script>

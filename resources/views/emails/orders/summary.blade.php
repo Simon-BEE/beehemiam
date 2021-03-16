@@ -5,7 +5,7 @@
 
     <p style="font-size: 16px; font-weight: bold; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Nous avons le plaisir de vous informer que votre commande sur <strong>Beehemiam.fr</strong> a bien été reçue.</p>
 
-    <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Cette commande <strong>n°{{ $order->id }}</strong> d'un montant de <strong>{{ $order->formatted_price }}€</strong> est en cours de préparation. Vous recevrez un nouvel email dès lors que celle-ci sera expédiée.</p>
+    <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Cette commande <strong>n°{{ $order->id }}</strong> d'un montant de <strong>{{ $order->formatted_price }}€</strong> est en {{ $verboseStatus }}. Vous recevrez un nouvel email dès lors que celle-ci sera expédiée.</p>
 
     <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Voici un récapitulatif de votre commande :</p>
 
@@ -43,7 +43,7 @@
           </tbody>
     </table>
 
-    <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">La commande sera livrée d'ici quelques jours à l'adresse suivante : </p>
+    <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">La commande sera livrée à l'adresse suivante : </p>
 
     <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 0 21px;">
         <tr>

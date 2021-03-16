@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\ImageOption;
 use App\Models\Product;
 use App\Models\ProductOption;
+use App\Models\ProductOptionSize;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class ProductOptionUnitTest extends TestCase
@@ -29,7 +31,7 @@ class ProductOptionUnitTest extends TestCase
         $this->assertCount(2, $productOption->images);
         $this->assertCount(1, $productOption->imagesWithoutThumb);
     }
-    
+
     /** @test */
     public function an_option_has_a_default_size()
     {
@@ -55,7 +57,7 @@ class ProductOptionUnitTest extends TestCase
 
         $this->assertNotNull($productOption->is_available);
         $this->assertFalse($productOption->is_available);
-        
+
         $productOption->sizes()->create([
             'size_id' => 1, 'quantity' => 10,
         ]);
@@ -71,7 +73,7 @@ class ProductOptionUnitTest extends TestCase
 
         $this->assertNotNull($productOption->is_available);
         $this->assertFalse($productOption->is_available);
-        
+
         $productOption->preOrderStock()->create([
             'quantity' => 10,
         ]);
@@ -86,13 +88,13 @@ class ProductOptionUnitTest extends TestCase
         $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
 
         $this->assertNull($productOption->release_at);
-        
+
         $productOption->preOrderStock()->create([
             'quantity' => 10,
         ]);
 
         $this->assertEquals(
-            now()->addWeeks(config('beehemiam.preorder.release_date_weeks'))->startOfDay(), 
+            now()->addWeeks(config('beehemiam.preorder.release_date_weeks'))->startOfDay(),
             $productOption->fresh()->release_date->startOfDay()
         );
     }
@@ -107,7 +109,7 @@ class ProductOptionUnitTest extends TestCase
 
         $this->assertNotNull($productOption->path);
         $this->assertEquals(
-            route('shop.products.show', 
+            route('shop.products.show',
                 [$productOption->product->categories()->first(), $productOption->product])
             , $productOption->path);
     }
@@ -153,5 +155,19 @@ class ProductOptionUnitTest extends TestCase
         $this->assertNotNull($productOption->real_images);
         $this->assertEquals($realImage->filename, $productOption->real_images->first()->filename);
     }
-    
+
+    /** @test */
+    public function an_option_has_a_propery_available_sizes()
+    {
+        $product = Product::factory()->create();
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+        $productOption->sizes()->create(['size_id' => 1, 'quantity' => 5]);
+        $productOption->sizes()->create(['size_id' => 2, 'quantity' => 0]);
+
+        $this->assertNotNull($productOption->available_sizes);
+        $this->assertCount(1, $productOption->available_sizes);
+        $this->assertInstanceOf(Collection::class, $productOption->available_sizes);
+    }
+
+
 }

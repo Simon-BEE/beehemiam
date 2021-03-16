@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Shop\Order;
 
-use App\Mail\Order\OrderCancelledMail;
+use App\Mail\Orders\OrderCancelledMail;
 use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Address;
 use App\Models\Category;

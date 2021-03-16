@@ -3,7 +3,7 @@
 namespace App\Listeners\Order;
 
 use App\Events\Order\NewOrderCancelledEvent;
-use App\Mail\Order\OrderCancelledMail;
+use App\Mail\Orders\OrderCancelledMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 

@@ -68,7 +68,7 @@ class ProductOption extends Model
 
     public function getDefaultSizeAttribute(): ?ProductOptionSize
     {
-        return $this->sizes->first();
+        return $this->available_sizes->first();
     }
 
     public function getIsAvailableAttribute(): bool
@@ -104,6 +104,11 @@ class ProductOption extends Model
     public function getRealImagesAttribute(): Collection
     {
         return $this->images->where('is_thumb', false);
+    }
+
+    public function getAvailableSizesAttribute(): Collection
+    {
+        return $this->sizes->where('quantity', '>', 0);
     }
 
     /**

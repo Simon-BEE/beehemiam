@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Order;
+namespace App\Mail\Orders;
 
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
@@ -30,6 +30,6 @@ class OrderCancelledMail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->view('emails.orders.cancel')
-            ->subject('Votre commande est annulée.');
+            ->subject('Votre commande est annulée');
     }
 }

@@ -17,11 +17,6 @@
     <p>{{ $product->name }} - {{ $product->optionName }}</p>
 </section>
 
-
-{{-- <input class="rounded-lg overflow-hidden appearance-none bg-gray-400 h-3 w-128 focus:outline-none" type="range" min="1" max="100" step="1" value="15" /> --}}
-
-
-
 <section class="flex flex-col items-center justify-center p-4 md:p-0">
     <article class="w-full md:w-1/2 text-center mb-12">
         {{-- <h1 class="text-5xl md:text-7xl font-cursive">{{ $product->optionName }}</h1> --}}
@@ -30,15 +25,15 @@
     <section class="w-full flex flex-col md:flex-row items-start justify-between">
         {{-- Images --}}
         <section class="images w-full p-4 bg-primary-100 rounded shadow-lg md:w-1/3 overflow-x-hidden md:mt-4">
-            <images-gallery 
-                :product-name="{{ json_encode($product->optionName . ' ' . $currentOption->name) }}" 
+            <images-gallery
+                :product-name="{{ json_encode($product->optionName . ' ' . $currentOption->name) }}"
                 :product-images="{{ json_encode($images) }}"
                 :product-thumbs="{{ json_encode($thumbs) }}"
             >
             </images-gallery>
         </section>
 
-    
+
         <section class="card w-full mt-8 md:mt-0 md:w-2/3 md:pl-16 flex flex-col space-y-6">
 
             @includeWhen(!$product->is_preorder, 'shop.products.includes.product-order')
@@ -97,7 +92,7 @@
         <x-form.form method="POST" action="{{ route('shop.products.notify-availability', $currentOption) }}" class="w-full md:w-2/3" id="formAvailability">
             Veuillez indiquez l'adresse email sur laquelle vous souhaitez être prévenue de la future disponibilité du vêtement.
 
-            <x-form.input 
+            <x-form.input
                 name="email"
                 label=""
                 placeholder="Adresse email"

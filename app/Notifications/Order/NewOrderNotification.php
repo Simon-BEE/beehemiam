@@ -48,6 +48,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
     public function toArray(User $notifiable): array
     {
         return [
+            'event_type' => 'Nouvelle commande',
             'order_amount' => $this->order->formatted_price . '€',
         ];
     }

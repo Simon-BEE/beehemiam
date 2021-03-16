@@ -50,7 +50,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\Order\NewOrderCancelledEvent::class => [
             \App\Listeners\Order\RefundTotalOrderAmount::class,
-            \App\Listeners\Order\CreateRefundEntity::class,
             \App\Listeners\Order\RestoreProductsQuantities::class,
             \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
             \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,

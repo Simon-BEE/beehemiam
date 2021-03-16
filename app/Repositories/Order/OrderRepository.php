@@ -2,21 +2,19 @@
 
 namespace App\Repositories\Order;
 
+use App\Events\Order\NewOrderCancelledEvent;
 use App\Models\Order;
 use App\Models\OrderStatus;
-use App\Repositories\Payment\PaymentRepository;
 
 class OrderRepository
 {
     public function cancel(Order $order): void
     {
-        $paymentRepository = new PaymentRepository;
-
         $order->update([
             'order_status_id' => OrderStatus::CANCELLED,
         ]);
 
-        $paymentRepository->refund($order, $order->price);
+        event(new NewOrderCancelledEvent($order));
 
         // todo adjust quantity
 
@@ -28,6 +26,8 @@ class OrderRepository
         $order->update([
             'order_status_id' => OrderStatus::CANCELLED,
         ]);
+
+        event(new NewOrderCancelledEvent($order));
 
         $order->refund()->create([
             'user_id' => $order->user?->id,

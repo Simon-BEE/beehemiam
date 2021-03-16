@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -107,6 +106,13 @@ class Order extends Model
     public function getIsCancelledAttribute(): bool
     {
         return $this->status->id === OrderStatus::CANCELLED;
+    }
+
+    public function getEmailContactAttribute(): string
+    {
+        return $this->user
+            ? $this->user->email
+            : $this->invoice->address->email;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Shop\Order;
 
+use App\Mail\Order\OrderCancelledMail;
 use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Address;
 use App\Models\Category;
@@ -13,6 +14,7 @@ use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
 use App\Models\User;
 use App\Notifications\Order\NewOrderNotification;
+use App\Notifications\SimpleAdminNotification;
 use App\Repositories\Order\CreateOrderRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Services\CartAmountService;
@@ -221,6 +223,79 @@ class OrderTest extends TestCase
         $this->assertDatabaseCount('refunds', 1);
     }
 
+    /** @test */
+    public function when_an_order_is_cancelled_quantity_size_is_adjusted()
+    {
+        $this->signIn();
+        $this->addAProductToCart();
+        $this->setSessionAddress();
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+        $order = Order::first();
+
+        $this->assertEquals(9, $order->orderItems->first()->productOption->sizes->first()->quantity);
+
+        $orderRepo = new OrderRepository;
+        $orderRepo->cancelTest($order);
+
+        $this->assertEquals(10, $order->orderItems->first()->productOption->fresh()->sizes->first()->quantity);
+    }
+
+    /** @test */
+    public function when_an_order_is_cancelled_quantity_preorder_is_adjusted()
+    {
+        $this->signIn();
+        $this->addAProductToCart(true);
+        $this->setSessionAddress();
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+        $order = Order::first();
+
+        $this->assertEquals(9, $order->orderItems->first()->productOption->preOrderStock->quantity);
+
+        $orderRepo = new OrderRepository;
+        $orderRepo->cancelTest($order);
+
+        $this->assertEquals(10, $order->fresh()->orderItems->first()->productOption->preOrderStock->quantity);
+    }
+
+    /** @test */
+    public function when_an_order_is_cancelled_user_is_notified()
+    {
+        Mail::fake();
+        $this->signIn();
+        $this->addAProductToCart(true);
+        $this->setSessionAddress();
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+        $order = Order::first();
+
+        $orderRepo = new OrderRepository;
+        $orderRepo->cancelTest($order);
+
+        Mail::assertQueued(OrderCancelledMail::class);
+    }
+
+    /** @test */
+    public function when_an_order_is_cancelled_admins_are_notified()
+    {
+        Notification::fake();
+        $this->signIn();
+        $this->addAProductToCart(true);
+        $this->setSessionAddress();
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+        $order = Order::first();
+
+        $orderRepo = new OrderRepository;
+        $orderRepo->cancelTest($order);
+
+        Notification::assertSentTo(User::administrators(), SimpleAdminNotification::class);
+    }
 
     private function addAProductToCart(bool $preorder = false): void
     {

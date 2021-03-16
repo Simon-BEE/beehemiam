@@ -3,21 +3,12 @@
 namespace App\Listeners\Order;
 
 use App\Events\Order\NewOrderCancelledEvent;
+use App\Mail\Order\OrderCancelledMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
-class NotifyUserOrderIsCancelled
+class NotifyUserOrderIsCancelled implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Handle the event.
      *
@@ -26,6 +17,6 @@ class NotifyUserOrderIsCancelled
      */
     public function handle(NewOrderCancelledEvent $event)
     {
-        //
+        Mail::to($event->order->email_contact)->send(new OrderCancelledMail($event->order));
     }
 }

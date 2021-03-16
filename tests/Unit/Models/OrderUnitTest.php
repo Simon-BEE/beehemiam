@@ -86,4 +86,12 @@ class OrderUnitTest extends TestCase
 
         $this->assertTrue($order->refresh()->is_cancelled);
     }
+
+    /** @test */
+    public function an_order_has_a_property_email_contact()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->email_contact);
+    }
 }

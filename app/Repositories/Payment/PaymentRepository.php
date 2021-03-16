@@ -7,13 +7,13 @@ use App\Services\StripeInteractorService;
 
 class PaymentRepository
 {
-    public function refund(Order $order): void
+    public function refund(Order $order, int $amount): void
     {
         $stripeInteractorService = new StripeInteractorService;
 
-        $stripeRefund = $stripeInteractorService->refund($order);
+        $stripeRefund = $stripeInteractorService->refund($order->payment->reference, $amount);
 
-        $refund = $order->refund()->create([
+        $order->refund()->create([
             'user_id' => $order->user?->id,
             'reference' => $stripeRefund->id,
         ]);

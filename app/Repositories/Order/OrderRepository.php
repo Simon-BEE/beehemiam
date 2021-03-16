@@ -5,7 +5,6 @@ namespace App\Repositories\Order;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Repositories\Payment\PaymentRepository;
-use App\Services\StripeInteractorService;
 
 class OrderRepository
 {
@@ -17,11 +16,22 @@ class OrderRepository
             'order_status_id' => OrderStatus::CANCELLED,
         ]);
 
-        // todo cancel payment
-        $paymentRepository->refund($order);
+        $paymentRepository->refund($order, $order->price);
 
         // todo adjust quantity
 
         // todo notify user and admin
+    }
+
+    public function cancelTest(Order $order): void
+    {
+        $order->update([
+            'order_status_id' => OrderStatus::CANCELLED,
+        ]);
+
+        $order->refund()->create([
+            'user_id' => $order->user?->id,
+            'reference' => 'refund-stripe-key',
+        ]);
     }
 }

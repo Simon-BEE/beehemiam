@@ -20,7 +20,7 @@ class CancelOrderController extends Controller
 
             return redirect()->route('user.orders.index')->with([
                 'type' => 'Succès',
-                'message' => 'Votre commande a bien été annulée.',
+                'message' => 'Votre commande a bien été annulée. Vous allez recevoir un email vous le confirmant.',
             ]);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);

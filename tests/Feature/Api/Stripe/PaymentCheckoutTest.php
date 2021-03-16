@@ -20,7 +20,7 @@ class PaymentCheckoutTest extends TestCase
 
         $this->get(route('api.payments.stripe.payment-intent'))
             ->assertSuccessful()
-            ->assertJsonStructure(['client_secret', 'total_amount']);
+            ->assertJsonStructure(['payment_intent', 'total_amount']);
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class PaymentCheckoutTest extends TestCase
         $this->setSessionAddress();
         $address = get_client_shipping_address();
 
-        $this->post(route('api.orders.store'), ['client_secret' => 'secret_key'])
+        $this->post(route('api.orders.store'), ['payment_intent' => 'secret_key'])
             ->assertSuccessful()
             ->assertJsonStructure(['success', 'order_link']);
 

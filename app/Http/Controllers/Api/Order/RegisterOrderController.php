@@ -15,7 +15,6 @@ class RegisterOrderController extends Controller
             'required', 'string',
         ]]);
 
-
         try {
             $order = $repository->save($request->get('payment_intent'));
 

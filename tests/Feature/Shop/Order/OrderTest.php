@@ -204,13 +204,21 @@ class OrderTest extends TestCase
     /** @test */
     public function an_order_can_be_cancelled_and_refunded_within_15_minutes()
     {
-        $user = $this->signIn();
-        $order = Order::factory()->create(['user_id' => $user->id]);
+        $this->signIn();
+        $this->addAProductToCart();
+        $this->setSessionAddress();
 
-        $this->followingRedirects()->delete(route('user.orders.cancel', $order))
-            ->assertSuccessful();
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+        $order = Order::first();
+
+        $this->assertDatabaseCount('refunds', 0);
+
+        $orderRepo = new OrderRepository;
+        $orderRepo->cancelTest($order);
 
         $this->assertEquals(OrderStatus::CANCELLED, $order->fresh()->status->id);
+        $this->assertDatabaseCount('refunds', 1);
     }
 
 

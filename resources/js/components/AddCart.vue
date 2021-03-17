@@ -1,5 +1,5 @@
 <template>
-    <open-modal-button 
+    <open-modal-button
         classes="modal-button p-8 inline-flex items-center font-semibold text-2xl transition-colors duration-300 hover:bg-primary-300"
         title="Ajouter au panier"
         @click.native="addToCart"
@@ -33,7 +33,7 @@ export default {
                 return;
             }
 
-            axios.post('/cart/add/sizes/' + selectedSize, 
+            axios.post('/cart/add/sizes/' + selectedSize,
                 null,
                 {
                     headers: {
@@ -41,31 +41,43 @@ export default {
                     }
                 }).then(response => {
                 console.info(response.data.message);
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                if (error.response.data.message == "Plus de stock disponible") {
+                    this.callAlert("Stock insuffisant.", "error")
+                }
+
+                console.error(error.response.data.message);
+            });
 
             this.addItemToCart(
-                'productOptionSizeId', 
-                selectedSize, 
+                'productOptionSizeId',
+                selectedSize,
             );
         },
 
         addPreOrderToCart(selectedSize) {
-            axios.post('/cart/add/preorder', 
+            axios.post('/cart/add/preorder',
                 {
                     product_option_id: this.productOption.id,
                     size_id: selectedSize,
-                }, 
+                },
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
                     }
                 }).then(response => {
                 console.info(response.data.message);
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                if (error.response.data.message == "Plus de stock disponible") {
+                    this.callAlert("Stock insuffisant.", "error")
+                }
+
+                console.error(error.response.data.message);
+            });
 
             this.addItemToCart(
-                'preOrderStockId', 
-                {productOptionId: this.productOption.id, sizeId: selectedSize}, 
+                'preOrderStockId',
+                {productOptionId: this.productOption.id, sizeId: selectedSize},
             );
         },
     },

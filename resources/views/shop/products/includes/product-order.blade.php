@@ -22,9 +22,9 @@
             <article>
                 <p class="font-semibold">Séléctionner ma taille</p>
 
-                <sizes-selector :selected-size="{{ json_encode($selectedSize) }}" :sizes="{{ json_encode($currentOption->sizes) }}" />
+                <sizes-selector :selected-size="{{ json_encode($selectedSize) }}" :sizes="{{ json_encode($currentOption->available_sizes) }}" />
             </article>
-    
+
             <article class="flex flex-col md:flex-row items-center mt-8 md:space-x-4">
                 <span class="p-6 font-bold text-5xl bg-primary-300">{{ $currentOption->formatted_price }}€</span>
 
@@ -44,7 +44,7 @@
                     </button>
                 </x-form.form>
             @else
-                <open-modal-button 
+                <open-modal-button
                     classes="modal-button mt-4 p-5 rounded-lg bg-primary-100 inline-flex items-center text-primary-500 transition-colors duration-200 hover:bg-primary-500 hover:text-white"
                     title="Être notifié lors de la disponibilité du produit"
                     modal-name=".modalAvailability"

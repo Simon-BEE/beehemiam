@@ -227,30 +227,40 @@ namespace App\Models{
  * @property int|null $shipping_id
  * @property int $price
  * @property int $shipping_fees
- * @property bool $is_preorder
+ * @property int $tax
+ * @property int $has_preorder
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Address|null $address
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Coupon[] $coupons
  * @property-read int|null $coupons_count
+ * @property-read string $formatted_price
+ * @property-read string $formatted_price_without_taxes
+ * @property-read string $formatted_shipping_fees
+ * @property-read bool $is_in_progress
+ * @property-read string $path
+ * @property-read float $price_without_taxes
+ * @property-read string $verbose_status
  * @property-read \App\Models\Invoice|null $invoice
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
  * @property-read \App\Models\Payment|null $payment
  * @property-read \App\Models\Shipping|null $shipping
- * @property-read \App\Models\OrderStatus $status
+ * @property-read \App\Models\OrderStatus|null $status
  * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Order last()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereAddressId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereHasPreorder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereIsPreorder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrderStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereShippingFees($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereShippingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereTax($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  */
@@ -271,6 +281,7 @@ namespace App\Models{
  * @property int $quantity
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read float $formatted_price
  * @property-read \App\Models\Order|null $order
  * @property-read \App\Models\ProductOption|null $productOption
  * @property-read \App\Models\Size|null $size
@@ -397,6 +408,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\ProductNotification
+ *
+ * @property int $id
+ * @property int $product_option_id
+ * @property int|null $user_id
+ * @property string|null $email
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\ProductOption $productOption
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification whereProductOptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification whereUserId($value)
+ */
+	class ProductNotification extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\ProductOption
  *
  * @property int $id
@@ -407,6 +443,8 @@ namespace App\Models{
  * @property int $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductNotification[] $availabilityNotifications
+ * @property-read int|null $availability_notifications_count
  * @property-read \App\Models\Discount|null $discount
  * @property-read \App\Models\ProductOptionSize|null $default_size
  * @property-read float $formatted_price
@@ -475,8 +513,6 @@ namespace App\Models{
  * @property int $country_id
  * @property string $name
  * @property int $price
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Country $country
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
@@ -484,11 +520,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping query()
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereCountryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shipping whereUpdatedAt($value)
  */
 	class Shipping extends \Eloquent {}
 }
@@ -528,7 +562,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $addresses
  * @property-read int|null $addresses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductNotification[] $availabilityNotifications
+ * @property-read int|null $availability_notifications_count
  * @property-read \App\Models\Address|null $address
+ * @property-read \App\Models\Address|null $billing_address
  * @property-read string $full_name
  * @property-read bool $is_admin
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications

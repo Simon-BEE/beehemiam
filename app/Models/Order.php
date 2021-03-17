@@ -31,20 +31,97 @@ class Order extends Model
     protected $casts = [
         'price' => 'integer',
         'shipping_fees' => 'integer',
-        'is_preorder' => 'boolean',
+        'has_preorder' => 'boolean',
     ];
 
     /**
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFormattedPriceAttribute(): string
+    {
+        return number_format($this->price / 100, 2);
+    }
+
+    public function getFormattedShippingFeesAttribute(): string
+    {
+        return number_format($this->shipping_fees / 100, 2);
+    }
+
+    public function getPriceWithoutTaxesAttribute(): float
+    {
+        return $this->price - ($this->price * ($this->tax / 100));
+    }
+
+    public function getFormattedPriceWithoutTaxesAttribute(): string
+    {
+        return number_format($this->price_without_taxes / 100, 2);
+    }
+
+    public function getPathAttribute(): string
+    {
+        return route('user.orders.show', $this);
+    }
+
+    public function getVerboseStatusAttribute(): string
+    {
+        try {
+            return match($this->status->id) {
+                OrderStatus::CANCELLED => "Votre commande a été annulée le {$this->updated_at->format('d/m/Y à H:i')}.",
+                OrderStatus::COMPLETED => "Votre commande est terminée.",
+                OrderStatus::FAILED => "Votre commande a échouée.",
+                OrderStatus::SHIPPING => "Votre commande est en cours de livraison.",
+                OrderStatus::MANUFACTURE => "Votre commande est en cours de confection (précommande).",
+                OrderStatus::REFUNDED => "Votre commande a remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
+                OrderStatus::PREPARATION => "Votre commande est en cours de préparation.",
+                OrderStatus::PROCESS => "Votre commande est en cours de traitement.",
+            default => "Impossible d'indiquer le statut de votre commande.",
+            };
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+
+            return "Impossible d'indiquer le statut de votre commande.";
+        }
+    }
+
+    public function getIsInProgressAttribute(): bool
+    {
+        try {
+            return match($this->status->id) {
+                OrderStatus::CANCELLED => false,
+                OrderStatus::COMPLETED => false,
+                OrderStatus::FAILED => false,
+                OrderStatus::SHIPPING => true,
+                OrderStatus::MANUFACTURE => true,
+                OrderStatus::REFUNDED => false,
+                OrderStatus::PREPARATION => true,
+                OrderStatus::PROCESS => true,
+            default => false,
+            };
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+
+            return false;
+        }
+    }
+
+    public function getIsCancelledAttribute(): bool
+    {
+        return $this->status->id === OrderStatus::CANCELLED;
+    }
+
+    public function getEmailContactAttribute(): string
+    {
+        return $this->user
+            ? $this->user->email
+            : $this->invoice->address->email;
+    }
 
     /**
      * ? SCOPES
      */
 
-    // ...
+    //
 
     /**
      * ? RELATIONS
@@ -52,7 +129,7 @@ class Order extends Model
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(OrderStatus::class);
+        return $this->belongsTo(OrderStatus::class, 'order_status_id');
     }
 
     public function address(): BelongsTo
@@ -88,5 +165,10 @@ class Order extends Model
     public function coupons(): BelongsToMany
     {
         return $this->belongsToMany(Coupon::class);
+    }
+
+    public function refund(): HasOne
+    {
+        return $this->hasOne(Refund::class);
     }
 }

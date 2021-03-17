@@ -13,7 +13,7 @@ class CartTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-    
+
         Cart::destroy();
     }
 
@@ -103,7 +103,7 @@ class CartTest extends TestCase
 
         $this->assertCount(0, Cart::instance('order')->content());
     }
-    
+
     /** @test */
     public function a_product_can_be_removed_from_cart()
     {
@@ -123,7 +123,7 @@ class CartTest extends TestCase
 
         $this->assertCount(0, Cart::instance('order')->content());
     }
-    
+
     /** @test */
     public function sum_of_products_in_cart_can_be_rerieve_easily()
     {
@@ -143,7 +143,7 @@ class CartTest extends TestCase
         $this->assertEquals(30, get_cart_subtotal(true));
         $this->assertEquals(3000, get_cart_subtotal());
     }
-    
+
     /** @test */
     public function a_preorder_product_can_be_added_to_cart()
     {
@@ -186,7 +186,7 @@ class CartTest extends TestCase
 
         $this->assertEquals(2, Cart::instance('preorder')->get(get_cart_row_id($productOption, 'preorder', 1))->qty);
     }
-    
+
     /** @test */
     public function a_preorder_product_can_be_removed_from_cart()
     {
@@ -211,4 +211,45 @@ class CartTest extends TestCase
 
         $this->assertCount(0, Cart::instance('preorder')->content());
     }
+
+    /** @test */
+    public function a_product_order_cannot_be_added_to_cart_if_quantity_is_not_enough()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+        $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 1]);
+
+        $this->post(route('api.cart.add.sizes', $productOptionSize))
+            ->assertSuccessful();
+
+        $this->post(route('api.cart.add.sizes', $productOptionSize))
+            ->assertStatus(400);
+
+        $this->assertEquals(1, Cart::instance('order')->get(get_cart_row_id($productOptionSize))->qty);
+    }
+
+    /** @test */
+    public function a_product_preorder_cannot_be_added_to_cart_if_quantity_is_not_enough()
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->preorder()->active()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 15]);
+        $productOption->preOrderStock()->create(['quantity' => 1]);
+
+        $this->post(route('api.cart.add.preorder'), [
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ])->assertSuccessful();
+
+        $this->post(route('api.cart.add.preorder'), [
+            'product_option_id' => $productOption->id,
+            'size_id' => 1,
+        ])->assertStatus(400);
+
+        $this->assertEquals(1, Cart::instance('preorder')->get(get_cart_row_id($productOption, 'preorder', 1))->qty);
+    }
+
 }

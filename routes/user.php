@@ -6,6 +6,8 @@ use App\Http\Controllers\User\Address\EditAddressController;
 use App\Http\Controllers\User\Address\IndexAddressController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\EditUserController;
+use App\Http\Controllers\User\Order\CancelOrderController;
+use App\Http\Controllers\User\Order\ShowOrderController;
 use App\Http\Controllers\User\SettingsUserController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,14 @@ Route::group(['as' => 'addresses.', 'prefix' => 'adresses'], function () {
     Route::patch('/{address}/main', [EditAddressController::class, 'setAsMain'])->name('update.main');
 
     Route::delete('/{address}', DeleteAddressController::class)->name('destroy');
+});
+
+Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
+
+    Route::get('/', [ShowOrderController::class, 'index'])->name('index');
+    Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
+
+    Route::delete('/{order}', CancelOrderController::class)->name('cancel');
 });
 
 Route::group(['as' => 'settings.', 'prefix' => 'parametres'], function () {

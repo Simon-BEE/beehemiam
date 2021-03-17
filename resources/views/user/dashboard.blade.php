@@ -11,8 +11,6 @@
         <svg class="w-4 h-4" viewBox="0 0 24 24">
             <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
         </svg>
-        {{-- <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-700 dark:hover:text-gray-100">Tableau de bord</a>
-        <span class="text-gray-500">/</span> --}}
         <p>Mon compte</p>
         <span class="text-gray-500">/</span>
         <p>Tableau de bord</p>
@@ -57,7 +55,7 @@
                     <span class="uppercase text-xs mr-2">Reçoit la newsletter</span>
                     <span class="font-semibold">
                         @if ($user->newsletter)
-                            <svg class="h-4 w-4 text-green-200" viewBox="0 0 24 24">
+                            <svg class="h-4 w-4 text-green-400" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
                             </svg>
                         @else
@@ -154,7 +152,7 @@
             @endif
         </section>
 
-        @if ($user->orders->isNotEmpty())
+        @if ($lastOrder)
             <section>
                 <article class="w-full md:w-2/3 flex flex-col md:flex-row items-start">
                     <div class="w-full md:w-1/2">
@@ -162,34 +160,31 @@
                     </div>
 
                     <div class="w-full md:w-1/2 md:pl-6 flex flex-col">
-                        <h4 class="font-bold text-lg">Commande effectuée le 03/01/2020</h4>
-                        <p class="my-4">La commmande est en cours de préparation.</p>
+                        <h4 class="font-bold text-lg">Commande effectuée le {{ $lastOrder->created_at->format('d/m/Y') }}</h4>
+                        <p class="my-4">{{ $lastOrder->verbose_status }}</p>
                         <table class="w-full">
                             <tbody>
-                                <tr>
-                                    <td class="py-2 pr-3">Robe Terracota</td>
-                                    <td class="py-2 pr-3">1</td>
-                                    <td class="py-2 pr-3">69.00€</td>
-                                </tr>
-                                <tr class="border-t border-primary-400">
-                                    <td class="py-2 pr-3">Blouse Jimmys</td>
-                                    <td class="py-2 pr-3">1</td>
-                                    <td class="py-2 pr-3">43.00€</td>
-                                </tr>
+                                @foreach ($lastOrder->orderItems as $item)
+                                    <tr>
+                                        <td class="py-2 pr-3">{{ $item->name }}</td>
+                                        <td class="py-2 pr-3">{{ $item->quantity }}</td>
+                                        <td class="py-2 pr-3">{{ $item->formatted_price }}€</td>
+                                    </tr>
+                                @endforeach
                                 <tr class="border-t border-primary-400 bg-primary-200">
-                                    <td class="py-2 pr-3">Total</td>
+                                    <td class="py-2 pr-3">Total TTC</td>
                                     <td class="py-2 pr-3"></td>
-                                    <td class="py-2 pr-3">112.00€</td>
+                                    <td class="py-2 pr-3">{{ $lastOrder->formatted_price }}€</td>
                                 </tr>
                             </tbody>
                         </table>
                         <p class="mt-4 md:mt-20 text-right">
-                            <a href="#" class="text-primary-500 hover:underline">Plus de détails</a>
+                            <a href="{{ $lastOrder->path }}" class="text-primary-500 hover:underline">Plus de détails</a>
                         </p>
                     </div>
                 </article>
-                
-                <a href="#" class="my-4 inline-flex items-center rounded p-2 transition-colors bg-primary-200 duration-200 hover:bg-primary-700 font-semibold">
+
+                <a href="{{ route('user.orders.index') }}" class="my-4 inline-flex items-center rounded p-2 transition-colors bg-primary-200 duration-200 hover:bg-primary-700 font-semibold">
                     <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M13.04 10C12.64 10.25 12.26 10.55 11.9 10.9C11.57 11.24 11.27 11.61 11.03 12H8V10.5C8 10.22 8.22 10 8.5 10H13.04M20 8H2V2H20V8M18 4H4V6H18V4M5 18V9H3V20H11.82C11.24 19.4 10.8 18.72 10.5 18H5M23.39 21L22 22.39L18.88 19.32C18.19 19.75 17.37 20 16.5 20C14 20 12 18 12 15.5S14 11 16.5 11 21 13 21 15.5C21 16.38 20.75 17.21 20.31 17.9L23.39 21M19 15.5C19 14.12 17.88 13 16.5 13S14 14.12 14 15.5 15.12 18 16.5 18 19 16.88 19 15.5Z" />
                     </svg>

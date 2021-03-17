@@ -46,13 +46,13 @@ class UserTest extends TestCase
 
     /** @test */
     public function a_user_can_ask_to_receive_a_new_email_verification()
-    { 
+    {
         Notification::fake();
         $user = User::factory()->create([
             'email_verified_at' => null,
         ]);
         $this->signIn($user);
-        
+
         $this->followingRedirects()->post(route('user.profile.email-verification'))
             ->assertSuccessful();
 

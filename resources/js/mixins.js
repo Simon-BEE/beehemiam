@@ -2,7 +2,7 @@ export default {
     methods: {
         toggleOverlay(modal = false) {
             const overlay = document.querySelector('.clickable-overlay');
-    
+
             overlay.classList.toggle('hidden');
             overlay.classList.toggle('z-20');
             if (modal) {
@@ -11,19 +11,19 @@ export default {
                 overlay.classList.remove('bg-black', 'bg-opacity-25');
             }
         },
-    
+
         togglePopover(popover) {
             popover.classList.toggle('md:opacity-0');
             popover.classList.toggle('-z-1');
             popover.classList.toggle('z-30');
         },
-    
+
         toggleModal(modal) {
             modal.classList.toggle('opacity-0');
             modal.classList.toggle('-z-1');
             modal.classList.toggle('z-40');
         },
-    
+
         addItemToCart(itemKey, itemValue) {
             let cartItems = [];
             if(this.$cookies.isKey('beehemiamCart')){
@@ -38,7 +38,7 @@ export default {
 
             const uniqueArray = a => [...new Set(a.map(o => JSON.stringify(o)))].map(s => JSON.parse(s))
             cartItems = uniqueArray(cartItems);
-            
+
             this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
             window.dispatchEvent(new CustomEvent('cart-change-event', {
@@ -63,7 +63,7 @@ export default {
 
             alertDiv.innerHTML = `
                 <p>
-                    <strong class="${type === 'success' ? 'text-green-200' : 'text-red-500' }">${type === 'success' ? 'Succès' : 'Erreur'}.</strong> 
+                    <strong class="${type === 'success' ? 'text-green-400' : 'text-red-500' }">${type === 'success' ? 'Succès' : 'Erreur'}.</strong>
                     ${message}
                 </p>
             `;
@@ -79,7 +79,7 @@ export default {
 
         hideAlertBox(box) {
             box.classList.add('opacity-0');
-    
+
             setTimeout(() => box.remove(), 1500);
         },
     }

@@ -30,9 +30,9 @@
             </a>
         </div>
 
-        <section class="flex flex-col md:flex-row justify-between md:space-x-4 space-y-4 md:space-y-0 py-8">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
             @forelse ($addresses as $address)
-                <div class="relative border border-primary-400 p-4 rounded-sm w-full md:w-1/2 flex flex-col space-y-2">
+                <div class="relative border border-primary-400 p-4 rounded-sm w-full flex flex-col space-y-2">
                     @if ($address->is_main)
                         <h3 class="absolute -top-3 py-1 px-4 bg-primary-100 uppercase text-sm">Adresse par défaut</h3>
                     @endif
@@ -52,9 +52,9 @@
                                 <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                             </svg>
                         </a>
-                        <open-modal-button 
+                        <open-modal-button
                             classes="modal-button px-2 py-1 rounded hover:bg-primary-300"
-                            route="{{ route('user.addresses.destroy', $address) }}" 
+                            route="{{ route('user.addresses.destroy', $address) }}"
                             title="Supprimer"
                         >
                             <svg class="w-6 h-6" viewBox="0 0 24 24">
@@ -135,7 +135,7 @@
                 </div>
             @empty
                 <p class="w-full my-4 text-center">
-                    Vous n'avez enregistré aucune adresse. 
+                    Vous n'avez enregistré aucune adresse.
                     <a href="{{ route('user.addresses.create') }}" class="text-primary-500 hover:underline">Ajoutez en une</a>.
                 </p>
             @endforelse
@@ -180,5 +180,5 @@
             });
         });
     </script>
-    
+
 @endpush

@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers\Api\Payments;
+
+use App\Http\Controllers\Controller;
+use App\Repositories\Shop\Cart\CartRepository;
+use App\Services\CartAmountService;
+use App\Services\StripeInteractorService;
+use Illuminate\Http\JsonResponse;
+
+class PaymentIntentController extends Controller
+{
+    public function __invoke(
+        StripeInteractorService $stripeInteractorService,
+        CartAmountService $cartAmountService
+    ): JsonResponse {
+        try {
+            /** @var int $totalAmount */
+            $totalAmount = $cartAmountService->getTotalAmount();
+            $paymentIntent = $stripeInteractorService->createPaymentIntent($totalAmount);
+
+            return response()->json([
+                'client_secret' => $stripeInteractorService->getClientSecret($paymentIntent),
+                'total_amount' => $totalAmount,
+                'payment_intent' => $stripeInteractorService->getPaymentIntentId($paymentIntent),
+            ]);
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+
+            return response()->json([
+                'message' => 'Erreur du serveur',
+            ], 500);
+        }
+    }
+}

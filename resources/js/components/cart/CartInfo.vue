@@ -1,15 +1,15 @@
 <template>
-    <section class="bg-primary-200 p-4 rounded flex flex-col space-y-4">
+    <section class="bg-primary-200 p-4 rounded flex flex-col">
         <div class="text-center" v-if="loading">
             <loader />
         </div>
         <article class="flex flex-col" v-else>
             <h4 class="font-bold text-lg mb-2">Votre panier</h4>
 
-            <div 
+            <div
                 v-for="product in products"
                 :key="product.id"
-                class="flex flex-col my-3 bg-primary-100 p-2 rounded"
+                class="flex flex-col bg-primary-100 p-2 rounded"
             >
                 <div class="flex flex-wrap items-center justify-between">
                     <a :href="product.product_option.path" class="flex items-center">
@@ -37,8 +37,8 @@
             </div>
         </article>
 
-        <article class="flex flex-col space-y-2">
-            <h4 class="font-bold text-lg">Livraison</h4>
+        <article class="flex flex-col my-5">
+            <h4 class="font-bold text-lg mb-2">Livraison</h4>
             <p class="flex items-center">
                 <svg class="mr-3 h-5 w-5" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8H17V4H3C1.89,4 1,4.89 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8Z" />
@@ -53,21 +53,37 @@
             <h4 class="font-bold text-lg">Montant total de la commande</h4>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Sous-total</p>
-                <p class="text-lg font-semibold">{{ formatNumber(subTotal) }}€</p>
+                <p class="font-semibold">{{ formatNumber(subTotal) }}€</p>
             </div>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Frais de livraison</p>
-                <p class="text-lg font-semibold">{{ formatNumber(shippingFeesAmount) }}€</p>
+                <p class="font-semibold">{{ formatNumber(shippingFeesAmount) }}€</p>
             </div>
             <div class="flex items-center justify-between bg-primary-100 px-2 py-1 rounded" v-if="discount !== 0 && discountCode">
                 <p>Code promo <span class="font-bold">{{ discountCode }}</span></p>
-                <p class="text-lg font-semibold">-{{ formatNumber(discount) }}€</p>
+                <p class="font-semibold">-{{ formatNumber(discount) }}€</p>
             </div>
 
-            <div class="flex items-center justify-between pt-4 border-t border-primary-400 px-2 py-1">
-                <p>Montant total</p>
-                <p class="text-lg font-semibold">{{ formatNumber(total) }}€</p>
+            <div class="pt-4 border-t border-primary-400 px-2 py-1 space-y-3">
+                <div class="flex items-center justify-between">
+                    <p>Sous-total HT</p>
+                    <p class="font-semibold">{{ formatNumber(total - taxesFees - shippingFeesWithoutTaxes) }}€</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p>Frais de livraison HT</p>
+                    <p class="font-semibold">{{ formatNumber(shippingFeesWithoutTaxes) }}€</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p>TVA</p>
+                    <p class="font-semibold">{{ formatNumber(taxesFees) }}€</p>
+                </div>
             </div>
+
+            <div class="flex items-center justify-between font-black text-lg pt-3 border-t border-primary-400 px-2">
+                <p>Montant total à payer</p>
+                <p class="">{{ formatNumber(total) }}€</p>
+            </div>
+
         </article>
     </section>
 </template>
@@ -104,6 +120,9 @@ export default {
             shippingFeesAmount: 4.95,
             shippingFeesCountry: 'France',
             total: 0,
+            shippingFeesWithoutTaxes: 0,
+            taxes: 0.2,
+            taxesFees: 0,
             discount: this.coupon ? this.coupon.amount : 0,
         }
     },
@@ -112,7 +131,7 @@ export default {
             this.calculateCartTotalAmount();
         },
     },
-    
+
     mounted() {
         this.calculateCartTotalAmount();
         this.getShippingFeesFromCountryId(this.countryId);
@@ -121,7 +140,7 @@ export default {
         window.addEventListener('country-selected', (event) => {
             this.getShippingFeesFromCountryId(event.detail.storage);
             this.getShippingCountryFromCountryId(event.detail.storage);
-            
+
             this.calculateCartTotalAmount();
         });
     },
@@ -129,6 +148,10 @@ export default {
     methods: {
         calculateCartTotalAmount() {
             this.total = this.subTotal + this.shippingFeesAmount - this.discount;
+
+            this.taxesFees = this.total * this.taxes;
+
+            this.shippingFeesWithoutTaxes = this.shippingFeesAmount - (this.shippingFeesAmount * this.taxes);
         },
 
         removeProduct(product) {
@@ -137,8 +160,12 @@ export default {
                 return;
             }
 
-            axios.delete('/cart/delete/sizes/' + product.id, 
-                null, 
+            let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
+            cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
+            this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
+
+            axios.delete('/cart/delete/sizes/' + product.id,
+                null,
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -146,6 +173,12 @@ export default {
                 }
             ).then(response => {
                 console.info(response.data.message);
+
+                window.dispatchEvent(new CustomEvent('cart-change-event', {
+                    detail: {
+                        storage: cartItems.length,
+                    }
+                }));
 
                 this.callAlert('Vêtement retiré du panier');
 
@@ -156,16 +189,6 @@ export default {
                 }, 0);
 
                 this.calculateCartTotalAmount();
-
-                let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
-                cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
-                this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
-
-                window.dispatchEvent(new CustomEvent('cart-change-event', {
-                    detail: {
-                        storage: cartItems.length,
-                    }
-                }));
             }).catch(error => console.error(error))
             .finally(() => {
                 if (!this.products.length) {
@@ -175,11 +198,23 @@ export default {
         },
 
         removePreOrderProduct(product) {
-            axios.patch('/cart/delete/preorder', 
-                { 
+            let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
+
+            cartItems = cartItems.filter(cartItem => {
+                if (cartItem.preOrderStockId) {
+                    return (cartItem.preOrderStockId.sizeId != product.size.id || cartItem.preOrderStockId.productOptionId != product.product_option.id)
+                } else {
+                    return cartItem;
+                }
+            });
+
+            this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
+
+            axios.patch('/cart/delete/preorder',
+                {
                     product_option_id: product.product_option.id,
                     size_id: product.size.id,
-                }, 
+                },
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -199,18 +234,6 @@ export default {
 
                 this.calculateCartTotalAmount();
 
-                let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
-
-                cartItems = cartItems.filter(cartItem => {
-                    if (cartItem.preOrderStockId) {
-                        return (cartItem.preOrderStockId.sizeId != product.size.id || cartItem.preOrderStockId.productOptionId != product.product_option.id)
-                    } else {
-                        return cartItem;
-                    }
-                });
-
-                this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
-
                 window.dispatchEvent(new CustomEvent('cart-change-event', {
                     detail: {
                         storage: cartItems.length,
@@ -225,17 +248,21 @@ export default {
         },
 
         getShippingFeesFromCountryId(countryId) {
-            this.shippingFeesAmount = countryId == '1' 
-                ? 4.95 
+            this.shippingFeesAmount = countryId == '1'
+                ? 4.95
                 : 12.90;
+
+            this.calculateCartTotalAmount();
         },
 
         getShippingCountryFromCountryId(countryId) {
-            this.shippingFeesCountry = countryId == '1' 
+            this.shippingFeesCountry = countryId == '1'
                 ? 'France métropolitaine'
-                : (countryId == '2' 
+                : (countryId == '2'
                     ? 'Belgique'
                     : 'Suisse' ) ;
+
+                this.calculateCartTotalAmount();
         },
     },
 }

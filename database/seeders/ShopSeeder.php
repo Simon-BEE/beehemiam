@@ -88,7 +88,7 @@ class ShopSeeder extends Seeder
             });
         });
 
-        
+
 
     }
 }

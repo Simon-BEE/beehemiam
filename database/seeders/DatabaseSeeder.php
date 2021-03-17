@@ -34,6 +34,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Suisse', 'tag' => 'CH'],
         ]);
 
+        $this->call(ShippingSeeder::class);
+
+        $this->call(OrderStatusesSeeder::class);
+
         $this->call(SizesSeeder::class);
 
         if (app()->env !== 'testing') {

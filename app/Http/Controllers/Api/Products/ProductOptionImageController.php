@@ -17,9 +17,11 @@ class ProductOptionImageController extends Controller
                 'message' => 'OK',
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

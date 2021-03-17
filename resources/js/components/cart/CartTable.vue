@@ -26,7 +26,7 @@
                     <a :href="product.product_option.path">
                         <h3 class="mb-1">
                             <span class="font-bold text-xl">{{ product.product_option.name }}</span>
-                            <span class="text-xs uppercase ml-2" v-if="!product.id">(précommande)</span>
+                            <span class="text-xs uppercase ml-2" v-if="product.is_preorder">(précommande)</span>
                         </h3>
                         <p class="inline text-sm uppercase font-semibold px-2 py-1 rounded-full bg-primary-200">Taille {{ product.size.name }}</p>
                     </a>
@@ -35,7 +35,7 @@
                     {{ product.product_option.formatted_price }}€
                 </td>
                 <td class="px-2 py-6 text-center">
-                    <input 
+                    <input
                         class="border border-primary-200 rounded focus:outline-none focus:border-transparent focus:ring-2 focus:ring-primary-500"
                         type="number" name="quantity" id="quantity" v-model="product.cart_quantity" step="1" min="1" max="10"
                         @change="updateQuantity(product)"
@@ -93,7 +93,7 @@ export default {
                 let cartItems = JSON.parse(this.$cookies.get('beehemiamCart'));
                 cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
                 this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
-                
+
                 this.products = this.products.filter(productOption => productOption.id != product.id);
                 product.cart_quantity = 0;
             }
@@ -102,8 +102,8 @@ export default {
                 product.cart_quantity = 10;
             }
 
-            axios.patch('/cart/update/sizes/' + product.id, 
-                {quantity: product.cart_quantity}, 
+            axios.patch('/cart/update/sizes/' + product.id,
+                {quantity: product.cart_quantity},
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -122,7 +122,13 @@ export default {
                 if (!this.products.length) {
                     window.location.reload();
                 }
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                if (error.response.data.message == "Plus de stock disponible") {
+                    this.callAlert("Stock insuffisant.", "error")
+                }
+
+                console.error(error.response.data.message);
+            });
         },
 
         removeProduct(product) {
@@ -135,8 +141,8 @@ export default {
             cartItems = cartItems.filter(cartItem => cartItem.productOptionSizeId != product.id);
             this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
-            axios.delete('/cart/delete/sizes/' + product.id, 
-                null, 
+            axios.delete('/cart/delete/sizes/' + product.id,
+                null,
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -171,19 +177,19 @@ export default {
                 });
 
                 this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
-                
+
                 this.products = this.products.filter(productOption => {
                     return (productOption.size.id != product.size.id || productOption.product_option.id != product.product_option.id)
                 });
                 product.cart_quantity = 0;
             }
 
-            axios.patch('/cart/update/preorder', 
-                { 
+            axios.patch('/cart/update/preorder',
+                {
                     quantity: product.cart_quantity,
                     product_option_id: product.product_option.id,
                     size_id: product.size.id,
-                }, 
+                },
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -202,7 +208,13 @@ export default {
                 if (!this.products.length) {
                     window.location.reload();
                 }
-            }).catch(error => console.error(error));
+            }).catch(error => {
+                if (error.response.data.message == "Plus de stock disponible") {
+                    this.callAlert("Stock insuffisant.", "error")
+                }
+
+                console.error(error.response.data.message);
+            });
         },
 
         removePreOrderProduct(product) {
@@ -218,11 +230,11 @@ export default {
 
             this.$cookies.set('beehemiamCart', JSON.stringify(cartItems));
 
-            axios.patch('/cart/delete/preorder', 
-                { 
+            axios.patch('/cart/delete/preorder',
+                {
                     product_option_id: product.product_option.id,
                     size_id: product.size.id,
-                }, 
+                },
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -250,7 +262,7 @@ export default {
                 }
             });
         },
-        
+
 
     },
 }

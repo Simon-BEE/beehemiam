@@ -11,11 +11,11 @@ use Illuminate\Http\JsonResponse;
 
 class ProductAvailabilityController extends Controller
 {
-    public function __invoke(StoreProductAvailabilityRequest $request, 
-        ProductAvailabilityRepository $repository, 
+    public function __invoke(
+        StoreProductAvailabilityRequest $request,
+        ProductAvailabilityRepository $repository,
         ProductOption $productOption
-    ): JsonResponse
-    {
+    ): JsonResponse {
         try {
             $repository->save($productOption, $request->get('email'));
 
@@ -29,9 +29,11 @@ class ProductAvailabilityController extends Controller
                 'message' => $e->getMessage(),
             ]);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 }

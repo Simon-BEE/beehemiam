@@ -60,7 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     {
         Mail::to($this)->send(new DeleteAccountMail($this));
     }
-    
+
     /**
      * ? ATTRIBUTES
      */
@@ -79,6 +79,12 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     {
         return $this->addresses
             ->firstWhere('is_main', true);
+    }
+
+    public function getBillingAddressAttribute(): ?Address
+    {
+        return $this->addresses
+            ->firstWhere('is_billing', true);
     }
 
     /**
@@ -109,6 +115,15 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
         return $this->hasMany(ProductNotification::class);
     }
 
+    public function refunds(): HasMany
+    {
+        return $this->hasMany(Refund::class);
+    }
+
+    /**
+     * ? Packages methods
+     */
+
     public function selectPersonalData(PersonalDataSelection $personalData): void
     {
         $personalData
@@ -134,7 +149,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     public function personalDataExportName(): string
     {
         $userName = Str::slug($this->full_name);
-    
+
         return "beehemiam-donnees-personnelles-{$userName}.zip";
     }
 }

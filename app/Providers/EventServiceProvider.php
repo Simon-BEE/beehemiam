@@ -40,6 +40,20 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Product\ProductOptionUpdatedEvent::class => [
             \App\Listeners\Products\ProductOptionAvalaibilityListener::class,
         ],
+        \App\Events\Order\NewOrderReceivedEvent::class => [
+            \App\Listeners\Order\CreateOrderItems::class,
+            \App\Listeners\Order\AdjustStockQuantities::class,
+            \App\Listeners\Order\GenerateOrderInvoice::class,
+            \App\Listeners\Order\SavePaymentOrder::class,
+            \App\Listeners\Order\SendOrderSummaryEmail::class,
+            \App\Listeners\Order\NotifyAdministratorsNewOrder::class,
+        ],
+        \App\Events\Order\NewOrderCancelledEvent::class => [
+            \App\Listeners\Order\RefundTotalOrderAmount::class,
+            \App\Listeners\Order\RestoreProductsQuantities::class,
+            \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
+            \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,
+        ],
     ];
 
     /**

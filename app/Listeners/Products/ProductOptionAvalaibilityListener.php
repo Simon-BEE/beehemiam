@@ -27,10 +27,12 @@ class ProductOptionAvalaibilityListener
      */
     public function handle(ProductOptionUpdatedEvent $event)
     {
-        $event->productOption->availabilityNotifications->each(function (ProductNotification $productNotification) use ($event) {
-            Mail::to($productNotification->email ?? $productNotification->user->email)
-                ->send(new ProductAvailableMail($event->productOption, $productNotification->user));
-        });
+        $event->productOption->availabilityNotifications->each(
+            function (ProductNotification $productNotification) use ($event) {
+                Mail::to($productNotification->email ?? $productNotification->user->email)
+                    ->send(new ProductAvailableMail($event->productOption, $productNotification->user));
+            }
+        );
 
         $event->productOption->availabilityNotifications()->delete();
     }

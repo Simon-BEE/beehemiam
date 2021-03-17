@@ -23,6 +23,11 @@ class VerifyCookieCart
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
+
+        if ($this->checkExceptRoutes()) {
+            return $response;
+        }
+
         /** @var array $cookies */
         $cookies = filter_input_array(INPUT_COOKIE);
 
@@ -56,7 +61,7 @@ class VerifyCookieCart
                 );
             }
         }
-        
+
         return $response;
     }
 
@@ -79,7 +84,7 @@ class VerifyCookieCart
                 ]);
             }
         }
-        
+
         return collect($formatted);
     }
 
@@ -92,7 +97,12 @@ class VerifyCookieCart
                 $formatted[] = $rawCartItem->productOptionSizeId;
             }
         }
-        
+
         return $formatted;
+    }
+
+    private function checkExceptRoutes(): bool
+    {
+        return request()->routeIs('api.orders.store');
     }
 }

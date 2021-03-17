@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Cart;
 
+use App\Exceptions\Product\ProductQuantityException;
 use App\Http\Controllers\Controller;
 use App\Models\ProductOption;
 use App\Models\ProductOptionSize;
@@ -26,10 +27,18 @@ class UpdateCartController extends Controller
             return response()->json([
                 'message' => 'Quantité mise à jour',
             ]);
+        } catch (ProductQuantityException $e) {
+            logger(get_class($productOptionSize) . ' - ' . $productOptionSize->id . ' - ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 
@@ -50,10 +59,18 @@ class UpdateCartController extends Controller
             return response()->json([
                 'message' => 'Quantité mise à jour',
             ]);
+        } catch (ProductQuantityException $e) {
+            logger(get_class($productOption) . ' - ' . $productOption->id . ' - ' . $e->getMessage());
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
         } catch (\Exception $e) {
+            logger($e->getMessage());
+
             return response()->json([
                 'message' => 'Erreur du serveur',
-            ]);
+            ], 500);
         }
     }
 

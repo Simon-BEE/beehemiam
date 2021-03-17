@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(1000);
             $table->foreignId('order_status_id')
                 ->nullable()
                 ->constrained()
@@ -33,7 +33,8 @@ class CreateOrdersTable extends Migration
                 ->nullOnDelete();
             $table->unsignedInteger('price');
             $table->unsignedInteger('shipping_fees');
-            $table->boolean('is_preorder');
+            $table->unsignedInteger('tax');
+            $table->boolean('has_preorder');
             $table->timestamps();
         });
     }

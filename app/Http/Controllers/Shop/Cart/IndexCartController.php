@@ -11,11 +11,7 @@ class IndexCartController extends Controller
     public function __invoke(CartRepository $repository): View
     {
         return view('shop.cart.index', [
-            'cart' => $repository->getProductsFromCart(),
-            'subTotal' => get_cart_subtotal(true, 'order') + get_cart_subtotal(true, 'preorder'),
-            'coupon' => session()->has('coupon')
-                ? session('coupon')->get('coupon')->only(['code', 'amount'])
-                : null,
+            // view composer data
         ]);
     }
 }

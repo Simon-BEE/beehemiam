@@ -26,6 +26,9 @@ class Payment extends Model
         'amount' => 'integer',
     ];
 
+    const CARD_TYPE = 'card';
+    const PAYPAL_TYPE = 'paypal';
+
     /**
      * ? ATTRIBUTES
      */

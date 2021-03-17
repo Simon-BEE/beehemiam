@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class OrderStatus extends Model
 {
     use HasFactory;
-    
+
     public $timestamps = false;
 
     /**
@@ -25,6 +25,15 @@ class OrderStatus extends Model
      * @var array
      */
     protected $casts = [];
+
+    const CANCELLED = 1;
+    const COMPLETED = 2;
+    const FAILED = 3;
+    const SHIPPING = 4;
+    const MANUFACTURE = 5;
+    const REFUNDED = 6;
+    const PREPARATION = 7;
+    const PROCESS = 8;
 
     /**
      * ? ATTRIBUTES

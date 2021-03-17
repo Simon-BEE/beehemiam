@@ -26,20 +26,35 @@
             <h4 class="font-bold text-lg">Montant total de la commande</h4>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Sous-total</p>
-                <p class="text-lg font-semibold">{{ formatNumber(subTotal) }}€</p>
+                <p class="font-semibold">{{ formatNumber(subTotal) }}€</p>
             </div>
             <div class="flex items-center justify-between px-2 py-1 rounded">
                 <p>Frais de livraison*</p>
-                <p class="text-lg font-semibold">{{ formatNumber(shippingFees) }}€</p>
+                <p class="font-semibold">{{ formatNumber(shippingFees) }}€</p>
             </div>
             <div class="flex items-center justify-between bg-primary-100 px-2 py-1 rounded" v-if="discount !== 0 && discountCode">
                 <p>Code promo <span class="font-bold">{{ discountCode }}</span></p>
-                <p class="text-lg font-semibold">-{{ discount }}€</p>
+                <p class="font-semibold">-{{ discount }}€</p>
             </div>
 
-            <div class="flex items-center justify-between pt-4 border-t border-primary-400 px-2 py-1">
-                <p>Montant total</p>
-                <p class="text-lg font-semibold">{{ formatNumber(total) }}€</p>
+            <div class="pt-4 border-t border-primary-400 px-2 py-1 space-y-3">
+                <div class="flex items-center justify-between">
+                    <p>Sous-total HT</p>
+                    <p class="font-semibold">{{ formatNumber(total - taxesFees - shippingFeesWithoutTaxes) }}€</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p>Frais de livraison HT</p>
+                    <p class="font-semibold">{{ formatNumber(shippingFeesWithoutTaxes) }}€</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p>TVA</p>
+                    <p class="font-semibold">{{ formatNumber(taxesFees) }}€</p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between font-black text-lg pt-3 border-t border-primary-400 px-2">
+                <p>Montant total à  payer</p>
+                <p class="">{{ formatNumber(total) }}€</p>
             </div>
 
             <p class="text-xs pt-4 text-right">*Estimation pour une livraison en France métropolitaine</p>
@@ -68,7 +83,10 @@ export default {
             loading: false,
             subTotal: this.cartSubTotal,
             shippingFees: 4.95,
+            shippingFeesWithoutTaxes: 0,
             total: 0,
+            taxes: 0.2,
+            taxesFees: 0,
             discount: this.coupon ? this.coupon.amount : 0,
             discountCode: this.coupon ? this.coupon.code : null,
             discountCodeInput: '',
@@ -93,6 +111,10 @@ export default {
     methods: {
         calculateCartTotalAmount() {
             this.total = this.subTotal + this.shippingFees - this.discount;
+
+            this.taxesFees = this.total * this.taxes;
+
+            this.shippingFeesWithoutTaxes = this.shippingFees - (this.shippingFees * this.taxes);
         },
 
         submitCoupon() {

@@ -286,10 +286,6 @@ class CartCheckoutTest extends TestCase
         $this->assertEquals($user->fresh()->address->street, $address->street);
     }
 
-    // test user has already addresses
-    
-    // todo BILLING_ADDRESS IF ONLY ONE ADDRESS OTHERWISE SHIPPING_ADDRESS AND BILLING_ADDRESS
-
     private function addAProductToCart(): void
     {
         $category = Category::factory()->create();

@@ -21,6 +21,7 @@ import SizesSelector from './components/SizesSelector';
 import ImagesGallery from './components/ImagesGallery';
 import NotifyAvailability from './components/NotifyAvailability';
 import StripePayment from './components/StripePayment';
+import CookieBanner from './components/CookieBanner';
 
 Vue.mixin(mixins);
 
@@ -33,6 +34,7 @@ new Vue({
     AddCart, CartIcon, CartTable, LoaderIcon,
     CartResume, BillingAddress, CartInfo,
     ImagesGallery, NotifyAvailability, StripePayment,
+    CookieBanner,
   },
 
   mounted() {

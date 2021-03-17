@@ -22,7 +22,7 @@ class CreateOrderRepository
         $this->verifyAddress();
 
         $order = Order::create([
-            'order_status_id' => OrderStatus::PREPARATION,
+            'order_status_id' => OrderStatus::PROCESS,
             'user_id' => auth()->id(),
             'shipping_id' => $this->cartAmountService->getShipping()->id,
             'address_id' => get_client_shipping_address()->id,

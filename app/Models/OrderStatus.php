@@ -33,6 +33,7 @@ class OrderStatus extends Model
     const MANUFACTURE = 5;
     const REFUNDED = 6;
     const PREPARATION = 7;
+    const PROCESS = 8;
 
     /**
      * ? ATTRIBUTES

@@ -109,7 +109,14 @@
     <section class="w-full rounded bg-primary-200 relative mt-12 flex flex-col-reverse lg:flex-row items-start justify-between lg:space-x-4">
 
         <section class="w-full lg:w-2/3 px-4 pt-4 pb-12 rounded bg-primary-200 relative text-center">
-            <h2 class="text-2xl lg:text-4xl font-bold mt-8 mb-16">Choisissez votre méthode de paiement</h2>
+            <h2 class="text-2xl lg:text-4xl font-bold my-8">Choisissez votre méthode de paiement</h2>
+
+            @guest
+                <x-info class="bg-primary-100">
+                    <p>En effectuant le réglement sur <strong>Beehemiam.fr</strong>, vous avez lu et vous êtes d'accord avec <a href="#" class="underline">les CGU</a> et <a href="#" class="underline">les CGV</a>.</p>
+                </x-info>
+            @endguest
+
             <stripe-payment></stripe-payment>
         </section>
 

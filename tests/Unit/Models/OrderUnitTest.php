@@ -58,7 +58,7 @@ class OrderUnitTest extends TestCase
         $order = Order::factory()->create();
 
         $this->assertNotNull($order->verbose_status);
-        $this->assertEquals("Votre commande est en cours de préparation.", $order->verbose_status);
+        $this->assertEquals("Votre commande est en cours de traitement.", $order->verbose_status);
     }
 
     /** @test */

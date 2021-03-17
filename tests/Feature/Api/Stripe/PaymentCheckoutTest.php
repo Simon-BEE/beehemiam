@@ -43,7 +43,7 @@ class PaymentCheckoutTest extends TestCase
         $this->assertNull(get_client_shipping_address());
         $this->assertEquals($address->email, $order->address->email);
         $this->assertEquals($address->email, $order->invoice->address->email);
-        $this->assertEquals('En préparation', $order->status->name);
+        $this->assertEquals('En traitement', $order->status->name);
         $this->assertDatabaseCount('payments', 1);
 
         Mail::assertQueued(OrderSummaryMail::class);

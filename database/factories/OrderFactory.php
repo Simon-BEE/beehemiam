@@ -23,7 +23,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'order_status_id' => OrderStatus::PREPARATION,
+            'order_status_id' => OrderStatus::PROCESS,
             'address_id' => \App\Models\Address::factory(),
             'user_id' => \App\Models\User::factory(),
             'shipping_id' => \App\Models\Shipping::factory(),

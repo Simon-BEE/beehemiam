@@ -43,6 +43,10 @@ class OrderStatusesSeeder extends Seeder
                 'name' => 'En préparation',
                 'color' => 'teal',
             ],
+            [
+                'name' => 'En traitement',
+                'color' => 'yellow',
+            ],
         ]);
     }
 }

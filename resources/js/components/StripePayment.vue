@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full mt-8">
         <button type="button"
             class="text-lg font-bold mx-auto flex items-center justify-center rounded p-4 transition-colors duration-200 bg-primary-700 hover:bg-primary-400 focus:outline-none"
             @click="collapse"
@@ -27,7 +27,7 @@
 
                     <p id="card-error" role="alert" class="text-red-500"></p>
 
-                    <button class="px-3 py-2 rounded bg-green-200 my-8 self-end text-white font-bold hover:bg-opacity-80" id="submitButton">
+                    <button class="px-3 py-2 rounded bg-green-400 my-8 self-end text-white font-bold hover:bg-opacity-80" id="submitButton">
                         <span class="inline-flex items-center" v-if="loading">
                             <span class="mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: transparent; display: block; shape-rendering: auto;" class="w-5 h-5" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">

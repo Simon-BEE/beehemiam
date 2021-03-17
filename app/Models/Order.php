@@ -74,6 +74,7 @@ class Order extends Model
                 OrderStatus::MANUFACTURE => "Votre commande est en cours de confection (précommande).",
                 OrderStatus::REFUNDED => "Votre commande a remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
                 OrderStatus::PREPARATION => "Votre commande est en cours de préparation.",
+                OrderStatus::PROCESS => "Votre commande est en cours de traitement.",
             default => "Impossible d'indiquer le statut de votre commande.",
             };
         } catch (\Exception $e) {
@@ -94,6 +95,7 @@ class Order extends Model
                 OrderStatus::MANUFACTURE => true,
                 OrderStatus::REFUNDED => false,
                 OrderStatus::PREPARATION => true,
+                OrderStatus::PROCESS => true,
             default => false,
             };
         } catch (\Exception $e) {

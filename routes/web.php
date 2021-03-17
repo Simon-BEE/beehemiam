@@ -4,10 +4,15 @@ use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
 use App\Http\Controllers\Api\Cart\UpdateCartController;
+use App\Http\Controllers\Api\Order\RegisterOrderController;
+use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
+use App\Http\Controllers\Shop\Order\IndexOrderController;
 use App\Http\Controllers\WelcomeController;
+use App\Mail\Orders\OrderSummaryMail;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +27,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd();
+    $order = Order::first();
+    return new OrderSummaryMail($order, $order->orderItems, $order->address);
+    dd(redirect()->intended(), session('url.intended'));
 });
 
 /**
- * Cart api routes
+ * Api routes
 */
 Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
+    /**
+     * Cart api routes
+     */
     Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
         Route::post('/add/sizes/{productOptionSize}', [AddCartController::class, 'addOrder'])->name('add.sizes');
         Route::patch('/update/sizes/{productOptionSize}', [UpdateCartController::class, 'updateOrder'])
@@ -46,8 +56,20 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
         Route::post('/coupons/add', ApiCouponController::class)->name('coupons.add');
     });
 
+    /**
+     * Product availability api routes
+     */
     Route::post('/products/{productOption}/notify-availability', ProductAvailabilityController::class)
         ->name('products.notify-availability');
+
+    /**
+     * Payment and order api routes
+     */
+    Route::get('/payments/stripe/payment-intent', PaymentIntentController::class)
+        ->name('payments.stripe.payment-intent');
+
+    Route::post('/orders', RegisterOrderController::class)
+        ->name('orders.store');
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
@@ -56,6 +78,8 @@ Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
 
     Route::get('/livraisons', [AddressCartController::class, 'index'])->name('shippings.index');
     Route::post('/livraisons', [AddressCartController::class, 'store'])->name('shippings.store');
+
+    Route::get('/validation', IndexOrderController::class)->name('orders.index');
 });
 
 Route::get('/', WelcomeController::class)->name('welcome');

@@ -20,7 +20,8 @@
         "mailjet/laravel-mailjet": "^3.0",
         "olimortimer/laravelshoppingcart": "^5.0",
         "spatie/laravel-backup": "^7.3",
-        "spatie/laravel-personal-data-export": "^2.0"
+        "spatie/laravel-personal-data-export": "^2.0",
+        "stripe/stripe-php": "^7.75"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

@@ -11,7 +11,7 @@ class GuestOrderController extends Controller
 {
     public function __invoke(string $encodedHashedId): View
     {
-        $order = Order::with(['status', 'orderItems'])
+        $order = Order::with(['status', 'address', 'orderItems', 'payment'])
             ->find(Hashids::decode($encodedHashedId))->first();
 
         if (is_null($order) || $order->user) {

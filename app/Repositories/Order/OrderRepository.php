@@ -15,10 +15,6 @@ class OrderRepository
         ]);
 
         event(new NewOrderCancelledEvent($order));
-
-        // todo adjust quantity
-
-        // todo notify user and admin
     }
 
     public function cancelTest(Order $order): void

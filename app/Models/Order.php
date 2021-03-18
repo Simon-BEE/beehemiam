@@ -59,6 +59,11 @@ class Order extends Model
         return number_format($this->price_without_taxes / 100, 2);
     }
 
+    public function getFormattedTotalTaxesAttribute(): string
+    {
+        return number_format($this->formatted_price * ($this->tax / 100), 2);
+    }
+
     public function getPathAttribute(): string
     {
         if ($this->user) {
@@ -101,9 +106,9 @@ class Order extends Model
                 OrderStatus::CANCELLED => false,
                 OrderStatus::COMPLETED => false,
                 OrderStatus::FAILED => false,
+                OrderStatus::REFUNDED => false,
                 OrderStatus::SHIPPING => true,
                 OrderStatus::MANUFACTURE => true,
-                OrderStatus::REFUNDED => false,
                 OrderStatus::PREPARATION => true,
                 OrderStatus::PROCESS => true,
             default => false,
@@ -118,6 +123,16 @@ class Order extends Model
     public function getIsCancelledAttribute(): bool
     {
         return $this->status->id === OrderStatus::CANCELLED;
+    }
+
+    public function getIsCompletedAttribute(): bool
+    {
+        return $this->status->id === OrderStatus::COMPLETED;
+    }
+
+    public function getIsShippedAttribute(): bool
+    {
+        return $this->status->id === OrderStatus::SHIPPING;
     }
 
     public function getEmailContactAttribute(): string

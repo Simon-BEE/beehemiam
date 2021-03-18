@@ -24,7 +24,7 @@ class ShowOrderController extends Controller
         $this->authorize('show', $order);
 
         return view('user.orders.show', [
-            'order' => $order->load('status'),
+            'order' => $order->load(['status', 'address', 'orderItems', 'payment']),
         ]);
     }
 }

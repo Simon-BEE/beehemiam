@@ -6,6 +6,7 @@ use App\Mail\Orders\OrderCancelledMail;
 use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Address;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PreOrderProductOptionQuantity;
@@ -317,6 +318,23 @@ class OrderTest extends TestCase
         Notification::assertSentTo(User::administrators(), ProductOutOfStockNotification::class);
     }
 
+    /** @test */
+    public function when_a_user_order_with_coupon_a_new_entry_in_database_is_processed()
+    {
+        $this->signIn();
+        $this->addAProductToCart();
+        $this->setSessionAddress();
+        $this->setSessionCoupon();
+
+        $this->assertDatabaseCount('coupon_order', 0);
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+
+        $this->assertDatabaseCount('coupon_order', 1);
+    }
+
+
     private function addAProductToCart(bool $preorder = false): void
     {
         $category = Category::factory()->create();
@@ -350,6 +368,13 @@ class OrderTest extends TestCase
             'phone' => '0615141213',
             'email' => 'email@email.com',
         ])
+            ->assertSuccessful();
+    }
+
+    private function setSessionCoupon(): void
+    {
+        $coupon = Coupon::factory()->create();
+        $this->followingRedirects()->post(route('api.cart.coupons.add', ['coupon' => $coupon->code]))
             ->assertSuccessful();
     }
 

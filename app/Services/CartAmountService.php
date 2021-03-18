@@ -15,7 +15,8 @@ class CartAmountService
     {
         return get_cart_subtotal(false, 'order')
             + get_cart_subtotal(false, 'preorder')
-            + $this->getShippingFeesAmount();
+            + $this->getShippingFeesAmount()
+            - $this->getCouponDiscount();
     }
 
     public function getShippingFeesAmount(): int
@@ -26,6 +27,15 @@ class CartAmountService
     public function getTaxesAmount(): int
     {
         return config('cart.tax');
+    }
+
+    public function getCouponDiscount(): int
+    {
+        if (!session()->has('coupon')) {
+            return 0;
+        }
+
+        return session('coupon')['coupon']->amount * 100;
     }
 
     public function getShipping(): Shipping

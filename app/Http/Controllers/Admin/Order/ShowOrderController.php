@@ -13,7 +13,7 @@ class ShowOrderController extends Controller
     public function show(Order $order): View
     {
         return view('admin.orders.show', [
-            'order' => $order->load(['status', 'address', 'orderItems', 'payment']),
+            'order' => $order->load(['status', 'address.country', 'orderItems', 'payment']),
         ]);
     }
 

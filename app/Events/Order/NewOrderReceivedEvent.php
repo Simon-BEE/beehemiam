@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 class NewOrderReceivedEvent
 {
@@ -16,7 +17,7 @@ class NewOrderReceivedEvent
      *
      * @return void
      */
-    public function __construct(public Order $order, public string $paymentIntentId)
+    public function __construct(public Order $order, public string $paymentIntentId, public ?Collection $coupon = null)
     {
         //
     }

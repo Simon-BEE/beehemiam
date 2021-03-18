@@ -42,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\Order\NewOrderReceivedEvent::class => [
             \App\Listeners\Order\CreateOrderItems::class,
+            \App\Listeners\Order\CreateCouponOrder::class,
             \App\Listeners\Order\AdjustStockQuantities::class,
             \App\Listeners\Order\GenerateOrderInvoice::class,
             \App\Listeners\Order\SavePaymentOrder::class,
@@ -51,6 +52,7 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Order\NewOrderCancelledEvent::class => [
             \App\Listeners\Order\RefundTotalOrderAmount::class,
             \App\Listeners\Order\RestoreProductsQuantities::class,
+            \App\Listeners\Order\RemoveCouponOrder::class,
             \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
             \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,
         ],

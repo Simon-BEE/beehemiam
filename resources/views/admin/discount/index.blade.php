@@ -37,6 +37,7 @@
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-5">Code</th>
                             <th class="px-4 py-5">Montant</th>
+                            <th class="px-4 py-5">Nombre d'utilisations</th>
                             <th class="px-4 py-5">Est expiré</th>
                             <th class="px-4 py-5">Actions</th>
                         </tr>
@@ -51,6 +52,11 @@
                                 <td class="px-4 py-3 text-sm ml-8">
                                     <span class="rounded-full bg-gray-100 dark:bg-gray-900 p-2">
                                         {{ $coupon->amount }}%
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-sm ml-8">
+                                    <span class="rounded-full bg-gray-100 dark:bg-gray-900 p-2">
+                                        {{ $coupon->orders->count() }}
                                     </span>
                                 </td>
                                 <td class="px-4 py-3 text-sm text-white">

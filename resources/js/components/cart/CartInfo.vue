@@ -124,6 +124,7 @@ export default {
             taxes: 0.2,
             taxesFees: 0,
             discount: this.coupon ? this.coupon.amount : 0,
+            discountCode: this.coupon ? this.coupon.code : null,
         }
     },
     watch: {

@@ -126,5 +126,6 @@ Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
     Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
     Route::delete('/{order}', [ShowOrderController::class, 'cancel'])->name('cancel');
 
-    Route::get('/{order}/statut', [StatusOrderController::class, 'show'])->name('status.show');
+    Route::get('/{order}/statut', [StatusOrderController::class, 'edit'])->name('status.edit');
+    Route::patch('/{order}/statut', [StatusOrderController::class, 'update'])->name('status.update');
 });

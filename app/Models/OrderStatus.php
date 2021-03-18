@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -45,7 +46,11 @@ class OrderStatus extends Model
      * ? SCOPES
      */
 
-    // ...
+    public function scopeOrderChange(Builder $query): Builder
+    {
+        return $query->where('id', '!=', self::CANCELLED)
+            ->where('id', '!=', self::FAILED);
+    }
 
     /**
      * ? RELATIONS

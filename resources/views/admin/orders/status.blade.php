@@ -42,8 +42,9 @@
                         </p>
                     </article>
 
-                    <form action="#" method="POST" class="w-full md:w-1/2">
+                    <form action="{{ route('admin.orders.status.update', $order) }}" method="POST" class="w-full md:w-1/2">
                         @csrf
+                        @method('PATCH')
 
                         <div class="w-full my-4">
                             <label for="status" class="text-sm font-medium leading-relaxed tracking-tighter text-gray-700 dark:text-white flex items-center justify-between">Choisir un nouveau statut de commande</label>

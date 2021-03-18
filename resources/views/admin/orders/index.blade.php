@@ -88,7 +88,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center py-8 text-gray-500">
+                                <td colspan="6" class="text-center py-8 text-gray-500">
                                     Aucune commande n'a été passée pour le moment.
                                 </td>
                             </tr>

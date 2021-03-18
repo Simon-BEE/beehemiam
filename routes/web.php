@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
+use App\Http\Controllers\Shop\Order\GuestOrderController;
 use App\Http\Controllers\Shop\Order\IndexOrderController;
 use App\Http\Controllers\WelcomeController;
 use App\Mail\Orders\OrderSummaryMail;
@@ -30,6 +31,10 @@ Route::get('/test', function () {
     $order = Order::first();
     return new OrderSummaryMail($order, $order->orderItems, $order->address);
     dd(redirect()->intended(), session('url.intended'));
+});
+
+Route::group(['as' => 'guest.'], function () {
+    Route::get('commandes/{hashedOrderId}', GuestOrderController::class)->name('orders.show');
 });
 
 /**

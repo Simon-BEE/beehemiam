@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Services\SaltEncryptorService;
 use Tests\TestCase;
 
 class OrderUnitTest extends TestCase
@@ -44,7 +45,19 @@ class OrderUnitTest extends TestCase
     }
 
     /** @test */
-    public function an_order_has_a_property_path()
+    public function an_order_has_a_property_path_who_returns_route_guest_order_with_encrypted_id_for_a_guest_order()
+    {
+        $order = Order::factory()->create([
+            'user_id' => null,
+        ]);
+
+        $this->assertNotNull($order->path);
+        $this->assertNotNull($order->hashed_id);
+        $this->assertEquals(route('guest.orders.show', $order->hashed_id), url('/') . '/commandes/' . $order->hashed_id);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_path_who_returns_order_user_route_for_a_user_order()
     {
         $order = Order::factory()->create();
 

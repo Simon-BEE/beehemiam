@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Vinkla\Hashids\Facades\Hashids;
 
 /**
  * ! Price include all taxes with shipping fees
@@ -60,7 +61,16 @@ class Order extends Model
 
     public function getPathAttribute(): string
     {
-        return route('user.orders.show', $this);
+        if ($this->user) {
+            return route('user.orders.show', $this);
+        }
+
+        return route('guest.orders.show', $this->hashed_id);
+    }
+
+    public function getHashedIdAttribute(): string
+    {
+        return Hashids::encode($this->id);
     }
 
     public function getVerboseStatusAttribute(): string

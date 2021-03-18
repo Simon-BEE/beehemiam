@@ -93,6 +93,17 @@
             </table>
         </section>
 
+        <section class="mt-8 p-4 bg-primary-200 rounded">
+            <p>Le paiement de la commande a été réalisé par <strong>{{ $order->payment->type == 'card' ? "Carte bancaire" : "Paypal" }}</strong></p>
+        </section>
+
+        <section class="mt-8">
+            <h3 class="font-bold mb-4">La commande sera livrée à l'adresse suivante :</h3>
+            <p>{{ $order->address->street }} {{ $order->address->additionnal }}, {{ $order->address->city }} {{ $order->address->zipcode }}, {{ $order->address->country->name }}</p>
+            <p>Moyens de contact : {{ $order->email_contact }} {{ $order->address->phone }}</p>
+            <p class="text-sm mt-3">Si vous constatez une erreur, vous pouvez nous contacter à l'adresse suivante <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis la partie <a href="#" class="text-primary-500 hover:underline">contact</a> du site, en précisant le motif et la référence de la commande.</p>
+        </section>
+
         @if ($order->created_at->addMinutes(15) > now() && !$order->is_cancelled)
             <section class="mt-8 p-4 rounded bg-primary-300">
 

@@ -35,4 +35,43 @@ return [
         'secret_key' => env('STRIPE_SECRET_KEY'),
     ],
 
+<<<<<<< Updated upstream
+=======
+    'mailjet' => [
+        'key' => env('MAILJET_APIKEY'),
+        'secret' => env('MAILJET_APISECRET'),
+        'transactional' => [
+            'call' => true,
+            'options' => [
+                'url' => 'api.mailjet.com',
+                'version' => 'v3.1',
+                'call' => true,
+                'secured' => true
+            ]
+        ],
+        'common' => [
+            'call' => true,
+            'options' => [
+                'url' => 'api.mailjet.com',
+                'version' => 'v3',
+                'call' => true,
+                'secured' => true
+            ]
+        ],
+        'v4' => [
+            'call' => true,
+            'options' => [
+                'url' => 'api.mailjet.com',
+                'version' => 'v4',
+                'call' => true,
+                'secured' => true
+            ]
+        ],
+    ],
+
+    'salt-encryptor' => [
+        'key' => env('SALT_ENCRYPTION_KEY'),
+    ]
+
+>>>>>>> Stashed changes
 ];

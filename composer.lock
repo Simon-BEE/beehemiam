@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< Updated upstream
-    "content-hash": "f849af5a9684b5918eb9ffa6844a4be2",
-=======
     "content-hash": "c666c56304462bb7dc89b4015d3f07ad",
->>>>>>> Stashed changes
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3766,8 +3762,6 @@
             "time": "2020-07-07T18:42:57+00:00"
         },
         {
-<<<<<<< Updated upstream
-=======
             "name": "spatie/db-dumper",
             "version": "2.21.1",
             "source": {
@@ -3979,7 +3973,6 @@
             "time": "2021-03-16T19:49:42+00:00"
         },
         {
->>>>>>> Stashed changes
             "name": "spatie/laravel-personal-data-export",
             "version": "2.0.1",
             "source": {
@@ -11208,18 +11201,6 @@
         },
         {
             "name": "vimeo/psalm",
-<<<<<<< Updated upstream
-            "version": "4.6.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vimeo/psalm.git",
-                "reference": "f1a840727dd756899eee2f1f9ea443e265a4763f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f1a840727dd756899eee2f1f9ea443e265a4763f",
-                "reference": "f1a840727dd756899eee2f1f9ea443e265a4763f",
-=======
             "version": "4.6.4",
             "source": {
                 "type": "git",
@@ -11230,7 +11211,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/vimeo/psalm/zipball/97fe86c4e158b5a57c5150aa5055c38b5a809aab",
                 "reference": "97fe86c4e158b5a57c5150aa5055c38b5a809aab",
->>>>>>> Stashed changes
                 "shasum": ""
             },
             "require": {
@@ -11319,15 +11299,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-<<<<<<< Updated upstream
-                "source": "https://github.com/vimeo/psalm/tree/4.6.3"
-            },
-            "time": "2021-03-14T00:28:24+00:00"
-=======
                 "source": "https://github.com/vimeo/psalm/tree/4.6.4"
             },
             "time": "2021-03-16T23:28:18+00:00"
->>>>>>> Stashed changes
         },
         {
             "name": "webmozart/path-util",

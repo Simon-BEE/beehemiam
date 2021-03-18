@@ -35,8 +35,6 @@ return [
         'secret_key' => env('STRIPE_SECRET_KEY'),
     ],
 
-<<<<<<< Updated upstream
-=======
     'mailjet' => [
         'key' => env('MAILJET_APIKEY'),
         'secret' => env('MAILJET_APISECRET'),
@@ -73,5 +71,4 @@ return [
         'key' => env('SALT_ENCRYPTION_KEY'),
     ]
 
->>>>>>> Stashed changes
 ];

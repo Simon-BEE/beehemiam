@@ -35,6 +35,7 @@ class OrderUnitTest extends TestCase
         $this->assertNotNull($order->price_without_taxes);
         $this->assertEquals($order->price - ($order->price * ($order->tax / 100)), $order->price_without_taxes);
     }
+
     /** @test */
     public function an_order_has_a_property_formatted_price_without_taxes()
     {
@@ -42,6 +43,15 @@ class OrderUnitTest extends TestCase
 
         $this->assertNotNull($order->formatted_price_without_taxes);
         $this->assertEquals(number_format($order->price_without_taxes / 100, 2), $order->formatted_price_without_taxes);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_formatted_total_taxes()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->formatted_total_taxes);
+        $this->assertEquals(number_format($order->formatted_price * ($order->tax / 100), 2), $order->formatted_total_taxes);
     }
 
     /** @test */
@@ -98,6 +108,32 @@ class OrderUnitTest extends TestCase
         $order->update(['order_status_id' => OrderStatus::CANCELLED]);
 
         $this->assertTrue($order->refresh()->is_cancelled);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_is_completed()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->is_completed);
+        $this->assertFalse($order->is_completed);
+
+        $order->update(['order_status_id' => OrderStatus::COMPLETED]);
+
+        $this->assertTrue($order->refresh()->is_completed);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_is_shipped()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->is_shipped);
+        $this->assertFalse($order->is_shipped);
+
+        $order->update(['order_status_id' => OrderStatus::SHIPPING]);
+
+        $this->assertTrue($order->refresh()->is_shipped);
     }
 
     /** @test */

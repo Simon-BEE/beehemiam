@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\Discount\DeleteCouponController;
 use App\Http\Controllers\Admin\Discount\EditCouponController;
 use App\Http\Controllers\Admin\Discount\IndexDiscountController;
 use App\Http\Controllers\Admin\Order\IndexOrderController;
+use App\Http\Controllers\Admin\Order\ShowOrderController;
+use App\Http\Controllers\Admin\Order\StatusOrderController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
 use App\Http\Controllers\Admin\Products\DeleteProductController;
 use App\Http\Controllers\Admin\Products\EditProductController;
@@ -121,4 +123,8 @@ Route::group(['as' => 'discount.', 'prefix' => 'promotions'], function () {
 Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
 
     Route::get('/', IndexOrderController::class)->name('index');
+    Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
+    Route::delete('/{order}', [ShowOrderController::class, 'cancel'])->name('cancel');
+
+    Route::get('/{order}/statut', [StatusOrderController::class, 'show'])->name('status.show');
 });

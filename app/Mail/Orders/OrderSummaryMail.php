@@ -36,6 +36,10 @@ class OrderSummaryMail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->view('emails.orders.summary')
-            ->subject('Récapitulatif de la commande n°' . $this->order->id);
+            ->subject('Récapitulatif de la commande n°' . $this->order->id)
+            ->attach($this->order->invoice->file_path, [
+                'as' => $this->order->invoice->filename,
+                'mime' => 'application/pdf',
+            ]);
     }
 }

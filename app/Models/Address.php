@@ -48,7 +48,7 @@ class Address extends Model
     public function getInlineAddressAttribute(): string
     {
         return $this->street
-            . ' ' . $this->additionnal ?? ''
+            . ' ' . ($this->additionnal ?? '')
             . ', ' . $this->city
             . ' ' . $this->zipcode
             . ', ' . $this->country->name;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ShowOrderController extends Controller
 {
@@ -26,5 +27,12 @@ class ShowOrderController extends Controller
         return view('user.orders.show', [
             'order' => $order->load(['status', 'address', 'orderItems', 'payment']),
         ]);
+    }
+
+    public function invoice(Order $order): BinaryFileResponse
+    {
+        $this->authorize('show', $order);
+
+        return response()->file($order->invoice->file_path);
     }
 }

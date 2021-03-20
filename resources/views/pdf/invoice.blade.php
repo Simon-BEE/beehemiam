@@ -52,6 +52,15 @@
             </thead>
 
             <tbody>
+                @if ($order->coupons->isNotEmpty())
+                    @foreach ($order->coupons as $coupon)
+                        <tr>
+                            <td class="without_border" colspan="2"></td>
+                            <td class="total_amount" colspan="1">Réduction <span style="font-size: .6em">({{ $coupon->code }})</span></td>
+                            <td class="total_amount">-{{ $coupon->amount }}€</td>
+                        </tr>
+                    @endforeach
+                @endif
                 <tr>
                     <td class="without_border" colspan="2"></td>
                     <td colspan="1">Sous-total HT</td>

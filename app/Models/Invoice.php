@@ -28,7 +28,10 @@ class Invoice extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFilePathAttribute(): string
+    {
+        return config('beehemiam.invoices.storage_folder') . $this->filename;
+    }
 
     /**
      * ? SCOPES

@@ -51,6 +51,7 @@ Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
 
     Route::get('/', [ShowOrderController::class, 'index'])->name('index');
     Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
+    Route::get('/{order}/facture', [ShowOrderController::class, 'invoice'])->name('invoice');
 
     Route::delete('/{order}', CancelOrderController::class)->name('cancel');
 });

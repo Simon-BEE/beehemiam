@@ -24,12 +24,12 @@
                 <h2 class="font-bold text-2xl">Commande n°{{ $order->id }}</h2>
                 <p class="text-sm">Ma commande passée le {{ $order->created_at->format('d/m/Y') }}</p>
             </div>
-            <x-form.button>
+            <a href="{{ route('user.orders.invoice', $order) }}" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold">
                 <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z" />
                 </svg>
                 Télécharger la facture
-            </x-form.button>
+            </a>
         </div>
 
         <section class="my-6">
@@ -64,9 +64,15 @@
                         <tr class="{{ $loop->even ? 'bg-primary-200' : '' }} hover:bg-primary-300">
                             <td class="px-2 py-3">
                                 @if ($item->productOption)
-                                    <a href="{{ $item->productOption->path }}" class="hover:underline">{{ $item->name }}</a>
+                                    <a href="{{ $item->productOption->path }}" class="hover:underline">
+                                        {{ $item->name }}
+                                        <span class="text-xs">(Taille {{ $item->size->name }})</span>
+                                        <span class="text-xs">{{ $item->is_preorder ? ' précommande' : '' }}</span>
+                                    </a>
                                 @else
                                     {{ $item->name }}
+                                    <span class="text-xs">(Taille {{ $item->size->name }})</span>
+                                    <span class="text-xs">{{ $item->is_preorder ? ' précommande' : '' }}</span>
                                 @endif
                             </td>
                             <td class="px-2 py-3">{{ $item->quantity }}</td>
@@ -74,6 +80,15 @@
                             <td class="px-2 py-3">{{ $item->formatted_price * $item->quantity }}€</td>
                         </tr>
                     @endforeach
+                    @if ($order->coupons->isNotEmpty())
+                        @foreach ($order->coupons as $coupon)
+                            <tr class="">
+                                <td colspan="2" class="p-2"></td>
+                                <td class="p-2 border-b border-primary-300 font-bold bg-primary-300">Réduction <span class="text-xs">({{ $coupon->code }})</span></td>
+                                <td class="p-2 border-b border-primary-300 font-bold bg-primary-300">-{{ $coupon->amount }}€</td>
+                            </tr>
+                        @endforeach
+                    @endif
                     <tr class="">
                         <td colspan="2" class="p-2"></td>
                         <td class="p-2 border-b border-primary-300 font-bold">Montant total HT</td>
@@ -86,8 +101,8 @@
                     </tr>
                     <tr class="">
                         <td colspan="2" class="p-2"></td>
-                        <td class="p-2 border-b border-primary-300 font-bold">Montant total TTC</td>
-                        <td class="p-2 border-b border-primary-300 font-bold">{{ $order->formatted_price }}€</td>
+                        <td class="p-2 border-b border-primary-300 font-bold bg-primary-300">Montant total TTC</td>
+                        <td class="p-2 border-b border-primary-300 font-bold bg-primary-300">{{ $order->formatted_price }}€</td>
                     </tr>
                 </tbody>
             </table>
@@ -97,11 +112,15 @@
             <p>Le paiement de la commande a été réalisé par <strong>{{ $order->payment?->type == 'card' ? "Carte bancaire" : "Paypal" }}</strong></p>
         </section>
 
-        <section class="mt-8">
+        <section class="mt-8 p-4 rounded bg-primary-300">
             <h3 class="font-bold mb-4">La commande sera livrée à l'adresse suivante :</h3>
+            <p>{{ $order->address->full_name }}</p>
             <p>{{ $order->address->street }} {{ $order->address->additionnal }}, {{ $order->address->city }} {{ $order->address->zipcode }}, {{ $order->address->country->name }}</p>
-            <p>Moyens de contact : {{ $order->email_contact }} {{ $order->address->phone }}</p>
-            <p class="text-sm mt-3">Si vous constatez une erreur, vous pouvez nous contacter à l'adresse suivante <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis la partie <a href="#" class="text-primary-500 hover:underline">contact</a> du site, en précisant le motif et la référence de la commande.</p>
+            <p class="text-xs font-semibold">{{ $order->email_contact }} {{ $order->address->phone }}</p>
+
+            @if (!$order->is_shipped && $order->is_in_progress)
+                <p class="text-sm mt-3">Si vous constatez une erreur, vous pouvez nous contacter à l'adresse suivante <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis la partie <a href="#" class="text-primary-500 hover:underline">contact</a> du site, en précisant le motif et la référence de la commande.</p>
+            @endif
         </section>
 
         @if ($order->created_at->addMinutes(15) > now() && !$order->is_cancelled)

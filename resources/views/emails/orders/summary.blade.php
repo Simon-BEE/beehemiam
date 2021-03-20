@@ -35,6 +35,14 @@
                         <tr>
                             <td colspan="3" style="padding:.5em;border-top:1px solid #ccc"></td>
                         </tr>
+                        @if ($order->coupons->isNotEmpty())
+                            @foreach ($order->coupons as $coupon)
+                                <tr>
+                                    <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">({{ $coupon->code }})</td>
+                                    <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">-{{ $coupon->amount }}€</td>
+                                </tr>
+                            @endforeach
+                        @endif
                         <tr>
                             <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">Frais de port TTC</td>
                             <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">{{ $order->shipping_fees / 100 }}€</td>

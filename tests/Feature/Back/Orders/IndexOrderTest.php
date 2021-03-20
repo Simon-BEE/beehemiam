@@ -24,4 +24,34 @@ class IndexOrderTest extends TestCase
             ->assertSee(Order::inRandomOrder()->first()->id)
         ;
     }
+
+    /** @test */
+    public function an_admin_can_see_an_order_page()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $order = Order::factory()->create();
+
+        $this->get(route('admin.orders.show', $order))
+            ->assertSuccessful()
+            ->assertViewIs('admin.orders.show')
+            ->assertSee('Commande n°' . $order->id);
+    }
+
+    /** @test */
+    public function an_admin_can_see_change_order_status_page()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $order = Order::factory()->create();
+
+        $this->get(route('admin.orders.status.edit', $order))
+            ->assertSuccessful()
+            ->assertViewIs('admin.orders.status')
+            ->assertSee('Commande n°' . $order->id);
+    }
 }

@@ -31,11 +31,15 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Country $country
+ * @property-read string $full_name
+ * @property-read string $inline_address
+ * @property-read string $invoice_email
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Invoice[] $invoices
  * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
  * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\AddressFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Address newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Address newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Address query()
@@ -73,6 +77,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|Category active()
+ * @method static \Database\Factories\CategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
@@ -97,6 +102,7 @@ namespace App\Models{
  * @property-read int|null $addresses_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipping[] $shippings
  * @property-read int|null $shippings_count
+ * @method static \Database\Factories\CountryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Country newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country query()
@@ -121,6 +127,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon active()
+ * @method static \Database\Factories\CouponFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon query()
@@ -145,6 +152,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ProductOption $productOption
+ * @method static \Database\Factories\DiscountFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Discount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Discount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Discount query()
@@ -172,6 +180,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string $path
  * @property-read \App\Models\ProductOption $productOption
+ * @method static \Database\Factories\ImageOptionFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ImageOption newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ImageOption newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ImageOption query()
@@ -201,6 +210,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Address|null $address
  * @property-read \App\Models\Order|null $order
+ * @method static \Database\Factories\InvoiceFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice query()
@@ -228,27 +238,36 @@ namespace App\Models{
  * @property int $price
  * @property int $shipping_fees
  * @property int $tax
- * @property int $has_preorder
+ * @property bool $has_preorder
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Address|null $address
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Coupon[] $coupons
  * @property-read int|null $coupons_count
+ * @property-read string $email_contact
  * @property-read string $formatted_price
  * @property-read string $formatted_price_without_taxes
  * @property-read string $formatted_shipping_fees
+ * @property-read string $formatted_total_taxes
+ * @property-read string $hashed_id
+ * @property-read bool $is_cancelled
+ * @property-read bool $is_completed
  * @property-read bool $is_in_progress
+ * @property-read bool $is_shipped
  * @property-read string $path
  * @property-read float $price_without_taxes
+ * @property-read float $shipping_fees_taxes
+ * @property-read float $shipping_fees_without_taxes
  * @property-read string $verbose_status
  * @property-read \App\Models\Invoice|null $invoice
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
  * @property-read \App\Models\Payment|null $payment
+ * @property-read \App\Models\Refund|null $refund
  * @property-read \App\Models\Shipping|null $shipping
  * @property-read \App\Models\OrderStatus|null $status
  * @property-read \App\Models\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder|Order last()
+ * @method static \Database\Factories\OrderFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
@@ -279,17 +298,22 @@ namespace App\Models{
  * @property int $price
  * @property int $tax
  * @property int $quantity
+ * @property bool $is_preorder
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read float $formatted_price
+ * @property-read string $formatted_price_without_taxes
+ * @property-read float $price_without_taxes
  * @property-read \App\Models\Order|null $order
  * @property-read \App\Models\ProductOption|null $productOption
  * @property-read \App\Models\Size|null $size
+ * @method static \Database\Factories\OrderItemFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem query()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereIsPreorder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereOrderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem wherePrice($value)
@@ -311,8 +335,10 @@ namespace App\Models{
  * @property string|null $color
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @method static \Database\Factories\OrderStatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderStatus newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderStatus orderChange()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderStatus query()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderStatus whereColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderStatus whereId($value)
@@ -333,6 +359,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Order|null $order
+ * @method static \Database\Factories\PaymentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
@@ -357,6 +384,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ProductOption $productOption
+ * @method static \Database\Factories\PreOrderProductOptionQuantityFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|PreOrderProductOptionQuantity newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PreOrderProductOptionQuantity newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PreOrderProductOptionQuantity query()
@@ -392,6 +420,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOption[] $productOptions
  * @property-read int|null $product_options_count
  * @method static \Illuminate\Database\Eloquent\Builder|Product active()
+ * @method static \Database\Factories\ProductFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
@@ -418,6 +447,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ProductOption $productOption
  * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\ProductNotificationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductNotification query()
@@ -446,6 +476,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductNotification[] $availabilityNotifications
  * @property-read int|null $availability_notifications_count
  * @property-read \App\Models\Discount|null $discount
+ * @property-read \Illuminate\Support\Collection $available_sizes
  * @property-read \App\Models\ProductOptionSize|null $default_size
  * @property-read float $formatted_price
  * @property-read bool $is_available
@@ -465,6 +496,7 @@ namespace App\Models{
  * @property-read \App\Models\Product $product
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOptionSize[] $sizes
  * @property-read int|null $sizes_count
+ * @method static \Database\Factories\ProductOptionFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOption newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOption newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOption query()
@@ -492,6 +524,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ProductOption $productOption
  * @property-read \App\Models\Size $size
+ * @method static \Database\Factories\ProductOptionSizeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOptionSize newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOptionSize newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOptionSize query()
@@ -507,6 +540,32 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Refund
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property int $order_id
+ * @property string $reference
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Order $order
+ * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\RefundFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund whereReference($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Refund whereUserId($value)
+ */
+	class Refund extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Shipping
  *
  * @property int $id
@@ -516,6 +575,7 @@ namespace App\Models{
  * @property-read \App\Models\Country $country
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @method static \Database\Factories\ShippingFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping query()
@@ -535,6 +595,7 @@ namespace App\Models{
  * @property string $name
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductOptionSize[] $productOptionSizes
  * @property-read int|null $product_option_sizes_count
+ * @method static \Database\Factories\SizeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Size newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Size newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Size query()
@@ -572,7 +633,10 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Refund[] $refunds
+ * @property-read int|null $refunds_count
  * @method static \Illuminate\Database\Eloquent\Builder|User administrators()
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()

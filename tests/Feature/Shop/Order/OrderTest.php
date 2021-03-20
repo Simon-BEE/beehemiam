@@ -6,8 +6,10 @@ use App\Mail\Orders\OrderCancelledMail;
 use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Address;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Models\Payment;
 use App\Models\PreOrderProductOptionQuantity;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -187,6 +189,7 @@ class OrderTest extends TestCase
     {
         $user = $this->signIn();
         $order = Order::factory()->create(['user_id' => $user->id]);
+        Payment::factory()->create(['order_id' => $order->id]);
 
         $this->get(route('user.orders.show', $order))
             ->assertSee('Annuler ma commande');
@@ -197,6 +200,7 @@ class OrderTest extends TestCase
     {
         $user = $this->signIn();
         $order = Order::factory()->create(['user_id' => $user->id]);
+        Payment::factory()->create(['order_id' => $order->id]);
 
         $this->travelTo(now()->addMinutes(16));
 
@@ -317,12 +321,35 @@ class OrderTest extends TestCase
         Notification::assertSentTo(User::administrators(), ProductOutOfStockNotification::class);
     }
 
-    private function addAProductToCart(bool $preorder = false): void
+    /** @test */
+    public function when_a_user_order_with_coupon_a_new_entry_in_database_is_processed()
+    {
+        $this->signIn();
+        $this->addAProductToCart(false, 5000);
+        $this->setSessionAddress();
+        $this->setSessionCoupon();
+
+        $this->assertDatabaseCount('coupon_order', 0);
+
+        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
+        $createOrderRepository->save('client-secret');
+
+        $this->assertDatabaseCount('coupon_order', 1);
+    }
+
+
+    private function addAProductToCart(bool $preorder = false, ?int $price = null): void
     {
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
         $productOption = ProductOption::factory()->create(['product_id' => $product->id]);
+
+        if (!is_null($price)) {
+            $productOption->update(['price' => $price]);
+        }
+
+
         if ($preorder) {
             $preOrderOption = $productOption->preOrderStock()->create(['quantity' => 10]);
 
@@ -350,6 +377,13 @@ class OrderTest extends TestCase
             'phone' => '0615141213',
             'email' => 'email@email.com',
         ])
+            ->assertSuccessful();
+    }
+
+    private function setSessionCoupon(): void
+    {
+        $coupon = Coupon::factory()->create(['amount' => 10]);
+        $this->followingRedirects()->post(route('api.cart.coupons.add', ['coupon' => $coupon->code]))
             ->assertSuccessful();
     }
 

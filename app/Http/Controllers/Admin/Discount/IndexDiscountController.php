@@ -11,7 +11,7 @@ class IndexDiscountController extends Controller
     public function __invoke(): View
     {
         return view('admin.discount.index', [
-            'coupons' => Coupon::paginate(),
+            'coupons' => Coupon::with('orders')->paginate(),
         ]);
     }
 }

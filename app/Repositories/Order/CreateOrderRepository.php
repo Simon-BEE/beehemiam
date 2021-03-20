@@ -32,7 +32,7 @@ class CreateOrderRepository
             'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
 
-        event(new NewOrderReceivedEvent($order, $paymentIntentId));
+        event(new NewOrderReceivedEvent($order, $paymentIntentId, get_client_billing_address(), session('coupon')));
 
         $this->cleanCacheAndSessions();
 
@@ -64,6 +64,8 @@ class CreateOrderRepository
         Cart::instance('preorder')->destroy();
 
         clean_session_addresses();
+
+        clean_session_coupon();
 
         (new CartRepository)->resetFormattedCache();
     }

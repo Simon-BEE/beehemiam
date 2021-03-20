@@ -25,8 +25,7 @@ class InvoiceFactory extends Factory
             'order_id' => \App\Models\Order::factory(),
             'address_id' => \App\Models\Address::factory(),
             'reference' => $this->faker->word,
-            'full_path' => $this->faker->text,
-            'content' => $this->faker->text,
+            'filename' => $this->faker->word . mt_rand(100, 9999),
         ];
     }
 }

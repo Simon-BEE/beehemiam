@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.32.1.
+ * Generated for Laravel 8.33.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1244,6 +1244,7 @@
          * @param \Closure|string $concrete
          * @return mixed 
          * @throws \Illuminate\Contracts\Container\BindingResolutionException
+         * @throws \Illuminate\Contracts\Container\CircularDependencyException
          * @static 
          */ 
         public static function build($concrete)
@@ -1886,6 +1887,7 @@
          * @param string $password
          * @param string $attribute
          * @return bool|null 
+         * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */ 
         public static function logoutOtherDevices($password, $attribute = 'password')
@@ -4527,6 +4529,17 @@
                         $instance->recordsHaveBeenModified($value);
         }
                     /**
+         * Reset the record modification state.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function forgetRecordModificationState()
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        $instance->forgetRecordModificationState();
+        }
+                    /**
          * Is Doctrine available?
          *
          * @return bool 
@@ -7077,7 +7090,7 @@
          * Get a mailer instance by name.
          *
          * @param string|null $name
-         * @return \Illuminate\Mail\Mailer 
+         * @return \Illuminate\Contracts\Mail\Mailer 
          * @static 
          */ 
         public static function mailer($name = null)
@@ -14797,7 +14810,7 @@
                     /**
          * Get the content of the cart.
          *
-         * @return \Gloudemans\Shoppingcart\Collection 
+         * @return \Illuminate\Support\Collection 
          * @static 
          */ 
         public static function content()
@@ -14862,7 +14875,7 @@
          * Search the cart content for a cart item matching the given search closure.
          *
          * @param \Closure $search
-         * @return \Gloudemans\Shoppingcart\Collection 
+         * @return \Illuminate\Support\Collection 
          * @static 
          */ 
         public static function search($search)
@@ -14925,6 +14938,174 @@
      
 }
 
+    namespace Barryvdh\DomPDF { 
+            /**
+     * 
+     *
+     */ 
+        class Facade {
+                    /**
+         * Get the DomPDF instance
+         *
+         * @return \Dompdf\Dompdf 
+         * @static 
+         */ 
+        public static function getDomPDF()
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->getDomPDF();
+        }
+                    /**
+         * Set the paper size (default A4)
+         *
+         * @param string $paper
+         * @param string $orientation
+         * @return \Barryvdh\DomPDF\PDF 
+         * @static 
+         */ 
+        public static function setPaper($paper, $orientation = 'portrait')
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->setPaper($paper, $orientation);
+        }
+                    /**
+         * Show or hide warnings
+         *
+         * @param bool $warnings
+         * @return \Barryvdh\DomPDF\PDF 
+         * @static 
+         */ 
+        public static function setWarnings($warnings)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->setWarnings($warnings);
+        }
+                    /**
+         * Load a HTML string
+         *
+         * @param string $string
+         * @param string $encoding Not used yet
+         * @return static 
+         * @static 
+         */ 
+        public static function loadHTML($string, $encoding = null)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->loadHTML($string, $encoding);
+        }
+                    /**
+         * Load a HTML file
+         *
+         * @param string $file
+         * @return static 
+         * @static 
+         */ 
+        public static function loadFile($file)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->loadFile($file);
+        }
+                    /**
+         * Add metadata info
+         *
+         * @param array $info
+         * @return static 
+         * @static 
+         */ 
+        public static function addInfo($info)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->addInfo($info);
+        }
+                    /**
+         * Load a View and convert to HTML
+         *
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @param string $encoding Not used yet
+         * @return static 
+         * @static 
+         */ 
+        public static function loadView($view, $data = [], $mergeData = [], $encoding = null)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->loadView($view, $data, $mergeData, $encoding);
+        }
+                    /**
+         * Set/Change an option in DomPdf
+         *
+         * @param array $options
+         * @return static 
+         * @static 
+         */ 
+        public static function setOptions($options)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->setOptions($options);
+        }
+                    /**
+         * Output the PDF as a string.
+         *
+         * @return string The rendered PDF as string
+         * @static 
+         */ 
+        public static function output()
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->output();
+        }
+                    /**
+         * Save the PDF to a file
+         *
+         * @param $filename
+         * @return static 
+         * @static 
+         */ 
+        public static function save($filename)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->save($filename);
+        }
+                    /**
+         * Make the PDF downloadable by the user
+         *
+         * @param string $filename
+         * @return \Illuminate\Http\Response 
+         * @static 
+         */ 
+        public static function download($filename = 'document.pdf')
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->download($filename);
+        }
+                    /**
+         * Return a response with the PDF to show in the browser
+         *
+         * @param string $filename
+         * @return \Illuminate\Http\Response 
+         * @static 
+         */ 
+        public static function stream($filename = 'document.pdf')
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->stream($filename);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setEncryption($password)
+        {
+                        /** @var \Barryvdh\DomPDF\PDF $instance */
+                        return $instance->setEncryption($password);
+        }
+         
+    }
+     
+}
+
     namespace Barryvdh\Debugbar { 
             /**
      * 
@@ -14974,7 +15155,7 @@
                     /**
          * Adds a data collector
          *
-         * @param \Barryvdh\Debugbar\DataCollectorInterface $collector
+         * @param \DebugBar\DataCollector\DataCollectorInterface $collector
          * @throws DebugBarException
          * @return \Barryvdh\Debugbar\LaravelDebugbar 
          * @static 
@@ -15183,7 +15364,7 @@
          * Returns a data collector
          *
          * @param string $name
-         * @return \DebugBar\DataCollectorInterface 
+         * @return \DebugBar\DataCollector\DataCollectorInterface 
          * @throws DebugBarException
          * @static 
          */ 
@@ -15959,6 +16140,140 @@
         {
                         /** @var \Livewire\LivewireManager $instance */
                         return $instance->withQueryParams($queryParams);
+        }
+         
+    }
+     
+}
+
+    namespace Vinkla\Hashids\Facades { 
+            /**
+     * 
+     *
+     * @method static string encode(mixed ...$numbers)
+     * @method static array decode(string $hash)
+     * @method static string encodeHex(string $str)
+     * @method static string decodeHex(string $hash)
+     */ 
+        class Hashids {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getFactory()
+        {
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->getFactory();
+        }
+                    /**
+         * Get a connection instance.
+         *
+         * @param string|null $name
+         * @throws \InvalidArgumentException
+         * @return object 
+         * @static 
+         */ 
+        public static function connection($name = null)
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->connection($name);
+        }
+                    /**
+         * Reconnect to the given connection.
+         *
+         * @param string|null $name
+         * @throws \InvalidArgumentException
+         * @return object 
+         * @static 
+         */ 
+        public static function reconnect($name = null)
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->reconnect($name);
+        }
+                    /**
+         * Disconnect from the given connection.
+         *
+         * @param string|null $name
+         * @return void 
+         * @static 
+         */ 
+        public static function disconnect($name = null)
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        $instance->disconnect($name);
+        }
+                    /**
+         * Get the configuration for a connection.
+         *
+         * @param string|null $name
+         * @throws \InvalidArgumentException
+         * @return array 
+         * @static 
+         */ 
+        public static function getConnectionConfig($name = null)
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->getConnectionConfig($name);
+        }
+                    /**
+         * Get the default connection name.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDefaultConnection()
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->getDefaultConnection();
+        }
+                    /**
+         * Set the default connection name.
+         *
+         * @param string $name
+         * @return void 
+         * @static 
+         */ 
+        public static function setDefaultConnection($name)
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        $instance->setDefaultConnection($name);
+        }
+                    /**
+         * Register an extension connection resolver.
+         *
+         * @param string $name
+         * @param callable $resolver
+         * @return void 
+         * @static 
+         */ 
+        public static function extend($name, $resolver)
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        $instance->extend($name, $resolver);
+        }
+                    /**
+         * Return all of the created connections.
+         *
+         * @return \GrahamCampbell\Manager\array<string,object> 
+         * @static 
+         */ 
+        public static function getConnections()
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->getConnections();
+        }
+                    /**
+         * Get the config instance.
+         *
+         * @return \Illuminate\Contracts\Config\Repository 
+         * @static 
+         */ 
+        public static function getConfig()
+        {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
+                        /** @var \Vinkla\Hashids\HashidsManager $instance */
+                        return $instance->getConfig();
         }
          
     }
@@ -19321,9 +19636,11 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Cart extends \Gloudemans\Shoppingcart\Facades\Cart {}
+            class PDF extends \Barryvdh\DomPDF\Facade {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Livewire extends \Livewire\Livewire {}
+            class Hashids extends \Vinkla\Hashids\Facades\Hashids {}
      
 }
 

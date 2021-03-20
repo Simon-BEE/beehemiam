@@ -93,7 +93,7 @@ class ProductOption extends Model
             return null;
         }
 
-        return $this->preOrderStock?->created_at->addWeeks(config('beehemiam.preorder.release_date_weeks'));
+        return $this->preOrderStock?->created_at->addWeeks(config('beehemiam.preorders.release_date_weeks'));
     }
 
     public function getThumbnailsAttribute(): Collection

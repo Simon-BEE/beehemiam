@@ -9,10 +9,12 @@ use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
+use App\Http\Controllers\Shop\Order\GuestOrderController;
 use App\Http\Controllers\Shop\Order\IndexOrderController;
 use App\Http\Controllers\WelcomeController;
 use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Order;
+use App\Services\InvoiceGeneratorService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +30,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
     $order = Order::first();
-    return new OrderSummaryMail($order, $order->orderItems, $order->address);
-    dd(redirect()->intended(), session('url.intended'));
+    return view('pdf.invoice', ['order' => $order, 'address' => $order->invoice->address, 'reference' => $order->invoice->reference]);
+    $pdf = new InvoiceGeneratorService($order, $order->invoice->address);
+    // $pdf->generate()->save();
+    return $pdf->generate()->stream();
+});
+
+Route::group(['as' => 'guest.'], function () {
+    Route::get('commandes/{hashedOrderId}', [GuestOrderController::class, 'show'])->name('orders.show');
+    Route::get('commandes/{hashedOrderId}/facture', [GuestOrderController::class, 'invoice'])->name('orders.invoice');
 });
 
 /**

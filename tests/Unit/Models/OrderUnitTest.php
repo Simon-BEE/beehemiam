@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Services\SaltEncryptorService;
 use Tests\TestCase;
 
 class OrderUnitTest extends TestCase
@@ -34,6 +35,7 @@ class OrderUnitTest extends TestCase
         $this->assertNotNull($order->price_without_taxes);
         $this->assertEquals($order->price - ($order->price * ($order->tax / 100)), $order->price_without_taxes);
     }
+
     /** @test */
     public function an_order_has_a_property_formatted_price_without_taxes()
     {
@@ -44,7 +46,28 @@ class OrderUnitTest extends TestCase
     }
 
     /** @test */
-    public function an_order_has_a_property_path()
+    public function an_order_has_a_property_formatted_total_taxes()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->formatted_total_taxes);
+        $this->assertEquals(number_format($order->formatted_price * ($order->tax / 100), 2), $order->formatted_total_taxes);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_path_who_returns_route_guest_order_with_encrypted_id_for_a_guest_order()
+    {
+        $order = Order::factory()->create([
+            'user_id' => null,
+        ]);
+
+        $this->assertNotNull($order->path);
+        $this->assertNotNull($order->hashed_id);
+        $this->assertEquals(route('guest.orders.show', $order->hashed_id), url('/') . '/commandes/' . $order->hashed_id);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_path_who_returns_order_user_route_for_a_user_order()
     {
         $order = Order::factory()->create();
 
@@ -85,6 +108,32 @@ class OrderUnitTest extends TestCase
         $order->update(['order_status_id' => OrderStatus::CANCELLED]);
 
         $this->assertTrue($order->refresh()->is_cancelled);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_is_completed()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->is_completed);
+        $this->assertFalse($order->is_completed);
+
+        $order->update(['order_status_id' => OrderStatus::COMPLETED]);
+
+        $this->assertTrue($order->refresh()->is_completed);
+    }
+
+    /** @test */
+    public function an_order_has_a_property_is_shipped()
+    {
+        $order = Order::factory()->create();
+
+        $this->assertNotNull($order->is_shipped);
+        $this->assertFalse($order->is_shipped);
+
+        $order->update(['order_status_id' => OrderStatus::SHIPPING]);
+
+        $this->assertTrue($order->refresh()->is_shipped);
     }
 
     /** @test */

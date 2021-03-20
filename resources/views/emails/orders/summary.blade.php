@@ -5,42 +5,56 @@
 
     <p style="font-size: 16px; font-weight: bold; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Nous avons le plaisir de vous informer que votre commande sur <strong>Beehemiam.fr</strong> a bien été reçue.</p>
 
-    <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Cette commande <strong>n°{{ $order->id }}</strong> d'un montant de <strong>{{ $order->formatted_price }}€</strong> est en {{ $verboseStatus }}. Vous recevrez un nouvel email dès lors que celle-ci sera expédiée.</p>
+    <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Cette commande <strong>n°{{ $order->id }}</strong> d'un montant de <strong>{{ $order->formatted_price }}€</strong> est {{ $verboseStatus }}. Vous recevrez un nouvel email dès lors que celle-ci sera expédiée.</p>
 
     <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Voici un récapitulatif de votre commande :</p>
 
     {{-- ORDER ITEMS --}}
-    <table width="100%" style="background-color: #F4F4F7;padding.5em;margin-bottom:1.5em;">
-        <thead>
-            <tr>
-              <th scope="col" style="padding-top:.5em;">Nom du produit</th>
-              <th scope="col" style="padding-top:.5em;">Quantité</th>
-              <th scope="col" style="padding-top:.5em;">Sous Total TTC</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($orderItems as $item)
-                <tr>
-                    <td style="padding-top:.5em;text-align:center" data-label="Nom">{{ $item->name }}</td>
-                    <td style="padding-top:.5em;text-align:center" data-label="Quantité">{{ $item->quantity }}</td>
-                    <td style="padding-top:.5em;text-align:center" data-label="Prix">{{ $item->formatted_price }}€</td>
-                </tr>
-            @endforeach
-            <tr>
-                <td colspan="3" style="padding:.5em"></td>
-            </tr>
-            <tr>
-                <td colspan="3" style="padding:.5em;border-top:1px solid #ccc"></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">Frais de port TTC</td>
-                <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">{{ $order->shipping_fees / 100 }}€</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">Total payé TTC</td>
-                <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">{{ $order->formatted_price }}€</td>
-            </tr>
-          </tbody>
+    <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 0 21px;">
+        <tr>
+            <td class="attributes_content" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; background-color: #F4F4F7; padding: 16px;" bgcolor="#F4F4F7">
+                <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                    <thead>
+                        <tr>
+                          <th scope="col" style="padding-top:.5em;">Nom du produit</th>
+                          <th scope="col" style="padding-top:.5em;">Quantité</th>
+                          <th scope="col" style="padding-top:.5em;">Sous Total TTC</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($orderItems as $item)
+                            <tr>
+                                <td style="padding-top:.5em;text-align:center" data-label="Nom">{{ $item->name }}</td>
+                                <td style="padding-top:.5em;text-align:center" data-label="Quantité">{{ $item->quantity }}</td>
+                                <td style="padding-top:.5em;text-align:center" data-label="Prix">{{ $item->formatted_price }}€</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="3" style="padding:.5em"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding:.5em;border-top:1px solid #ccc"></td>
+                        </tr>
+                        @if ($order->coupons->isNotEmpty())
+                            @foreach ($order->coupons as $coupon)
+                                <tr>
+                                    <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">({{ $coupon->code }})</td>
+                                    <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">-{{ $coupon->amount }}€</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        <tr>
+                            <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">Frais de port TTC</td>
+                            <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">{{ $order->shipping_fees / 100 }}€</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="font-weight:bold;padding:.2em .5em;text-align:right">Total payé TTC</td>
+                            <td colspan="1" style="font-weight:bold;padding:.2em .5em;text-align:center">{{ $order->formatted_price }}€</td>
+                        </tr>
+                      </tbody>
+                </table>
+            </td>
+        </tr>
     </table>
 
     <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">La commande sera livrée à l'adresse suivante : </p>

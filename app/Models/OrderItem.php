@@ -41,6 +41,21 @@ class OrderItem extends Model
         return $this->price / 100;
     }
 
+    public function getPriceWithoutTaxesAttribute(): float
+    {
+        return $this->price - ($this->price * ($this->tax / 100));
+    }
+
+    public function getFormattedPriceWithoutTaxesAttribute(): string
+    {
+        return number_format($this->price_without_taxes / 100, 2);
+    }
+
+    public function getFormattedTotalPriceAttribute(): string
+    {
+        return number_format($this->formatted_price_without_taxes * $this->quantity, 2);
+    }
+
     /**
      * ? SCOPES
      */

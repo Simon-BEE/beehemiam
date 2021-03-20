@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "barryvdh/laravel-dompdf": "^0.9.0",
         "enlightn/enlightn": "^1.15",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -21,7 +22,8 @@
         "olimortimer/laravelshoppingcart": "^5.0",
         "spatie/laravel-backup": "^7.3",
         "spatie/laravel-personal-data-export": "^2.0",
-        "stripe/stripe-php": "^7.75"
+        "stripe/stripe-php": "^7.75",
+        "vinkla/hashids": "^9.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

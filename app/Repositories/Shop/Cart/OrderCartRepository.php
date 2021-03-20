@@ -38,6 +38,8 @@ class OrderCartRepository extends CartRepository
         }
 
         Cart::instance('order')->update(get_cart_row_id($productOptionSize), $quantity);
+
+        $this->checkCouponSession();
     }
 
     public function remove(ProductOptionSize $productOptionSize): void
@@ -45,6 +47,8 @@ class OrderCartRepository extends CartRepository
         $this->resetFormattedCache();
 
         Cart::instance('order')->remove(get_cart_row_id($productOptionSize));
+
+        $this->checkCouponSession();
 
         if (cart_is_empty('order')) {
             Cart::instance('order')->destroy();

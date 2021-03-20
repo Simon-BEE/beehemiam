@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Beehemiam &mdash; Facture n°4569644</title>
+    <title>Beehemiam &mdash; @yield('meta-title')</title>
     <style>
         * {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        @page {
+            margin: .1cm 1cm;
         }
 
         html, body {
             height: 100%;
+            width: 100%;
         }
 
         main {
             min-height: 100%;
+            width: 100%;
         }
 
         .clearfix:after {
@@ -30,9 +36,8 @@
 
         body {
             position: relative;
-            width: 21cm;
+            width: 19cm;
             height: 29.7cm;
-            margin: 0 auto;
             color: #555555;
             background: #FFFFFF;
             font-family: Arial, sans-serif;
@@ -56,7 +61,7 @@
         }
 
         #company {
-            float: right;
+            /* float: right; */
             text-align: right;
         }
 
@@ -86,36 +91,56 @@
         }
 
         #invoice {
-            float: right;
+            /* float: right; */
             text-align: right;
         }
 
         #invoice h1 {
             color: #757459;
-            font-size: 2.4em;
+            font-size: 2em;
             line-height: 1em;
             font-weight: normal;
             margin: 0 0 5px 0;
         }
 
         #invoice .date {
-            font-size: 1.1em;
-            color: #777777;
+            font-size: .975em;
+            color: #777;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
-            margin-bottom: 20px;
         }
 
         table th,
         table td {
-            padding: 20px;
+            padding: 15px;
             background: #EEEEEE;
             text-align: center;
             border-bottom: 1px solid #FFFFFF;
+        }
+
+        table.info th,
+        table.info td {
+            background: #fff;
+            padding: 10px;
+        }
+
+        table.info td {
+            text-align: right;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        table.info td.total_amount {
+            background-color: #EEE;
+        }
+
+        table.info td.without_border {
+            border: none;
         }
 
         table th {
@@ -210,12 +235,14 @@
         }
 
         footer {
+            position: absolute;
+            bottom: 0;
             color: #777777;
             width: 100%;
             height: 100px;
             margin-top: auto;
             border-top: 1px solid #DDD;
-            padding: 8px 0;
+            padding-top: 8px;
             text-align: center;
         }
 
@@ -239,68 +266,9 @@
         </div>
         </div>
     </header>
-    <main>
-        <div id="details" class="clearfix">
-            <div id="client">
-                <div class="to">Facture émise à</div>
-                <h2 class="name">John Doe</h2>
-                <div class="address">796 Silver Harbour, TX 79273, US</div>
-                <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
-            </div>
-            <div id="invoice">
-                <h1>Facture n°4569644</h1>
-                <div class="date">créée le 12/12/2021</div>
-            </div>
-        </div>
-        <table border="0" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                    <th class="qty">Quantité</th>
-                    <th class="desc">Description</th>
-                    <th class="unit">Prix Unitaire</th>
-                    <th class="total">Prix Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="qty">1</td>
-                    <td class="desc">
-                        <h3>Robe Terracota</h3>
-                        Taille S
-                    </td>
-                    <td class="unit">32.00€</td>
-                    <td class="total">32.00€</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1">Sous-total HT</td>
-                    <td>26.00€</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1">Frais de port HT</td>
-                    <td>3.50€</td>
-                </tr>
-                <tr class="taxes">
-                    <td colspan="2"></td>
-                    <td colspan="1">TVA</td>
-                    <td>7.50€</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1">Montant total TTC</td>
-                    <td>36.95€</td>
-                </tr>
-            </tfoot>
-        </table>
 
-        <div id="notices">
-            <h2>Informations complémentaires:</h2>
-            <p class="notice">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti eaque suscipit architecto? Officia delectus similique consequuntur fugiat! Exercitationem ratione sit tempore, autem veritatis reiciendis iusto perspiciatis modi dicta incidunt molestiae doloremque deserunt quidem ipsum neque, officiis praesentium tempora dolores. Consequatur, laborum. Consectetur itaque ut et quia, ducimus ipsa expedita fugiat!</p>
-        </div>
-    </main>
+    @yield('content')
+
     <footer>
         <p><strong>Beehemiam</strong> &mdash; <strong>Adresse email</strong> contact@beehememiam.fr &mdash; <strong>Téléphone</strong> 0611984533</p>
         <p><strong>Siret</strong> 456987456 &mdash; <strong>TVA</strong> 145639</p>

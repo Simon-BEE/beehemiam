@@ -8,9 +8,9 @@
 
             <form class="flex items-center" @submit.prevent="submitCoupon">
                 <div class="w-full mb-2">
-                    <input 
-                        type="text" name="discount" id="discount" 
-                        placeholder="Code promo" required="required" 
+                    <input
+                        type="text" name="discount" id="discount"
+                        placeholder="Code promo" required="required"
                         class="w-full mt-2 px-4 py-2 block rounded text-kaki-900 border border-transparent focus:bg-white focus:outline-none focus:border-transparent focus:ring-2 focus:ring-primary-500 bg-primary-100"
                         v-model="discountCodeInput"
                     >
@@ -99,7 +99,7 @@ export default {
             this.calculateCartTotalAmount();
         },
     },
-    
+
     mounted() {
         this.calculateCartTotalAmount();
 
@@ -112,6 +112,13 @@ export default {
         calculateCartTotalAmount() {
             this.total = this.subTotal + this.shippingFees - this.discount;
 
+            if (this.total <= 10) {
+                this.discount = 0;
+                this.discountCode = null;
+
+                this.calculateCartTotalAmount();
+            }
+
             this.taxesFees = this.total * this.taxes;
 
             this.shippingFeesWithoutTaxes = this.shippingFees - (this.shippingFees * this.taxes);
@@ -122,8 +129,8 @@ export default {
             this.errorCoupon = null;
             this.successCoupon = null;
 
-            axios.post('/cart/coupons/add/', 
-                {coupon: this.discountCodeInput}, 
+            axios.post('/cart/coupons/add',
+                {coupon: this.discountCodeInput},
                 {
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
@@ -136,6 +143,7 @@ export default {
                 }, 5000);
 
                 this.discount = response.data.amount;
+                this.discountCode = this.discountCodeInput;
 
                 this.calculateCartTotalAmount();
 

@@ -31,7 +31,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
     public function toMail(User $notifiable): MailMessage
     {
         $userType = $this->order->user ? 'l\'utilisateur' : 'un invité';
-        $emaiLAddress = get_client_email();
+        $emaiLAddress = $this->order->email_contact;
         $preOrderMessage = $this->order->has_preorder
             ? "La commande contient un ou plusieurs articles en précommande."
             : "La commande ne contient aucun article en précommande.";

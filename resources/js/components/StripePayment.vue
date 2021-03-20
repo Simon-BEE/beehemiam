@@ -12,16 +12,16 @@
         </button>
 
         <transition name="collapse">
-            <article class="card-payment w-full p-4 rounded mt-2 relative" v-show="isOpen">
+            <article class="card-payment w-full p-1  md:p-4 rounded mt-2 relative" v-show="isOpen">
                 <button class="absolute top-1 right-1 text-xl font-bold focus:outline-none" @click="collapse">
                     &times;
                 </button>
 
-                <form id="payment-form" class="py-8 pr-4 pl-8 border-l-2 border-kaki-800 flex flex-col">
+                <form id="payment-form" class="py-8 px-1 md:px-4 flex flex-col">
                     <h3 class="text-2xl font-bold mb-8">Paiement par carte bancaire</h3>
                     <p class="mb-4 text-left">Veuillez indiquer vos informations bancaire ci-dessous.</p>
 
-                    <div class="p-4 rounded bg-primary-100 mb-4">
+                    <div class="py-4 px-1 rounded bg-primary-100 mb-4">
                         <div id="card-element"><!--Stripe.js injects the Card Element--></div>
                     </div>
 
@@ -166,7 +166,7 @@ export default {
                 }
             };
 
-            var card = elements.create("card", { style: style });
+            var card = elements.create("card", { style: style, hidePostalCode: true });
 
             card.mount("#card-element");
 

@@ -67,4 +67,8 @@ return [
         ],
     ],
 
+    'salt-encryptor' => [
+        'key' => env('SALT_ENCRYPTION_KEY'),
+    ]
+
 ];

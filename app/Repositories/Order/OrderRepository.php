@@ -15,10 +15,21 @@ class OrderRepository
         ]);
 
         event(new NewOrderCancelledEvent($order));
+    }
 
-        // todo adjust quantity
+    public function updateStatus(Order $order, int $statusId): void
+    {
+        $acceptedStatus = OrderStatus::orderChange()->get();
 
-        // todo notify user and admin
+        if (!$acceptedStatus->contains('id', $statusId)) {
+            throw new \Exception("Impossible de modifier le statut de la commande.", 1);
+        }
+
+        $order->update([
+            'order_status_id' => $statusId,
+        ]);
+
+        // todo event (notify user, ...)
     }
 
     public function cancelTest(Order $order): void

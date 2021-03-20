@@ -42,6 +42,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'invoices' => [
+            'driver' => 'local',
+            'root' => storage_path('app/invoices'),
+        ],
+
         'personal-data-exports' => [
             'driver' => 'local',
             'root' => storage_path('app/personal-data-exports'),

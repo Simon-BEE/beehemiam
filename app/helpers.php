@@ -113,3 +113,10 @@ if (!function_exists('clean_session_addresses')) {
         session()->forget(['billing_address', 'shipping_address']);
     }
 }
+
+if (!function_exists('clean_session_coupon')) {
+    function clean_session_coupon(): void
+    {
+        session()->forget('coupon');
+    }
+}

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Vinkla\Hashids\Facades\Hashids;
 
 /**
  * ! Price include all taxes with shipping fees
@@ -53,14 +54,38 @@ class Order extends Model
         return $this->price - ($this->price * ($this->tax / 100));
     }
 
+    public function getShippingFeesWithoutTaxesAttribute(): string
+    {
+        return number_format(($this->shipping_fees - ($this->shipping_fees * ($this->tax / 100))) / 100, 2);
+    }
+
+    public function getShippingFeesTaxesAttribute(): float
+    {
+        return $this->shipping_fees * ($this->tax / 100);
+    }
+
     public function getFormattedPriceWithoutTaxesAttribute(): string
     {
         return number_format($this->price_without_taxes / 100, 2);
     }
 
+    public function getFormattedTotalTaxesAttribute(): string
+    {
+        return number_format(($this->price / 100) * ($this->tax / 100), 2);
+    }
+
     public function getPathAttribute(): string
     {
-        return route('user.orders.show', $this);
+        if ($this->user) {
+            return route('user.orders.show', $this);
+        }
+
+        return route('guest.orders.show', $this->hashed_id);
+    }
+
+    public function getHashedIdAttribute(): string
+    {
+        return Hashids::encode($this->id);
     }
 
     public function getVerboseStatusAttribute(): string
@@ -91,9 +116,9 @@ class Order extends Model
                 OrderStatus::CANCELLED => false,
                 OrderStatus::COMPLETED => false,
                 OrderStatus::FAILED => false,
+                OrderStatus::REFUNDED => false,
                 OrderStatus::SHIPPING => true,
                 OrderStatus::MANUFACTURE => true,
-                OrderStatus::REFUNDED => false,
                 OrderStatus::PREPARATION => true,
                 OrderStatus::PROCESS => true,
             default => false,
@@ -108,6 +133,16 @@ class Order extends Model
     public function getIsCancelledAttribute(): bool
     {
         return $this->status->id === OrderStatus::CANCELLED;
+    }
+
+    public function getIsCompletedAttribute(): bool
+    {
+        return $this->status->id === OrderStatus::COMPLETED;
+    }
+
+    public function getIsShippedAttribute(): bool
+    {
+        return $this->status->id === OrderStatus::SHIPPING;
     }
 
     public function getEmailContactAttribute(): string

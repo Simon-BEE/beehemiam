@@ -24,6 +24,8 @@ class CartRepository
             return array_values($productOptionSizes->merge($productOptionPreOrders)->toArray());
         });
 
+        $this->checkCouponSession();
+
         /** @var array $productsFromCart */
         return $productsFromCart;
     }
@@ -31,6 +33,15 @@ class CartRepository
     public function resetFormattedCache(): void
     {
         Cache::forget('beehemiamFormattedCart');
+    }
+
+    protected function checkCouponSession(): void
+    {
+        if (session('coupon')
+            && (get_cart_subtotal(true) - session('coupon')->get('coupon')->amount) < config('beehemiam.orders.minimum_price')
+        ) {
+            session()->forget('coupon');
+        }
     }
 
     /**

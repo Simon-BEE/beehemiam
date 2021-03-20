@@ -47,6 +47,8 @@ class PreOrderCartRepository extends CartRepository
 
         Cart::instance('preorder')
             ->update(get_cart_row_id($productOption, 'preorder', $size->id), $quantity);
+
+        $this->checkCouponSession();
     }
 
     public function remove(ProductOption $productOption, Size $size): void
@@ -55,6 +57,8 @@ class PreOrderCartRepository extends CartRepository
 
         Cart::instance('preorder')
             ->remove(get_cart_row_id($productOption, 'preorder', $size->id));
+
+        $this->checkCouponSession();
 
         if (cart_is_empty('preorder')) {
             Cart::instance('preorder')->destroy();

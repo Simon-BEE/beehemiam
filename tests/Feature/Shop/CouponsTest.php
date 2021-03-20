@@ -26,7 +26,7 @@ class CouponsTest extends TestCase
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
-        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 30]);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 100]);
         $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
 
         $this->post(route('api.cart.add.sizes', $productOptionSize))
@@ -47,7 +47,7 @@ class CouponsTest extends TestCase
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
-        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 30]);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 100]);
         $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
 
         $this->post(route('api.cart.add.sizes', $productOptionSize))
@@ -66,7 +66,7 @@ class CouponsTest extends TestCase
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
-        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 30]);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 100]);
         $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
 
         $this->post(route('api.cart.add.sizes', $productOptionSize))
@@ -92,7 +92,7 @@ class CouponsTest extends TestCase
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
-        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 30]);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 100]);
         $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
 
         $this->post(route('api.cart.add.sizes', $productOptionSize))
@@ -116,7 +116,7 @@ class CouponsTest extends TestCase
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);
-        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 10]);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 20]);
         $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
 
         $this->post(route('api.cart.add.sizes', $productOptionSize))
@@ -128,5 +128,33 @@ class CouponsTest extends TestCase
 
         $this->assertNull(Session::get('coupon'));
     }
-    
+
+    /** @test */
+    public function if_coupon_was_valid_but_cart_is_updated_and_no_more_eligible_so_coupon_is_removed()
+    {
+        $this->withoutExceptionHandling();
+        $coupon = Coupon::factory()->create();
+        $category = Category::factory()->create();
+        $product = Product::factory()->create();
+        $category->products()->attach($product->id);
+        $productOption = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 100]);
+        $productOption2 = ProductOption::factory()->create(['product_id' => $product->id, 'price' => 10]);
+        $productOptionSize = $productOption->sizes()->create(['size_id' => 1, 'quantity' => 10]);
+        $productOptionSize2 = $productOption2->sizes()->create(['size_id' => 1, 'quantity' => 10]);
+
+        $this->post(route('api.cart.add.sizes', $productOptionSize))
+            ->assertSuccessful();
+
+        $this->post(route('api.cart.add.sizes', $productOptionSize2))
+            ->assertSuccessful();
+
+        $this->post(route('api.cart.coupons.add'), ['coupon' => $coupon->code])
+            ->assertSuccessful();
+
+        $this->delete(route('api.cart.delete.sizes', $productOptionSize))
+            ->assertSuccessful();
+
+        $this->assertNull(Session::get('coupon'));
+    }
+
 }

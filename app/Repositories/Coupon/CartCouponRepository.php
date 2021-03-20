@@ -23,9 +23,9 @@ class CartCouponRepository
 
         $this->checkIfCouponExists($couponCode);
 
-        $this->checkIfCartAmountIsEnoughToApplyCoupon();
-
         $coupon = $this->coupons->firstWhere('code', $couponCode);
+
+        $this->checkIfCartAmountIsEnoughToApplyCoupon($coupon);
 
         $this->saveInSession($coupon);
 
@@ -52,9 +52,11 @@ class CartCouponRepository
         }
     }
 
-    private function checkIfCartAmountIsEnoughToApplyCoupon(): void
+    private function checkIfCartAmountIsEnoughToApplyCoupon(Coupon $coupon): void
     {
-        if (get_cart_subtotal(true) < config('beehemiam.coupons.minimum_amount')) {
+        if (get_cart_subtotal(true) < config('beehemiam.coupons.minimum_amount')
+            || (get_cart_subtotal(true) - $coupon->amount) < config('beehemiam.orders.minimum_price')
+        ) {
             throw new CouponIsNotEligibleException("Le code promo ne peut pas être appliqué au panier", 1);
         }
     }

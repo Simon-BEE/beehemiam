@@ -112,6 +112,13 @@ export default {
         calculateCartTotalAmount() {
             this.total = this.subTotal + this.shippingFees - this.discount;
 
+            if (this.total <= 10) {
+                this.discount = 0;
+                this.discountCode = null;
+
+                this.calculateCartTotalAmount();
+            }
+
             this.taxesFees = this.total * this.taxes;
 
             this.shippingFeesWithoutTaxes = this.shippingFees - (this.shippingFees * this.taxes);
@@ -122,7 +129,7 @@ export default {
             this.errorCoupon = null;
             this.successCoupon = null;
 
-            axios.post('/cart/coupons/add', 
+            axios.post('/cart/coupons/add',
                 {coupon: this.discountCodeInput},
                 {
                     headers: {
@@ -136,6 +143,7 @@ export default {
                 }, 5000);
 
                 this.discount = response.data.amount;
+                this.discountCode = this.discountCodeInput;
 
                 this.calculateCartTotalAmount();
 

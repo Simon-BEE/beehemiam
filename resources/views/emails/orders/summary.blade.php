@@ -7,6 +7,8 @@
 
     <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Cette commande <strong>n°{{ $order->id }}</strong> d'un montant de <strong>{{ $order->formatted_price }}€</strong> est {{ $verboseStatus }}. Vous recevrez un nouvel email dès lors que celle-ci sera expédiée.</p>
 
+    <p style="font-size: 16px; font-weight: bold; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Vous retrouverez en pièce jointe la facture correspondante (retrouvable également sur le site, sur la page de récapitulatif de la commande).</p>
+
     <p style="font-size: 16px; line-height: 1.625; color: #51545E; margin: .4em 0 1.1875em;">Voici un récapitulatif de votre commande :</p>
 
     {{-- ORDER ITEMS --}}

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1101b751dbd6fc9e2b7695cdb8e7d4aa",
+    "content-hash": "b95e9363acd5e47bde76639480d0bbfc",
     "packages": [
         {
             "name": "asm89/stack-cors",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/asm89/stack-cors.git",
-                "reference": "8d8f88b3b3830916be94292c1fbce84433efb1aa"
+                "reference": "9cb795bf30988e8c96dd3c40623c48a877bc6714"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asm89/stack-cors/zipball/8d8f88b3b3830916be94292c1fbce84433efb1aa",
-                "reference": "8d8f88b3b3830916be94292c1fbce84433efb1aa",
+                "url": "https://api.github.com/repos/asm89/stack-cors/zipball/9cb795bf30988e8c96dd3c40623c48a877bc6714",
+                "reference": "9cb795bf30988e8c96dd3c40623c48a877bc6714",
                 "shasum": ""
             },
             "require": {
@@ -58,9 +58,9 @@
             ],
             "support": {
                 "issues": "https://github.com/asm89/stack-cors/issues",
-                "source": "https://github.com/asm89/stack-cors/tree/v2.0.2"
+                "source": "https://github.com/asm89/stack-cors/tree/v2.0.3"
             },
-            "time": "2020-10-29T16:03:21+00:00"
+            "time": "2021-03-11T06:42:03+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
@@ -995,16 +995,16 @@
         },
         {
             "name": "enlightn/enlightn",
-            "version": "v1.19.0",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/enlightn/enlightn.git",
-                "reference": "c0d1c773af0a4bf6321e108f23eb0b0c153e80c4"
+                "reference": "32c94efdae0dc13ac30e00a67e17f8d4370a4d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/enlightn/enlightn/zipball/c0d1c773af0a4bf6321e108f23eb0b0c153e80c4",
-                "reference": "c0d1c773af0a4bf6321e108f23eb0b0c153e80c4",
+                "url": "https://api.github.com/repos/enlightn/enlightn/zipball/32c94efdae0dc13ac30e00a67e17f8d4370a4d0a",
+                "reference": "32c94efdae0dc13ac30e00a67e17f8d4370a4d0a",
                 "shasum": ""
             },
             "require": {
@@ -1072,9 +1072,9 @@
             "support": {
                 "docs": "https://www.laravel-enlightn.com/docs/",
                 "issues": "https://github.com/enlightn/enlightn/issues",
-                "source": "https://github.com/enlightn/enlightn/tree/v1.19.0"
+                "source": "https://github.com/enlightn/enlightn/tree/v1.20.0"
             },
-            "time": "2021-03-16T08:10:35+00:00"
+            "time": "2021-03-19T14:03:13+00:00"
         },
         {
             "name": "enlightn/security-checker",
@@ -2967,16 +2967,16 @@
         },
         {
             "name": "nunomaduro/larastan",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/larastan.git",
-                "reference": "179d7565674d4e264e60296d1b5b75413b7461b6"
+                "reference": "bbbe09ec16a565e6423878bd17fc4355fa0d0a4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/179d7565674d4e264e60296d1b5b75413b7461b6",
-                "reference": "179d7565674d4e264e60296d1b5b75413b7461b6",
+                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/bbbe09ec16a565e6423878bd17fc4355fa0d0a4c",
+                "reference": "bbbe09ec16a565e6423878bd17fc4355fa0d0a4c",
                 "shasum": ""
             },
             "require": {
@@ -2991,7 +2991,7 @@
                 "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0",
                 "mockery/mockery": "^0.9 || ^1.0",
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^0.12.70",
+                "phpstan/phpstan": "0.12.81",
                 "symfony/process": "^4.3 || ^5.0"
             },
             "require-dev": {
@@ -3040,7 +3040,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/larastan/issues",
-                "source": "https://github.com/nunomaduro/larastan/tree/v0.7.0"
+                "source": "https://github.com/nunomaduro/larastan/tree/v0.7.1"
             },
             "funding": [
                 {
@@ -3060,7 +3060,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-02-01T22:08:11+00:00"
+            "time": "2021-03-19T09:41:48+00:00"
         },
         {
             "name": "olimortimer/laravelshoppingcart",
@@ -3716,16 +3716,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.6",
+            "version": "v0.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "6f990c19f91729de8b31e639d6e204ea59f19cf3"
+                "reference": "a395af46999a12006213c0c8346c9445eb31640c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/6f990c19f91729de8b31e639d6e204ea59f19cf3",
-                "reference": "6f990c19f91729de8b31e639d6e204ea59f19cf3",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/a395af46999a12006213c0c8346c9445eb31640c",
+                "reference": "a395af46999a12006213c0c8346c9445eb31640c",
                 "shasum": ""
             },
             "require": {
@@ -3786,9 +3786,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.10.6"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.10.7"
             },
-            "time": "2021-01-18T15:53:43+00:00"
+            "time": "2021-03-14T02:14:56+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -4275,16 +4275,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "7.3.0",
+            "version": "7.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "eb9e8c79363717df4962223c88996cd709e8585d"
+                "reference": "71f6378fc48940c6a5898df24113dee65ddfee00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/eb9e8c79363717df4962223c88996cd709e8585d",
-                "reference": "eb9e8c79363717df4962223c88996cd709e8585d",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/71f6378fc48940c6a5898df24113dee65ddfee00",
+                "reference": "71f6378fc48940c6a5898df24113dee65ddfee00",
                 "shasum": ""
             },
             "require": {
@@ -4350,7 +4350,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-backup/issues",
-                "source": "https://github.com/spatie/laravel-backup/tree/7.3.0"
+                "source": "https://github.com/spatie/laravel-backup/tree/7.3.1"
             },
             "funding": [
                 {
@@ -4362,20 +4362,20 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-03-04T12:00:21+00:00"
+            "time": "2021-03-12T21:51:59+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.5.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "faabcdf71fb12be35dbd2376d4f10e12ed2551ab"
+                "reference": "a846cc8503ea3a1972650baf25686e6ec43d509f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/faabcdf71fb12be35dbd2376d4f10e12ed2551ab",
-                "reference": "faabcdf71fb12be35dbd2376d4f10e12ed2551ab",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/a846cc8503ea3a1972650baf25686e6ec43d509f",
+                "reference": "a846cc8503ea3a1972650baf25686e6ec43d509f",
                 "shasum": ""
             },
             "require": {
@@ -4414,7 +4414,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.5.0"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.6.1"
             },
             "funding": [
                 {
@@ -4422,20 +4422,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-10T11:35:17+00:00"
+            "time": "2021-03-16T19:49:42+00:00"
         },
         {
             "name": "spatie/laravel-personal-data-export",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-personal-data-export.git",
-                "reference": "124fbb9b39c7291e666eda7e1bae780b5d931543"
+                "reference": "11caaa39a20ac0a715fe4a8b141e1c1a76f0f59d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-personal-data-export/zipball/124fbb9b39c7291e666eda7e1bae780b5d931543",
-                "reference": "124fbb9b39c7291e666eda7e1bae780b5d931543",
+                "url": "https://api.github.com/repos/spatie/laravel-personal-data-export/zipball/11caaa39a20ac0a715fe4a8b141e1c1a76f0f59d",
+                "reference": "11caaa39a20ac0a715fe4a8b141e1c1a76f0f59d",
                 "shasum": ""
             },
             "require": {
@@ -4489,7 +4489,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-personal-data-export/issues",
-                "source": "https://github.com/spatie/laravel-personal-data-export/tree/2.0.0"
+                "source": "https://github.com/spatie/laravel-personal-data-export/tree/2.0.1"
             },
             "funding": [
                 {
@@ -4497,7 +4497,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-12-14T07:31:28+00:00"
+            "time": "2021-03-11T21:38:16+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -4549,6 +4549,67 @@
                 "source": "https://github.com/spatie/temporary-directory/tree/1.3.0"
             },
             "time": "2020-11-09T15:54:21+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v7.75.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "d377a667cd789b99ccab768441a5a2160cc4ea80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/d377a667cd789b99ccab768441a5a2160cc4ea80",
+                "reference": "d377a667cd789b99ccab768441a5a2160cc4ea80",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.17.1",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "^3.3",
+                "symfony/process": "~3.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v7.75.0"
+            },
+            "time": "2021-02-22T14:31:21+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7211,30 +7272,35 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.9.1",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
+                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
-                "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
+                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0 || ^8.0",
+                "php": "^7.2 || ^8.0",
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
                 "phpstan/phpstan": "<0.12.20",
-                "vimeo/psalm": "<3.9.1"
+                "vimeo/psalm": "<4.6.1 || 4.6.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.36 || ^7.5.13"
+                "phpunit/phpunit": "^8.5.13"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Webmozart\\Assert\\": "src/"
@@ -7258,9 +7324,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
+                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
-            "time": "2020-07-08T17:02:28+00:00"
+            "time": "2021-03-09T10:59:23+00:00"
         }
     ],
     "packages-dev": [
@@ -8524,16 +8590,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.10.0",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "6ecda5217bf048088b891f7403b262906be5a957"
+                "reference": "f6e14679f948d8a5cfb866fa7065a30c66bd64d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/6ecda5217bf048088b891f7403b262906be5a957",
-                "reference": "6ecda5217bf048088b891f7403b262906be5a957",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/f6e14679f948d8a5cfb866fa7065a30c66bd64d3",
+                "reference": "f6e14679f948d8a5cfb866fa7065a30c66bd64d3",
                 "shasum": ""
             },
             "require": {
@@ -8583,7 +8649,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.10.0"
+                "source": "https://github.com/filp/whoops/tree/2.11.0"
             },
             "funding": [
                 {
@@ -8591,7 +8657,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-16T12:00:00+00:00"
+            "time": "2021-03-19T12:00:00+00:00"
         },
         {
             "name": "laravel/breeze",
@@ -11139,16 +11205,16 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.15.1",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "4b2a00b3992b068ff760c25c45e389543996e25b"
+                "reference": "c25f2c2cdf3221abce3b1250cb7296721acfd2b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/4b2a00b3992b068ff760c25c45e389543996e25b",
-                "reference": "4b2a00b3992b068ff760c25c45e389543996e25b",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/c25f2c2cdf3221abce3b1250cb7296721acfd2b8",
+                "reference": "c25f2c2cdf3221abce3b1250cb7296721acfd2b8",
                 "shasum": ""
             },
             "require": {
@@ -11203,7 +11269,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.15.1"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.17.1"
             },
             "funding": [
                 {
@@ -11215,7 +11281,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-03-10T11:38:37+00:00"
+            "time": "2021-03-13T12:50:02+00:00"
         },
         {
             "name": "spatie/macroable",
@@ -11538,7 +11604,7 @@
                 "shasum": ""
             },
             "require": {
-                "amphp/amp": "^2.1",
+                "amphp/amp": "^2.4.2",
                 "amphp/byte-stream": "^1.5",
                 "composer/package-versions-deprecated": "^1.8.0",
                 "composer/semver": "^1.4 || ^2.0 || ^3.0",
@@ -11564,7 +11630,6 @@
                 "psalm/psalm": "self.version"
             },
             "require-dev": {
-                "amphp/amp": "^2.4.2",
                 "bamarni/composer-bin-plugin": "^1.2",
                 "brianium/paratest": "^4.0||^6.0",
                 "ext-curl": "*",

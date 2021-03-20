@@ -9,7 +9,11 @@ return [
         'minimum_price' => 10,
     ],
 
-    'preorder' => [
+    'preorders' => [
         'release_date_weeks' => 6,
+    ],
+
+    'invoices' => [
+        'storage_folder' => storage_path('app/invoices') . '/',
     ],
 ];

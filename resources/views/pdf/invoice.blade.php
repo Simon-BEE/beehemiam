@@ -1,7 +1,7 @@
 @extends('layouts.invoice')
 
 @section('meta-title')
-    Facture n°{{ $order->id }} &mdash; {{ $order->created_at->format('d/m/Y') }}
+    Facture n°{{ $reference }} &mdash; {{ $order->created_at->format('d/m/Y') }}
 @endsection
 
 @section('content')
@@ -9,12 +9,12 @@
         <div id="details" class="clearfix">
             <div id="client">
                 <div class="to">Facture émise à</div>
-                <h2 class="name">{{ $order->invoice->address->full_name }}</h2>
-                <div class="address">{{ $order->invoice->address->inline_address }}</div>
-                <div class="email"><a href="mailto:{{ $order->invoice->address->invoice_email }}">{{ $order->invoice->address->invoice_email }}</a></div>
+                <h2 class="name">{{ $address->full_name }}</h2>
+                <div class="address">{{ $address->inline_address }}</div>
+                <div class="email"><a href="mailto:{{ $address->invoice_email }}">{{ $address->invoice_email }}</a></div>
             </div>
             <div id="invoice">
-                <h1>Facture n°{{ $order->id }}</h1>
+                <h1>Facture n°{{ $reference }}</h1>
                 <div class="date">du {{ $order->created_at->format('d/m/Y') }}</div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Events\Order;
 
+use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -17,7 +18,12 @@ class NewOrderReceivedEvent
      *
      * @return void
      */
-    public function __construct(public Order $order, public string $paymentIntentId, public ?Collection $coupon = null)
+    public function __construct(
+        public Order $order,
+        public string $paymentIntentId,
+        public Address $billingAddress,
+        public ?Collection $coupon = null,
+    )
     {
         //
     }

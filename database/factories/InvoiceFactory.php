@@ -26,7 +26,6 @@ class InvoiceFactory extends Factory
             'address_id' => \App\Models\Address::factory(),
             'reference' => $this->faker->word,
             'full_path' => $this->faker->text,
-            'content' => $this->faker->text,
         ];
     }
 }

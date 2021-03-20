@@ -94,7 +94,7 @@ class ProductOptionUnitTest extends TestCase
         ]);
 
         $this->assertEquals(
-            now()->addWeeks(config('beehemiam.preorder.release_date_weeks'))->startOfDay(),
+            now()->addWeeks(config('beehemiam.preorders.release_date_weeks'))->startOfDay(),
             $productOption->fresh()->release_date->startOfDay()
         );
     }

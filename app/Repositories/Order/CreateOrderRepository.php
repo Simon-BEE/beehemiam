@@ -32,9 +32,7 @@ class CreateOrderRepository
             'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
 
-        // todo coupon order
-
-        event(new NewOrderReceivedEvent($order, $paymentIntentId, session('coupon')));
+        event(new NewOrderReceivedEvent($order, $paymentIntentId, get_client_billing_address(), session('coupon')));
 
         $this->cleanCacheAndSessions();
 

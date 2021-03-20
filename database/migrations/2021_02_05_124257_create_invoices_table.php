@@ -25,7 +25,6 @@ class CreateInvoicesTable extends Migration
                 ->nullOnDelete();
             $table->string('reference');
             $table->text('full_path');
-            $table->longText('content');
             $table->timestamps();
         });
     }

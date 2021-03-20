@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Beehemiam &mdash; Facture n°4569644</title>
+    <title>Beehemiam &mdash; Facture n°{{ $order->id }} &mdash; {{ $order->created_at->format('d/m/Y') }}</title>
     <style>
         * {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -11,10 +11,12 @@
 
         html, body {
             height: 100%;
+            width: 100%;
         }
 
         main {
             min-height: 100%;
+            width: 100%;
         }
 
         .clearfix:after {
@@ -30,7 +32,7 @@
 
         body {
             position: relative;
-            width: 21cm;
+            width: 19cm;
             height: 29.7cm;
             margin: 0 auto;
             color: #555555;
@@ -56,7 +58,7 @@
         }
 
         #company {
-            float: right;
+            /* float: right; */
             text-align: right;
         }
 
@@ -86,13 +88,13 @@
         }
 
         #invoice {
-            float: right;
+            /* float: right; */
             text-align: right;
         }
 
         #invoice h1 {
             color: #757459;
-            font-size: 2.4em;
+            font-size: 2em;
             line-height: 1em;
             font-weight: normal;
             margin: 0 0 5px 0;
@@ -243,13 +245,13 @@
         <div id="details" class="clearfix">
             <div id="client">
                 <div class="to">Facture émise à</div>
-                <h2 class="name">John Doe</h2>
-                <div class="address">796 Silver Harbour, TX 79273, US</div>
-                <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+                <h2 class="name">{{ $order->invoice->address->full_name }}</h2>
+                <div class="address">{{ $order->invoice->address->inline_address }}</div>
+                <div class="email"><a href="mailto:{{ $order->invoice->address->invoice_email }}">{{ $order->invoice->address->invoice_email }}</a></div>
             </div>
             <div id="invoice">
-                <h1>Facture n°4569644</h1>
-                <div class="date">créée le 12/12/2021</div>
+                <h1>Facture n°{{ $order->id }}</h1>
+                <div class="date">créée le {{ $order->created_at->format('d/m/Y') }}</div>
             </div>
         </div>
         <table border="0" cellspacing="0" cellpadding="0">
@@ -257,48 +259,50 @@
                 <tr>
                     <th class="qty">Quantité</th>
                     <th class="desc">Description</th>
-                    <th class="unit">Prix Unitaire</th>
-                    <th class="total">Prix Total</th>
+                    <th class="unit">Prix Unitaire HT</th>
+                    <th class="total">Prix Total HT</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="qty">1</td>
-                    <td class="desc">
-                        <h3>Robe Terracota</h3>
-                        Taille S
-                    </td>
-                    <td class="unit">32.00€</td>
-                    <td class="total">32.00€</td>
-                </tr>
+                @foreach ($order->orderItems as $item)
+                    <tr>
+                        <td class="qty">{{ $item->quantity }}</td>
+                        <td class="desc">
+                            <h3>{{ $item->name }} {{ $item->is_preorder ? '(en précommande)' : '' }}</h3>
+                            Taille {{ $item->size->name }}
+                        </td>
+                        <td class="unit">{{ $item->formatted_price_without_taxes }}€</td>
+                        <td class="total">{{ $item->formatted_price_without_taxes * $item->quantity }}€</td>
+                    </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2"></td>
                     <td colspan="1">Sous-total HT</td>
-                    <td>26.00€</td>
+                    <td>{{ $order->formatted_price_without_taxes }}€</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td colspan="1">Frais de port HT</td>
-                    <td>3.50€</td>
+                    <td>{{ $order->shipping_fees_without_taxes }}€</td>
                 </tr>
                 <tr class="taxes">
                     <td colspan="2"></td>
                     <td colspan="1">TVA</td>
-                    <td>7.50€</td>
+                    <td>{{ $order->formatted_total_taxes }}€</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td colspan="1">Montant total TTC</td>
-                    <td>36.95€</td>
+                    <td>{{ $order->formatted_price }}€</td>
                 </tr>
             </tfoot>
         </table>
 
         <div id="notices">
             <h2>Informations complémentaires:</h2>
-            <p class="notice">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti eaque suscipit architecto? Officia delectus similique consequuntur fugiat! Exercitationem ratione sit tempore, autem veritatis reiciendis iusto perspiciatis modi dicta incidunt molestiae doloremque deserunt quidem ipsum neque, officiis praesentium tempora dolores. Consequatur, laborum. Consectetur itaque ut et quia, ducimus ipsa expedita fugiat!</p>
+            <p class="notice">{{ $order->has_preorder ? "Contient des articles en précommande, la livraison s'effectuera dès la fin des précommandes de ces articles." : "La commande sera expédiée dans les meilleurs délais." }}</p>
         </div>
     </main>
     <footer>

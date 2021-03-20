@@ -14,6 +14,7 @@ use App\Http\Controllers\Shop\Order\IndexOrderController;
 use App\Http\Controllers\WelcomeController;
 use App\Mail\Orders\OrderSummaryMail;
 use App\Models\Order;
+use App\Services\InvoiceGeneratorService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +30,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
     $order = Order::first();
-    return new OrderSummaryMail($order, $order->orderItems, $order->address);
-    dd(redirect()->intended(), session('url.intended'));
+    // return view('layouts.invoice', ['order' => $order]);
+    $pdf = new InvoiceGeneratorService($order);
+    return $pdf->generate()->stream();
 });
 
 Route::group(['as' => 'guest.'], function () {

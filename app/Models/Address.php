@@ -35,7 +35,24 @@ class Address extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFullNameAttribute(): string
+    {
+        return ucfirst(strtolower($this->firstname)) . ' ' . ucfirst(strtolower($this->lastname));
+    }
+
+    public function getInvoiceEmailAttribute(): string
+    {
+        return $this->email ?? $this->invoices->last()->order->user->email;
+    }
+
+    public function getInlineAddressAttribute(): string
+    {
+        return $this->street
+            . ' ' . $this->additionnal ?? ''
+            . ', ' . $this->city
+            . ' ' . $this->zipcode
+            . ', ' . $this->country->name;
+    }
 
     /**
      * ? SCOPES

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Beehemiam &mdash; Facture n°{{ $order->id }} &mdash; {{ $order->created_at->format('d/m/Y') }}</title>
+    <title>Beehemiam &mdash; @yield('meta-title')</title>
     <style>
         * {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        @page {
+            margin: .1cm 1cm;
         }
 
         html, body {
@@ -34,7 +38,6 @@
             position: relative;
             width: 19cm;
             height: 29.7cm;
-            margin: 0 auto;
             color: #555555;
             background: #FFFFFF;
             font-family: Arial, sans-serif;
@@ -101,23 +104,43 @@
         }
 
         #invoice .date {
-            font-size: 1.1em;
-            color: #777777;
+            font-size: .975em;
+            color: #777;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
-            margin-bottom: 20px;
         }
 
         table th,
         table td {
-            padding: 20px;
+            padding: 15px;
             background: #EEEEEE;
             text-align: center;
             border-bottom: 1px solid #FFFFFF;
+        }
+
+        table.info th,
+        table.info td {
+            background: #fff;
+            padding: 10px;
+        }
+
+        table.info td {
+            text-align: right;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        table.info td.total_amount {
+            background-color: #EEE;
+        }
+
+        table.info td.without_border {
+            border: none;
         }
 
         table th {
@@ -212,12 +235,14 @@
         }
 
         footer {
+            position: absolute;
+            bottom: 0;
             color: #777777;
             width: 100%;
             height: 100px;
             margin-top: auto;
             border-top: 1px solid #DDD;
-            padding: 8px 0;
+            padding-top: 8px;
             text-align: center;
         }
 
@@ -241,70 +266,9 @@
         </div>
         </div>
     </header>
-    <main>
-        <div id="details" class="clearfix">
-            <div id="client">
-                <div class="to">Facture émise à</div>
-                <h2 class="name">{{ $order->invoice->address->full_name }}</h2>
-                <div class="address">{{ $order->invoice->address->inline_address }}</div>
-                <div class="email"><a href="mailto:{{ $order->invoice->address->invoice_email }}">{{ $order->invoice->address->invoice_email }}</a></div>
-            </div>
-            <div id="invoice">
-                <h1>Facture n°{{ $order->id }}</h1>
-                <div class="date">créée le {{ $order->created_at->format('d/m/Y') }}</div>
-            </div>
-        </div>
-        <table border="0" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                    <th class="qty">Quantité</th>
-                    <th class="desc">Description</th>
-                    <th class="unit">Prix Unitaire HT</th>
-                    <th class="total">Prix Total HT</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($order->orderItems as $item)
-                    <tr>
-                        <td class="qty">{{ $item->quantity }}</td>
-                        <td class="desc">
-                            <h3>{{ $item->name }} {{ $item->is_preorder ? '(en précommande)' : '' }}</h3>
-                            Taille {{ $item->size->name }}
-                        </td>
-                        <td class="unit">{{ $item->formatted_price_without_taxes }}€</td>
-                        <td class="total">{{ $item->formatted_price_without_taxes * $item->quantity }}€</td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1">Sous-total HT</td>
-                    <td>{{ $order->formatted_price_without_taxes }}€</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1">Frais de port HT</td>
-                    <td>{{ $order->shipping_fees_without_taxes }}€</td>
-                </tr>
-                <tr class="taxes">
-                    <td colspan="2"></td>
-                    <td colspan="1">TVA</td>
-                    <td>{{ $order->formatted_total_taxes }}€</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1">Montant total TTC</td>
-                    <td>{{ $order->formatted_price }}€</td>
-                </tr>
-            </tfoot>
-        </table>
 
-        <div id="notices">
-            <h2>Informations complémentaires:</h2>
-            <p class="notice">{{ $order->has_preorder ? "Contient des articles en précommande, la livraison s'effectuera dès la fin des précommandes de ces articles." : "La commande sera expédiée dans les meilleurs délais." }}</p>
-        </div>
-    </main>
+    @yield('content')
+
     <footer>
         <p><strong>Beehemiam</strong> &mdash; <strong>Adresse email</strong> contact@beehememiam.fr &mdash; <strong>Téléphone</strong> 0611984533</p>
         <p><strong>Siret</strong> 456987456 &mdash; <strong>TVA</strong> 145639</p>

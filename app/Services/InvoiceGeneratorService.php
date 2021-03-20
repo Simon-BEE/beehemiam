@@ -18,7 +18,7 @@ class InvoiceGeneratorService
 
     public function generate(): self
     {
-        $this->pdf = \PDF::loadView('layouts.invoice', [
+        $this->pdf = \PDF::loadView('pdf.invoice', [
             'order' => $this->order,
         ]);
 

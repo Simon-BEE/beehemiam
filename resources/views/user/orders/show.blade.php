@@ -94,7 +94,7 @@
         </section>
 
         <section class="mt-8 p-4 bg-primary-200 rounded">
-            <p>Le paiement de la commande a été réalisé par <strong>{{ $order->payment->type == 'card' ? "Carte bancaire" : "Paypal" }}</strong></p>
+            <p>Le paiement de la commande a été réalisé par <strong>{{ $order->payment?->type == 'card' ? "Carte bancaire" : "Paypal" }}</strong></p>
         </section>
 
         <section class="mt-8">

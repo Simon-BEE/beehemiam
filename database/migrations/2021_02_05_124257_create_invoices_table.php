@@ -24,7 +24,7 @@ class CreateInvoicesTable extends Migration
                 ->constrained()
                 ->nullOnDelete();
             $table->string('reference');
-            $table->text('full_path');
+            $table->string('filename')->unique();
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class StatusOrderController extends Controller
         ]);
     }
 
-    public function update(OrderRepository $orderRepository, Request $request,Order $order): RedirectResponse
+    public function update(OrderRepository $orderRepository, Request $request, Order $order): RedirectResponse
     {
         $request->validate([
             'status' => [

@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    $order = Order::find(1002);
+    $order = Order::first();
     // return view('layouts.invoice', ['order' => $order]);
     $pdf = new InvoiceGeneratorService($order, $order->invoice->address);
     // $pdf->generate()->save();

@@ -54,7 +54,7 @@ class Order extends Model
         return $this->price - ($this->price * ($this->tax / 100));
     }
 
-    public function getShippingFeesWithoutTaxesAttribute(): float
+    public function getShippingFeesWithoutTaxesAttribute(): string
     {
         return number_format(($this->shipping_fees - ($this->shipping_fees * ($this->tax / 100))) / 100, 2);
     }
@@ -71,7 +71,7 @@ class Order extends Model
 
     public function getFormattedTotalTaxesAttribute(): string
     {
-        return number_format($this->formatted_price * ($this->tax / 100), 2);
+        return number_format(($this->price / 100) * ($this->tax / 100), 2);
     }
 
     public function getPathAttribute(): string

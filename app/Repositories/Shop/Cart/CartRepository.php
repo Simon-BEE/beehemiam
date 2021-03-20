@@ -38,7 +38,8 @@ class CartRepository
     protected function checkCouponSession(): void
     {
         if (session('coupon')
-            && (get_cart_subtotal(true) - session('coupon')->get('coupon')->amount) < config('beehemiam.orders.minimum_price')
+            && (get_cart_subtotal(true) - session('coupon')->get('coupon')->amount)
+            < config('beehemiam.orders.minimum_price')
         ) {
             session()->forget('coupon');
         }

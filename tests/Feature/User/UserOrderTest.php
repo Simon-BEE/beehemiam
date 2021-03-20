@@ -3,6 +3,7 @@
 namespace Tests\Feature\User;
 
 use App\Models\Order;
+use App\Models\Payment;
 use Tests\TestCase;
 
 class UserOrderTest extends TestCase
@@ -22,6 +23,7 @@ class UserOrderTest extends TestCase
     {
         $user = $this->signIn();
         $order = Order::factory()->create(['user_id' => $user->id]);
+        Payment::factory()->create(['order_id' => $order->id]);
 
         $this->get(route('user.orders.show', $order))
             ->assertSuccessful()

@@ -29,7 +29,7 @@ class CartAmountService
         return config('cart.tax');
     }
 
-    public function getCouponDiscount(): int
+    public function getCouponDiscount(): float|int
     {
         if (!session()->has('coupon')) {
             return 0;

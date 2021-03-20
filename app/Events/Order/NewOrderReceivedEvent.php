@@ -12,6 +12,10 @@ use Illuminate\Support\Collection;
 class NewOrderReceivedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    public Order $order;
+    public string $paymentIntentId;
+    public Address $billingAddress;
+    public ?Collection $coupon = null;
 
     /**
      * Create a new event instance.
@@ -19,12 +23,14 @@ class NewOrderReceivedEvent
      * @return void
      */
     public function __construct(
-        public Order $order,
-        public string $paymentIntentId,
-        public Address $billingAddress,
-        public ?Collection $coupon = null,
-    )
-    {
-        //
+        Order $order,
+        string $paymentIntentId,
+        Address $billingAddress,
+        ?Collection $coupon = null,
+    ) {
+        $this->order = $order;
+        $this->paymentIntentId = $paymentIntentId;
+        $this->billingAddress = $billingAddress;
+        $this->coupon = $coupon;
     }
 }

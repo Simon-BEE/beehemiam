@@ -112,7 +112,7 @@ class CouponsTest extends TestCase
     /** @test */
     public function if_coupon_is_valid_but_cart_total_less_than_20_cannot_apply_coupon()
     {
-        $coupon = Coupon::factory()->create();
+        $coupon = Coupon::factory()->create(['amount' => 15]);
         $category = Category::factory()->create();
         $product = Product::factory()->create();
         $category->products()->attach($product->id);

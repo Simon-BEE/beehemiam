@@ -18,12 +18,14 @@ class GenerateOrderInvoice implements ShouldQueue
     {
         $invoiceGenerator = new InvoiceGeneratorService($event->order, $event->billingAddress);
 
-        $invoiceGenerator->generate()->save();
+        if (!\App::environment('testing')) {
+            $invoiceGenerator->generate()->save();
+        }
 
         $event->order->invoice()->create([
             'address_id' => $event->billingAddress->id,
             'reference' => $invoiceGenerator->invoiceReference,
-            'full_path' => $invoiceGenerator->storageFolder . $invoiceGenerator->pdfName,
+            'filename' => $invoiceGenerator->pdfName,
         ]);
     }
 }

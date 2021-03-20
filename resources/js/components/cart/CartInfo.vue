@@ -111,7 +111,6 @@ export default {
         },
         countryId: {
             required: true,
-            type: Number,
         },
     },
 

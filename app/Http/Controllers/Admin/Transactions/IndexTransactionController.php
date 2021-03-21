@@ -14,7 +14,9 @@ class IndexTransactionController extends Controller
     {
         return view('admin.transactions.index', [
             'transactions' => CollectionPaginatorService::paginate(
-                Payment::all()->merge(Refund::all()), 15),
+                Payment::all()->merge(Refund::all()),
+                15
+            ),
         ]);
     }
 }

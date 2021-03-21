@@ -17,6 +17,7 @@ class UpdateOrderTest extends TestCase
         ]);
         $this->signIn($user);
         $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->followingRedirects()->delete(route('admin.orders.cancel', $order))
             ->assertSuccessful();
@@ -47,6 +48,7 @@ class UpdateOrderTest extends TestCase
         ]);
         $this->signIn($user);
         $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->followingRedirects()->patch(route('admin.orders.status.update', $order), [
             'status' => OrderStatus::PREPARATION,

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Back\Payments;
 
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Refund;
 use App\Models\User;
@@ -39,11 +40,14 @@ class PaymentRefundTest extends TestCase
     /** @test */
     public function an_admin_can_see_refund_show_page()
     {
+        $this->withoutExceptionHandling();
         $admin = User::factory()->create([
             'role' => User::ADMIN_ROLE,
         ]);
         $this->signIn($admin);
-        $refund = Refund::factory()->create();
+        $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
+        $refund = $order->refund()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->get(route('admin.transactions.refunds.show', $refund))
             ->assertSuccessful()

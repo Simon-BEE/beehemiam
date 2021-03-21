@@ -122,25 +122,6 @@
                 <p class="text-sm mt-3">Si vous constatez une erreur, vous pouvez nous contacter à l'adresse suivante <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis la partie <a href="#" class="text-primary-500 hover:underline">contact</a> du site, en précisant le motif et la référence de la commande.</p>
             @endif
         </section>
-
-        @if ($order->created_at->addMinutes(15) > now() && !$order->is_cancelled)
-            <section class="mt-8 p-4 rounded bg-primary-300">
-
-                <p>Vous pouvez annuler votre commande dans les 15 minutes suivant la confirmation. pour cela veuillez cliquer sur le bouton ci-dessous.</p>
-                <p>Votre commande et votre paiement seront annulé immédiatement.</p>
-
-                <div class="mt-4 text-center">
-                    <x-form.form method="DELETE" action="{{ route('user.orders.cancel', $order) }}">
-                        <x-form.button class="bg-red-400 text-white  hover:bg-red-500 font-semibold">
-                            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M14.5 11C14.78 11 15 11.22 15 11.5V13H9V11.5C9 11.22 9.22 11 9.5 11H14.5M18.5 12C19 12 19.5 12.07 20 12.18V10H18V12.03C18.17 12 18.33 12 18.5 12M6 19V10H4V21H12.5C12.24 20.38 12.09 19.7 12.03 19H6M21 9H3V3H21V9M19 5H5V7H19V5M23 18.5C23 21 21 23 18.5 23S14 21 14 18.5 16 14 18.5 14 23 16 23 18.5M20 21.08L15.92 17C15.65 17.42 15.5 17.94 15.5 18.5C15.5 20.16 16.84 21.5 18.5 21.5C19.06 21.5 19.58 21.35 20 21.08M21.5 18.5C21.5 16.84 20.16 15.5 18.5 15.5C17.94 15.5 17.42 15.65 17 15.92L21.08 20C21.35 19.58 21.5 19.06 21.5 18.5Z" />
-                            </svg>
-                            Annuler ma commande
-                        </x-form.button>
-                    </x-form>
-                </div>
-            </section>
-        @endif
 </x-layouts.user>
 
 @endsection

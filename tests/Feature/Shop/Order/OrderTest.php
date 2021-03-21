@@ -185,50 +185,6 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    public function an_order_can_be_cancelled_within_15_minutes()
-    {
-        $user = $this->signIn();
-        $order = Order::factory()->create(['user_id' => $user->id]);
-        Payment::factory()->create(['order_id' => $order->id]);
-
-        $this->get(route('user.orders.show', $order))
-            ->assertSee('Annuler ma commande');
-    }
-
-    /** @test */
-    public function an_order_cannot_be_cancelled_after_15_minutes()
-    {
-        $user = $this->signIn();
-        $order = Order::factory()->create(['user_id' => $user->id]);
-        Payment::factory()->create(['order_id' => $order->id]);
-
-        $this->travelTo(now()->addMinutes(16));
-
-        $this->get(route('user.orders.show', $order))
-            ->assertDontSee('Annuler ma commande');
-    }
-
-    /** @test */
-    public function an_order_can_be_cancelled_and_refunded_within_15_minutes()
-    {
-        $this->signIn();
-        $this->addAProductToCart();
-        $this->setSessionAddress();
-
-        $createOrderRepository = new CreateOrderRepository(new CartAmountService);
-        $createOrderRepository->save('client-secret');
-        $order = Order::first();
-
-        $this->assertDatabaseCount('refunds', 0);
-
-        $orderRepo = new OrderRepository;
-        $orderRepo->cancelTest($order);
-
-        $this->assertEquals(OrderStatus::CANCELLED, $order->fresh()->status->id);
-        $this->assertDatabaseCount('refunds', 1);
-    }
-
-    /** @test */
     public function when_an_order_is_cancelled_quantity_size_is_adjusted()
     {
         $this->signIn();

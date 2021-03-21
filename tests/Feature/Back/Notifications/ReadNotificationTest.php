@@ -53,6 +53,7 @@ class ReadNotificationTest extends TestCase
         ]);
         $this->signIn($user);
         $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $user->notify(new NewOrderNotification($order));
 

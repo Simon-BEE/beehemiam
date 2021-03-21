@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class CollectionPaginatorService
 {
-    public static function paginate(Collection $results, $pageSize)
+    public static function paginate(Collection $results, int $pageSize): LengthAwarePaginator
     {
         $page = Paginator::resolveCurrentPage('page');
 
@@ -19,7 +19,6 @@ class CollectionPaginatorService
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => 'page',
         ]);
-
     }
 
     /**
@@ -35,7 +34,11 @@ class CollectionPaginatorService
     protected static function paginator($items, $total, $perPage, $currentPage, $options)
     {
         return Container::getInstance()->makeWith(LengthAwarePaginator::class, compact(
-            'items', 'total', 'perPage', 'currentPage', 'options'
+            'items',
+            'total',
+            'perPage',
+            'currentPage',
+            'options'
         ));
     }
 }

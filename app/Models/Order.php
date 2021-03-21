@@ -159,7 +159,7 @@ class Order extends Model
 
     public function scopeProcessed(Builder $query): Builder
     {
-        return $query->whereDoesntHave('status', function($query) {
+        return $query->whereDoesntHave('status', function ($query) {
             $query->where('id', '!=', OrderStatus::CANCELLED)
                 ->where('id', '!=', OrderStatus::FAILED)
             ;
@@ -168,7 +168,7 @@ class Order extends Model
 
     public function scopePreOrders(Builder $query): Builder
     {
-        return $query->whereDoesntHave('status', function($query) {
+        return $query->whereDoesntHave('status', function ($query) {
             $query->where('id', '!=', OrderStatus::CANCELLED)
                 ->where('id', '!=', OrderStatus::FAILED)
                 ->where('id', '!=', OrderStatus::COMPLETED)

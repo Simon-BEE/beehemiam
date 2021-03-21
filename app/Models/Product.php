@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Product extends Model
 {
@@ -28,6 +29,19 @@ class Product extends Model
         'is_preorder' => 'boolean',
         'is_active' => 'boolean',
     ];
+
+    public static function lowStock(): Collection
+    {
+        return self::select(['id', 'name'])
+            ->with(['productOptions' => function ($productOption) {
+                $productOption->select(['id'])
+                    ->with(['sizes:quantity', 'preOrderStock:quantity']);
+            }])
+            ->get()
+            ->filter(function ($product) {
+                return $product->total_stock <= 10;
+            });
+    }
 
     /**
      * ? ATTRIBUTES

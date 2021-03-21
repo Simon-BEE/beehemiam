@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -156,7 +157,24 @@ class Order extends Model
      * ? SCOPES
      */
 
-    //
+    public function scopeProcessed(Builder $query): Builder
+    {
+        return $query->whereDoesntHave('status', function($query) {
+            $query->where('id', '!=', OrderStatus::CANCELLED)
+                ->where('id', '!=', OrderStatus::FAILED)
+            ;
+        });
+    }
+
+    public function scopePreOrders(Builder $query): Builder
+    {
+        return $query->whereDoesntHave('status', function($query) {
+            $query->where('id', '!=', OrderStatus::CANCELLED)
+                ->where('id', '!=', OrderStatus::FAILED)
+                ->where('id', '!=', OrderStatus::COMPLETED)
+            ;
+        })->where('has_preorder', true);
+    }
 
     /**
      * ? RELATIONS

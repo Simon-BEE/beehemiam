@@ -72,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
 
     public function getFullNameAttribute(): string
     {
-        return ucfirst($this->firstname) . ' ' . ucfirst($this->lastname);
+        return ucfirst(strtolower($this->firstname)) . ' ' . ucfirst(strtolower($this->lastname));
     }
 
     public function getAddressAttribute(): ?Address
@@ -85,6 +85,16 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     {
         return $this->addresses
             ->firstWhere('is_billing', true);
+    }
+
+    public function getItemsCountAttribute(): int
+    {
+        return $this->orders->sum('order_items_count');
+    }
+
+    public function getFormattedSpentAttribute(): int
+    {
+        return number_format($this->orders->sum('price') / 100, 2);
     }
 
     /**

@@ -44,9 +44,9 @@
                     </svg>
                     Voir les commandes
                 </x-back.link-button>
-                <x-back.form.button 
+                <x-back.form.button
                     class="text-white bg-red-500 hover:bg-red-600"
-                    @click="changeModalButtonLink(`{{ route('admin.users.destroy', $user) }}`);openModal();" 
+                    @click="changeModalButtonLink(`{{ route('admin.users.destroy', $user) }}`);openModal();"
                     aria-label="Delete"
                 >
                     <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -59,28 +59,7 @@
             </div>
         </div>
 
-        <section class="px-4 py-3 mb-8 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
-            <h2 class="font-semibold text-xs uppercase text-gray-500">
-                Résumé de l'activité
-            </h2>
-
-            <div class="flex flex-col lg:flex-row items-center justify-around text-center dark:text-gray-400">
-                <article class="w-full lg:w-1/4 py-6">
-                    <h3 class="font-bold text-4xl">5</h3>
-                    <h4 class="text-xl font-semibold"> commandes</h4>
-                </article>
-                <article class="w-full lg:w-1/4 py-6 lg:border-l-2 lg:border-r-2">
-                    <h3 class="font-bold text-4xl">12</h3>
-                    <h4 class="text-xl font-semibold"> vêtements achetés</h4>
-                </article>
-                <article class="w-full lg:w-1/4 py-6">
-                    <h3 class="font-bold text-4xl">945€</h3>
-                    <h4 class="text-xl font-semibold"> dépensés</h4>
-                </article>
-            </div>
-
-            {{-- <p class="text-center">Le client n'a jamais passé commande sur le site.</p> --}}
-        </section>
+        @include('admin.users.includes.order_activity', ['orders_count' => $user->orders_count, 'items_count' => $user->items_count])
 
         <div class="flex flex-col lg:flex-row justify-between items-start space-y-8 lg:space-y-0 lg:space-x-8 lg:mb-8">
             <section class="px-4 py-3 w-full lg:w-1/2 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">

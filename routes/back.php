@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Discount\CreateCouponController;
 use App\Http\Controllers\Admin\Discount\DeleteCouponController;
 use App\Http\Controllers\Admin\Discount\EditCouponController;
 use App\Http\Controllers\Admin\Discount\IndexDiscountController;
-use App\Http\Controllers\Admin\Notification\ReadNotificationController;
+use App\Http\Controllers\Admin\Notification\NotificationController;
 use App\Http\Controllers\Admin\Order\IndexOrderController;
 use App\Http\Controllers\Admin\Order\ShowOrderController;
 use App\Http\Controllers\Admin\Order\StatusOrderController;
@@ -19,6 +19,9 @@ use App\Http\Controllers\Admin\Products\EditProductController;
 use App\Http\Controllers\Admin\Products\IndexProductController;
 use App\Http\Controllers\Admin\Products\Options\DeleteOptionController;
 use App\Http\Controllers\Admin\Products\Options\EditOptionController;
+use App\Http\Controllers\Admin\Transactions\IndexTransactionController;
+use App\Http\Controllers\Admin\Transactions\ShowPaymentTransactionController;
+use App\Http\Controllers\Admin\Transactions\ShowRefundTransactionController;
 use App\Http\Controllers\Admin\Users\DeleteUserController;
 use App\Http\Controllers\Admin\Users\EditUserController;
 use App\Http\Controllers\Admin\Users\IndexUserController;
@@ -133,9 +136,20 @@ Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
 });
 
 /**
+ * Payments and refunds routes
+ */
+Route::group(['as' => 'transactions.', 'prefix' => 'transactions'], function () {
+
+    Route::get('/', IndexTransactionController::class)->name('index');
+    Route::get('/paiements/{payment}', ShowPaymentTransactionController::class)->name('payments.show');
+    Route::get('/remboursements/{refund}', ShowRefundTransactionController::class)->name('refunds.show');
+});
+
+/**
  * Notifications routes
  */
 Route::group(['as' => 'notifications.', 'prefix' => 'notifications'], function () {
 
-    Route::get('/{notification}', ReadNotificationController::class)->name('read');
+    Route::get('/{notification}', [NotificationController::class, 'read'])->name('read');
+    Route::get('/{notification}/supprimer', [NotificationController::class, 'delete'])->name('delete');
 });

@@ -47,18 +47,26 @@
                       @endif
                   </button>
                   <template x-if="isNotificationsMenuOpen">
-                      <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu" class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700">
+                      <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu" class="absolute right-0 w-80 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700">
                           @forelse ($notifications as $notification)
-                            <li class="flex">
-                                <a
-                                    class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                    href="{{ isset($notification->data['order_id']) ? route('admin.orders.show', [$notification->data['order_id'], $notification->id]) : route('admin.notifications.read', $notification) }}"
-                                >
-                                    @if (is_null($notification->read_at))
+                            <li class="flex items-start">
+                                @if (is_null($notification->read_at))
+                                    <a
+                                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        href="{{ isset($notification->data['order_id']) ? route('admin.orders.show', [$notification->data['order_id'], $notification->id]) : route('admin.notifications.read', $notification) }}"
+                                    >
                                         <span class="mr-2 h-2 w-4 rounded-full bg-purple-500"></span>
-                                    @endif
-                                    <span>{{ $notification->data['event_type'] }} {{ $notification->data['order_amount'] ?? '' }} {{ $notification->created_at->diffForHumans() }}</span>
-                                </a>
+                                        <span>{{ $notification->data['event_type'] }} {{ $notification->data['order_amount'] ?? '' }} {{ $notification->created_at->diffForHumans() }}</span>
+                                    </a>
+                                @else
+                                    <span
+                                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                    >
+                                        <span>{{ $notification->data['event_type'] }} {{ $notification->data['order_amount'] ?? '' }} {{ $notification->created_at->diffForHumans() }}</span>
+                                    </span>
+                                @endif
+
+                                <a href="{{ route('admin.notifications.delete', $notification) }}" class="px-2 py-1 rounded hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200" title="Supprimer la notification">&times;</a>
                             </li>
                           @empty
                             <li class="flex">

@@ -93,7 +93,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
         return $this->orders->sum('order_items_count');
     }
 
-    public function getFormattedSpentAttribute(): int
+    public function getFormattedSpentAttribute(): string
     {
         return number_format($this->orders->sum('price') / 100, 2);
     }
@@ -102,9 +102,14 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
      * ? SCOPES
      */
 
-    public function scopeAdministrators(Builder $query): Collection
+    public function scopeAdministrators(Builder $query): Builder
     {
-        return $query->where('role', self::ADMIN_ROLE)->get();
+        return $query->where('role', self::ADMIN_ROLE);
+    }
+
+    public function scopeClients(Builder $query): Builder
+    {
+        return $query->where('role', self::USER_ROLE);
     }
 
     public function scopeAdminNotifications(): MorphMany

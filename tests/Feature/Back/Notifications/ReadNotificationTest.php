@@ -28,6 +28,24 @@ class ReadNotificationTest extends TestCase
     }
 
     /** @test */
+    public function an_admin_can_delete_a_notification_only()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+
+        $user->notify(new NewOrderNotification(Order::factory()->create()));
+
+        $this->assertCount(1, $user->notifications);
+
+        $this->followingRedirects()->get(route('admin.notifications.delete', $user->notifications->first()))
+            ->assertSuccessful();
+
+        $this->assertCount(0, $user->fresh()->notifications);
+    }
+
+    /** @test */
     public function an_admin_can_read_a_notification_and_continue_to_order_page()
     {
         $user = User::factory()->create([

@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\User;
 use App\Repositories\Shop\Cart\CartRepository;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class AdminViewComposer
 {
@@ -20,7 +21,9 @@ class AdminViewComposer
         $admin = auth()->user();
 
         $view->with([
-            'notifications' => $admin->adminNotifications()->get(),
+            'notifications' => Cache::remember('adminNotifications', now()->addMinutes(10), function () use ($admin) {
+                return $admin->adminNotifications()->get();
+            }),
         ]);
     }
 }

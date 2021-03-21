@@ -33,6 +33,7 @@ return [
     'stripe' => [
         'public_key' => env('STRIPE_PUBLIC_KEY'),
         'secret_key' => env('STRIPE_SECRET_KEY'),
+        'dashboard_url' => 'https://dashboard.stripe.com/test/payments/'
     ],
 
     'mailjet' => [

@@ -15,9 +15,9 @@ class CreateRefundsTable extends Migration
     {
         Schema::create('refunds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->string('reference');
+            $table->string('type');
             $table->unsignedInteger('amount');
             $table->timestamps();
         });

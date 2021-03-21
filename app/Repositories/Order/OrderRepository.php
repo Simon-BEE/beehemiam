@@ -41,9 +41,9 @@ class OrderRepository
         event(new NewOrderCancelledEvent($order));
 
         $order->refund()->create([
-            'user_id' => $order->user?->id,
             'reference' => 'refund-stripe-key',
             'amount' => $order->price,
+            'type' => 'card',
         ]);
     }
 }

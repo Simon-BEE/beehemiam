@@ -14,9 +14,9 @@ class PaymentRepository
         $stripeRefund = $stripeInteractorService->refund($order->payment->reference, $amount);
 
         $order->refund()->create([
-            'user_id' => $order->user?->id,
             'reference' => $stripeRefund->id,
             'amount' => $amount,
+            'type' => 'card',
         ]);
     }
 }

@@ -165,7 +165,7 @@ class OrderTest extends TestCase
         $createOrderRepository = new CreateOrderRepository(new CartAmountService);
         $createOrderRepository->save('client-secret');
 
-        Notification::assertSentTo(User::administrators(), NewOrderNotification::class);
+        Notification::assertSentTo(User::administrators()->get(), NewOrderNotification::class);
     }
 
     /** @test */
@@ -299,7 +299,7 @@ class OrderTest extends TestCase
         $orderRepo = new OrderRepository;
         $orderRepo->cancelTest($order);
 
-        Notification::assertSentTo(User::administrators(), SimpleAdminNotification::class);
+        Notification::assertSentTo(User::administrators()->get(), SimpleAdminNotification::class);
     }
 
     /** @test */
@@ -318,7 +318,7 @@ class OrderTest extends TestCase
         $createOrderRepository = new CreateOrderRepository(new CartAmountService);
         $createOrderRepository->save('client-secret');
 
-        Notification::assertSentTo(User::administrators(), ProductOutOfStockNotification::class);
+        Notification::assertSentTo(User::administrators()->get(), ProductOutOfStockNotification::class);
     }
 
     /** @test */

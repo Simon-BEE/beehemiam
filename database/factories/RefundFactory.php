@@ -22,9 +22,9 @@ class RefundFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
             'order_id' => \App\Models\Order::factory(),
             'reference' => $this->faker->word,
+            'type' => 'card',
             'amount' => mt_rand(1000, 9999),
         ];
     }

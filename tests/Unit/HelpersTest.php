@@ -16,6 +16,6 @@ class HelpersTest extends TestCase
 
         notify_administrators('Nouvelle notification destiné aux administrateurs du site');
 
-        Notification::assertSentTo(User::administrators(), SimpleAdminNotification::class);
+        Notification::assertSentTo(User::administrators()->get(), SimpleAdminNotification::class);
     }
 }

@@ -68,7 +68,7 @@
                         <a href="{{ route('shop.search.index') }}" class="inline-flex p-1 hover:underline">Rechercher un vêtement</a>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">Précommandes</a>
+                        <a href="{{ route('shop.preorders.index') }}" class="inline-flex p-1 hover:underline">Précommandes</a>
                     </li>
                     <li class="">
                         <a href="#" class="inline-flex p-1 hover:underline">Livraisons & retours</a>

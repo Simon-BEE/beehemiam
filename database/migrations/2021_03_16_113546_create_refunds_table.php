@@ -18,6 +18,7 @@ class CreateRefundsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->string('reference');
+            $table->unsignedInteger('amount');
             $table->timestamps();
         });
     }

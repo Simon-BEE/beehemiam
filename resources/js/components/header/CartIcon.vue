@@ -6,7 +6,7 @@
         </svg>
         <span class="md:hidden">Mon panier</span>
         <span
-            class="absolute -top-0.5 -right-0.5 bg-primary-600 text-white py-0.5 px-1 rounded-full text-xs" v-if="numberProductsInCart">
+            class="md:absolute ml-3 md:ml-0 -top-0.5 -right-0.5 bg-primary-600 text-white py-0.5 px-1 rounded-full text-xs" v-if="numberProductsInCart">
             {{ numberProductsInCart }}
         </span>
     </span>

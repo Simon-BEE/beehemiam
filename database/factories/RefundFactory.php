@@ -25,6 +25,7 @@ class RefundFactory extends Factory
             'user_id' => \App\Models\User::factory(),
             'order_id' => \App\Models\Order::factory(),
             'reference' => $this->faker->word,
+            'amount' => mt_rand(1000, 9999),
         ];
     }
 }

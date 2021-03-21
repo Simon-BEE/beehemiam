@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Cart\UpdateCartController;
 use App\Http\Controllers\Api\Order\RegisterOrderController;
 use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
+use App\Http\Controllers\Pages\ContactController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\Shop\Order\GuestOrderController;
@@ -38,11 +39,6 @@ Route::get('/test', function () {
     $pdf = new InvoiceGeneratorService($order, $order->invoice->address);
     // $pdf->generate()->save();
     return $pdf->generate()->stream();
-});
-
-Route::group(['as' => 'guest.'], function () {
-    Route::get('commandes/{hashedOrderId}', [GuestOrderController::class, 'show'])->name('orders.show');
-    Route::get('commandes/{hashedOrderId}/facture', [GuestOrderController::class, 'invoice'])->name('orders.invoice');
 });
 
 /**
@@ -95,6 +91,23 @@ Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
     Route::get('/validation', IndexOrderController::class)->name('orders.index');
 });
 
+/**
+ * Guest order routes
+ */
+Route::group(['as' => 'guest.'], function () {
+    Route::get('commandes/{hashedOrderId}', [GuestOrderController::class, 'show'])->name('orders.show');
+    Route::get('commandes/{hashedOrderId}/facture', [GuestOrderController::class, 'invoice'])->name('orders.invoice');
+});
+
+/**
+ * Website simple pages
+ */
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+/**
+ * Homepage
+ */
 Route::get('/', WelcomeController::class)->name('welcome');
 
 Route::personalDataExports('personal-data-exports');

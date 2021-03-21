@@ -10,8 +10,14 @@ use Illuminate\Http\RedirectResponse;
 
 class ShowOrderController extends Controller
 {
-    public function show(Order $order): View
+    public function show(Order $order, ?string $notification = null): View
     {
+        if (!is_null($notification)) {
+            $notification = request()->user()->notifications()->findOrFail($notification);
+
+            $notification->markAsRead();
+        }
+
         return view('admin.orders.show', [
             'order' => $order->load(['status', 'address.country', 'orderItems', 'payment', 'invoice']),
         ]);

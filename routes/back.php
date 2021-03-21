@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Discount\CreateCouponController;
 use App\Http\Controllers\Admin\Discount\DeleteCouponController;
 use App\Http\Controllers\Admin\Discount\EditCouponController;
 use App\Http\Controllers\Admin\Discount\IndexDiscountController;
+use App\Http\Controllers\Admin\Notification\ReadNotificationController;
 use App\Http\Controllers\Admin\Order\IndexOrderController;
 use App\Http\Controllers\Admin\Order\ShowOrderController;
 use App\Http\Controllers\Admin\Order\StatusOrderController;
@@ -123,9 +124,18 @@ Route::group(['as' => 'discount.', 'prefix' => 'promotions'], function () {
 Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
 
     Route::get('/', IndexOrderController::class)->name('index');
-    Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
-    Route::delete('/{order}', [ShowOrderController::class, 'cancel'])->name('cancel');
 
     Route::get('/{order}/statut', [StatusOrderController::class, 'edit'])->name('status.edit');
     Route::patch('/{order}/statut', [StatusOrderController::class, 'update'])->name('status.update');
+
+    Route::get('/{order}/{notification?}', [ShowOrderController::class, 'show'])->name('show');
+    Route::delete('/{order}', [ShowOrderController::class, 'cancel'])->name('cancel');
+});
+
+/**
+ * Notifications routes
+ */
+Route::group(['as' => 'notifications.', 'prefix' => 'notifications'], function () {
+
+    Route::get('/{notification}', ReadNotificationController::class)->name('read');
 });

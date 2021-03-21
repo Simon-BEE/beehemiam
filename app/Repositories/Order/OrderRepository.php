@@ -43,6 +43,7 @@ class OrderRepository
         $order->refund()->create([
             'user_id' => $order->user?->id,
             'reference' => 'refund-stripe-key',
+            'amount' => $order->price,
         ]);
     }
 }

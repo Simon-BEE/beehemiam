@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Composers\AdminViewComposer;
 use App\View\Composers\CartViewComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -29,5 +30,7 @@ class ViewServiceProvider extends ServiceProvider
             ['shop.cart.index', 'shop.cart.shipping', 'shop.cart.orders.index'],
             CartViewComposer::class
         );
+
+        View::composer(['admin.*'], AdminViewComposer::class);
     }
 }

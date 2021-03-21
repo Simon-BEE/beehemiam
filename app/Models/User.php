@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -104,6 +105,13 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
     public function scopeAdministrators(Builder $query): Collection
     {
         return $query->where('role', self::ADMIN_ROLE)->get();
+    }
+
+    public function scopeAdminNotifications(): MorphMany
+    {
+        return $this->notifications()->whereNull('read_at')->orWhere(function ($query) {
+            $query->whereDate('created_at', '>', now()->subDays(7));
+        });
     }
 
     /**

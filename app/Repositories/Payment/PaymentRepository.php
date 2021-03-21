@@ -16,6 +16,7 @@ class PaymentRepository
         $order->refund()->create([
             'user_id' => $order->user?->id,
             'reference' => $stripeRefund->id,
+            'amount' => $amount,
         ]);
     }
 }

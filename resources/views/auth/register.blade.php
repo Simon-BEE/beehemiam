@@ -15,7 +15,7 @@
         </h1>
 
         <x-form.form method="POST" action="{{ route('register') }}">
-            <x-form.input 
+            <x-form.input
                 name="firstname"
                 type="text"
                 label="Prénom"
@@ -23,7 +23,7 @@
                 value="{{ old('firstname') }}"
                 required
             />
-            <x-form.input 
+            <x-form.input
                 name="lastname"
                 type="text"
                 label="Nom de famille"
@@ -31,7 +31,7 @@
                 value="{{ old('lastname') }}"
                 required
             />
-            <x-form.input 
+            <x-form.input
                 name="email"
                 type="email"
                 label="Adresse email"
@@ -39,7 +39,7 @@
                 value="{{ old('email') }}"
                 required
             />
-            <x-form.input 
+            <x-form.input
                 name="password"
                 type="password"
                 label="Mot de passe"
@@ -47,7 +47,7 @@
                 helper="Le mot de passe doit contenir au moins 8 caractères."
                 required
             />
-            <x-form.input 
+            <x-form.input
                 name="password_confirmation"
                 type="password"
                 label="Confirmation du mot de passe"
@@ -60,7 +60,7 @@
             </x-form.checkbox>
 
             <x-form.checkbox name="terms" >
-                J'ai lu et je suis d'accord avec <a href="#" class="underline">les CGU</a> et <a href="#" class="underline">les CGV</a>
+                J'ai lu et je suis d'accord avec <a href="{{ route('pages.terms-conditions') }}" class="underline">les CGU</a> et <a href="{{ route('pages.sales-conditions') }}" class="underline">les CGV</a>
             </x-form.checkbox>
 
             <x-form.button class="block w-full bg-primary-500 text-gray-900 font-bold hover:bg-primary-600 mt-4">
@@ -71,7 +71,7 @@
         <hr class="w-full my-3 border-gray-300">
 
         <p class=" text-center">
-            {{ __('Already registered?') }} 
+            {{ __('Already registered?') }}
             <a href="{{ route('login') }}" class="font-semibold text-gray-500 hover:text-gray-700">Se connecter</a>
         </p>
     </div>

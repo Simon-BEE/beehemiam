@@ -16,7 +16,7 @@
         <p class="mt-8">Les Conditions générales de Vente ont pour objectif de fournir aux clients les conditions légales de ventes des articles proposés par <a href="{{ url('/') }}" class="text-primary-500 hover:underline">Beehemiam.fr</a>.</p>
     </article>
 
-    <section class="w-full flex flex-col space-y-16">
+    <section class="w-full flex flex-col space-y-16 md:w-2/3 md:mx-auto">
 
         <article>
             <h2 class="text-3xl font-bold mb-2 uppercase">1. Qui sommes-nous ?</h2>
@@ -38,7 +38,7 @@
         <article>
             <h2 class="text-3xl font-bold mb-2 uppercase">3. Définitions</h2>
 
-            <ul class="space-y-2 list-disc list-inside">
+            <ul class="space-y-2 list-disc px-5">
                 <li><strong>Client</strong> désigne le Professionnel ou le Consommateur ayant passé Commande d'un Produit vendu sur le Site Internet ;</li>
                 <li><strong>Commande</strong> désigne toute commande passée par l’Utilisateur inscrit sur le présent Site ;</li>
                 <li><strong>Conditions Générales de Vente et d'Utilisation</strong> ou <strong>CGV/CGU</strong> désignent les présentes conditions générales d'utilisation et de vente en ligne ;</li>

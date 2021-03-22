@@ -27,8 +27,6 @@ class PageController extends Controller
 
     public function showDeliveryReturns(): View
     {
-        return view('pages.delivery-returns', [
-            'countries_list' => Country::all()->pluck('name')->join(', '),
-        ]);
+        return view('pages.delivery-returns');
     }
 }

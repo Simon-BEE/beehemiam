@@ -65,13 +65,10 @@
                         <a href="{{ route('shop.categories.index') }}" class="inline-flex p-1 hover:underline">Voir la boutique</a>
                     </li>
                     <li class="">
-                        <a href="{{ route('shop.search.index') }}" class="inline-flex p-1 hover:underline">Rechercher un vêtement</a>
-                    </li>
-                    <li class="">
                         <a href="{{ route('shop.preorders.index') }}" class="inline-flex p-1 hover:underline">Précommandes</a>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">Livraisons & retours</a>
+                        <a href="{{ route('shop.search.index') }}" class="inline-flex p-1 hover:underline">Rechercher un vêtement</a>
                     </li>
                 </ul>
 
@@ -87,7 +84,7 @@
                         <a href="#" class="inline-flex p-1 hover:underline">Service client</a>
                     </li>
                     <li class="">
-                        <a href="{{ route('pages.sales-conditions') }}" class="inline-flex p-1 hover:underline">CGV</a>
+                        <a href="#" class="inline-flex p-1 hover:underline">Livraisons & retours</a>
                     </li>
                 </ul>
 
@@ -101,6 +98,9 @@
                     </li>
                     <li class="">
                         <a href="{{ route('pages.terms-conditions') }}" class="inline-flex p-1 hover:underline">CGU</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ route('pages.sales-conditions') }}" class="inline-flex p-1 hover:underline">CGV</a>
                     </li>
                     <li class="">
                         <a href="{{ route('pages.privacy-policy') }}" class="inline-flex p-1 hover:underline">Politique de Confidentialité</a>

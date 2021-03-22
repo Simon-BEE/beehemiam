@@ -16,7 +16,7 @@
         <p class="mt-8">La présente Politique de Confidentialité a pour objet la définition et le traitement de vos données personnelles réalisé au travers de <a href="{{ url('/') }}" class="text-primary-500 hover:underline">beehemiam.fr</a>.</p>
     </article>
 
-    <section class="w-full flex flex-col space-y-16">
+    <section class="w-full flex flex-col space-y-16 md:w-2/3 md:mx-auto">
 
         <article>
             <h2 class="text-3xl font-bold mb-2 uppercase">1. Qui sommes-nous ?</h2>
@@ -68,44 +68,44 @@
 
             <ul class="">
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">XSRF-TOKEN</span>
-                    <span>Protection contre les requêtes venant d'autres sites (<a href="https://fr.wikipedia.org/wiki/Cross-site_request_forgery" class="underline">plus d'informations...</a>)</span>
+                    <span class="font-bold md:mr-6">XSRF-TOKEN</span>
+                    <span class="text-sm md:text-xs">Protection contre les requêtes venant d'autres sites (<a href="https://fr.wikipedia.org/wiki/Cross-site_request_forgery" class="underline">plus d'informations...</a>)</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">_sp_id.*</span>
-                    <span>Bibliothèque d'images libre de droits (<a href="https://unsplash.com/" class="underline">plus d'informations...</a>)</span>
+                    <span class="font-bold md:mr-6">_sp_id.*</span>
+                    <span class="text-sm md:text-xs">Bibliothèque d'images libre de droits (<a href="https://unsplash.com/" class="underline">plus d'informations...</a>)</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">_sp_ses.*</span>
-                    <span>Bibliothèque d'images libre de droits (<a href="https://unsplash.com/" class="underline">plus d'informations...</a>)</span>
+                    <span class="font-bold md:mr-6">_sp_ses.*</span>
+                    <span class="text-sm md:text-xs">Bibliothèque d'images libre de droits (<a href="https://unsplash.com/" class="underline">plus d'informations...</a>)</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">ugid</span>
-                    <span>Bibliothèque d'images libre de droits (<a href="https://unsplash.com/" class="underline">plus d'informations...</a>)</span>
+                    <span class="font-bold md:mr-6">ugid</span>
+                    <span class="text-sm md:text-xs">Bibliothèque d'images libre de droits (<a href="https://unsplash.com/" class="underline">plus d'informations...</a>)</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">__stripe_mid</span>
-                    <span>Librairie de paiement qui permet de traiter des paiements sans stocker d’informations de carte de crédit sur nos propres serveurs (<a href="https://stripe.com/fr" class="underline">plus d'informations...</a>)</span>
+                    <span class="font-bold md:mr-6">__stripe_mid</span>
+                    <span class="text-sm md:text-xs">Librairie de paiement qui permet de traiter des paiements sans stocker d’informations de carte de crédit sur nos propres serveurs (<a href="https://stripe.com/fr" class="underline">plus d'informations...</a>)</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">__stripe_sid</span>
-                    <span>Librairie de paiement qui permet de traiter des paiements sans stocker d’informations de carte de crédit sur nos propres serveurs (<a href="https://stripe.com/fr" class="underline">plus d'informations...</a>)</span>
+                    <span class="font-bold md:mr-6">__stripe_sid</span>
+                    <span class="text-sm md:text-xs">Librairie de paiement qui permet de traiter des paiements sans stocker d’informations de carte de crédit sur nos propres serveurs (<a href="https://stripe.com/fr" class="underline">plus d'informations...</a>)</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">beehemiam_session</span>
-                    <span>Gestion de l'authentification</span>
+                    <span class="font-bold md:mr-6">beehemiam_session</span>
+                    <span class="text-sm md:text-xs">Gestion de l'authentification</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">remember_web_*</span>
-                    <span>Pour se souvenir de votre authentification</span>
+                    <span class="font-bold md:mr-6">remember_web_*</span>
+                    <span class="text-sm md:text-xs">Pour se souvenir de votre authentification</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">beehemiamCart</span>
-                    <span>Gestion du panier</span>
+                    <span class="font-bold md:mr-6">beehemiamCart</span>
+                    <span class="text-sm md:text-xs">Gestion du panier</span>
                 </li>
                 <li class="p-4 rounded bg-primary-300 flex flex-col md:flex-row items-center justify-between mb-2">
-                    <span class="font-bold">beehemiamCookieBanner</span>
-                    <span>Enregistrement de votre lecture sur la bannière RGPD présente lors de votre première visite</span>
+                    <span class="font-bold md:mr-6">beehemiamCookieBanner</span>
+                    <span class="text-sm md:text-xs">Enregistrement de votre lecture sur la bannière RGPD présente lors de votre première visite</span>
                 </li>
             </ul>
         </article>

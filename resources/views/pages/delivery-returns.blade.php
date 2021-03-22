@@ -16,7 +16,7 @@
         <p class="mt-8">Résumé sur nos pratiques de livraisons et de retours des commandes passées sur <a href="{{ url('/') }}" class="text-primary-500 hover:underline">Beehemiam.fr</a>.</p>
     </article>
 
-    <section class="w-full flex flex-col space-y-16">
+    <section class="w-full flex flex-col space-y-16 md:w-2/3 md:mx-auto">
 
         <article>
             <h2 class="text-3xl font-bold mb-4 uppercase">1. Livraisons</h2>

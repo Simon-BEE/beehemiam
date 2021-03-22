@@ -16,7 +16,7 @@
         <p class="mt-8">Les présentes Conditions Générales d’Utilisation viennent compléter les Conditions Générales de Vente et la Politique de Confidentialité.</p>
     </article>
 
-    <section class="w-full flex flex-col space-y-16">
+    <section class="w-full flex flex-col space-y-16 md:w-2/3 md:mx-auto">
 
         <article>
             <h2 class="text-3xl font-bold mb-2">1. OBJET</h2>

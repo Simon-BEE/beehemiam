@@ -106,8 +106,12 @@ Route::group(['as' => 'guest.'], function () {
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
-Route::get('/conditions-generales-d-utilisation', [PageController::class, 'showTermsAndConditions'])->name('pages.terms-conditions');
-Route::get('/politique-de-confidentialite', [PageController::class, 'showPrivacyPolicy'])->name('pages.privacy-policy');
+Route::get('/conditions-generales-d-utilisation', [PageController::class, 'showTermsAndConditions'])
+    ->name('pages.terms-conditions');
+Route::get('/politique-de-confidentialite', [PageController::class, 'showPrivacyPolicy'])
+    ->name('pages.privacy-policy');
+Route::get('/conditions-generales-de-ventes', [PageController::class, 'showSalesConditions'])
+    ->name('pages.sales-conditions');
 
 /**
  * Homepage

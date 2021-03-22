@@ -16,4 +16,9 @@ class PageController extends Controller
     {
         return view('pages.privacy-policy');
     }
+
+    public function showSalesConditions(): View
+    {
+        return view('pages.sales-conditions');
+    }
 }

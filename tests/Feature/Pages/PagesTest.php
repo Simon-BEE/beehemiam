@@ -21,4 +21,12 @@ class PagesTest extends TestCase
             ->assertSuccessful()
             ->assertViewIs('pages.privacy-policy');
     }
+
+    /** @test */
+    public function a_visitor_can_see_sales_conditions_page()
+    {
+        $this->get(route('pages.sales-conditions'))
+            ->assertSuccessful()
+            ->assertViewIs('pages.sales-conditions');
+    }
 }

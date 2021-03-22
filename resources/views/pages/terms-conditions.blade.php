@@ -16,10 +16,10 @@
         <p class="mt-8">Les présentes Conditions Générales d’Utilisation viennent compléter les Conditions Générales de Vente et la Politique de Confidentialité.</p>
     </article>
 
-    <section class="w-full flex flex-col space-y-5">
+    <section class="w-full flex flex-col space-y-16">
 
         <article>
-            <h2 class="text-xl font-bold mb-2">1. OBJET</h2>
+            <h2 class="text-3xl font-bold mb-2">1. OBJET</h2>
 
             <p class="mb-1">Les présentes Conditions Générales d’Utilisation (ci-après dénommées « les CGU ») ont pour objet la définition et l’encadrement des modalités d’utilisation du site Internet www.beehemiam.fr (ci-après dénommé « le Site ») par les utilisateurs (ci-après dénommés « les Utilisateurs »).</p>
 
@@ -28,7 +28,7 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">2. MENTIONS LÉGALES</h2>
+            <h2 class="text-3xl font-bold mb-2">2. MENTIONS LÉGALES</h2>
 
             <p class="mb-1">Le Site est édité et la propriété de :</p>
             <p class="mb-1"><strong>BEEHEMIAM</strong>, une micro-entreprise enregistrée au Tribunal de Commerce de Montluçon, immatriculée 893 300 632 00013, dont le siège social est situé à l’adresse suivante : 3 route de la bergerette, 03420 Terjat, France.</p>
@@ -49,7 +49,7 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">3. SERVICES PROPOSÉS PAR LE SITE</h2>
+            <h2 class="text-3xl font-bold mb-2">3. SERVICES PROPOSÉS PAR LE SITE</h2>
 
             <p class="mb-1">Le Site a pour objet la présentation, la vente et la promotion des produits de <strong>l'entreprise Beehemiam</strong> (ci-après dénommés « les Services »). Ces Services comprennent :</p>
 
@@ -61,14 +61,14 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">4. CONTACT</h2>
+            <h2 class="text-3xl font-bold mb-2">4. CONTACT</h2>
 
             <p class="mb-1">Pour toute question, réclamation ou demande d’information concernant le Site, ou tout signalement de contenu ou d’activités illicites, l’Utilisateur peut contacter <strong>l'entreprise Beehemiam</strong> à l’adresse email <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis le <a href="{{ route('contact.index') }}" class="text-primary-500 hover:underline">formulaire de contact</a> disponible sur le site.</p>
         </article>
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">5. ACCEPTATION DES CGU</h2>
+            <h2 class="text-3xl font-bold mb-2">5. ACCEPTATION DES CGU</h2>
 
             <p class="mb-1">L’accès et l’utilisation du Site sont soumis à l’acceptation et au respect des CGU. Cette acceptation et ce respect sont réputés être donnés par l’Utilisateur à l’ouverture du Site.</p>
             <p class="mb-1">Les CGU s’appliquent, en tant que besoin, à toute déclinaison ou extension du Site sur les réseaux sociaux et/ou communautaires existants ou à venir.</p>
@@ -78,7 +78,7 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">6. ACCÈS ET NAVIGATION</h2>
+            <h2 class="text-3xl font-bold mb-2">6. ACCÈS ET NAVIGATION</h2>
 
             <p class="mb-1">L’accès et la navigation sur le Site, permettant de bénéficier des Services, se fait par le biais d’une connexion Internet.</p>
             <p class="mb-1">L’Editeur met en œuvre les solutions techniques à sa disposition pour permettre l’accès du Site 24 heures sur 24, 7 jours sur 7.</p>
@@ -88,7 +88,7 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">7. RESPONSABILITÉS</h2>
+            <h2 class="text-3xl font-bold mb-2">7. RESPONSABILITÉS</h2>
 
             <p class="mb-1">L'Editeur n'est responsable que du contenu qu'il a lui-même édité.</p>
             <p class="mb-1">Toutefois, il ne saurait garantir l'exactitude, la complétude, et l'actualité des informations qui sont diffusées sur le Site.</p>
@@ -111,7 +111,7 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">8. LIENS HYPERTEXTES</h2>
+            <h2 class="text-3xl font-bold mb-2">8. LIENS HYPERTEXTES</h2>
 
             <p class="mb-1">Le Site peut contenir des liens hypertextes pointant vers d'autres sites internet sur lesquels <strong>l'entreprise Beehemiam</strong> n'exerce pas de contrôle. Malgré les vérifications préalables et régulières réalisés par l'Editeur, celui-ci décline tout responsabilité quant aux contenus qu'il est possible de trouver sur ces sites.</p>
 
@@ -124,14 +124,14 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">9. COLLECTE DE DONNÉES ET COOKIES</h2>
+            <h2 class="text-3xl font-bold mb-2">9. COLLECTE DE DONNÉES ET COOKIES</h2>
 
             <p class="mb-1">L’Editeur dispose d’une Politique de Confidentialité dont l’Utilisateur est expressément invité à prendre connaissance : <a href="{{ route('pages.privacy-policy') }}" class="text-primary-500 hover:underline">Politique de Confidentialité</a>.</p>
         </article>
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">10. PROPRIÉTÉ INTELLECTUELLE</h2>
+            <h2 class="text-3xl font-bold mb-2">10. PROPRIÉTÉ INTELLECTUELLE</h2>
 
             <p class="mb-1">La structuration du Site mais également les textes, graphiques, images, photographies, sons, vidéos, applications informatiques et bases de données, qui le composent, de même que les marques et autres droits de propriété intellectuelle afférents aux produits de <strong>l'entreprise Beehemiam</strong> présentés, vendus et promus sur le Site (ci-après dénommés « les Eléments protégés »), sont la propriété de l'Editeur et sont protégés comme tels par les lois en vigueur au titre de la propriété intellectuelle.</p>
 
@@ -147,7 +147,7 @@
 
 
         <article>
-            <h2 class="text-xl font-bold mb-2">11. LOI APPLICABLE ET JURIDICTION COMPÉTENTE</h2>
+            <h2 class="text-3xl font-bold mb-2">11. LOI APPLICABLE ET JURIDICTION COMPÉTENTE</h2>
 
             <p class="mb-1">Les CGU sont régies par la loi française.</p>
             <p class="mb-1">En cas de différend et à défaut d'accord amiable dans un délai d’un (1) mois à compter de la survenance du différend, le litige sera porté devant les tribunaux compétents de Paris.</p>

@@ -87,7 +87,7 @@
                         <a href="#" class="inline-flex p-1 hover:underline">Service client</a>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">CGV</a>
+                        <a href="{{ route('pages.sales-conditions') }}" class="inline-flex p-1 hover:underline">CGV</a>
                     </li>
                 </ul>
 
@@ -100,7 +100,10 @@
                         <a href="{{ route('contact.index') }}" class="inline-flex p-1 hover:underline">Nous contacter</a>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">Mentions légales</a>
+                        <a href="{{ route('pages.terms-conditions') }}" class="inline-flex p-1 hover:underline">CGU</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ route('pages.privacy-policy') }}" class="inline-flex p-1 hover:underline">Politique de Confidentialité</a>
                     </li>
                 </ul>
             </article>

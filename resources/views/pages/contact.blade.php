@@ -45,7 +45,7 @@
                 </p>
             </article>
 
-            <article>
+            {{-- <article>
                 <p class="mb-2">Vous pouvez également essayer de nous joindre <strong>par téléphone</strong>, n'ayant personne dédié à ce poste, selon le nombre d'appels, nous serons pas toujours en mesure de vous répondre rapidement.</p>
                 <p class="p-4 rounded bg-primary-200">
                     <a href="tel:0611984533" class="inline-flex items-center text-primary-500 hover:underline">
@@ -55,7 +55,7 @@
                         0611984533
                     </a>
                 </p>
-            </article>
+            </article> --}}
         </section>
 
         <section class="w-full md:w-2/3 space-y-6 bg-primary-700 rounded p-4">

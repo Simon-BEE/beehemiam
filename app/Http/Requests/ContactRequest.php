@@ -31,10 +31,10 @@ class ContactRequest extends FormRequest
             'name' => [
                 'nullable', new MustBeEmpty,
             ],
-            'subject' => [
+            'object' => [
                 'required', 'between:2,255',
             ],
-            'message' => [
+            'content' => [
                 'required', 'min:10',
             ],
             'terms' => [
@@ -46,8 +46,8 @@ class ContactRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'subject.between' => 'Le sujet doit avoir plus de caractères',
-            'messages.min' => 'Le sujet doit avoir plus de caractères',
+            'object.between' => 'Le sujet doit avoir plus de caractères',
+            'content.min' => 'Le sujet doit avoir plus de caractères',
         ];
     }
 }

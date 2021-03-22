@@ -34,6 +34,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\FormContactMessageSend::class => [
+            \App\Listeners\Contact\SendMessageToAdministrators::class,
+            \App\Listeners\Contact\SendMessageCopyToAuthor::class,
+        ],
         \App\Events\PasswordEdited::class => [
             \App\Listeners\Users\PasswordHasChanged::class,
         ],

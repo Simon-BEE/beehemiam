@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Contact;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageFromContactMail extends Mailable implements ShouldQueue
+class CopyMessageFromContactMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,7 @@ class MessageFromContactMail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public string $email, public string $subject, public string $message)
+    public function __construct(public string $email, public string $object, public string $content)
     {
         //
     }
@@ -28,7 +28,7 @@ class MessageFromContactMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('view.name')
-            ->subject('Message du formulaire : ' . $this->subject);
+        return $this->view('emails.contacts.copy-form-contact')
+            ->subject('Copie du message envoyé : ' . $this->object);
     }
 }

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Pages;
 
+use App\Events\FormContactMessageSend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
-use App\Mail\MessageFromContactMail;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -20,18 +18,16 @@ class ContactController extends Controller
     public function send(ContactRequest $request): RedirectResponse
     {
         try {
-            Mail::to(User::administrators()->get())
-                ->send(
-                    new MessageFromContactMail(
-                        $request->get('email'),
-                        $request->get('subject'),
-                        $request->get('message')
-                    )
-                );
+            event(new FormContactMessageSend(
+                $request->get('email'),
+                $request->get('object'),
+                $request->get('content'),
+            ));
 
-            return redirect(route('contact.index') . '#formContact')->with([
+            return redirect()->route('contact.index')->with([
                 'type' => 'Succès',
-                'message' => 'Message bien envoyé !',
+                'message' => 'Message bien envoyé !
+                    Vous allez recevoir une copie du message à l\'adresse email que vous avez indiqué.',
             ]);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);

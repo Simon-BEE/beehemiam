@@ -2,7 +2,8 @@
 
 namespace Tests\Feature\Pages;
 
-use App\Mail\MessageFromContactMail;
+use App\Mail\Contact\CopyMessageFromContactMail;
+use App\Mail\Contact\MessageFromContactMail;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -21,9 +22,31 @@ class ContactTest extends TestCase
     {
         Mail::fake();
 
-        $this->followingRedirects()->post(route('contact.send'))
+        $this->followingRedirects()->post(route('contact.send'), [
+            'email' => 'example@example.net',
+            'object' => 'Prise de contact',
+            'content' => 'Voici un message envoyé depuis le formulaire',
+            'terms' => 1,
+        ])
             ->assertSuccessful();
 
         Mail::assertQueued(MessageFromContactMail::class);
+    }
+
+    /** @test */
+    public function a_visitor_get_a_copy_of_sent_message_from_contact_page()
+    {
+        Mail::fake();
+
+        $this->followingRedirects()->post(route('contact.send'), [
+            'email' => 'example@example.net',
+            'object' => 'Prise de contact',
+            'content' => 'Voici un message envoyé depuis le formulaire',
+            'terms' => 1,
+        ])
+            ->assertSuccessful();
+
+        Mail::assertQueued(MessageFromContactMail::class);
+        Mail::assertQueued(CopyMessageFromContactMail::class);
     }
 }

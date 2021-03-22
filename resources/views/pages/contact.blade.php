@@ -80,14 +80,14 @@
                     </div>
 
                     <x-form.input
-                        name="subject"
+                        name="object"
                         label="Le sujet du message"
                         placeholder="Sujet du message"
                         required
                     />
 
                     <x-form.textarea
-                        name="message"
+                        name="content"
                         label="Votre message"
                         placeholder="Le message"
                         required

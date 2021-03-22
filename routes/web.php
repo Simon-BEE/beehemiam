@@ -112,6 +112,8 @@ Route::get('/politique-de-confidentialite', [PageController::class, 'showPrivacy
     ->name('pages.privacy-policy');
 Route::get('/conditions-generales-de-ventes', [PageController::class, 'showSalesConditions'])
     ->name('pages.sales-conditions');
+Route::get('/livraisons-et-retours', [PageController::class, 'showDeliveryReturns'])
+    ->name('pages.delivery-returns');
 
 /**
  * Homepage

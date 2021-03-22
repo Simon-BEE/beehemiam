@@ -153,6 +153,13 @@
             <p class="mb-1">En cas de différend et à défaut d'accord amiable dans un délai d’un (1) mois à compter de la survenance du différend, le litige sera porté devant les tribunaux compétents de Paris.</p>
         </article>
 
+        <article>
+            <h2 class="text-3xl font-bold mb-2 uppercase">12. Modifications</h2>
+
+            <p class="mb-2">Beehemiam se réserve le droit de modifier le site <a href="{{ url('/') }}" class="text-primary-500 hover:underline">beehemiam.fr</a>, les CGV/CGU ainsi que toute procédure de livraison ou autre élément constitutif des prestations réalisées par l'entreprise par le biais du présent site.</p>
+            <p class="mb-2">Lorsqu'une Commande est passée, l'Utilisateur est soumis aux stipulations énoncées par les CGV/CGU en vigueur lors de la passation de la Commande.</p>
+        </article>
+
     </section>
 </section>
 

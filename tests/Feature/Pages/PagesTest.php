@@ -29,4 +29,12 @@ class PagesTest extends TestCase
             ->assertSuccessful()
             ->assertViewIs('pages.sales-conditions');
     }
+
+    /** @test */
+    public function a_visitor_can_see_delivery_returns_page()
+    {
+        $this->get(route('pages.delivery-returns'))
+            ->assertSuccessful()
+            ->assertViewIs('pages.delivery-returns');
+    }
 }

@@ -71,6 +71,7 @@
                         name="email"
                         label="Votre adresse email"
                         placeholder="Adresse email"
+                        value="{{ auth()->check() ? auth()->user()->email : old('email') }}"
                         required
                     />
 

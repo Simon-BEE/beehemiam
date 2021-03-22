@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Order\RegisterOrderController;
 use App\Http\Controllers\Api\Payments\PaymentIntentController;
 use App\Http\Controllers\Api\Products\ProductAvailabilityController;
 use App\Http\Controllers\Pages\ContactController;
+use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Shop\Cart\AddressCartController;
 use App\Http\Controllers\Shop\Cart\IndexCartController;
 use App\Http\Controllers\Shop\Order\GuestOrderController;
@@ -104,6 +105,9 @@ Route::group(['as' => 'guest.'], function () {
  */
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+Route::get('/conditions-generales-d-utilisation', [PageController::class, 'showTermsAndConditions'])->name('pages.terms-conditions');
+Route::get('/politique-de-confidentialite', [PageController::class, 'showPrivacyPolicy'])->name('pages.privacy-policy');
 
 /**
  * Homepage

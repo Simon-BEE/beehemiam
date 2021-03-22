@@ -119,7 +119,7 @@
             <p class="text-xs font-semibold">{{ $order->email_contact }} {{ $order->address->phone }}</p>
 
             @if (!$order->is_shipped && $order->is_in_progress)
-                <p class="text-sm mt-3">Si vous constatez une erreur, vous pouvez nous contacter à l'adresse suivante <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis la partie <a href="#" class="text-primary-500 hover:underline">contact</a> du site, en précisant le motif et la référence de la commande.</p>
+                <p class="text-sm mt-3">Si vous constatez une erreur, vous pouvez nous contacter à l'adresse suivante <a href="mailto:contact@beehemiam.fr" class="text-primary-500 hover:underline">contact@beehemiam.fr</a> ou depuis la partie <a href="{{ route('contact.index') }}" class="text-primary-500 hover:underline">contact</a> du site, en précisant le motif et la référence de la commande.</p>
             @endif
         </section>
 </x-layouts.user>

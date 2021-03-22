@@ -97,7 +97,7 @@
                         <h3 class="font-bold text-xl">Le site</h3>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">Nous contacter</a>
+                        <a href="{{ route('contact.index') }}" class="inline-flex p-1 hover:underline">Nous contacter</a>
                     </li>
                     <li class="">
                         <a href="#" class="inline-flex p-1 hover:underline">Mentions légales</a>

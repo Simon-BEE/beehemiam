@@ -98,7 +98,7 @@ class Order extends Model
                 OrderStatus::FAILED => "Votre commande a échouée.",
                 OrderStatus::SHIPPING => "Votre commande est en cours de livraison.",
                 OrderStatus::MANUFACTURE => "Votre commande est en cours de confection (précommande).",
-                OrderStatus::REFUNDED => "Votre commande a remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
+                OrderStatus::REFUNDED => "Votre commande a été remboursée le {$this->updated_at->format('d/m/Y à H:i')}.",
                 OrderStatus::PREPARATION => "Votre commande est en cours de préparation.",
                 OrderStatus::PROCESS => "Votre commande est en cours de traitement.",
             default => "Impossible d'indiquer le statut de votre commande.",
@@ -159,7 +159,7 @@ class Order extends Model
 
     public function scopeProcessed(Builder $query): Builder
     {
-        return $query->whereDoesntHave('status', function ($query) {
+        return $query->whereHas('status', function ($query) {
             $query->where('id', '!=', OrderStatus::CANCELLED)
                 ->where('id', '!=', OrderStatus::FAILED)
             ;
@@ -168,7 +168,7 @@ class Order extends Model
 
     public function scopePreOrders(Builder $query): Builder
     {
-        return $query->whereDoesntHave('status', function ($query) {
+        return $query->whereHas('status', function ($query) {
             $query->where('id', '!=', OrderStatus::CANCELLED)
                 ->where('id', '!=', OrderStatus::FAILED)
                 ->where('id', '!=', OrderStatus::COMPLETED)

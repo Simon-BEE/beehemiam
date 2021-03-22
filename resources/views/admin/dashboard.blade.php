@@ -124,8 +124,7 @@
                     @empty
                         <tr>
                             <td colspan="6" class="text-center py-8 text-gray-500">
-                                Aucun vêtement n'a été enregisté. <a href="{{ route('admin.products.create') }}"
-                                    class="text-purple-500 hover:underline">Créez en un !</a>
+                                Aucun vêtement n'a un stock inférieur à {{ config('beehemiam.stocks.min') }}.
                             </td>
                         </tr>
                     @endforelse

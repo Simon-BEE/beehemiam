@@ -60,6 +60,9 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
             \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,
         ],
+        \App\Events\Order\OrderHasStatusUpdated::class => [
+            \App\Listeners\Order\NotifyUserOrderUpdated::class,
+        ],
     ];
 
     /**

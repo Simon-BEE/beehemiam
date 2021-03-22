@@ -16,4 +16,8 @@ return [
     'invoices' => [
         'storage_folder' => storage_path('app/invoices') . '/',
     ],
+
+    'stocks' => [
+        'min' => 10,
+    ],
 ];

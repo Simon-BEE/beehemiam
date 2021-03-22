@@ -3,6 +3,7 @@
 namespace App\Repositories\Order;
 
 use App\Events\Order\NewOrderCancelledEvent;
+use App\Events\Order\OrderHasStatusUpdated;
 use App\Models\Order;
 use App\Models\OrderStatus;
 
@@ -29,7 +30,7 @@ class OrderRepository
             'order_status_id' => $statusId,
         ]);
 
-        // todo event (notify user, ...)
+        event(new OrderHasStatusUpdated($order->fresh()));
     }
 
     public function cancelTest(Order $order): void

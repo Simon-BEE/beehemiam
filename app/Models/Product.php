@@ -32,14 +32,11 @@ class Product extends Model
 
     public static function lowStock(): Collection
     {
-        return self::select(['id', 'name'])
-            ->with(['productOptions' => function ($productOption) {
-                $productOption->select(['id'])
-                    ->with(['sizes:quantity', 'preOrderStock:quantity']);
-            }])
+        return self::
+            with(['productOptions.sizes', 'productOptions.preOrderStock'])
             ->get()
             ->filter(function ($product) {
-                return $product->total_stock <= 10;
+                return $product->total_stock <= config('beehemiam.stocks.min');
             });
     }
 

@@ -53,6 +53,11 @@ a.nav-link:hover::before {
     transform: scaleX(1);
 }
 
+details > summary::before {
+    content: '🔎';
+    margin-right: 0.5em;
+}
+
 .inputname{
     opacity: 0;
     position: absolute;

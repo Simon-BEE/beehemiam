@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Category\DeleteCategoryController;
 use App\Http\Controllers\Admin\Category\EditCategoryController;
 use App\Http\Controllers\Admin\Category\IndexCategoryController;
 use App\Http\Controllers\Admin\ContactMessage\IndexContactMessageController;
+use App\Http\Controllers\Admin\ContactMessage\ShowContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Discount\CreateCouponController;
 use App\Http\Controllers\Admin\Discount\DeleteCouponController;
@@ -152,6 +153,8 @@ Route::group(['as' => 'transactions.', 'prefix' => 'transactions'], function () 
 Route::group(['as' => 'messages.', 'prefix' => 'messages'], function () {
 
     Route::get('/', IndexContactMessageController::class)->name('index');
+
+    Route::get('/{message}', ShowContactMessageController::class)->name('show');
 });
 
 /**

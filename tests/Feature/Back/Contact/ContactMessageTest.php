@@ -22,4 +22,36 @@ class ContactMessageTest extends TestCase
             ->assertViewIs('admin.messages.index');
     }
 
+    /** @test */
+    public function an_admin_can_see_a_message()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $message = ContactMessage::factory()->create();
+
+        $this->get(route('admin.messages.show', $message))
+            ->assertSuccessful()
+            ->assertViewIs('admin.messages.show');
+    }
+
+    /** @test */
+    public function when_an_admin_open_message_for_the_first_time_is_set_to_read()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $message = ContactMessage::factory()->create();
+
+        $this->assertNull($message->read_at);
+
+        $this->get(route('admin.messages.show', $message))
+            ->assertSuccessful()
+            ->assertViewIs('admin.messages.show');
+
+
+        $this->assertNotNull($message->fresh()->read_at);
+    }
 }

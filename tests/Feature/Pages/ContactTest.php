@@ -49,4 +49,20 @@ class ContactTest extends TestCase
         Mail::assertQueued(MessageFromContactMail::class);
         Mail::assertQueued(CopyMessageFromContactMail::class);
     }
+
+    /** @test */
+    public function when_a_person_send_a_message_an_entry_in_database_is_saved()
+    {
+        $this->assertDatabaseCount('contact_messages', 0);
+
+        $this->followingRedirects()->post(route('contact.send'), [
+            'email' => 'example@example.net',
+            'object' => 'Prise de contact',
+            'content' => 'Voici un message envoyé depuis le formulaire',
+            'terms' => 1,
+            ])
+            ->assertSuccessful();
+
+        $this->assertDatabaseCount('contact_messages', 1);
+    }
 }

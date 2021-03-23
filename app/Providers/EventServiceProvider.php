@@ -37,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\FormContactMessageSend::class => [
             \App\Listeners\Contact\SendMessageToAdministrators::class,
             \App\Listeners\Contact\SendMessageCopyToAuthor::class,
+            \App\Listeners\Contact\RegisterMessageInDatabase::class,
         ],
         \App\Events\PasswordEdited::class => [
             \App\Listeners\Users\PasswordHasChanged::class,

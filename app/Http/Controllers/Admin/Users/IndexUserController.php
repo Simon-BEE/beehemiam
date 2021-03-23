@@ -32,7 +32,7 @@ class IndexUserController extends Controller
                 return $query->where('firstname', 'LIKE', "%{$searchTerm}%")
                     ->orWhere('lastname', 'LIKE', "%{$searchTerm}%");
             })
-            ->when(request()->get('name'), function ($query) {
+            ->when(request()->get('email'), function ($query) {
                 $searchTerm = request()->get('email');
 
                 return $query->where('email', 'LIKE', "%{$searchTerm}%");

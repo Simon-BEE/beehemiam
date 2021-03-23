@@ -113,7 +113,7 @@
         <article>
             <h2 class="text-3xl font-bold mb-2 uppercase">4. Les droits que vous avez sur vos données</h2>
 
-            <p class="mb-1">Si vous avez un compte, vous pouvez demander à recevoir un fichier contenant toutes les données personnelles que nous possédons à votre sujet, incluant celles que vous nous avez fournies. Pour cela, rendez sur votre espace <span class="py-1 px-2 rounded bg-primary-300 font-bold">personnel / paramètres / puis cliquer sur "Je souhaite accéder à mes données enregistrées sur Beehemiam.fr"</span>.</p>
+            <p class="mb-1">Si vous avez un compte, vous pouvez demander à recevoir un fichier contenant toutes les données personnelles que nous possédons à votre sujet, incluant celles que vous nous avez fournies. Pour cela, rendez sur <span class="py-1 px-2 rounded bg-primary-300 font-bold">votre espace personnel / paramètres / puis cliquer sur "Je souhaite accéder à mes données enregistrées sur Beehemiam.fr"</span>.</p>
 
             @auth
                 <p class="mb-1"><a href="{{ route('user.settings.index') }}" class="text-primary-500 hover:underline">Accéder à la page directement</a>.</p>

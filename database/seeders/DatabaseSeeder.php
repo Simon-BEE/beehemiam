@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ContactMessage;
 use App\Models\Country;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -42,6 +43,8 @@ class DatabaseSeeder extends Seeder
 
         if (app()->env !== 'testing') {
             $this->call(ShopSeeder::class);
+
+            ContactMessage::factory(20)->create();
         }
     }
 }

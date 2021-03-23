@@ -94,6 +94,7 @@ if (!function_exists('get_client_shipping_address')) {
 if (!function_exists('get_client_billing_address')) {
     function get_client_billing_address(): ?Address
     {
+        logger('3 // ' . request()->user()?->billing_address->toJson());
         return session('billing_address') ?? request()->user()?->billing_address;
     }
 }

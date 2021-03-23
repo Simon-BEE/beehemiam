@@ -21,12 +21,14 @@
             <h2 class="font-bold text-2xl">Commande n°{{ $order->id }}</h2>
             <p class="text-sm">Ma commande passée le {{ $order->created_at->format('d/m/Y') }}</p>
         </div>
-        <a href="{{ route('guest.orders.invoice', $order->hashed_id) }}" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold">
-            <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z" />
-            </svg>
-            Télécharger la facture
-        </a>
+        @if ($order->invoice)
+            <a href="{{ route('guest.orders.invoice', $order->hashed_id) }}" class="rounded p-2 transition-colors duration-200 inline-flex items-center justify-center bg-primary-500 text-white  hover:bg-primary-400 font-semibold">
+                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z" />
+                </svg>
+                Télécharger la facture
+            </a>
+        @endif
     </div>
 
     <section class="my-6">

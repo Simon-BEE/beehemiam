@@ -31,6 +31,7 @@ class CreateOrderRepository
             'tax' => config('cart.tax'),
             'has_preorder' => Cart::instance('preorder')->content()->isNotEmpty(),
         ]);
+        logger('1 // ' . get_client_billing_address());
 
         event(new NewOrderReceivedEvent($order, $paymentIntentId, get_client_billing_address(), session('coupon')));
 

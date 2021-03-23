@@ -19,7 +19,7 @@ class IndexUserController extends Controller
         }
 
         return view('admin.users.index', [
-            'users' => $users->orderBy('lastname')->paginate(16),
+            'users' => $users->orderBy('lastname')->paginate(10),
         ]);
     }
 

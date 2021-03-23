@@ -29,7 +29,7 @@
                 type="text"
                 label="Nom du client"
                 placeholder="Nom du client"
-                value="{{ old('name') }}"
+                value="{{ old('name') ?? request()->get('name') }}"
             />
 
             <x-back.form.input
@@ -38,7 +38,7 @@
                 type="text"
                 label="Email du client"
                 placeholder="Email du client"
-                value="{{ old('email') }}"
+                value="{{ old('email') ?? request()->get('email') }}"
             />
 
             <div class="mt-4 md:ml-6">
@@ -116,8 +116,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center py-8 text-gray-500">
-                                    Personne ne s'est encore inscrit sur le site.
+                                <td colspan="5" class="text-center py-8 text-gray-500">
+                                    Aucun utilisateur n'a été trouvé.
                                 </td>
                             </tr>
                         @endforelse
@@ -127,7 +127,7 @@
             </div>
             <div
                 class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                {{ $users->links() }}
+                {{ $users->appends(request()->query())->links() }}
             </div>
         </div>
 

@@ -30,7 +30,7 @@
                 type="text"
                 label="Numéro de commande"
                 placeholder="Numéro de commande"
-                value="{{ old('order_id') }}"
+                value="{{ old('order_id') ?? request()->get('order_id') }}"
             />
 
             <div class="w-full md:w-1/2 md:ml-6">
@@ -43,9 +43,9 @@
                         required
                     >
                         <option value="#" selected disabled>Choisissez un statut</option>
-                        <option value="0">Tous</option>
+                        <option value="0" {{ request()->get('order_status_id') == 0 ? 'selected' : '' }}>Tous</option>
                         @foreach ($status as $statut)
-                            <option value="{{ $statut->id }}">{{ $statut->name }}</option>
+                            <option value="{{ $statut->id }}" {{ request()->get('order_status_id') == $statut->id ? 'selected' : '' }}>{{ $statut->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -137,7 +137,7 @@
             </div>
             <div
                 class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                {{ $orders->links() }}
+                {{ $orders->appends(request()->query())->links() }}
             </div>
         </div>
 

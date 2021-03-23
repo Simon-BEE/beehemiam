@@ -17,7 +17,7 @@ class GenerateOrderInvoice implements ShouldQueue
     public function handle(NewOrderReceivedEvent $event)
     {
         $invoiceGenerator = new InvoiceGeneratorService($event->order, $event->billingAddress);
-logger('2 // ' . $event->billingAddress->toJson());
+
         if (!\App::environment('testing')) {
             $invoiceGenerator->generate()->save();
         }

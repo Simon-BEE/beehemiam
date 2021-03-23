@@ -29,11 +29,11 @@ class IndexOrderController extends Controller
         ]);
     }
 
-    private function filterOrders(Builder|Model $orders): Builder
+    private function filterOrders(Builder|Model $orders): Builder|Model
     {
         $orders->when(request()->get('order_id'), function ($query) {
                     return $query->where('id', request()->get('order_id'));
-                })
+        })
                 ->when(request()->get('order_status_id'), function ($query) {
                     return $query->whereHas('status', function ($query) {
                         return $query->where('id', request()->get('order_status_id'));

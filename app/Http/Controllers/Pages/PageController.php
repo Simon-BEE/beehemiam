@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 
 class PageController extends Controller
 {
@@ -20,8 +21,11 @@ class PageController extends Controller
 
     public function showSalesConditions(): View
     {
+        /** @var Collection $countries */
+        $countries = Country::all();
+
         return view('pages.sales-conditions', [
-            'countries_list' => Country::all()->pluck('name')->join(', '),
+            'countries_list' => $countries->pluck('name')->join(', '),
         ]);
     }
 

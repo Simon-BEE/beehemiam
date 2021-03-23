@@ -14,6 +14,20 @@ class IndexTransactionController extends Controller
 {
     public function __invoke(): View
     {
+        $transactions = $this->prepareEachTransaction();
+        $paymentTransactions = $transactions['payment'];
+        $refundTransactions = $transactions['refund'];
+
+        return view('admin.transactions.index', [
+            'transactions' => CollectionPaginatorService::paginate(
+                $paymentTransactions->merge($refundTransactions),
+                15
+            ),
+        ]);
+    }
+
+    private function prepareEachTransaction(): array
+    {
         $paymentTransactions = Payment::query();
         $refundTransactions = Refund::query();
 
@@ -30,15 +44,10 @@ class IndexTransactionController extends Controller
             $refundTransactions = request()->get('type') === 'refund' ? $refundTransactions : collect();
         }
 
-        return view('admin.transactions.index', [
-            'transactions' => CollectionPaginatorService::paginate(
-                $paymentTransactions->merge($refundTransactions),
-                15
-            ),
-        ]);
+        return ['payment' => $paymentTransactions, 'refund' => $refundTransactions];
     }
 
-    private function filterTransactions(Builder|Model $transactions): Builder
+    private function filterTransactions(Builder|Model $transactions): Builder|Model
     {
         $searchTerm = request()->get('method');
 

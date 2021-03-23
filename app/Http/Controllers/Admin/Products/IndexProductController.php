@@ -24,15 +24,15 @@ class IndexProductController extends Controller
         ]);
     }
 
-    private function filterProducts(Builder|Model $products): Builder
+    private function filterProducts(Builder|Model $products): Builder|Model
     {
         $products
             ->when(request()->get('name'), function ($query) {
                 $searchTerm = request()->get('name');
 
-                return $query->where('name', 'LIKE',"%{$searchTerm}%")
+                return $query->where('name', 'LIKE', "%{$searchTerm}%")
                     ->orWhereHas('productOptions', function ($query) use ($searchTerm) {
-                        return $query->where('name', 'LIKE',"%{$searchTerm}%");
+                        return $query->where('name', 'LIKE', "%{$searchTerm}%");
                     });
             })
             ->when(request()->get('status'), function ($query) {

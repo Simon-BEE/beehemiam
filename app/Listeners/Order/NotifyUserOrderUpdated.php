@@ -19,7 +19,7 @@ class NotifyUserOrderUpdated implements ShouldQueue
     public function handle(OrderHasStatusUpdated $event)
     {
         if ($event->order->status->id !== OrderStatus::CANCELLED
-            || $event->order->status->id !== OrderStatus::REFUNDED) {
+            && $event->order->status->id !== OrderStatus::REFUNDED) {
             Mail::to($event->order->email_contact)->send(new OrderStatusUpdatedMail($event->order));
         }
     }

@@ -22,7 +22,7 @@ class PreOrderProductOptionQuantityObserver
     {
         if ($preOrderProductOptionQuantity->quantity < 1) {
             Notification::send(
-                User::administrators(),
+                User::administrators()->get(),
                 new ProductOutOfStockNotification($preOrderProductOptionQuantity)
             );
         }

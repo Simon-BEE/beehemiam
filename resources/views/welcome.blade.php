@@ -14,10 +14,10 @@
                 iure aliquid voluptates suscipit <strong>exercitationem</strong> aspernatur debitis quo. Amet,
                 quisquam!</p>
             <p class="flex justify-end items-center space-x-4">
-                <a href="#"
+                <a href="{{ route('shop.categories.index') }}"
                     class="py-2 px-3 rounded-xl bg-primary-500 border-2 border-primary-500 text-xl text-white transition-colors duration-200 hover:border-primary-400 hover:bg-primary-400">La
                     boutique</a>
-                <a href="#"
+                <a href="{{ route('shop.preorders.index') }}"
                     class="py-2 px-3 rounded-xl bg-transparent border-2 border-primary-500 text-xl transition-s duration-200 hover:bg-primary-300 hover:border-primary-400">Les
                     précommandes</a>
             </p>

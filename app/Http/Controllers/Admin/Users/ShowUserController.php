@@ -15,7 +15,9 @@ class ShowUserController extends Controller
         abort_if($user->is_admin, 403, 'Vous ne pouvez afficher cette page.');
 
         return view('admin.users.show', [
-            'user' => $user->load(['addresses']),
+            'user' => $user->load(['addresses', 'orders' => function ($query) {
+                $query->withCount('orderItems');
+            }])->loadCount(['orders']),
         ]);
     }
 
@@ -23,7 +25,10 @@ class ShowUserController extends Controller
     {
         return view('admin.users.orders', [
             'user' => $user,
-            'orders' => $user->orders()->paginate(),
+            'orders' => $user->orders()
+                ->with(['status'])
+                ->withCount('orderItems')
+                ->paginate(),
         ]);
     }
 

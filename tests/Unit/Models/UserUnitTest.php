@@ -25,7 +25,7 @@ class UserUnitTest extends TestCase
 
         $this->assertTrue($user->is_admin);
     }
-    
+
     /** @test */
     public function a_user_has_a_property_full_name()
     {
@@ -33,7 +33,7 @@ class UserUnitTest extends TestCase
 
         $this->assertEquals(ucfirst($user->firstname) . ' ' . ucfirst($user->lastname), $user->full_name);
     }
-    
+
     /** @test */
     public function a_user_has_a_property_address()
     {
@@ -42,7 +42,7 @@ class UserUnitTest extends TestCase
 
         $this->assertEquals($address->id, $user->address->id);
     }
-    
+
     /** @test */
     public function a_user_has_a_property_billing_address()
     {
@@ -62,8 +62,22 @@ class UserUnitTest extends TestCase
             'role' => User::USER_ROLE,
         ]);
 
-        $this->assertTrue(User::administrators()->contains($admin));
-        $this->assertFalse(User::administrators()->contains($user));
+        $this->assertTrue(User::administrators()->get()->contains($admin));
+        $this->assertFalse(User::administrators()->get()->contains($user));
     }
-    
+
+    /** @test */
+    public function there_is_a_scope_to_get_client_users()
+    {
+        $admin = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $user = User::factory()->create([
+            'role' => User::USER_ROLE,
+        ]);
+
+        $this->assertFalse(User::clients()->get()->contains($admin));
+        $this->assertTrue(User::clients()->get()->contains($user));
+    }
+
 }

@@ -49,28 +49,7 @@
             </div>
         </div>
 
-        <section class="px-4 py-3 mb-8 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
-            <h2 class="font-semibold text-xs uppercase text-gray-500">
-                Résumé de l'activité
-            </h2>
-
-            <div class="flex flex-col lg:flex-row items-center justify-around text-center dark:text-gray-400">
-                <article class="w-full lg:w-1/4 py-6">
-                    <h3 class="font-bold text-4xl">5</h3>
-                    <h4 class="text-xl font-semibold"> commandes</h4>
-                </article>
-                <article class="w-full lg:w-1/4 py-6 lg:border-l-2 lg:border-r-2">
-                    <h3 class="font-bold text-4xl">12</h3>
-                    <h4 class="text-xl font-semibold"> vêtements achetés</h4>
-                </article>
-                <article class="w-full lg:w-1/4 py-6">
-                    <h3 class="font-bold text-4xl">945€</h3>
-                    <h4 class="text-xl font-semibold"> dépensés</h4>
-                </article>
-            </div>
-
-            {{-- <p class="text-center">Le client n'a jamais passé commande sur le site.</p> --}}
-        </section>
+        @include('admin.users.includes.order_activity', ['orders_count' => $orders->count(), 'items_count' => $orders->sum('order_items_count')])
 
         <div class="mb-8">
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -88,35 +67,6 @@
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
-                            {{-- <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                    <p class="font-semibold">03/01/2020 à 11:45</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <p class="font-semibold">#36541</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <span class="px-3 py-1 rounded-full bg-green-500 text-white">Terminée</span>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <p class="font-bold">124€</p>
-                                </td>
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center space-x-4 text-sm">
-                                        <a href="#"
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Show orders"
-                                            title="Show orders"
-                                        >
-                                            <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                                                <path fill="currentColor" d="M19 6H17A5 5 0 0 0 7 6H5A2 2 0 0 0 3 8V20A2 2 0 0 0 5 22H12.05A6.5 6.5 0 0 1 9 16.5A6.4 6.4 0 0 1 10.25 12.68A5 5 0 0 1 7 8H9A3 3 0 0 0 12 11H12.06A6.22 6.22 0 0 1 14.06 10.16A3 3 0 0 0 15 8H17A4.88 4.88 0 0 1 16.54 10.09A6.5 6.5 0 0 1 21 13.09V8A2 2 0 0 0 19 6M9 6A3 3 0 0 1 15 6M19.31 18.9A4.5 4.5 0 1 0 17.88 20.32L21 23.39L22.39 22M15.5 19A2.5 2.5 0 1 1 18 16.5A2.5 2.5 0 0 1 15.5 19Z" />
-                                            </svg>
-                                            Détails
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr> --}}
-    
                             @forelse ($orders as $order)
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3">
@@ -127,15 +77,15 @@
                                     </td>
                                     <td class="px-4 py-3">
                                         <span class="px-3 py-1 rounded-full bg-green-500 text-white">
-                                            {{ $order->order_status->name }}
+                                            {{ $order->status->name }}
                                         </span>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <p class="font-semibold">{{ $order->price }}€</p>
+                                        <p class="font-semibold">{{ $order->formatted_price }}€</p>
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
-                                            <a href="#"
+                                            <a href="{{ route('admin.orders.show', $order) }}"
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Show orders"
                                                 title="Show orders"
@@ -155,7 +105,7 @@
                                     </td>
                                 </tr>
                             @endforelse
-    
+
                         </tbody>
                     </table>
                 </div>

@@ -113,7 +113,7 @@
 
             @guest
                 <x-info class="bg-primary-100">
-                    <p>En effectuant le réglement sur <strong>Beehemiam.fr</strong>, vous avez lu et vous êtes d'accord avec <a href="#" class="underline">les CGU</a> et <a href="#" class="underline">les CGV</a>.</p>
+                    <p>En effectuant le réglement sur <strong>Beehemiam.fr</strong>, vous avez lu et vous êtes d'accord avec <a href="{{ route('pages.terms-conditions') }}" class="underline">les CGU</a> et <a href="{{ route('pages.sales-conditions') }}" class="underline">les CGV</a>.</p>
                 </x-info>
             @endguest
 

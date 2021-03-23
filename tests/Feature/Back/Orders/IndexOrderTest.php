@@ -33,6 +33,7 @@ class IndexOrderTest extends TestCase
         ]);
         $this->signIn($user);
         $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->get(route('admin.orders.show', $order))
             ->assertSuccessful()

@@ -18,6 +18,6 @@ class NotifyAdministratorsNewOrder implements ShouldQueue
      */
     public function handle(NewOrderReceivedEvent $event)
     {
-        Notification::send(User::administrators(), new NewOrderNotification($event->order));
+        Notification::send(User::administrators()->get(), new NewOrderNotification($event->order));
     }
 }

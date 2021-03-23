@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Shop\Category\IndexCategoryController;
 use App\Http\Controllers\Shop\Category\ShowCategoryController;
+use App\Http\Controllers\Shop\IndexPreOrderController;
 use App\Http\Controllers\Shop\Product\ProductAvailabilityController;
 use App\Http\Controllers\Shop\Product\ShowProductController;
 use App\Http\Controllers\Shop\Search\SearchController;
@@ -19,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['as' => 'search.'], function () {
 
     Route::get('/recherche', [SearchController::class, 'index'])->name('index');
+});
+
+Route::group(['as' => 'preorders.', 'prefix' => 'precommandes'], function () {
+
+    Route::get('/', IndexPreOrderController::class)->name('index');
 });
 
 Route::group(['as' => 'categories.'], function () {

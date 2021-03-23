@@ -53,6 +53,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
         return [
             'event_type' => 'Nouvelle commande',
             'order_amount' => $this->order->formatted_price . '€',
+            'order_id' => $this->order->id,
         ];
     }
 }

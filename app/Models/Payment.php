@@ -33,7 +33,20 @@ class Payment extends Model
      * ? ATTRIBUTES
      */
 
-    // ...
+    public function getFormattedAmountAttribute(): string
+    {
+        return number_format($this->amount / 100, 2);
+    }
+
+    public function getPathAttribute(): string
+    {
+        return route('admin.transactions.payments.show', $this);
+    }
+
+    public function getStripePageAttribute(): string
+    {
+        return config('services.stripe.dashboard_url') . $this->reference;
+    }
 
     /**
      * ? SCOPES

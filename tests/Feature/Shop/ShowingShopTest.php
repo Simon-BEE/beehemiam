@@ -21,6 +21,14 @@ class ShowingShopTest extends TestCase
     }
 
     /** @test */
+    public function visitors_can_see_preorder_shop_page()
+    {
+        $this->get(route('shop.preorders.index'))
+            ->assertSuccessful()
+            ->assertViewIs('shop.preorders.index');
+    }
+
+    /** @test */
     public function visitors_can_see_a_category_shop_page()
     {
         $category = Category::factory()->create();
@@ -126,7 +134,7 @@ class ShowingShopTest extends TestCase
         $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption))->assertSuccessful();
 
         $this->assertDatabaseCount('product_notifications', 2);
-        
+
         $productOption->preOrderStock()->create(['quantity' => 10]);
 
         $this->assertTrue($productOption->fresh()->is_available);
@@ -152,13 +160,13 @@ class ShowingShopTest extends TestCase
         $this->followingRedirects()->post(route('shop.products.notify-availability', $productOption))->assertSuccessful();
 
         $this->assertDatabaseCount('product_notifications', 2);
-        
+
         $productOption->sizes()->create(['quantity' => 10, 'size_id' => 1]);
 
         $this->assertTrue($productOption->fresh()->is_available);
 
         Mail::assertQueued(ProductAvailableMail::class, 2);
     }
-    
-    
+
+
 }

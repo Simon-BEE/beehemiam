@@ -34,6 +34,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \App\Events\FormContactMessageSend::class => [
+            \App\Listeners\Contact\SendMessageToAdministrators::class,
+            \App\Listeners\Contact\SendMessageCopyToAuthor::class,
+        ],
         \App\Events\PasswordEdited::class => [
             \App\Listeners\Users\PasswordHasChanged::class,
         ],
@@ -55,6 +59,9 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Order\RemoveCouponOrder::class,
             \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
             \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,
+        ],
+        \App\Events\Order\OrderHasStatusUpdated::class => [
+            \App\Listeners\Order\NotifyUserOrderUpdated::class,
         ],
     ];
 

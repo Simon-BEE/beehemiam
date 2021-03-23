@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -72,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
 
     public function getFullNameAttribute(): string
     {
-        return ucfirst($this->firstname) . ' ' . ucfirst($this->lastname);
+        return ucfirst(strtolower($this->firstname)) . ' ' . ucfirst(strtolower($this->lastname));
     }
 
     public function getAddressAttribute(): ?Address
@@ -87,13 +88,35 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
             ->firstWhere('is_billing', true);
     }
 
+    public function getItemsCountAttribute(): int
+    {
+        return $this->orders->sum('order_items_count');
+    }
+
+    public function getFormattedSpentAttribute(): string
+    {
+        return number_format($this->orders->sum('price') / 100, 2);
+    }
+
     /**
      * ? SCOPES
      */
 
-    public function scopeAdministrators(Builder $query): Collection
+    public function scopeAdministrators(Builder $query): Builder
     {
-        return $query->where('role', self::ADMIN_ROLE)->get();
+        return $query->where('role', self::ADMIN_ROLE);
+    }
+
+    public function scopeClients(Builder $query): Builder
+    {
+        return $query->where('role', self::USER_ROLE);
+    }
+
+    public function scopeAdminNotifications(): MorphMany
+    {
+        return $this->notifications()->whereNull('read_at')->orWhere(function ($query) {
+            $query->whereDate('created_at', '>', now()->subDays(7));
+        });
     }
 
     /**

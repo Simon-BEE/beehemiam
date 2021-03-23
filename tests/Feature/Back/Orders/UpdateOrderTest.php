@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Back\Orders;
 
+use App\Mail\Order\OrderStatusUpdatedMail;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class UpdateOrderTest extends TestCase
@@ -17,6 +19,7 @@ class UpdateOrderTest extends TestCase
         ]);
         $this->signIn($user);
         $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->followingRedirects()->delete(route('admin.orders.cancel', $order))
             ->assertSuccessful();
@@ -47,6 +50,7 @@ class UpdateOrderTest extends TestCase
         ]);
         $this->signIn($user);
         $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->followingRedirects()->patch(route('admin.orders.status.update', $order), [
             'status' => OrderStatus::PREPARATION,
@@ -54,5 +58,24 @@ class UpdateOrderTest extends TestCase
             ->assertSuccessful();
 
         $this->assertEquals(OrderStatus::PREPARATION, $order->fresh()->status->id);
+    }
+
+    /** @test */
+    public function client_is_notified_when_an_admin_update_his_order_status()
+    {
+        Mail::fake();
+
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
+
+        $this->followingRedirects()->patch(route('admin.orders.status.update', $order), [
+            'status' => OrderStatus::PREPARATION,
+        ]);
+
+        Mail::assertQueued(OrderStatusUpdatedMail::class);
     }
 }

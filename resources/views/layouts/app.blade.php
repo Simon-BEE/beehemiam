@@ -73,7 +73,7 @@
     </main>
 
     <cookie-banner>
-        <p class="md:max-w-4xl text-center">Le site <strong>Beehemiam.fr</strong> n'utilise aucun cookie servant à stocker des informations sur vous ou vos habitudes numériques, seulement à des fins utiles au bon fonctionnement du site (le panier par exemple). <a href="#" class="font-bold underline">En savoir plus...</a></p>
+        <p class="md:max-w-4xl text-center">Le site <strong>Beehemiam.fr</strong> n'utilise aucun cookie servant à stocker des informations sur vous ou vos habitudes numériques, seulement à des fins utiles au bon fonctionnement du site (le panier par exemple). <a href="{{ route('pages.privacy-policy') }}" class="font-bold underline">En savoir plus...</a></p>
     </cookie-banner>
 </div>
 

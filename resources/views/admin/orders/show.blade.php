@@ -35,6 +35,21 @@
                         Voir le client
                     </x-back.link-button>
                 @endif
+                @if ($order->refund)
+                    <x-back.link-button href="{{ route('admin.transactions.refunds.show', $order->refund) }}" class="bg-pink-500 text-gray-100 hover:bg-pink-600">
+                        <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                             <path fill="currentColor" d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+                        </svg>
+                        Voir le remboursement
+                    </x-back.link-button>
+                @else
+                    <x-back.link-button href="{{ route('admin.transactions.payments.show', $order->payment) }}" class="bg-blue-500 text-gray-100 hover:bg-blue-600">
+                        <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                             <path fill="currentColor" d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
+                        </svg>
+                        Voir le paiement
+                    </x-back.link-button>
+                @endif
                 @if (!$order->is_cancelled && !$order->is_completed)
                     <x-back.link-button href="{{ route('admin.orders.status.edit', $order) }}" class="bg-purple-500 text-white hover:bg-purple-600">
                         <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">

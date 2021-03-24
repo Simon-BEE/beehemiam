@@ -78,4 +78,39 @@ class UpdateOrderTest extends TestCase
 
         Mail::assertQueued(OrderStatusUpdatedMail::class);
     }
+
+    /** @test */
+    public function an_admin_can_see_refund_form_for_client_order()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
+
+        $this->followingRedirects()->get(route('admin.orders.refund.edit', $order))
+            ->assertSuccessful()
+            ->assertViewIs('admin.orders.refund');
+    }
+
+    /** @test */
+    public function an_admin_can_refund_a_client_order()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
+
+        $this->assertDatabaseCount('refunds', 0);
+
+        $this->followingRedirects()->patch(route('admin.orders.refund.update', $order), [
+            'amount' => $order->formatted_price,
+            ])
+            ->assertSuccessful();
+
+        $this->assertDatabaseCount('refunds', 1);
+    }
 }

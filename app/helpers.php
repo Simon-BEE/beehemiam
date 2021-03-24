@@ -120,3 +120,10 @@ if (!function_exists('clean_session_coupon')) {
         session()->forget('coupon');
     }
 }
+
+if (!function_exists('format_amount')) {
+    function format_amount(int|float $amount): int
+    {
+        return (int)round($amount * 100);
+    }
+}

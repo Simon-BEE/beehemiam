@@ -79,5 +79,21 @@
             </section>
         </section>
 
+        @if ($transaction instanceof \App\Models\Refund)
+            <section class="mt-12 px-4 py-3 w-full bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
+                <h2 class="font-bold text-lg">Tous les remboursements de la commande n°{{ $transaction->order->id }}</h2>
+                <ul class="mt-4">
+                    @foreach ($transaction->order->refunds as $refund)
+                        <li class="p-4 rounded bg-gray-100 dark:bg-gray-900 mb-2 flex items-center">
+                            <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20.03 12C20.03 7.59 16.41 3.97 12 3.97C7.59 3.97 3.97 7.59 3.97 12C3.97 16.41 7.59 20.03 12 20.03C16.41 20.03 20.03 16.41 20.03 12M22 12C22 17.54 17.54 22 12 22C6.46 22 2 17.54 2 12C2 6.46 6.46 2 12 2C17.54 2 22 6.46 22 12M13.54 13V16L17.5 12L13.54 8V11H6.5V13" />
+                            </svg>
+                            <a href="{{ route('admin.transactions.refunds.show', $refund) }}">Voir le remboursement d'un montant de {{ $refund->formatted_amount }}€</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </section>
+        @endif
+
     </div>
 @endsection

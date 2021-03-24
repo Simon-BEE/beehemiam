@@ -20,7 +20,7 @@ class RegisterOrderController extends Controller
 
             return response()->json([
                 'success' => true,
-                'order_link' => $order->user ? $order->path : url('/'),
+                'order_link' => $order->path,
             ]);
         } catch (\Exception $e) {
             logger($e->getMessage());

@@ -110,7 +110,7 @@
                                     </span>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                   {{ $order->created_at->format('d/m/Y') }}
+                                   {{ $order->created_at->format('d/m/Y à H:i') }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">

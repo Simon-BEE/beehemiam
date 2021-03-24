@@ -35,12 +35,12 @@
                         Voir le client
                     </x-back.link-button>
                 @endif
-                @if ($order->refund)
-                    <x-back.link-button href="{{ route('admin.transactions.refunds.show', $order->refund) }}" class="bg-pink-500 text-gray-100 hover:bg-pink-600">
+                @if ($order->refunds->isNotEmpty())
+                    <x-back.link-button href="{{ route('admin.transactions.refunds.show', $order->refunds->first()) }}" class="bg-pink-500 text-gray-100 hover:bg-pink-600">
                         <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                              <path fill="currentColor" d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
                         </svg>
-                        Voir le remboursement
+                        Voir les remboursements
                     </x-back.link-button>
                 @else
                     <x-back.link-button href="{{ route('admin.transactions.payments.show', $order->payment) }}" class="bg-blue-500 text-gray-100 hover:bg-blue-600">
@@ -92,7 +92,7 @@
                     </article>
                 </div>
 
-                <article class="pt-4 pb-8 border-b dark:border-gray-700 text-gray-500">
+                <article class="pt-4 pb-8 border-b dark:border-gray-700 text-gray-500 overflow-x-scroll md:overflow-x-auto">
                     <h2 class="font-bold text-lg">Vêtements commandés</h2>
 
                     <table class="table w-full table-auto my-4">
@@ -114,27 +114,36 @@
                                 </tr>
                             @endforeach
                             <tr>
-                                <td class="py-3" colspan="2"></td>
+                                <td class="py-3 hidden md:table-cell" colspan="2"></td>
                                 <td class="py-3 bg-gray-100 dark:bg-gray-900 text-right font-bold">Montant total HT</td>
                                 <td class="py-3 bg-gray-100 dark:bg-gray-900 text-center font-bold">{{ $order->formatted_price_without_taxes }}€</td>
                             </tr>
                             <tr>
-                                <td class="py-3" colspan="2"></td>
+                                <td class="py-3 hidden md:table-cell" colspan="2"></td>
                                 <td class="py-3 bg-gray-100 dark:bg-gray-900 text-right font-bold">Total taxes</td>
                                 <td class="py-3 bg-gray-100 dark:bg-gray-900 text-center font-bold">{{ $order->formatted_total_taxes }}€</td>
                             </tr>
                             <tr>
-                                <td class="py-3" colspan="2"></td>
+                                <td class="py-3 hidden md:table-cell" colspan="2"></td>
                                 <td class="py-3 text-right font-bold">Montant des frais de port TTC</td>
                                 <td class="py-3 text-center font-bold">{{ $order->formatted_shipping_fees }}€</td>
                             </tr>
+                            @if ($order->refunds)
+                                @foreach ($order->refunds as $refund)
+                                    <tr>
+                                        <td class="py-3 hidden md:table-cell" colspan="2"></td>
+                                        <td class="py-3 bg-pink-500 text-white text-right font-bold">Remboursement</td>
+                                        <td class="py-3 bg-pink-500 text-white text-center font-bold">{{ $refund->formatted_amount }}€</td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             <tr>
-                                <td class="py-3" colspan="2"></td>
+                                <td class="py-3 hidden md:table-cell" colspan="2"></td>
                                 <td class="py-3 bg-gray-100 dark:bg-gray-900 text-right font-bold">Montant total TTC</td>
                                 <td class="py-3 bg-gray-100 dark:bg-gray-900 text-center font-bold">{{ $order->formatted_price }}€</td>
                             </tr>
                             <tr>
-                                <td class="py-3" colspan="3"></td>
+                                <td class="py-3 hidden md:table-cell" colspan="3"></td>
                                 <td class="py-3 text-right text-xs font-semibold uppercase">
                                     <span class="mr-2">&rarr; Frais Stripe {{ round(($order->formatted_price * 1.4 / 100) + .25, 2) }}€</span>
                                 </td>
@@ -148,11 +157,11 @@
                     @if (!$order->is_cancelled)
                         <p class="mb-4">Vous pouvez proposer un remboursement partiel au client en cliquant sur le lien ci-dessous.</p>
                         <div class="w-full flex justify-end">
-                            <x-back.link-button href="#" class="bg-blue-500 text-white hover:bg-blue-600">
+                            <x-back.link-button href="{{ route('admin.orders.refund.edit', $order) }}" class="bg-blue-500 text-white hover:bg-blue-600">
                                 <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M18,11H6A2,2 0 0,0 4,13V21A2,2 0 0,0 6,23H18A2,2 0 0,0 20,21V13A2,2 0 0,0 18,11M18,21H6V17H18V21M18,15H6V13H18V15M17,5V10H15.5V6.5H9.88L12.3,8.93L11.24,10L7,5.75L11.24,1.5L12.3,2.57L9.88,5H17Z" />
                                 </svg>
-                                Effectuer un remboursement partiel
+                                Effectuer un remboursement
                             </x-back.link-button>
                         </div>
                     @endif

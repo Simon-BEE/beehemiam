@@ -11,10 +11,6 @@ class OrderRepository
 {
     public function cancel(Order $order): void
     {
-        $order->update([
-            'order_status_id' => OrderStatus::CANCELLED,
-        ]);
-
         event(new NewOrderCancelledEvent($order));
     }
 
@@ -41,7 +37,7 @@ class OrderRepository
 
         event(new NewOrderCancelledEvent($order));
 
-        $order->refund()->create([
+        $order->refunds()->create([
             'reference' => 'refund-stripe-key',
             'amount' => $order->price,
             'type' => 'card',

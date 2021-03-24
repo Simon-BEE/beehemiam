@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 
 class NewOrderNotification extends Notification implements ShouldQueue
@@ -25,7 +26,7 @@ class NewOrderNotification extends Notification implements ShouldQueue
 
     public function via(User $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', 'slack'];
     }
 
     public function toMail(User $notifiable): MailMessage
@@ -55,5 +56,15 @@ class NewOrderNotification extends Notification implements ShouldQueue
             'order_amount' => $this->order->formatted_price . '€',
             'order_id' => $this->order->id,
         ];
+    }
+
+    public function toSlack(User $notifiable): SlackMessage
+    {
+        return (new SlackMessage)
+            ->from('Beehemiam.fr')
+            ->image('https://beehemiam.fr/logo-mini-color-2.png')
+            ->content(
+                "Une nouvelle commande d'un montant de {$this->order->formatted_price}€ a été passée sur Beehemiam.fr."
+            );
     }
 }

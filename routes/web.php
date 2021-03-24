@@ -31,15 +31,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    $order = Order::first();
-    return view('pdf.invoice', [
-        'order' => $order,
-        'address' => $order->invoice->address,
-        'reference' => $order->invoice->reference
-    ]);
-    $pdf = new InvoiceGeneratorService($order, $order->invoice->address);
-    // $pdf->generate()->save();
-    return $pdf->generate()->stream();
+    throw new \Exception("Erreur de test", 1);
+
+    // $order = Order::first();
+    // return view('pdf.invoice', [
+    //     'order' => $order,
+    //     'address' => $order->invoice->address,
+    //     'reference' => $order->invoice->reference
+    // ]);
+    // $pdf = new InvoiceGeneratorService($order, $order->invoice->address);
+    // // $pdf->generate()->save();
+    // return $pdf->generate()->stream();
 });
 
 /**

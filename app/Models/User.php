@@ -175,4 +175,9 @@ class User extends Authenticatable implements MustVerifyEmail, ExportsPersonalDa
 
         return "beehemiam-donnees-personnelles-{$userName}.zip";
     }
+
+    public function routeNotificationForSlack(\Illuminate\Notifications\Notification $notification): string
+    {
+        return config('services.slack.webhook_url');
+    }
 }

@@ -70,6 +70,10 @@ return [
 
     'salt-encryptor' => [
         'key' => env('SALT_ENCRYPTION_KEY'),
-    ]
+    ],
+
+    'slack' => [
+        'webhook_url' => env('SLACK_WEBHOOK_URL'),
+    ],
 
 ];

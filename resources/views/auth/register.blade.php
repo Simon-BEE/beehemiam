@@ -10,7 +10,7 @@
 </div>
 <div class="flex items-center justify-center px-6 py-8 h-full w-full lg:w-1/2">
     <div class="w-full">
-        <h1 class="my-4 text-2xl font-semibold tracking-tighter text-gray-700 sm:text-3xl text-center">
+        <h1 class="my-4 text-2xl font-semibold tracking-tighter sm:text-3xl text-center">
             {{ __('Create Account') }}
         </h1>
 
@@ -63,7 +63,7 @@
                 J'ai lu et je suis d'accord avec <a href="{{ route('pages.terms-conditions') }}" class="underline">les CGU</a> et <a href="{{ route('pages.sales-conditions') }}" class="underline">les CGV</a>
             </x-form.checkbox>
 
-            <x-form.button class="block w-full bg-primary-500 text-gray-900 font-bold hover:bg-primary-600 mt-4">
+            <x-form.button class="block w-full bg-primary-500 text-white font-bold hover:bg-primary-600 mt-4">
                 {{ __('Create Account') }}
             </x-form.button>
         </x-form.form>
@@ -72,7 +72,7 @@
 
         <p class=" text-center">
             {{ __('Already registered?') }}
-            <a href="{{ route('login') }}" class="font-semibold text-gray-500 hover:text-gray-700">Se connecter</a>
+            <a href="{{ route('login') }}" class="font-semibold text-kaki-800 hover:text-kaki-900">Se connecter</a>
         </p>
     </div>
 </div>

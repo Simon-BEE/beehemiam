@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Order;
+namespace App\Mail\Orders;
 
 use App\Models\Order;
 use Illuminate\Bus\Queueable;

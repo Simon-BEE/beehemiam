@@ -2,11 +2,14 @@
 
 namespace Tests\Feature\Back\Orders;
 
-use App\Mail\Order\OrderStatusUpdatedMail;
+use App\Mail\Orders\OrderRefundMail;
+use App\Mail\Orders\OrderStatusUpdatedMail;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\User;
+use App\Notifications\SimpleAdminNotification;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class UpdateOrderTest extends TestCase
@@ -112,5 +115,28 @@ class UpdateOrderTest extends TestCase
             ->assertSuccessful();
 
         $this->assertDatabaseCount('refunds', 1);
+    }
+
+    /** @test */
+    public function when_an_order_is_refund_notifications_was_sent()
+    {
+        $this->withoutExceptionHandling();
+        Notification::fake();
+        Mail::fake();
+
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $order = Order::factory()->create();
+        $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
+
+        $this->followingRedirects()->patch(route('admin.orders.refund.update', $order), [
+            'amount' => $order->formatted_price,
+            ])
+            ->assertSuccessful();
+
+        Notification::assertSentTo(User::administrators()->get(), SimpleAdminNotification::class);
+        Mail::assertQueued(OrderRefundMail::class);
     }
 }

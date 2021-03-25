@@ -4,6 +4,7 @@ namespace App\Repositories\Order;
 
 use App\Events\Order\NewOrderCancelledEvent;
 use App\Events\Order\OrderHasStatusUpdated;
+use App\Events\Order\OrderPartialRefundEvent;
 use App\Models\Order;
 use App\Models\OrderStatus;
 
@@ -12,6 +13,11 @@ class OrderRepository
     public function cancel(Order $order): void
     {
         event(new NewOrderCancelledEvent($order));
+    }
+
+    public function refund(Order $order, int $amount): void
+    {
+        event(new OrderPartialRefundEvent($order, $amount));
     }
 
     public function updateStatus(Order $order, int $statusId): void

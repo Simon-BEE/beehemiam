@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 
 class SimpleAdminNotification extends Notification implements ShouldQueue
@@ -24,7 +25,7 @@ class SimpleAdminNotification extends Notification implements ShouldQueue
 
     public function via(User $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', 'slack'];
     }
 
     public function toMail(User $notifiable): MailMessage
@@ -41,5 +42,15 @@ class SimpleAdminNotification extends Notification implements ShouldQueue
         return [
             'event_type' => $this->eventType,
         ];
+    }
+
+    public function toSlack(User $notifiable): SlackMessage
+    {
+        return (new SlackMessage)
+            ->from('Beehemiam.fr')
+            ->image('https://beehemiam.fr/logo-mini-color-2.png')
+            ->content(
+                "Une nouvelle activité importante a été détectée sur le site Beehemiam.fr. {$this->eventType}"
+            );
     }
 }

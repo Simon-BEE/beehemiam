@@ -121,9 +121,16 @@ if (!function_exists('clean_session_coupon')) {
     }
 }
 
-if (!function_exists('format_amount')) {
-    function format_amount(int|float $amount): int
+if (!function_exists('unformat_amount')) {
+    function unformat_amount(int|float $amount): int
     {
         return (int)round($amount * 100);
+    }
+}
+
+if (!function_exists('format_amount')) {
+    function format_amount(int|float $amount): string
+    {
+        return number_format($amount / 100, 2);
     }
 }

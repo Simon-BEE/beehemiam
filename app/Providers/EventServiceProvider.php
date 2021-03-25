@@ -60,6 +60,12 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Order\NotifyUserOrderIsCancelled::class,
             \App\Listeners\Order\NotifyAdministratorsOrderIsCancelled::class,
         ],
+        \App\Events\Order\OrderPartialRefundEvent::class => [
+            \App\Listeners\Order\RefundPartialOrderAmount::class,
+            \App\Listeners\Order\GenerateRefundCredit::class,
+            \App\Listeners\Order\NotifyUserOrderRefund::class,
+            \App\Listeners\Order\NotifyAdministratorsOrderRefund::class,
+        ],
         \App\Events\Order\OrderHasStatusUpdated::class => [
             \App\Listeners\Order\NotifyUserOrderUpdated::class,
         ],

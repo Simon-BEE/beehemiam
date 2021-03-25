@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Repositories\Payment\PaymentRepository;
+use App\Repositories\Order\OrderRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class RefundOrderController extends Controller
         ]);
     }
 
-    public function update(PaymentRepository $paymentRepository, Request $request, Order $order): RedirectResponse
+    public function update(OrderRepository $orderRepository, Request $request, Order $order): RedirectResponse
     {
         $request->validate([
             'amount' => [
@@ -27,7 +27,7 @@ class RefundOrderController extends Controller
         ]);
 
         try {
-            $paymentRepository->refund($order, format_amount($request->get('amount')));
+            $orderRepository->refund($order, unformat_amount($request->get('amount')));
 
             return redirect()->route('admin.orders.show', $order)->with([
                 'type' => 'Succès',

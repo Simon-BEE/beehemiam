@@ -20,14 +20,14 @@ class HelpersTest extends TestCase
     }
 
     /** @test */
-    public function helper_format_amount()
+    public function helper_unformat_amount()
     {
         $amount1 = 145.95;
         $amount2 = 145;
         $amount3 = 132.15;
 
-        $this->assertEquals(14595, format_amount($amount1));
-        $this->assertEquals(14500, format_amount($amount2));
-        $this->assertEquals(13215, format_amount($amount3));
+        $this->assertEquals(14595, unformat_amount($amount1));
+        $this->assertEquals(14500, unformat_amount($amount2));
+        $this->assertEquals(13215, unformat_amount($amount3));
     }
 }

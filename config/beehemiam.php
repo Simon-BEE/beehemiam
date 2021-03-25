@@ -15,6 +15,12 @@ return [
 
     'invoices' => [
         'storage_folder' => storage_path('app/invoices') . '/',
+        'file_prefix' => 'beehemiam_facture_n',
+    ],
+
+    'credits' => [
+        'storage_folder' => storage_path('app/credits') . '/',
+        'file_prefix' => 'beehemiam_avoir_n',
     ],
 
     'stocks' => [

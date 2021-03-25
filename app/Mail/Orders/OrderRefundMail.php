@@ -3,6 +3,7 @@
 namespace App\Mail\Orders;
 
 use App\Models\Order;
+use App\Models\Refund;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,7 +18,7 @@ class OrderRefundMail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Order $order, public int $amount)
+    public function __construct(public Refund $refund)
     {
         //
     }
@@ -30,6 +31,10 @@ class OrderRefundMail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->view('emails.orders.refunded')
-            ->subject("Commande n°{$this->order->id} remboursée");
+            ->subject("Commande n°{$this->refund->order->id} remboursée")
+            ->attach($this->refund->file_path, [
+                'as' => config('beehemiam.credits.file_prefix') . $this->refund->credit_file_reference . ".pdf",
+                'mime' => 'application/pdf',
+            ]);
     }
 }

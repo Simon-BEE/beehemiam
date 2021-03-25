@@ -30,12 +30,15 @@ class Refund extends Model
 
     public function getFilePathAttribute(): string
     {
-        return config('beehemiam.credits.storage_folder') . $this->filename;
+        return config('beehemiam.credits.storage_folder')
+            . config('beehemiam.credits.file_prefix')
+            . $this->credit_file_reference
+            . ".pdf";
     }
 
     public function getCreditFileReferenceAttribute()
     {
-        return 'F' . str_pad(strval($this->id), 7, '0', STR_PAD_LEFT);
+        return 'A' . str_pad(strval($this->id), 7, '0', STR_PAD_LEFT);
     }
 
     public function getFormattedAmountAttribute(): string

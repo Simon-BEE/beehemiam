@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Refund;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -34,5 +35,12 @@ class ShowOrderController extends Controller
         $this->authorize('show', $order);
 
         return response()->file($order->invoice->file_path);
+    }
+
+    public function refund(Order $order, Refund $refund): BinaryFileResponse
+    {
+        $this->authorize('show', $order);
+
+        return response()->file($refund->file_path);
     }
 }

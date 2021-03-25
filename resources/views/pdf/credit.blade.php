@@ -9,25 +9,26 @@
         <div id="details" class="clearfix">
             <div id="client">
                 <div class="to">Avoir émis à</div>
-                <h2 class="name">{{ $address->full_name }}</h2>
-                <div class="address">{{ $address->inline_address }}</div>
-                <div class="email"><a href="mailto:{{ $address->invoice_email }}">{{ $address->invoice_email }}</a></div>
+                <h2 class="name">{{ $refund->order->invoice->address->full_name }}</h2>
+                <div class="address">{{ $refund->order->invoice->address->inline_address }}</div>
+                <div class="email"><a href="mailto:{{ $refund->order->invoice->address->invoice_email }}">{{ $refund->order->invoice->address->invoice_email }}</a></div>
             </div>
             <div id="invoice">
                 <h1>Avoir n°{{ $reference }}</h1>
-                <div class="date">du {{ $order->created_at->format('d/m/Y') }}</div>
+                <div class="date">en rapport à la facture n°{{ $refund->order->invoice->reference }}</div>
+                <div class="date">du {{ $refund->created_at->format('d/m/Y') }}</div>
             </div>
         </div>
         <table border="0" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <th class="qty"></th>
-                    <th class="desc">Montant de l'avoir</th>
+                    <th class="qty">Date</th>
+                    <th class="desc">Montant de l'avoir TTC</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="qty"></td>
+                    <td class="qty">{{ $refund->created_at->format('d/m/Y') }}</td>
                     <td class="desc">{{ $refund->formatted_amount }}€</td>
                 </tr>
             </tbody>

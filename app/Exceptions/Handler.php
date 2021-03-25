@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -44,7 +43,7 @@ class Handler extends ExceptionHandler
     {
         parent::report($e);
 
-        if (App::environment() === 'production') {
+        if (\App::environment() === 'production') {
             Log::channel('slack')->error(get_class($e) . ' => ' . $e->getMessage());
         }
     }

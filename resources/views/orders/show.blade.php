@@ -99,6 +99,27 @@
         </section>
     @endif
 
+    @if ($order->refunds->isNotEmpty())
+        <section class="mt-8 p-4 bg-primary-200 rounded">
+            <p>Vous avez reçu au moins un remboursement sur cette commande.</p>
+            <ul>
+                @foreach ($order->refunds as $refund)
+                    <li>
+                        <a href="{{ route('user.orders.refund', [$order, $refund]) }}" class="flex items-center transition-colors duration-300 bg-primary-100 rounded p-2 hover:bg-primary-700 my-2">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                            </svg>
+                            <span>
+                                Télécharger la facture d'avoir n°{{ $refund->credit_file_reference }} d'un montant de <strong>{{ $refund->formatted_amount }}€</strong>
+                            </span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+            <p class="mt-4">Votre argent sera disponible sur votre compte dans un délai de 7 à 14 jours, selon les banques, à partir du mail reçu vous indiquant que le remboursement était effectué.</p>
+        </section>
+    @endif
+
     @if ($order->address && $order->invoice)
         <section class="mt-8 p-4 rounded bg-primary-300">
             <h3 class="font-bold mb-4">La commande sera livrée à l'adresse suivante :</h3>

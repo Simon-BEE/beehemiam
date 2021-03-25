@@ -32,8 +32,6 @@ class EditOptionTest extends TestCase
     /** @test */
     public function a_product_option_can_be_edited()
     {
-        Storage::fake();
-
         $user = User::factory()->create([
             'role' => User::ADMIN_ROLE,
         ]);
@@ -75,8 +73,6 @@ class EditOptionTest extends TestCase
     /** @test */
     public function a_product_option_pre_order_can_be_edited()
     {
-        Storage::fake();
-
         $user = User::factory()->create([
             'role' => User::ADMIN_ROLE,
         ]);

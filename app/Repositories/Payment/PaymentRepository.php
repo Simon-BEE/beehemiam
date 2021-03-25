@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Payment;
 
+use App\Mail\Orders\OrderRefundMail;
 use App\Models\Order;
 use App\Services\StripeInteractorService;
-use Illuminate\Support\Facades\App;
 
 class PaymentRepository
 {
@@ -24,7 +24,7 @@ class PaymentRepository
             $order->cancel();
         }
 
-        if (App::environment() === 'testing') {
+        if (\App::environment() === 'testing') {
             $this->refundTest($order, $amount, $type);
             return;
         }

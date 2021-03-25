@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class RefundPartialOrderAmount implements ShouldQueue
 {
+    public $tries = 1;
+
     /**
      * Create the event listener.
      *

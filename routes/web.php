@@ -100,6 +100,8 @@ Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {
 Route::group(['as' => 'guest.'], function () {
     Route::get('commandes/{hashedOrderId}', [GuestOrderController::class, 'show'])->name('orders.show');
     Route::get('commandes/{hashedOrderId}/facture', [GuestOrderController::class, 'invoice'])->name('orders.invoice');
+    Route::get('commandes/{hashedOrderId}/remboursement/{refund}', [GuestOrderController::class, 'refund'])
+        ->name('orders.refund');
 });
 
 /**

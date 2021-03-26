@@ -99,7 +99,6 @@ class DiscountCodeTest extends TestCase
     /** @test */
     public function an_admin_can_delete_a_coupon_code()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create([
             'role' => User::ADMIN_ROLE,
         ]);

@@ -158,7 +158,8 @@ Route::group(['as' => 'messages.', 'prefix' => 'messages'], function () {
 
     Route::get('/', IndexContactMessageController::class)->name('index');
 
-    Route::get('/{message}', ShowContactMessageController::class)->name('show');
+    Route::get('/{message}', [ShowContactMessageController::class, 'show'])->name('show');
+    Route::post('/{message}', [ShowContactMessageController::class, 'reply'])->name('reply');
 });
 
 /**

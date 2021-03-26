@@ -120,7 +120,6 @@ class UpdateOrderTest extends TestCase
     /** @test */
     public function when_an_order_is_refund_notifications_was_sent()
     {
-        $this->withoutExceptionHandling();
         Notification::fake();
         Mail::fake();
 

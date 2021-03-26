@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ContactMessage extends Model
 {
@@ -54,9 +54,9 @@ class ContactMessage extends Model
      * ? RELATIONS
      */
 
-    public function replies(): HasMany
+    public function reply(): HasOne
     {
-        return $this->hasMany(self::class, 'contact_message_id');
+        return $this->hasOne(self::class, 'contact_message_id');
     }
 
     public function original(): BelongsTo

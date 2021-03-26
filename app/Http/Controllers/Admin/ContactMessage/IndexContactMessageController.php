@@ -12,9 +12,9 @@ class IndexContactMessageController extends Controller
 {
     public function __invoke(): View
     {
-        $messages = ContactMessage::query();
+        $messages = ContactMessage::whereNull('contact_message_id');
 
-        if (request()->get('email') || request()->get('object') || request()->get('read') ) {
+        if (request()->get('email') || request()->get('object') || request()->get('read')) {
             $messages = $this->filterMessages($messages);
         }
 

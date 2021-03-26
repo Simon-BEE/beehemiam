@@ -40,7 +40,6 @@ class PaymentRefundTest extends TestCase
     /** @test */
     public function an_admin_can_see_refund_show_page()
     {
-        $this->withoutExceptionHandling();
         $admin = User::factory()->create([
             'role' => User::ADMIN_ROLE,
         ]);

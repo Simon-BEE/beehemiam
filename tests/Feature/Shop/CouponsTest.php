@@ -132,7 +132,6 @@ class CouponsTest extends TestCase
     /** @test */
     public function if_coupon_was_valid_but_cart_is_updated_and_no_more_eligible_so_coupon_is_removed()
     {
-        $this->withoutExceptionHandling();
         $coupon = Coupon::factory()->create();
         $category = Category::factory()->create();
         $product = Product::factory()->create();

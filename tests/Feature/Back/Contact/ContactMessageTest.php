@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Back\Contact;
 
+use App\Mail\Contact\ReplyContactMessageMail;
 use App\Models\ContactMessage;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ContactMessageTest extends TestCase
@@ -53,5 +55,42 @@ class ContactMessageTest extends TestCase
 
 
         $this->assertNotNull($message->fresh()->read_at);
+    }
+
+    /** @test */
+    public function an_admin_can_reply_to_a_message()
+    {
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $message = ContactMessage::factory()->create();
+
+        $this->followingRedirects()->post(route('admin.messages.reply', $message), [
+            'content' => 'Réponse au message',
+        ])
+            ->assertSuccessful();
+
+
+        $this->assertEquals($message->reply()->value('content'), 'Réponse au message');
+    }
+
+    /** @test */
+    public function when_an_admin_reply_to_a_message_an_email_is_sent()
+    {
+        Mail::fake();
+        $user = User::factory()->create([
+            'role' => User::ADMIN_ROLE,
+        ]);
+        $this->signIn($user);
+        $message = ContactMessage::factory()->create();
+
+        $this->followingRedirects()->post(route('admin.messages.reply', $message), [
+            'content' => 'Réponse au message',
+        ])
+            ->assertSuccessful();
+
+
+        Mail::assertQueued(ReplyContactMessageMail::class);
     }
 }

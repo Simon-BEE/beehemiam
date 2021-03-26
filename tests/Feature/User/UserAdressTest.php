@@ -271,9 +271,9 @@ class UserAdressTest extends TestCase
         $this->assertFalse($firstAddress->fresh()->is_billing);
         $this->assertTrue($secondAddress->fresh()->is_main);
         $this->assertFalse($secondAddress->fresh()->is_billing);
-        
+
         $secondAddress->fresh()->delete();
-        
+
         $this->assertTrue($firstAddress->fresh()->is_main);
         $this->assertFalse($thirdAddress->fresh()->is_main);
         $this->assertTrue($fourthAddress->fresh()->is_billing);
@@ -291,11 +291,10 @@ class UserAdressTest extends TestCase
             ->assertViewIs('user.addresses.index')
             ->assertSee(Address::inRandomOrder()->first()->street);
     }
-    
+
     /** @test */
     public function an_address_can_be_set_easily_as_main()
     {
-        $this->withoutExceptionHandling();
         $user = $this->signIn();
         $firstAddress = Address::factory()->create([
             'user_id' => $user->id,
@@ -314,5 +313,5 @@ class UserAdressTest extends TestCase
         $this->assertTrue($secondAddress->fresh()->is_main);
         $this->assertFalse($firstAddress->fresh()->is_main);
     }
-    
+
 }

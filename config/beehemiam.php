@@ -26,4 +26,8 @@ return [
     'stocks' => [
         'min' => 10,
     ],
+
+    'contact' => [
+        'email' => 'contact@beehemiam.fr',
+    ],
 ];

@@ -33,7 +33,6 @@ class EditProductTest extends TestCase
    /** @test */
    public function a_product_can_be_edited_simply()
    {
-       $this->withoutExceptionHandling();
        $user = User::factory()->create([
            'role' => User::ADMIN_ROLE,
        ]);

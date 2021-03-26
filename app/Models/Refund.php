@@ -36,7 +36,7 @@ class Refund extends Model
             . ".pdf";
     }
 
-    public function getCreditFileReferenceAttribute()
+    public function getCreditFileReferenceAttribute(): string
     {
         return 'A' . str_pad(strval($this->id), 7, '0', STR_PAD_LEFT);
     }

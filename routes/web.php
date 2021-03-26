@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiNewsletterController;
 use App\Http\Controllers\Api\Cart\AddCartController;
 use App\Http\Controllers\Api\Cart\ApiCouponController;
 use App\Http\Controllers\Api\Cart\RemoveCartController;
@@ -82,6 +83,12 @@ Route::group(['prefix' => 'api', 'as' => 'api.'], function () {
 
     Route::post('/orders', RegisterOrderController::class)
         ->name('orders.store');
+
+    /**
+     * Newsletters routes
+     */
+    Route::post('/newsletter', ApiNewsletterController::class)
+        ->name('newsletter.subscribe');
 });
 
 Route::group(['prefix' => 'panier', 'as' => 'cart.'], function () {

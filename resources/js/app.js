@@ -22,6 +22,7 @@ import ImagesGallery from './components/ImagesGallery';
 import NotifyAvailability from './components/NotifyAvailability';
 import StripePayment from './components/StripePayment';
 import CookieBanner from './components/CookieBanner';
+import NewsletterSubscription from './components/NewsletterSubscription';
 
 Vue.mixin(mixins);
 
@@ -34,7 +35,7 @@ new Vue({
     AddCart, CartIcon, CartTable, LoaderIcon,
     CartResume, BillingAddress, CartInfo,
     ImagesGallery, NotifyAvailability, StripePayment,
-    CookieBanner,
+    CookieBanner, NewsletterSubscription,
   },
 
   mounted() {

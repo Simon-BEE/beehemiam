@@ -84,7 +84,7 @@
                         <a href="#" class="inline-flex p-1 hover:underline">Service client</a>
                     </li>
                     <li class="">
-                        <a href="#" class="inline-flex p-1 hover:underline">Livraisons & retours</a>
+                        <a href="{{ route('pages.delivery-returns') }}" class="inline-flex p-1 hover:underline">Livraisons & retours</a>
                     </li>
                 </ul>
 

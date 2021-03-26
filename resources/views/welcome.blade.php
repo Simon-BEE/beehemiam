@@ -123,15 +123,6 @@
                 Inventore quas numquam enim architecto quisquam a cupiditate esse. Dolore culpa optio facere
                 accusamus beatae quis adipisci.</p>
         </article>
-        <form action="#" class="flex flex-col md:flex-row items-center justify-between mx-auto w-full md:w-2/3">
-            <div class="mb-4 flex flex-col space-y-2 w-full md:w-2/3 text-left">
-                <label for="email_newsletter">Votre adresse email</label>
-                <input type="email" name="email" id="email_newsletter" placeholder="Adresse email"
-                    class="px-3 py-2 rounded-lg border border-primary-300 ring-2 ring-transparent focus:ring-primary-500 focus:outline-none">
-            </div>
-            <button
-                class="px-3 py-2 rounded bg-primary-500 text-white mt-3 transition-colors duration-200 hover:bg-primary-400">M'inscrire
-                à la Newsletter</button>
-        </form>
+        <newsletter-subscription></newsletter-subscription>
     </section>
 @endsection

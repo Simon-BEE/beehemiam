@@ -36,6 +36,13 @@ class Order extends Model
         'has_preorder' => 'boolean',
     ];
 
+    public function cancel(): self
+    {
+        return tap($this)->update([
+            'order_status_id' => OrderStatus::CANCELLED,
+        ]);
+    }
+
     /**
      * ? ATTRIBUTES
      */
@@ -154,6 +161,15 @@ class Order extends Model
             : $this->invoice->address->email;
     }
 
+    public function getFormattedTotalWithRefundAttribute(): string
+    {
+        if ($this->refunds->isEmpty()) {
+            return $this->formatted_price;
+        }
+
+        return number_format(($this->price - $this->refunds->sum('amount')) / 100, 2);
+    }
+
     /**
      * ? SCOPES
      */
@@ -221,8 +237,8 @@ class Order extends Model
         return $this->belongsToMany(Coupon::class);
     }
 
-    public function refund(): HasOne
+    public function refunds(): HasMany
     {
-        return $this->hasOne(Refund::class);
+        return $this->hasMany(Refund::class);
     }
 }

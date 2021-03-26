@@ -47,7 +47,7 @@ class PaymentRefundTest extends TestCase
         $this->signIn($admin);
         $order = Order::factory()->create();
         $order->payment()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
-        $refund = $order->refund()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
+        $refund = $order->refunds()->create(['reference' => 'refernce-code', 'amount' => $order->price, 'type' => 'card']);
 
         $this->get(route('admin.transactions.refunds.show', $refund))
             ->assertSuccessful()

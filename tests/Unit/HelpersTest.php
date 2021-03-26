@@ -18,4 +18,16 @@ class HelpersTest extends TestCase
 
         Notification::assertSentTo(User::administrators()->get(), SimpleAdminNotification::class);
     }
+
+    /** @test */
+    public function helper_unformat_amount()
+    {
+        $amount1 = 145.95;
+        $amount2 = 145;
+        $amount3 = 132.15;
+
+        $this->assertEquals(14595, unformat_amount($amount1));
+        $this->assertEquals(14500, unformat_amount($amount2));
+        $this->assertEquals(13215, unformat_amount($amount3));
+    }
 }

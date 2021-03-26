@@ -3,22 +3,10 @@
 namespace App\Listeners\Order;
 
 use App\Events\Order\NewOrderCancelledEvent;
-use App\Notifications\Order\OrderCancelledNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class NotifyAdministratorsOrderIsCancelled
+class NotifyAdministratorsOrderIsCancelled implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Handle the event.
      *

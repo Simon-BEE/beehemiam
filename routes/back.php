@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Discount\EditCouponController;
 use App\Http\Controllers\Admin\Discount\IndexDiscountController;
 use App\Http\Controllers\Admin\Notification\NotificationController;
 use App\Http\Controllers\Admin\Order\IndexOrderController;
+use App\Http\Controllers\Admin\Order\RefundOrderController;
 use App\Http\Controllers\Admin\Order\ShowOrderController;
 use App\Http\Controllers\Admin\Order\StatusOrderController;
 use App\Http\Controllers\Admin\Products\CreateProductController;
@@ -132,6 +133,9 @@ Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
 
     Route::get('/{order}/statut', [StatusOrderController::class, 'edit'])->name('status.edit');
     Route::patch('/{order}/statut', [StatusOrderController::class, 'update'])->name('status.update');
+
+    Route::get('/{order}/remboursement', [RefundOrderController::class, 'edit'])->name('refund.edit');
+    Route::patch('/{order}/remboursement', [RefundOrderController::class, 'update'])->name('refund.update');
 
     Route::get('/{order}/{notification?}', [ShowOrderController::class, 'show'])->name('show');
     Route::delete('/{order}', [ShowOrderController::class, 'cancel'])->name('cancel');

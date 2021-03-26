@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily', 'slack'],
             'ignore_exceptions' => false,
         ],
 
@@ -56,10 +56,10 @@ return [
 
         'slack' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji' => ':boom:',
-            'level' => env('LOG_LEVEL', 'critical'),
+            'url' => env('SLACK_WEBHOOK_URL'),
+            'username' => 'Beehemiam.fr LOG',
+            'emoji' => ':rotating_light:',
+            'level' => 'error',
         ],
 
         'papertrail' => [

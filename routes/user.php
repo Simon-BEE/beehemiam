@@ -52,6 +52,7 @@ Route::group(['as' => 'orders.', 'prefix' => 'commandes'], function () {
     Route::get('/', [ShowOrderController::class, 'index'])->name('index');
     Route::get('/{order}', [ShowOrderController::class, 'show'])->name('show');
     Route::get('/{order}/facture', [ShowOrderController::class, 'invoice'])->name('invoice');
+    Route::get('/{order}/remboursement/{refund}', [ShowOrderController::class, 'refund'])->name('refund');
 });
 
 Route::group(['as' => 'settings.', 'prefix' => 'parametres'], function () {

@@ -36,7 +36,7 @@ class OptionImageTest extends TestCase
 
         $this->assertCount(0, $productOption->images);
     }
-    
+
     /** @test */
     public function when_an_image_is_deleted_thumb_too_and_in_storage_folder_too()
     {
@@ -63,11 +63,11 @@ class OptionImageTest extends TestCase
 
         Storage::disk('products')->assertExists($fullPath);
         Storage::disk('products')->assertExists('thumbs/' . $fullPath);
-        
+
         $img->delete();
 
         Storage::disk('products')->assertMissing($fullPath);
         Storage::disk('products')->assertMissing('thumbs/' . $fullPath);
     }
-    
+
 }

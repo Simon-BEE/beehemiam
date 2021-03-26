@@ -95,9 +95,10 @@ class EnsureQueueWorkerIsRunning extends Command
      */
     private function startQueueListener()
     {
+        $params = '--timeout=60 --rest=0.5 --sleep=5 --tries=3 --max-jobs=1000 --max-time=3600';
         $command = 'php '
             . base_path()
-            . '/artisan queue:work --timeout=60 --sleep=5 --tries=3 > /dev/null & echo $!';
+            . '/artisan queue:work ' . $params . ' > /dev/null & echo $!';
         $pid = exec($command);
 
         return (int)$pid;

@@ -53,7 +53,7 @@
                         <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
                     </svg>
                     <strong>Paiement réussi !</strong>
-                    <span>Vous allez être redirigé sur <a :href="orderLink" class="underline">{{ orderLink !== baseUrl ? 'la page du récapitulatif de la commande' : 'la page d\'accueil' }}</a>.</span>
+                    <span>Vous allez être redirigé sur <a :href="orderLink" class="underline">la page du récapitulatif de la commande</a>.</span>
                     <span>Vous recevrez également un email avec le résumé de la commande dans quelques secondes.</span>
                 </p>
             </article>

@@ -68,6 +68,12 @@ details > summary::before {
     z-index: -1;
 }
 
+@media screen and (max-width: 500px) {
+    .breadcrumb > * {
+        white-space: pre-line;
+    }
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
     input[type="range"]::-webkit-slider-thumb {

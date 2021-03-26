@@ -3,7 +3,7 @@
 namespace App\Listeners\Order;
 
 use App\Events\Order\OrderHasStatusUpdated;
-use App\Mail\Order\OrderStatusUpdatedMail;
+use App\Mail\Orders\OrderStatusUpdatedMail;
 use App\Models\OrderStatus;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;

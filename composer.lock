@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b95e9363acd5e47bde76639480d0bbfc",
+    "content-hash": "5221f5d3e90d0f53adce468b9d02fe96",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -995,16 +995,16 @@
         },
         {
             "name": "enlightn/enlightn",
-            "version": "v1.20.0",
+            "version": "v1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/enlightn/enlightn.git",
-                "reference": "32c94efdae0dc13ac30e00a67e17f8d4370a4d0a"
+                "reference": "c0d1c773af0a4bf6321e108f23eb0b0c153e80c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/enlightn/enlightn/zipball/32c94efdae0dc13ac30e00a67e17f8d4370a4d0a",
-                "reference": "32c94efdae0dc13ac30e00a67e17f8d4370a4d0a",
+                "url": "https://api.github.com/repos/enlightn/enlightn/zipball/c0d1c773af0a4bf6321e108f23eb0b0c153e80c4",
+                "reference": "c0d1c773af0a4bf6321e108f23eb0b0c153e80c4",
                 "shasum": ""
             },
             "require": {
@@ -1072,9 +1072,9 @@
             "support": {
                 "docs": "https://www.laravel-enlightn.com/docs/",
                 "issues": "https://github.com/enlightn/enlightn/issues",
-                "source": "https://github.com/enlightn/enlightn/tree/v1.20.0"
+                "source": "https://github.com/enlightn/enlightn/tree/v1.19.0"
             },
-            "time": "2021-03-19T14:03:13+00:00"
+            "time": "2021-03-16T08:10:35+00:00"
         },
         {
             "name": "enlightn/security-checker",
@@ -2077,6 +2077,67 @@
             "time": "2021-03-16T19:42:32+00:00"
         },
         {
+            "name": "laravel/slack-notification-channel",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/slack-notification-channel.git",
+                "reference": "f428e76b8d0a0a2ff413ab225eeb829b9a8ffc20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/slack-notification-channel/zipball/f428e76b8d0a0a2ff413ab225eeb829b9a8ffc20",
+                "reference": "f428e76b8d0a0a2ff413ab225eeb829b9a8ffc20",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "illuminate/notifications": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.1.3|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Illuminate\\Notifications\\SlackChannelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Notifications\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Slack Notification Channel for laravel.",
+            "keywords": [
+                "laravel",
+                "notifications",
+                "slack"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/slack-notification-channel/issues",
+                "source": "https://github.com/laravel/slack-notification-channel/tree/v2.3.1"
+            },
+            "time": "2021-01-26T20:04:54+00:00"
+        },
+        {
             "name": "laravel/tinker",
             "version": "v2.6.1",
             "source": {
@@ -2469,186 +2530,6 @@
             "time": "2021-02-23T17:44:50+00:00"
         },
         {
-            "name": "mailjet/laravel-mailjet",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mailjet/laravel-mailjet.git",
-                "reference": "322ede7bbe426d3cd68cb11481331cd8252b95ec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mailjet/laravel-mailjet/zipball/322ede7bbe426d3cd68cb11481331cd8252b95ec",
-                "reference": "322ede7bbe426d3cd68cb11481331cd8252b95ec",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "~5.1|^6.0|^7.0|^8.0",
-                "mailjet/mailjet-apiv3-php": "^1.2",
-                "mailjet/mailjet-swiftmailer": "^2.0",
-                "php": "^7.1.3|^8.0"
-            },
-            "require-dev": {
-                "fakerphp/faker": "~1",
-                "mockery/mockery": "0.9.*|^1.0",
-                "orchestra/testbench": "3.6|^4.0|^5.0|^6.0",
-                "phpunit/phpunit": "~7.0|^8.0|^9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Mailjet\\LaravelMailjet\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gaetan DELBART",
-                    "email": "gaetan@moltencore.io",
-                    "homepage": "https://github.com/gagaXD"
-                },
-                {
-                    "name": "Titouan BENOIT",
-                    "email": "titouan.benoit@gmx.fr",
-                    "homepage": "https://github.com/Nightbr"
-                },
-                {
-                    "name": "Mailjet API",
-                    "email": "api@mailjet.com",
-                    "homepage": "https://dev.mailjet.com/"
-                }
-            ],
-            "description": "Laravel package for Mailjet API V3 and Laravel Mailjet Mail Transport",
-            "homepage": "https://github.com/mailjet/laravel-mailjet",
-            "keywords": [
-                "Mailjet",
-                "framework",
-                "laravel",
-                "mailjet API",
-                "mailjet wrapper",
-                "transport"
-            ],
-            "support": {
-                "issues": "https://github.com/mailjet/laravel-mailjet/issues",
-                "source": "https://github.com/mailjet/laravel-mailjet/tree/3.0.0"
-            },
-            "time": "2021-02-26T21:28:56+00:00"
-        },
-        {
-            "name": "mailjet/mailjet-apiv3-php",
-            "version": "v1.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mailjet/mailjet-apiv3-php.git",
-                "reference": "7b94fa629d46fa5ba3826ed4596674942944520d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mailjet/mailjet-apiv3-php/zipball/7b94fa629d46fa5ba3826ed4596674942944520d",
-                "reference": "7b94fa629d46fa5ba3826ed4596674942944520d",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~7.0|~6.0|~5.3",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "^1.0",
-                "phpunit/phpunit": "^4.8.36|^5.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mailjet": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mailjet",
-                    "email": "dev@mailjet.com",
-                    "homepage": "https://dev.mailjet.com"
-                }
-            ],
-            "description": "PHP wrapper for the Mailjet API",
-            "homepage": "https://github.com/mailjet/mailjet-apiv3-php/",
-            "keywords": [
-                "Mailjet",
-                "api",
-                "email",
-                "php",
-                "v3"
-            ],
-            "support": {
-                "issues": "https://github.com/mailjet/mailjet-apiv3-php/issues",
-                "source": "https://github.com/mailjet/mailjet-apiv3-php/tree/v1.5.1"
-            },
-            "time": "2020-12-21T16:30:15+00:00"
-        },
-        {
-            "name": "mailjet/mailjet-swiftmailer",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mailjet/MailjetSwiftMailer.git",
-                "reference": "300eb931b8b36c7f55349b54a41bfd763a182bff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mailjet/MailjetSwiftMailer/zipball/300eb931b8b36c7f55349b54a41bfd763a182bff",
-                "reference": "300eb931b8b36c7f55349b54a41bfd763a182bff",
-                "shasum": ""
-            },
-            "require": {
-                "mailjet/mailjet-apiv3-php": "^1.2",
-                "php": ">=7.0",
-                "swiftmailer/swiftmailer": "~6.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "symfony/config": ">=2.0|~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Mailjet\\MailjetSwiftMailer\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Titouan BENOIT",
-                    "email": "titouan.benoit@gmx.fr",
-                    "homepage": "https://github.com/Nightbr"
-                },
-                {
-                    "name": "Mailjet API",
-                    "email": "api@mailjet.com",
-                    "homepage": "https://dev.mailjet.com/"
-                }
-            ],
-            "description": "A SwiftMailer transport implementation for Mailjet",
-            "homepage": "https://github.com/mailjet/MailjetSwiftMailer",
-            "keywords": [
-                "Mailjet",
-                "swiftmailer"
-            ],
-            "support": {
-                "issues": "https://github.com/mailjet/MailjetSwiftMailer/issues",
-                "source": "https://github.com/mailjet/MailjetSwiftMailer/tree/2.0.0"
-            },
-            "time": "2019-06-13T12:40:37+00:00"
-        },
-        {
             "name": "mockery/mockery",
             "version": "1.4.3",
             "source": {
@@ -2967,16 +2848,16 @@
         },
         {
             "name": "nunomaduro/larastan",
-            "version": "v0.7.1",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/larastan.git",
-                "reference": "bbbe09ec16a565e6423878bd17fc4355fa0d0a4c"
+                "reference": "179d7565674d4e264e60296d1b5b75413b7461b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/bbbe09ec16a565e6423878bd17fc4355fa0d0a4c",
-                "reference": "bbbe09ec16a565e6423878bd17fc4355fa0d0a4c",
+                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/179d7565674d4e264e60296d1b5b75413b7461b6",
+                "reference": "179d7565674d4e264e60296d1b5b75413b7461b6",
                 "shasum": ""
             },
             "require": {
@@ -2991,7 +2872,7 @@
                 "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0",
                 "mockery/mockery": "^0.9 || ^1.0",
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "0.12.81",
+                "phpstan/phpstan": "^0.12.70",
                 "symfony/process": "^4.3 || ^5.0"
             },
             "require-dev": {
@@ -3040,7 +2921,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/larastan/issues",
-                "source": "https://github.com/nunomaduro/larastan/tree/v0.7.1"
+                "source": "https://github.com/nunomaduro/larastan/tree/v0.7.0"
             },
             "funding": [
                 {
@@ -3060,7 +2941,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-03-19T09:41:48+00:00"
+            "time": "2021-02-01T22:08:11+00:00"
         },
         {
             "name": "olimortimer/laravelshoppingcart",
@@ -4212,217 +4093,6 @@
                 "source": "https://github.com/Seldaek/phar-utils/tree/master"
             },
             "time": "2020-07-07T18:42:57+00:00"
-        },
-        {
-            "name": "spatie/db-dumper",
-            "version": "2.21.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/db-dumper.git",
-                "reference": "05e5955fb882008a8947c5a45146d86cfafa10d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/05e5955fb882008a8947c5a45146d86cfafa10d1",
-                "reference": "05e5955fb882008a8947c5a45146d86cfafa10d1",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "symfony/process": "^4.2|^5.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.0|^8.0|^9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\DbDumper\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Dump databases",
-            "homepage": "https://github.com/spatie/db-dumper",
-            "keywords": [
-                "database",
-                "db-dumper",
-                "dump",
-                "mysqldump",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/db-dumper/issues",
-                "source": "https://github.com/spatie/db-dumper/tree/2.21.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-02-24T14:56:42+00:00"
-        },
-        {
-            "name": "spatie/laravel-backup",
-            "version": "7.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "71f6378fc48940c6a5898df24113dee65ddfee00"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/71f6378fc48940c6a5898df24113dee65ddfee00",
-                "reference": "71f6378fc48940c6a5898df24113dee65ddfee00",
-                "shasum": ""
-            },
-            "require": {
-                "ext-zip": "^1.14.0",
-                "illuminate/console": "^8.0",
-                "illuminate/contracts": "^8.0",
-                "illuminate/events": "^8.0",
-                "illuminate/filesystem": "^8.0",
-                "illuminate/notifications": "^8.0",
-                "illuminate/support": "^8.0",
-                "league/flysystem": "^1.0.49|^2.0",
-                "php": "^8.0",
-                "spatie/db-dumper": "^2.12",
-                "spatie/laravel-package-tools": "^1.1",
-                "spatie/temporary-directory": "^1.1",
-                "symfony/finder": "^5.0"
-            },
-            "require-dev": {
-                "laravel/slack-notification-channel": "^2.3",
-                "league/flysystem-aws-s3-v3": "^1.0",
-                "mockery/mockery": "^1.4.2",
-                "orchestra/testbench": "^6.0",
-                "phpunit/phpunit": "^9.0"
-            },
-            "suggest": {
-                "laravel/slack-notification-channel": "Required for sending notifications via Slack"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Backup\\BackupServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Backup\\": "src"
-                },
-                "files": [
-                    "src/Helpers/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A Laravel package to backup your application",
-            "homepage": "https://github.com/spatie/laravel-backup",
-            "keywords": [
-                "backup",
-                "database",
-                "laravel-backup",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-backup/issues",
-                "source": "https://github.com/spatie/laravel-backup/tree/7.3.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/spatie",
-                    "type": "github"
-                },
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "other"
-                }
-            ],
-            "time": "2021-03-12T21:51:59+00:00"
-        },
-        {
-            "name": "spatie/laravel-package-tools",
-            "version": "1.6.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "a846cc8503ea3a1972650baf25686e6ec43d509f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/a846cc8503ea3a1972650baf25686e6ec43d509f",
-                "reference": "a846cc8503ea3a1972650baf25686e6ec43d509f",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^7.0|^8.0",
-                "mockery/mockery": "^1.4",
-                "php": "^7.4|^8.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^5.0|^6.0",
-                "phpunit/phpunit": "^9.3",
-                "spatie/test-time": "^1.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\LaravelPackageTools\\": "src",
-                    "Spatie\\LaravelPackageTools\\Database\\Factories\\": "database/factories"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Tools for creating Laravel packages",
-            "homepage": "https://github.com/spatie/laravel-package-tools",
-            "keywords": [
-                "laravel-package-tools",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.6.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-03-16T19:49:42+00:00"
         },
         {
             "name": "spatie/laravel-personal-data-export",
@@ -8590,16 +8260,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.11.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f6e14679f948d8a5cfb866fa7065a30c66bd64d3"
+                "reference": "6ecda5217bf048088b891f7403b262906be5a957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f6e14679f948d8a5cfb866fa7065a30c66bd64d3",
-                "reference": "f6e14679f948d8a5cfb866fa7065a30c66bd64d3",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/6ecda5217bf048088b891f7403b262906be5a957",
+                "reference": "6ecda5217bf048088b891f7403b262906be5a957",
                 "shasum": ""
             },
             "require": {
@@ -8649,7 +8319,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.11.0"
+                "source": "https://github.com/filp/whoops/tree/2.10.0"
             },
             "funding": [
                 {
@@ -8657,7 +8327,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-19T12:00:00+00:00"
+            "time": "2021-03-16T12:00:00+00:00"
         },
         {
             "name": "laravel/breeze",
@@ -11538,6 +11208,68 @@
                 }
             ],
             "time": "2021-01-27T10:15:41+00:00"
+        },
+        {
+            "name": "thedoctor0/laravel-factory-generator",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TheDoctor0/laravel-factory-generator.git",
+                "reference": "37e2fc9e172be9bd52dbe27265189371760851cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheDoctor0/laravel-factory-generator/zipball/37e2fc9e172be9bd52dbe27265189371760851cb",
+                "reference": "37e2fc9e172be9bd52dbe27265189371760851cb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.9|^2.10|^3.0",
+                "illuminate/console": "^6.0|^7.0|^8.0",
+                "illuminate/filesystem": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TheDoctor0\\LaravelFactoryGenerator\\FactoryGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TheDoctor0\\LaravelFactoryGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate Laravel test factories for your models.",
+            "keywords": [
+                "factories",
+                "factory",
+                "generator",
+                "laravel",
+                "tests"
+            ],
+            "support": {
+                "issues": "https://github.com/TheDoctor0/laravel-factory-generator/issues",
+                "source": "https://github.com/TheDoctor0/laravel-factory-generator/tree/1.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/thedoctor0",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/thedoctor0",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-12-27T10:00:28+00:00"
         },
         {
             "name": "theseer/tokenizer",

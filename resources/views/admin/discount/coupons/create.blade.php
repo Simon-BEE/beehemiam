@@ -21,10 +21,10 @@
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Ajouter un nouveau code promo
         </h2>
-    
+
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <x-form.form action="{{ route('admin.discount.coupons.store') }}" method="POST">
-                <x-back.form.input 
+                <x-back.form.input
                     name="code"
                     type="text"
                     label="Code de réduction"
@@ -37,8 +37,8 @@
                 <x-back.form.input-icon
                     name="amount"
                     type="text"
-                    label="Pourcentage de la réduction"
-                    placeholder="Pourcentage de la réduction"
+                    label="Montant de la réduction (en euros)"
+                    placeholder="Montant de la réduction"
                     value="{{ old('amount') }}"
                     required
                     >
@@ -47,7 +47,7 @@
                         </svg>
                 </x-back.form.input-icon>
 
-                <x-back.form.input 
+                <x-back.form.input
                     name="expired_at"
                     type="datetime-local"
                     label="Date d'expiration du code promo"

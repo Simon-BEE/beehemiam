@@ -20,7 +20,7 @@ class IndexTransactionController extends Controller
 
         return view('admin.transactions.index', [
             'transactions' => CollectionPaginatorService::paginate(
-                $paymentTransactions->merge($refundTransactions),
+                $paymentTransactions->concat($refundTransactions)->sortByDesc('created_at'),
                 15
             ),
         ]);

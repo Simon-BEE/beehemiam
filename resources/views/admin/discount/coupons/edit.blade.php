@@ -42,10 +42,10 @@
                 @endif
             </div>
         </div>
-    
+
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <x-form.form action="{{ route('admin.discount.coupons.update', $coupon) }}" method="PATCH">
-                <x-back.form.input 
+                <x-back.form.input
                     name="code"
                     type="text"
                     label="Code de réduction"
@@ -58,8 +58,8 @@
                 <x-back.form.input-icon
                     name="amount"
                     type="text"
-                    label="Pourcentage de la réduction"
-                    placeholder="Pourcentage de la réduction"
+                    label="Montant de la réduction (en euros)"
+                    placeholder="Montant de la réduction"
                     value="{{ old('amount') ?? $coupon->amount }}"
                     required
                     >
@@ -68,7 +68,7 @@
                         </svg>
                 </x-back.form.input-icon>
 
-                <x-back.form.input 
+                <x-back.form.input
                     name="expired_at"
                     type="datetime-local"
                     label="Date d'expiration du code promo"

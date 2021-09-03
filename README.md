@@ -15,12 +15,10 @@ Site e-commerce destiné à la marque de vêtements pour mère allaitante **Beeh
 
 ### Informations générales
 
-Site internet accessible à cette adresse : [beehemiam.fr](https://beehemiam.fr)  
+Site internet accessible à cette adresse : [beehemiam.fr](https://beta.beehemiam.fr)  
 Technologies utilitisées : 
 * Laravel v8+
 * MySQL
-
-/!\ Token dans bootstap.js et dans URL API
 
 ### Schéma de la base de données
 

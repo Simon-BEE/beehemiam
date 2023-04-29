@@ -21,10 +21,10 @@
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Ajouter un nouveau vêtement
         </h2>
-    
+
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <x-form.form action="{{ route('admin.products.store') }}" method="POST" id="createProductForm" files>
-                <x-back.form.input 
+                <x-back.form.input
                     name="name"
                     type="text"
                     label="Nom du vêtement"
@@ -50,14 +50,14 @@
                     <x-back.form.switch name="is_preorder" onchange="addQuantityField(this)">
                         Il s'agit d'une précommande
                     </x-back.form.switch>
-        
+
                     <x-back.form.switch name="is_active">
                         Le vêtement sera mis en ligne directement
                     </x-back.form.switch>
                 </div>
 
                 <section class="variant relative mt-12 mb-16 px-4 pt-5 pb-16 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900">
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="options[1][name]"
                         type="text"
                         label="Nom du produit"
@@ -65,7 +65,7 @@
                         value="{{ old('options.1.name') }}"
                         required
                     />
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="options[1][sku]"
                         type="text"
                         label="Numéro d'identification du produit"
@@ -113,7 +113,7 @@
                     <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
 
                     <div class="flex flex-col lg:flex-row justify-between lg:space-x-32 mt-12">
-                        <x-back.form.file-input 
+                        <x-back.form.file-input
                             name="options[1][images][]"
                             type="file"
                             classDiv="flex flex-wrap mb-4 w-full"
@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="absolute bottom-0 left-1/2 -ml-20 -mb-5">
-                        <x-back.form.button class="flex-col text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700 add-new-option" type="button">
+                        <x-back.form.button class="flex-col text-white bg-blue-600 active:bg-blue-600 hover:bg-blue-700 add-new-option" type="button">
                             <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
                             </svg>
@@ -214,7 +214,7 @@
         function addQuantityField(input) {
             if (input.checked) {
                 document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('block', 'hidden'));
-                
+
                 document.querySelectorAll('.variant').forEach(optionDiv => {
                     let baseClone = optionDiv.querySelector('input');
                     let clone = baseClone.parentNode.cloneNode(true);

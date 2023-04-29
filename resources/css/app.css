@@ -28,7 +28,7 @@ input[type='checkbox']:focus {
 
 input:checked ~ .toggle__dot {
     transform: translateX(100%);
-    background-color: #7E3AF2;
+    background-color: #60A5FA;
 }
 
 input:checked ~ .toggle__dot.front-switch {

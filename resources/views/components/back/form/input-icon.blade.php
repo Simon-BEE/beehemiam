@@ -14,7 +14,7 @@
             type="{{ $type ?? 'text' }}"
             name="{{ $name }}"
             id="{{ $name }}"
-            class="w-full mt-2 pr-4 py-2 pl-12 block rounded border-gray-200 dark:border-transparent dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error($name) border-red-500 @enderror {{ $class ?? '' }}"
+            class="w-full mt-2 pr-4 py-2 pl-12 block rounded border-gray-200 dark:border-transparent dark:bg-gray-700 focus:border-blue-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error($name) border-red-500 @enderror {{ $class ?? '' }}"
             placeholder="{{ $placeholder ?? '' }}"
             value="{{ isset($value) ? $value : old($name) }}"
             {{ ($required ?? false) ? 'required' : '' }}

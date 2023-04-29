@@ -110,7 +110,7 @@
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
                                     <a href="{{ route('admin.products.edit', $product) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                             <path
@@ -176,7 +176,7 @@
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
                                     <a href="{{ route('admin.orders.show', $order) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Show">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M19 6H17A5 5 0 0 0 7 6H5A2 2 0 0 0 3 8V20A2 2 0 0 0 5 22H12.05A6.5 6.5 0 0 1 9 16.5A6.4 6.4 0 0 1 10.25 12.68A5 5 0 0 1 7 8H9A3 3 0 0 0 12 11H12.06A6.22 6.22 0 0 1 14.06 10.16A3 3 0 0 0 15 8H17A4.88 4.88 0 0 1 16.54 10.09A6.5 6.5 0 0 1 21 13.09V8A2 2 0 0 0 19 6M9 6A3 3 0 0 1 15 6M19.31 18.9A4.5 4.5 0 1 0 17.88 20.32L21 23.39L22.39 22M15.5 19A2.5 2.5 0 1 1 18 16.5A2.5 2.5 0 0 1 15.5 19Z" />
@@ -234,7 +234,7 @@
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
                                     <a href="{{ route('admin.users.orders', $user) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Show orders"
                                         title="Show orders"
                                     >
@@ -243,7 +243,7 @@
                                         </svg>
                                     </a>
                                     <a href="{{ route('admin.users.show', $user) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Show customer"
                                         title="Show customer"
                                     >
@@ -252,7 +252,7 @@
                                         </svg>
                                     </a>
                                     <a href="{{ route('admin.users.edit', $user) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit"
                                         title="Edit"
                                     >
@@ -326,7 +326,7 @@
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
                                     <a href="{{ route('admin.orders.show', $order) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Show">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M19 6H17A5 5 0 0 0 7 6H5A2 2 0 0 0 3 8V20A2 2 0 0 0 5 22H12.05A6.5 6.5 0 0 1 9 16.5A6.4 6.4 0 0 1 10.25 12.68A5 5 0 0 1 7 8H9A3 3 0 0 0 12 11H12.06A6.22 6.22 0 0 1 14.06 10.16A3 3 0 0 0 15 8H17A4.88 4.88 0 0 1 16.54 10.09A6.5 6.5 0 0 1 21 13.09V8A2 2 0 0 0 19 6M9 6A3 3 0 0 1 15 6M19.31 18.9A4.5 4.5 0 1 0 17.88 20.32L21 23.39L22.39 22M15.5 19A2.5 2.5 0 1 1 18 16.5A2.5 2.5 0 0 1 15.5 19Z" />

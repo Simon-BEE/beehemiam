@@ -22,7 +22,7 @@
 
         <div class="title my-6 flex flex-col lg:flex-row items-center justify-between">
             <div class="flex items-center">
-                <span class="icon text-purple-500">
+                <span class="icon text-blue-500">
                     <svg class="w-20 h-20" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
                     </svg>
@@ -86,7 +86,7 @@
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
                                             <a href="{{ route('admin.orders.show', $order) }}"
-                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Show orders"
                                                 title="Show orders"
                                             >

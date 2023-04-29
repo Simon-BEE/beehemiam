@@ -66,7 +66,7 @@
                     <article class="w-full mt-4 mb-3">
                         <ul>
                             @foreach ($order->orderItems as $item)
-                                <li class="p-4 rounded bg-gray-100 dark:bg-gray-900 text-gray-500 mb-2 flex items-center justify-between border-l-4 border-purple-500">
+                                <li class="p-4 rounded bg-gray-100 dark:bg-gray-900 text-gray-500 mb-2 flex items-center justify-between border-l-4 border-blue-500">
                                     <p><a href="{{ $item->productOption->path }}" class="hover:underline">{{ $item->name }}</a> (Taille {{ $item->size->name }})</p>
                                     <p>{{ $item->formatted_price }}€ (x {{ $item->quantity }})</p>
                                 </li>

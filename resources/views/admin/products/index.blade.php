@@ -96,7 +96,7 @@
                                 </td>
                                 <td class="px-4 py-3 text-sm ml-8">
                                     @if ($product->is_preorder)
-                                        <span class="rounded-full bg-purple-500 text-white p-2 whitespace-nowrap">
+                                        <span class="rounded-full bg-blue-500 text-white p-2 whitespace-nowrap">
                                             En précommande
                                         </span>
                                     @else
@@ -122,7 +122,7 @@
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a href="{{ route('admin.products.edit', $product) }}"
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                 <path
@@ -137,7 +137,7 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-500">
                                     Aucun vêtement n'a été trouvé. <a href="{{ route('admin.products.create') }}"
-                                        class="text-purple-500 hover:underline">Créez en un !</a>
+                                        class="text-blue-500 hover:underline">Créez en un !</a>
                                 </td>
                             </tr>
                         @endforelse

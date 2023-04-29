@@ -33,10 +33,10 @@
                 </svg>
             </button>
         </div>
-    
+
         <div class="px-4 py-3 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <x-form.form action="{{ route('admin.products.update', $product) }}" method="PATCH" id="editProductForm" files>
-                <x-back.form.input 
+                <x-back.form.input
                     name="name"
                     type="text"
                     label="Nom du vêtement"
@@ -51,8 +51,8 @@
                     </label>
                     <div class="flex items-center flex-wrap space-x-4 -mt-3">
                         @foreach ($categories as $category)
-                            <x-back.form.checkbox 
-                                name="categories[]" 
+                            <x-back.form.checkbox
+                                name="categories[]"
                                 value="{{ $category->id }}"
                                 isCheck="{{ $product->categories->contains('id', $category->id) }}"
                             >
@@ -64,17 +64,17 @@
 
                 <div class="flex flex-col mt-4 ml-2 space-y-4">
                     @if ($product->is_preorder || !$product->is_active)
-                        <x-back.form.switch 
-                            name="is_preorder" 
+                        <x-back.form.switch
+                            name="is_preorder"
                             isCheck="{{ $product->is_preorder }}"
                             onchange="alertProductOptions(this)"
                         >
                             Il s'agit d'une précommande
                         </x-back.form.switch>
                     @endif
-        
+
                     @if ($product->productOptions->isNotEmpty())
-                        <x-back.form.switch 
+                        <x-back.form.switch
                             name="is_active"
                             isCheck="{{ $product->is_active }}"
                         >
@@ -84,7 +84,7 @@
                 </div>
 
                 <section class="variant hidden relative mt-12 mb-16 px-4 pt-5 pb-16 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900">
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="options[1][name]"
                         type="text"
                         label="Nom du produit"
@@ -92,7 +92,7 @@
                         value="{{ old('options.1.name') }}"
                         required
                     />
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="options[1][sku]"
                         type="text"
                         label="Numéro d'identification du produit"
@@ -140,7 +140,7 @@
                     <x-back.form.wysiwyg name="options[1][description]" label="{{ __('Description du produit') }}" />
 
                     <div class="flex flex-col lg:flex-row justify-between lg:space-x-32 mt-12">
-                        <x-back.form.file-input 
+                        <x-back.form.file-input
                             name="options[1][images][]"
                             type="file"
                             classDiv="flex flex-wrap mb-4 w-full"
@@ -155,7 +155,7 @@
                 </section>
 
                 <div class="flex justify-end mt-4 save-button">
-                    <x-back.form.button class="mr-2 text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700 add-new-option" type="button">
+                    <x-back.form.button class="mr-2 text-white bg-blue-600 active:bg-blue-600 hover:bg-blue-700 add-new-option" type="button">
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
                         </svg>
@@ -174,16 +174,16 @@
         <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Modifier les options
         </h2>
-    
+
         <div class="px-4 pb-3 pt-6 mb-20 bg-white rounded-lg shadow-md dark:bg-gray-800">
             @forelse ($product->productOptions as $option)
-                <a href="{{ route('admin.products.options.edit', [$product, $option]) }}" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col lg:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-purple-500 ring-opacity-0 hover:ring-opacity-10">
+                <a href="{{ route('admin.products.options.edit', [$product, $option]) }}" class="p-3 mb-3 bg-gray-100 rounded-lg shadow-md dark:bg-gray-900 flex flex-col lg:flex-row items-center justify-between cursor-pointer transition-all duration-500 ring-4 ring-blue-500 ring-opacity-0 hover:ring-opacity-10">
                     <div class="flex items-center space-x-4">
                         <img src="{{ $option->thumb_image->path }}" alt="{{ $option->name }}" class="w-20 h-20 object-cover rounded shadow">
                         <p class="text-gray-600 dark:text-gray-400 text-xl font-semibold">{{ $option->name }}</p>
                     </div>
                     <div class="">
-                        <x-back.form.button class="mr-2 text-white bg-purple-600 active:bg-purple-600 hover:bg-purple-700" type="button">
+                        <x-back.form.button class="mr-2 text-white bg-blue-600 active:bg-blue-600 hover:bg-blue-700" type="button">
                             <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
                             </svg>
@@ -251,7 +251,7 @@
         function addQuantityField(input) {
             if (input.checked) {
                 document.querySelectorAll('.sizes-quantities').forEach(sizeQtyDiv => sizeQtyDiv.classList.replace('block', 'hidden'));
-                
+
                 document.querySelectorAll('.variant').forEach(optionDiv => {
                     let baseClone = optionDiv.querySelector('input');
                     let clone = baseClone.parentNode.cloneNode(true);

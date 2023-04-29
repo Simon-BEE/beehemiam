@@ -20,7 +20,7 @@
 
         <div class="title my-6 flex flex-col lg:flex-row items-center justify-between">
             <div class="flex items-center">
-                <span class="icon text-purple-500">
+                <span class="icon text-blue-500">
                     <svg class="w-20 h-20" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M12,19.2C9.5,19.2 7.29,17.92 6,16C6.03,14 10,12.9 12,12.9C14,12.9 17.97,14 18,16C16.71,17.92 14.5,19.2 12,19.2M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
                     </svg>
@@ -45,9 +45,9 @@
                         </svg>
                         Voir les commandes
                     </x-back.link-button>
-                    <x-back.form.button 
+                    <x-back.form.button
                         class="text-white bg-red-500 hover:bg-red-600"
-                        @click="changeModalButtonLink(`{{ route('admin.users.destroy', $user) }}`);openModal();" 
+                        @click="changeModalButtonLink(`{{ route('admin.users.destroy', $user) }}`);openModal();"
                         aria-label="Delete"
                     >
                         <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -70,7 +70,7 @@
 
                 <x-form.form method="PATCH" action="{{ route('admin.users.update', $user) }}">
 
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="firstname"
                         type="text"
                         label="Prénom"
@@ -79,7 +79,7 @@
                         required
                     />
 
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="lastname"
                         type="text"
                         label="Nom de famille"
@@ -88,7 +88,7 @@
                         required
                     />
 
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="email"
                         type="email"
                         label="Adresse email"
@@ -96,8 +96,8 @@
                         value="{{ $user->email }}"
                         required
                     />
-        
-                    <x-back.form.switch 
+
+                    <x-back.form.switch
                         name="newsletter"
                         isCheck="{{ $user->newsletter }}"
                     >
@@ -114,7 +114,7 @@
                     </div>
 
                 </x-form.form>
-                
+
             </section>
 
             <section class="px-4 py-3 w-full lg:w-1/2 bg-white text-gray-700 rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-300">
@@ -124,7 +124,7 @@
 
                 <x-form.form method="PATCH" action="{{ route('admin.users.update.password', $user) }}">
 
-                    <x-back.form.input 
+                    <x-back.form.input
                         name="password"
                         type="password"
                         label="Nouveau mot de passe"
@@ -143,7 +143,7 @@
                     </div>
 
                 </x-form.form>
-                
+
             </section>
         </div>
 

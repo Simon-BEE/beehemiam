@@ -84,7 +84,7 @@
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a href="{{ route('admin.categories.edit', $category) }}"
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-purple-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-blue-500 dark:hover:text-white focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                 <path
@@ -92,9 +92,9 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <x-back.form.button 
+                                        <x-back.form.button
                                             class="text-red-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-red-500 dark:hover:text-white"
-                                            @click="changeModalButtonLink(`{{ route('admin.categories.destroy', $category) }}`);openModal();" 
+                                            @click="changeModalButtonLink(`{{ route('admin.categories.destroy', $category) }}`);openModal();"
                                             aria-label="Delete"
                                         >
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -110,7 +110,7 @@
                             <tr>
                                 <td colspan="4" class="text-center py-8 text-gray-500">
                                     Aucune catégorie n'a été enregistée. <a href="{{ route('admin.categories.create') }}"
-                                        class="text-purple-500 hover:underline">Créez en une !</a>
+                                        class="text-blue-500 hover:underline">Créez en une !</a>
                                 </td>
                             </tr>
                         @endforelse

@@ -166,8 +166,6 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
-        Mailjet\LaravelMailjet\MailjetServiceProvider::class,
-        Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,7 +231,6 @@ return [
 
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
